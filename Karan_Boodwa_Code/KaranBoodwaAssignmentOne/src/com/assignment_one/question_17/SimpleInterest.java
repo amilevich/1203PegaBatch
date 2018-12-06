@@ -24,10 +24,10 @@ public class SimpleInterest {
 		double principal = s.nextDouble();
 		System.out.print("Enter rate (%): ");
 		double rate = s.nextDouble();
-		System.out.print("Enter time: ");
+		System.out.print("Enter number of years: ");
 		int time = s.nextInt();
 
-		System.out.println("$" + principal + " at " + rate + "%" + " after " + time + " increments = $"
+		System.out.println("$" + principal + " at " + rate + "%" + " after " + time + " years = $"
 				+ interest(principal, rate, time) + " interest");
 
 	}
