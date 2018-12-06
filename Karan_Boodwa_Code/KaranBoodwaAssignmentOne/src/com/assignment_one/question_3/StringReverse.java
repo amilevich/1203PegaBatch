@@ -6,7 +6,7 @@ public class StringReverse {
 	// reverse() returns the reverse of the given String s
 	public static String reverse(String s) {
 
-		// converts the input string into a character array as String's are immutable in
+		/*// converts the input string into a character array as String's are immutable in
 		// Java :(
 		char[] charArr = s.toCharArray();
 
@@ -22,7 +22,15 @@ public class StringReverse {
 
 		// new String instantiated with the character Array that now contains the
 		// reversed String
-		String reversed = new String(charArr);
+		String reversed = new String(charArr);*/
+		
+		// Switched to using a second String variable
+		// in order to truly avoid using a 'temporary variable'
+		// Keeping above code commented bc it was pretty cool though
+		String reversed = "";
+		for(int i = s.length()-1; i >= 0; i--) {
+			reversed+=s.charAt(i);
+		}
 		return reversed;
 	}
 
