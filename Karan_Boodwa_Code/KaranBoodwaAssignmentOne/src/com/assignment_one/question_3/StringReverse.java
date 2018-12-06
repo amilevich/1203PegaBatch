@@ -28,6 +28,8 @@ public class StringReverse {
 		// in order to truly avoid using a 'temporary variable'
 		// Keeping above code commented bc it was pretty cool though
 		String reversed = "";
+		// Loops through the given string starting at the end and looping to the beginning
+		// concatenates each seen character to reversed
 		for(int i = s.length()-1; i >= 0; i--) {
 			reversed+=s.charAt(i);
 		}
