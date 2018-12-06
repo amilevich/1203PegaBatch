@@ -18,7 +18,7 @@ public class ArrayListStuff {
 	 * would have to fall in this range
 	 */
 	public static boolean isPrime(int x) {
-		if(x == 1) {
+		if (x == 1) {
 			return false;
 		}
 		for (int i = 2; i <= x / 2; i++) {
@@ -68,12 +68,14 @@ public class ArrayListStuff {
 
 		// Removing all prime numbers from the Array List
 		for (int i = 0; i < al.size(); i++) {
-			if(isPrime(al.get(i))) {
-				al.remove(i);
+			// if a prime number is encountered, it's removed and i is decremented
+			// to account for the now modified ArrayList
+			if (isPrime(al.get(i))) {
+				al.remove(i--);
 			}
 		}
 		// Displaying the result
-		System.out.print("[ ");
+		System.out.print("Non-prime Numbers: [ ");
 		for (int i : al) {
 			System.out.print(i + " ");
 		}

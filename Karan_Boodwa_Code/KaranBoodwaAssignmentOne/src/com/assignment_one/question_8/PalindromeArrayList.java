@@ -3,18 +3,19 @@ package com.assignment_one.question_8;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-// Q8. Write a program that stores the following strings in an ArrayList and 
-// saves all the palindromes in another ArrayList.
-// “karan”, “madam”, ”tom”, “civic”, “radar”, “jimmy”, “kayak”, “john”,  
-// “refer”, “billy”, “did”
+/* Q8. Write a program that stores the following strings in an ArrayList and 
+ * saves all the palindromes in another ArrayList.
+ * “karan”, “madam”, ”tom”, “civic”, “radar”, “jimmy”, “kayak”, “john”,  
+ * “refer”, “billy”, “did”
+ */
 
 public class PalindromeArrayList {
-	
+
 	// isPalindrome() returns true if the given String s is a palindrome
 	// otherwise, returns false
 	public static boolean isPalindrome(String s) {
-		for(int i = 0; i < s.length(); i++) {
-			if(s.charAt(i) != s.charAt(s.length()-i-1)) {
+		for (int i = 0; i < s.length(); i++) {
+			if (s.charAt(i) != s.charAt(s.length() - i - 1)) {
 				return false;
 			}
 		}
@@ -32,17 +33,25 @@ public class PalindromeArrayList {
 
 		// The ArrayList is iterated through and any palindromes encountered are added
 		// to the 'palindromes' ArrayList<String>
-		for(String str : allWords) {
-			if( isPalindrome(str) ) {
+		for (String str : allWords) {
+			if (isPalindrome(str)) {
 				palindromes.add(str);
 			}
 		}
-		
-		System.out.println("Palindromes: ");
-		for(String str: palindromes) {
-			System.out.println(str);
+
+		// Printing initial list of words:
+		System.out.print("Words: [ ");
+		for (String str : allWords) {
+			System.out.print(str + " ");
 		}
-		
+		System.out.println("]");
+
+		System.out.print("Palindromes: [ ");
+		for (String str : palindromes) {
+			System.out.print(str + " ");
+		}
+		System.out.println("]");
+
 	}
 
 }

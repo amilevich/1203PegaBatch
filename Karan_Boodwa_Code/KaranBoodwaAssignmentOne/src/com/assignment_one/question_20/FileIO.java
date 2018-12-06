@@ -20,20 +20,20 @@ public class FileIO {
 	public static void main(String[] args) {
 		// First try to open the file "Data.txt" using a try-with-resources
 		File file = new File("Data.txt");
-		try(Scanner s = new Scanner(file)){
-			while(s.hasNextLine()) {
+		try (Scanner s = new Scanner(file)) {
+			while (s.hasNextLine()) {
 				String line[] = ((s.nextLine()).split(":"));
-				
+
 				// If there aren't enough tokens in the line read, the line is skipped
 				// Avoids any index out of bounds errors
-				if(line.length < 4) {
+				if (line.length < 4) {
 					continue;
 				}
 				System.out.println("Name: " + line[0] + " " + line[1]);
 				System.out.println("Age: " + line[2] + " years");
 				System.out.println("State: " + line[3] + " State");
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.err.println("Could not Open Data.txt");
 		}
 	}

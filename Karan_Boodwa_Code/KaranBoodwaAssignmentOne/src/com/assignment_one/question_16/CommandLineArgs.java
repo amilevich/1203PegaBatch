@@ -8,11 +8,11 @@ package com.assignment_one.question_16;
 public class CommandLineArgs {
 
 	public static void main(String[] args) {
-		if(args.length < 1) {
+		if (args.length < 1) {
 			System.err.println("Error: no command line arg provided.");
-		}
-		else {
+		} else {
 			System.out.println(args[0]);
+			// Prints out the number of characters through the arguments length
 			System.out.println("Number of characters: " + args[0].length());
 		}
 
