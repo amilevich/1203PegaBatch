@@ -19,26 +19,56 @@ public class SimpleInterest {
 
 	public static void main(String[] args) {
 
-		/*
-		 * try-with-resources used with scanner as the user's input can't be guaranteed
-		 * to be numbers, causing an exception to be thrown Generally speaking unchecked
-		 * exceptions should not be caught but in this case it makes sense to catch
-		 * rather than code around
-		 */
-		try (Scanner s = new Scanner(System.in)) {
-			System.out.println("Simple Interest Calculator!");
-			System.out.print("Enter principal: ");
-			double principal = s.nextDouble();
-			System.out.print("Enter rate (%): ");
-			double rate = s.nextDouble();
-			System.out.print("Enter number of years: ");
-			int time = s.nextInt();
-			System.out.println("$" + principal + " at " + rate + "%" + " after " + time + " years = $"
-					+ interest(principal, rate, time) + " interest");
+		// Scanner used to read in user input from the console
+		Scanner s = new Scanner(System.in);
+		System.out.println("Simple Interest Calculator!");
+		double principal = 0.0;
+		double rate = 0.0;
+		int time = 0;
 
-		} catch (Exception e) {
-			System.err.println("Invalid Input. Please enter numbers.");
+		// Flag used to loop as long as the user has entered invalid input
+		boolean invalidInput = true;
+
+		// Loops as long as user hasn't entered in a double for the principal amount
+		while (invalidInput) {
+			System.out.print("Enter principal: ");
+			if (s.hasNextDouble()) {
+				principal = s.nextDouble();
+				invalidInput = false;
+			} else {
+				System.out.println("Error: invalid input. Please enter a decimal number.");
+				s.next();
+			}
 		}
+
+		// Flag reset for next input
+		invalidInput = true;
+		// Loops as long as user hasn't entered in a double for the rate percentage
+		while (invalidInput) {
+			System.out.print("Enter rate (%): ");
+			if (s.hasNextDouble()) {
+				rate = s.nextDouble();
+				invalidInput = false;
+			} else {
+				System.out.println("Error: invalid input. Please enter a decimal number.");
+				s.next();
+			}
+		}
+		// Flag reset for next input
+		invalidInput = true;
+		while (invalidInput) {
+			System.out.print("Enter number of years: ");
+			if (s.hasNextInt()) {
+				time = s.nextInt();
+				invalidInput = false;
+			} else {
+				System.out.println("Error: invalid input. Please enter a number.");
+			}
+		}
+
+		// Outputs the inputs provided as well as the simple interest calculated
+		System.out.println("$" + principal + " at " + rate + "%" + " after " + time + " years = $"
+				+ interest(principal, rate, time) + " interest");
 
 	}
 
