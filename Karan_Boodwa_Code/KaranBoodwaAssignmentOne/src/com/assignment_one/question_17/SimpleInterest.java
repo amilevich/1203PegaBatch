@@ -37,6 +37,7 @@ public class SimpleInterest {
 				invalidInput = false;
 			} else {
 				System.out.println("Error: invalid input. Please enter a decimal number.");
+				// Pops off what the user typed in the console
 				s.next();
 			}
 		}
@@ -51,6 +52,7 @@ public class SimpleInterest {
 				invalidInput = false;
 			} else {
 				System.out.println("Error: invalid input. Please enter a decimal number.");
+				// Pops off what the user typed in the console
 				s.next();
 			}
 		}
@@ -63,6 +65,8 @@ public class SimpleInterest {
 				invalidInput = false;
 			} else {
 				System.out.println("Error: invalid input. Please enter a number.");
+				// Pops off what the user typed in the console
+				s.next();
 			}
 		}
 
