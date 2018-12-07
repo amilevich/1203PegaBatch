@@ -1,6 +1,6 @@
 package fifteen.hwk;
 
-class QuestionFifteen implements Mathematical {
+class QuestionFifteen implements Mathematical { // Look at (2) in Test.java same package
 	
 	public double addition(double t, double s) {
 		

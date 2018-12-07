@@ -25,16 +25,23 @@ public class QuestionEightteen extends WordConversions {
 	 */
 
 	/*
-	 * (1)
+	 * (1) Unlike in a interface when we use an abstract class we have to override
+	 * the methods will be using in the child class.
 	 * 
-	 * (2)
+	 * (2) So, this is my abstract class WordConversions you must call it an
+	 * abstract class to define it as abstract. It can have both abstract and
+	 * non-abstract methods.
 	 * 
-	 * (3)
+	 * (3) With the Character and Integer I can use there distinct methods such as
+	 * isUpperCase to figure if a Character is an upper case letter or for Integer I
+	 * can take a char and find out what it's integer representation. With the
+	 * String class I can use toUpperCase to simply convert a word to all upper
+	 * case.
 	 * 
 	 * 
 	 */
-	
-	public static void main(String[] args) {
+
+	public static void main(String[] args) { // Look at (1)
 		Scanner input = new Scanner(System.in);
 		System.out.println("Enter in a string: ");
 		String words = input.nextLine();
@@ -42,6 +49,8 @@ public class QuestionEightteen extends WordConversions {
 		QuestionEightteen example = new QuestionEightteen();
 		example.toString(words);
 	}
+
+	// Look at (3)
 	@Override
 	public Boolean isUpperCase(String words) {
 		for (int a = 0; a < words.length(); a++) {
@@ -54,10 +63,12 @@ public class QuestionEightteen extends WordConversions {
 		}
 		return false;
 	}
+
 	@Override
 	public String toUpperCase(String words) {
 		return words.toUpperCase();
 	}
+
 	@Override
 	public int toInteger(String words) {
 		int sum = 10;
@@ -67,10 +78,12 @@ public class QuestionEightteen extends WordConversions {
 		}
 		return sum;
 	}
+
 	@Override
 	public void toString(String words) {
-		System.out.println("Is a letter in the \"String\" uppercase? " + isUpperCase(words) + "\nConverted words to UPPERCASE: " + toUpperCase(words) 
-		+ "\nThe integer value of the words: " + toInteger(words));
+		System.out.println(
+				"Is a letter in the \"String\" uppercase? " + isUpperCase(words) + "\nConverted words to UPPERCASE: "
+						+ toUpperCase(words) + "\nThe integer value of the words: " + toInteger(words));
 	}
 
 }
