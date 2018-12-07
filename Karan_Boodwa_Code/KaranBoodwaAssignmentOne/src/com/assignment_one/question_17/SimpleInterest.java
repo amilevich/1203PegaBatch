@@ -69,6 +69,9 @@ public class SimpleInterest {
 				s.next();
 			}
 		}
+		
+		// Closing scanner
+		s.close();
 
 		// Outputs the inputs provided as well as the simple interest calculated
 		System.out.println("$" + principal + " at " + rate + "%" + " after " + time + " years = $"
