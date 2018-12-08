@@ -25,32 +25,11 @@ public class BankingApp {
 	// TransactionHandler tHandler = TransactionHandler.getTHandler();
 	
 	/*
-	 * menu() function handles I/O and interaction with above
+	 * mainMenu() function handles initial I/O and interaction with above
 	 * structures
 	 */
 	public static void mainMenu() {
-		System.out.println("Welcome to the First Bank of Karan!");
 		
-		// Scanner instance to handle console I/O
-		Scanner sc = new Scanner(System.in);
-		
-		// loop to return users back to the 'main menu' after banking operations are done
-		boolean running = true;
-		while(running) {
-			/*
-			 * login & registration view
-			 */
-			int choice = 0;
-			
-			
-			System.out.println("1. Login");
-			System.out.println("2. Register");
-			System.out.println("Please select one of the options above");
-			
-			
-			running = false;
-		}
-		sc.close();
 	}
 
 	public static void main(String[] args) {
