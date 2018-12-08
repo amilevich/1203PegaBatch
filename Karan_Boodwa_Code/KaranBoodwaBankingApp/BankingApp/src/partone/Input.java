@@ -22,7 +22,7 @@ public class Input {
 	 * 
 	 * @return
 	 */
-	public static Input getInput() {
+	public static Input getInputSingleton() {
 		return in;
 	}
 
@@ -119,7 +119,7 @@ public class Input {
 
 	public static void main(String[] args) {
 		// TDD testing simple i/o cases
-		Input userInput = getInput();
+		Input userInput = getInputSingleton();
 
 		System.out.println("Enter a number:");
 		int i = userInput.getInt();
