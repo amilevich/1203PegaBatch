@@ -5,13 +5,14 @@ public class Registration {
 	String middleInitial;
 	String lastName;
 	String address;
-	String city, state, zip;
-	String phoneNum;
+	String city, state;
+	int phoneNum;
+	int zip;
 	String accType;
 	Boolean newAccount;
 
-	public Registration(String fName, String mIntial, String lName, String address, String city, String state, String zip,
-			String phoneNum, String accType, Boolean newAccount) {
+	public Registration(String fName, String mIntial, String lName, String address, String city, String state, int zip,
+			int phoneNum, String accType, Boolean newAccount) {
 		super();
 		this.firstName = fName;
 		this.middleInitial = mIntial;
@@ -23,10 +24,6 @@ public class Registration {
 		this.phoneNum = phoneNum;
 		this.accType = accType;
 		this.newAccount = newAccount;
-	}
-	
-	public Registration() { // default remove later
-		
 	}
 
 	public String getfName() {
@@ -77,19 +74,19 @@ public class Registration {
 		this.state = state;
 	}
 
-	public String getZip() {
+	public int getZip() {
 		return zip;
 	}
 
-	public void setZip(String zip) {
+	public void setZip(int zip) {
 		this.zip = zip;
 	}
 
-	public String getPhoneNum() {
+	public int getPhoneNum() {
 		return phoneNum;
 	}
 
-	public void setPhoneNum(String phoneNum) {
+	public void setPhoneNum(int phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 

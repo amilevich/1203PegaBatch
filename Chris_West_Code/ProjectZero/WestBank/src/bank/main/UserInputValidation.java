@@ -4,6 +4,8 @@ import java.util.Scanner;
 
 public class UserInputValidation {
 	private static String errorMessage = "Input is wrong data type!";
+	
+	
 	public static Boolean isInt(Scanner input) {
 		if (input.hasNextInt()) {
 			return true;
@@ -20,9 +22,27 @@ public class UserInputValidation {
 		return false;
 	}
 
-	public static Boolean isString(String input) {
+	public static Boolean isLetters(String input) {
 		
 		if (input.matches("[a-zA-Z]+")) {
+			return true;
+		}
+		System.out.println(errorMessage);
+		return false;
+	}
+	
+	public static Boolean isLetterNum(String input) {
+		
+		if (input.matches("[a-zA-Z0-9]+")) {
+			return true;
+		}
+		System.out.println(errorMessage);
+		return false;
+	}
+	
+	public static Boolean isLetterNumSpecial(String input) {
+		
+		if (input.matches("[a-zA-Z0-9%^!@]+")) {
 			return true;
 		}
 		System.out.println(errorMessage);
