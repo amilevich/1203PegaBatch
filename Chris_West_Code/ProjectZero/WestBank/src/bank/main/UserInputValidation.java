@@ -44,9 +44,9 @@ public class UserInputValidation {
 		return s;
 	}
 
-	public static String isLetterNumLine(String s) {
+	public static String isLetterNumLine(String s) {// Need to get it to accept white spaces
 		while (!s.matches("[a-zA-Z0-9]+")) {
-			System.out.println(errorMessage);
+			System.out.println(errorMessage+2);
 			input = new Scanner(System.in);
 			s = input.nextLine();
 		}

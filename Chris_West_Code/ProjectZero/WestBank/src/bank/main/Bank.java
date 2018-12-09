@@ -31,7 +31,8 @@ public class Bank {
 	private static Scanner input = new Scanner(System.in);
 	static Registration reg;
 	static HashMap<String, Object> data = new HashMap<String, Object>();
-
+	static HashMap<String, Object> login = new HashMap<String, Object>();
+	private static User user1;
 	public static void main(String[] args) {
 		/*
 		 * Declarations in General
@@ -40,17 +41,25 @@ public class Bank {
 		String txt;
 		Boolean isRead;
 		int number, countError = 0;
+		
 		/*
 		 * Object Declarations
 		 */
 		HRDEPT hr1;
 		DataHub dh1;
-		User user1;
-		/*
-		 * Hashmap filled with random data for testing purposes
-		 */
-		data.put("cwest5960", new Registration()); // example
-		data.put("cwest5961", new Employees("", "", "")); // example
+		
+//		/*
+//		 * Hashmap filled with random data for testing purposes
+//		 */
+//		data.put("cwest5960", new Registration()); // example
+//		data.put("cwest5961", new Employees("", "", "")); // example
+		
+		dh1 = new DataHub();
+		dh1.initializeTempData();
+		
+		
+		
+		
 		System.out.println("Welcome to West Bank\nPlease choose one of the "
 				+ "following:\nEnter 1 to login to your account.\nEnter 2 to create an account.\nEnter 3 to exit.");
 		do {
@@ -59,7 +68,7 @@ public class Bank {
 			input = UserInputValidation.isInt(input);
 			number = input.nextInt();
 			countError++;
-		} while (number >= 1 && number <= 3);
+		} while (!(number >= 1 && number <= 3));
 
 		switch (number) {
 		case 1:
@@ -77,14 +86,36 @@ public class Bank {
 	}
 
 	public static void login() {
+		Boolean authenticate = false;
+		int attempts = 0;
+		do {
 		System.out.println("Enter ID: ");
-		String id = input.nextLine();
-		UserInputValidation.isLetters(id);
+		String id = input.next();
+		UserInputValidation.isLetterNum(id);
 
 		System.out.println("Enter password: ");
 		String passWord = input.next();
 		UserInputValidation.isLetterNumSpecial(passWord);
-
+		
+		if (login.containsKey(id)) {
+			user1 = (User) login.get(id);
+			
+			if (user1.getPassWord().equals(passWord)) {
+				authenticate = true;
+				System.out.println("Logging in...");
+				
+			}
+		}else {
+			attempts++;
+		}
+		}while(!authenticate && attempts < 3);
+		
+		if (!authenticate) {
+			System.out.println("Good-Bye!");
+			System.exit(0);
+		}
+		
+		
 	}
 
 	public static void register() {
@@ -99,6 +130,7 @@ public class Bank {
 		UserInputValidation.isLetters(lastName);
 
 		System.out.println("Please enter your address: ");
+		input.nextLine();
 		String address = input.nextLine();
 		UserInputValidation.isLetterNumLine(address);
 
@@ -126,7 +158,7 @@ public class Bank {
 		String id = generateID(firstName, lastName);
 		
 		reg = new Registration(firstName, middleInitial, lastName, address, city, state, zip, phoneNum, accType,
-				newAccount, id, passWord);
+				newAccount, id, passWord, "CUSTOMER");
 	}
 
 	public static void validate() {

@@ -12,9 +12,10 @@ public class Registration {
 	Boolean newAccount;
 	String id;
 	String passWord;
+	String userType;
 
 	public Registration(String firstName, String middleInitial, String lastName, String address, String city,
-			String state, int phoneNum, int zip, String accType, Boolean newAccount, String id, String passWord) {
+			String state, int phoneNum, int zip, String accType, Boolean newAccount, String id, String passWord, String userType) {
 		super();
 		this.firstName = firstName;
 		this.middleInitial = middleInitial;
@@ -28,34 +29,35 @@ public class Registration {
 		this.newAccount = newAccount;
 		this.id = id;
 		this.passWord = passWord;
+		this.userType = userType;
 	}
 
 	public Registration() {
 
 	}
 
-	public String getfName() {
+	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setfName(String fName) {
-		this.firstName = fName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getmIntial() {
+	public String getMiddleInitial() {
 		return middleInitial;
 	}
 
-	public void setmIntial(String mIntial) {
-		this.middleInitial = mIntial;
+	public void setMiddleInitial(String middleInitial) {
+		this.middleInitial = middleInitial;
 	}
 
-	public String getlName() {
+	public String getLastName() {
 		return lastName;
 	}
 
-	public void setlName(String lName) {
-		this.lastName = lName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getAddress() {
@@ -82,20 +84,20 @@ public class Registration {
 		this.state = state;
 	}
 
-	public int getZip() {
-		return zip;
-	}
-
-	public void setZip(int zip) {
-		this.zip = zip;
-	}
-
 	public int getPhoneNum() {
 		return phoneNum;
 	}
 
 	public void setPhoneNum(int phoneNum) {
 		this.phoneNum = phoneNum;
+	}
+
+	public int getZip() {
+		return zip;
+	}
+
+	public void setZip(int zip) {
+		this.zip = zip;
 	}
 
 	public String getAccType() {
@@ -113,5 +115,31 @@ public class Registration {
 	public void setNewAccount(Boolean newAccount) {
 		this.newAccount = newAccount;
 	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPassWord() {
+		return passWord;
+	}
+
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	
 
 }
