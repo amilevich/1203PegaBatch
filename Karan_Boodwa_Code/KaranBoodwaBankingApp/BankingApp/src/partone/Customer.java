@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Customer extends User {
 
 	// Data members
-	ArrayList<Integer> bankAccounts = new ArrayList<Integer>();
+	private ArrayList<Integer> bankAccounts = new ArrayList<Integer>();
 
 	/**
 	 * Default constructor
@@ -133,9 +133,16 @@ public class Customer extends User {
 		// TODO: stub
 	}
 
-	private void printAccs() {
-		System.out.println("Printing Accounts");
-		// TODO: stub
+	private String printAccs() {
+		if(bankAccounts.isEmpty()) {
+			return "No Accounts";
+		}
+		StringBuilder s = new StringBuilder();
+		s.append("Accounts: ");
+		for(int i : bankAccounts) {
+			s.append(i+" ");
+		}
+		return s.toString();
 	}
 
 	public static void main(String[] args) {
@@ -145,8 +152,7 @@ public class Customer extends User {
 
 	@Override
 	public String toString() {
-		return "Customer [bankAccounts=" + bankAccounts + ", Username=" + getUsername() + ", Password="
-				+ getPassword() + ", User Type=" + getClass() + "]";
+		return "Customer: " + getUsername() + ", " + printAccs();
 	}
 	
 }

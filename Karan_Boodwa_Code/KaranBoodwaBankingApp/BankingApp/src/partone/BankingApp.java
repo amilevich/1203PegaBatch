@@ -55,6 +55,7 @@ public class BankingApp {
 				returnToMenu = false;
 				break;
 			default:
+				System.out.println("Invalid option");
 				break;
 			}
 		}

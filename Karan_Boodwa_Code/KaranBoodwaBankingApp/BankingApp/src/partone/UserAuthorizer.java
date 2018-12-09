@@ -50,7 +50,7 @@ public class UserAuthorizer {
 	 */
 	public boolean register(String username, String password) {
 		// If a user already exists with the provided username, return false
-		if (!users.containsKey(username)) {
+		if (users.containsKey(username)) {
 			return false;
 		}
 
@@ -87,10 +87,10 @@ public class UserAuthorizer {
 			// customer created by default, nothing needs to be done
 			break;
 		case EMPLOYEE:
-			// newUser = new Employee(username, password);
+			newUser = new Employee(username, password);
 			break;
 		case ADMIN:
-			// newUser = new Admin(username, password);
+			newUser = new Admin(username, password);
 			break;
 		// default just in case
 		default:
@@ -119,9 +119,84 @@ public class UserAuthorizer {
 		// If an existing user was found and the password is correct, return the user
 		// otherwise, return null
 		User existingUser = users.get(username);
-		return existingUser.getPassword() == password ? existingUser : null;
+		return existingUser.getPassword().equals(password) ? existingUser : null;
 		
 		
+	}
+	
+	/**
+	 * Method that prints all of the users in the hashmap, if passed an employee
+	 * that is currently in the hashmap (for security reasons)
+	 */
+	public void printCustomers(String username,String password) {
+		User user = login(username, password);
+		
+		/* 
+		 * If a user with the provided credentials does not exist in the database OR
+		 * the user provided is not an Employee OR
+		 * the user provided is not an Admin
+		 * then the user does not have the required credentials to view the list of users
+		 * (only admins and employees are 'white-listed'
+		 */
+		
+		if(user != null) {
+			String userType = user.getClass().getName();
+			if(userType.equals("partone.Employee") || userType.equals("partone.Admin")) {
+				// User is authorized to make this method call
+				printCustomers();
+				return;
+			}
+		}
+		
+		// User is not authorized to make this method call:
+		System.out.println("ERROR: Invalid Credentials");
+		
+	}
+	
+	
+	
+	/**
+	 * private printCustomers method only called by public facing one
+	 * to ensure only authorized users can view the list of customers
+	 */
+	public void printCustomers() {
+		
+		// Loop through all the users in the hashmap, printing all of the customers
+		for(User user : users.values()) {
+			if(user.getClass().getName().equals("partone.Customer")) {
+				System.out.println(user.toString());
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		UserAuthorizer ua = UserAuthorizer.getUserAuthSingleton();
+//		
+//		// Adding users to the hashmap
+		// Customers:
+//		ua.register("customer1", "hispassword", UserType.CUSTOMER);
+//		ua.register("customer2", "hispassword", UserType.CUSTOMER);
+//		ua.register("customer3", "hispassword", UserType.CUSTOMER);
+//		ua.register("customer4", "hispassword", UserType.CUSTOMER);
+//		ua.register("customer5", "hispassword");
+//		ua.register("customer6", "hispassword");
+//		
+//		// Employees:
+//		ua.register("empl1", "emplpass", UserType.EMPLOYEE);
+//		Employee e = (Employee) ua.login("empl1", "emplpass");
+//		e.menu();
+		
+		
+//		ua.register("empl2", "emplpass", UserType.EMPLOYEE);
+//		ua.register("empl3", "emplpass", UserType.EMPLOYEE);
+//		ua.register("empl4", "emplpass", UserType.EMPLOYEE);
+//		
+//		// Admins:
+//		ua.register("admin1", "adminpass", UserType.ADMIN);
+//		ua.register("admin2", "adminpass", UserType.ADMIN);
+//		ua.register("admin3", "adminpass", UserType.ADMIN);
+//		
+//		ua.printCustomers();
 	}
 
 }
