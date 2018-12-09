@@ -1,5 +1,6 @@
 package partone;
 
+
 /**
  * Abstract user class that encompasses data and functionality shared between
  * different types of users

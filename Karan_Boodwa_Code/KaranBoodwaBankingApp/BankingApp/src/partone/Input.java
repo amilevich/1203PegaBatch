@@ -109,7 +109,7 @@ public class Input {
 				// If a valid string hasn't been entered, error is displayed and what they typed
 				// in is
 				// removed from the standard input before attempting to read again
-				System.out.println("Error: please enter a valid expression");
+				System.out.println("Error: invalid input");
 				sc.next();
 			}
 		}

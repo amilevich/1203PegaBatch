@@ -12,9 +12,15 @@ public class BankAccount {
 
 	// Amount of money in the bank account
 	private double balance = 0.0;
+	
 	// ArrayList of usernames referencing the owners of the account
+	// This is also used to differentiate between accounts with one owner and ones with two (joint accounts)
+	// This is also extensible to allow for >2 account holders 
 	private ArrayList<String> holders = new ArrayList<String>();
-
+	
+	
+	// Getters and Setters:
+	
 	public double getBalance() {
 		return balance;
 	}

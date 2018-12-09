@@ -34,10 +34,10 @@ public class Customer extends User {
 
 		// boolean flag used to exit menu:
 		boolean returnToMenu = true;
-		System.out.println("Welcome to the first bank of Karan!");
-		System.out.println("Main Menu");
+		System.out.println("Welcome back to the first bank of Karan, " + getUsername() + "!");
 
 		while (returnToMenu) {
+			System.out.println("Main Menu");
 			System.out.println("1. Apply for Bank Account");
 			System.out.println("2. View Account(s)");
 			System.out.println("3. Withdraw");
