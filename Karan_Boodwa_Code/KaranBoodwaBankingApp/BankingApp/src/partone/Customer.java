@@ -106,7 +106,7 @@ public class Customer extends User {
 		 * check that acc number is valid & owned by customer ask for amount to withdraw 
 		 * check against amount in account to see if its valid 
 		 * prepare transaction object 
-		 * send withdrawl to transaction handler to process
+		 * send withdrawal to transaction handler to process
 		 */
 		System.out.println("Withdrawing");
 
@@ -123,6 +123,7 @@ public class Customer extends User {
 		 * check that acc number is valid & owned by customer
 		 * ask for transfer amt 
 		 * check that it's positive and that there's enough in acc 1 to transfer
+		 * technically speaking, a transfer of funds is a withdrawal followed by a deposit
 		 */
 		System.out.println("Transferring");
 	}

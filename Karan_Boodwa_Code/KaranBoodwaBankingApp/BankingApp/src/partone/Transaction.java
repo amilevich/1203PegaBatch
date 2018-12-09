@@ -45,7 +45,7 @@ public class Transaction {
 	
 	@Override
 	public String toString() {
-		return "Transaction [op=" + op + ", accFrom=" + accFrom + ", accTo=" + accTo + ", user=" + user + "]";
+		return "Transaction [op=" + op + ", accFrom=" + accFrom + ", accTo=" + accTo + ", user=" + user.getUsername() + "]";
 	}
 	
 	

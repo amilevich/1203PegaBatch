@@ -11,12 +11,17 @@ public abstract class User {
 
 	private String username = "";
 	private String password = "";
+	
 
-	// TODO Reference to TransactionHandler to actually process any user transactions
+	// Reference to TransactionHandler to actually process any user transactions
+	private TransactionHandler tHandler = TransactionHandler.getTHandler();
+	
 
 	// Default constructor
 	public User() {
-
+		username = "";
+		password = "";
+		tHandler = TransactionHandler.getTHandler();
 	}
 
 	// Non-Default constructor
@@ -48,4 +53,6 @@ public abstract class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
 }

@@ -30,6 +30,10 @@ public class BankAccount {
 	public void setHolders(ArrayList<String> holders) {
 		this.holders = holders;
 	}
+	
+	public void addHolder(String holder) {
+		this.holders.add(holder);
+	}
 
 	@Override
 	public String toString() {
