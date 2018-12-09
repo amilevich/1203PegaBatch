@@ -4,48 +4,73 @@ import java.util.Scanner;
 
 public class UserInputValidation {
 	private static String errorMessage = "Input is wrong data type!";
-	
-	
-	public static Boolean isInt(Scanner input) {
-		if (input.hasNextInt()) {
-			return true;
+	private static Scanner input = new Scanner(System.in);
+
+	public static Scanner isInt(Scanner input) {
+		while (!input.hasNextInt()) {
+			System.out.println(errorMessage);
+			input = new Scanner(System.in);
 		}
-		System.out.println(errorMessage);
-		return false;
+
+		return input;
 	}
 
-	public static Boolean isDouble(Scanner input) {
-		if (input.hasNextDouble()) {
-			return true;
+	public static Scanner isDouble(Scanner input) {
+		while (!input.hasNextDouble()) {
+			System.out.println(errorMessage);
+			input = new Scanner(System.in);
 		}
-		System.out.println(errorMessage);
-		return false;
+
+		return input;
 	}
 
-	public static Boolean isLetters(String input) {
-		
-		if (input.matches("[a-zA-Z]+")) {
-			return true;
+	public static String isLetters(String s) {
+		while (!s.matches("[a-zA-Z]+")) {
+			System.out.println(errorMessage);
+			input = new Scanner(System.in);
+			s = input.next();
 		}
-		System.out.println(errorMessage);
-		return false;
+
+		return s;
 	}
-	
-	public static Boolean isLetterNum(String input) {
-		
-		if (input.matches("[a-zA-Z0-9]+")) {
-			return true;
+
+	public static String isLetterNum(String s) {
+		while (!s.matches("[a-zA-Z0-9]+")) {
+			System.out.println(errorMessage);
+			input = new Scanner(System.in);
+			s = input.next();
 		}
-		System.out.println(errorMessage);
-		return false;
+
+		return s;
 	}
-	
-	public static Boolean isLetterNumSpecial(String input) {
-		
-		if (input.matches("[a-zA-Z0-9%^!@]+")) {
-			return true;
+
+	public static String isLetterNumLine(String s) {
+		while (!s.matches("[a-zA-Z0-9]+")) {
+			System.out.println(errorMessage);
+			input = new Scanner(System.in);
+			s = input.nextLine();
 		}
-		System.out.println(errorMessage);
-		return false;
+
+		return s;
 	}
+
+	public static String isLetterNumSpecial(String s) {
+		while (!s.matches("[a-zA-Z0-9%^!@]+")) {
+			System.out.println(errorMessage);
+			input = new Scanner(System.in);
+			s = input.next();
+		}
+
+		return s;
+	}
+	public static String isALetter(String s) {
+		while (!s.matches("[a-zA-Z]")) {
+			System.out.println(errorMessage);
+			input = new Scanner(System.in);
+			s = input.next();
+		}
+
+		return s;
+	}
+
 }

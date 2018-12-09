@@ -10,20 +10,28 @@ public class Registration {
 	int zip;
 	String accType;
 	Boolean newAccount;
+	String id;
+	String passWord;
 
-	public Registration(String fName, String mIntial, String lName, String address, String city, String state, int zip,
-			int phoneNum, String accType, Boolean newAccount) {
+	public Registration(String firstName, String middleInitial, String lastName, String address, String city,
+			String state, int phoneNum, int zip, String accType, Boolean newAccount, String id, String passWord) {
 		super();
-		this.firstName = fName;
-		this.middleInitial = mIntial;
-		this.lastName = lName;
+		this.firstName = firstName;
+		this.middleInitial = middleInitial;
+		this.lastName = lastName;
 		this.address = address;
 		this.city = city;
 		this.state = state;
-		this.zip = zip;
 		this.phoneNum = phoneNum;
+		this.zip = zip;
 		this.accType = accType;
 		this.newAccount = newAccount;
+		this.id = id;
+		this.passWord = passWord;
+	}
+
+	public Registration() {
+
 	}
 
 	public String getfName() {
