@@ -6,7 +6,7 @@ public class Registration {
 	String lastName;
 	String address;
 	String city, state;
-	int phoneNum;
+	Long phoneNum;
 	int zip;
 	String accType;
 	Boolean newAccount;
@@ -15,7 +15,7 @@ public class Registration {
 	String userType;
 
 	public Registration(String firstName, String middleInitial, String lastName, String address, String city,
-			String state, int phoneNum, int zip, String accType, Boolean newAccount, String id, String passWord, String userType) {
+			String state, int zip, Long phoneNum, String accType, Boolean newAccount, String id, String passWord, String userType) {
 		super();
 		this.firstName = firstName;
 		this.middleInitial = middleInitial;
@@ -84,11 +84,11 @@ public class Registration {
 		this.state = state;
 	}
 
-	public int getPhoneNum() {
+	public Long getPhoneNum() {
 		return phoneNum;
 	}
 
-	public void setPhoneNum(int phoneNum) {
+	public void setPhoneNum(Long phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 

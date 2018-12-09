@@ -78,8 +78,8 @@ public class Bank {
 			register();
 			break;
 		case 3:
-			System.exit(0);
-			break;
+			return;
+			
 
 		}
 
@@ -112,7 +112,7 @@ public class Bank {
 		
 		if (!authenticate) {
 			System.out.println("Good-Bye!");
-			System.exit(0);
+			return;
 		}
 		
 		
@@ -145,8 +145,8 @@ public class Bank {
 		int zip = input.nextInt();
 
 		System.out.println("Please enter your phone number: ");
-		input = UserInputValidation.isInt(input);
-		int phoneNum = input.nextInt();
+		input = UserInputValidation.isLong(input);
+		Long phoneNum = input.nextLong();
 		
 		System.out.println("Please enter your passWord(Letters, numbers, special characters(%^!@): ");
 		String passWord = input.next();
@@ -156,7 +156,7 @@ public class Bank {
 									// switch-case
 		Boolean newAccount = true;
 		String id = generateID(firstName, lastName);
-		
+		System.out.println(id);
 		reg = new Registration(firstName, middleInitial, lastName, address, city, state, zip, phoneNum, accType,
 				newAccount, id, passWord, "CUSTOMER");
 	}
@@ -173,7 +173,8 @@ public class Bank {
 			temp = "";
 			number = rm.nextInt(9000) + 1000;
 			temp = id + number;
-		} while (!data.containsKey(temp));
+			
+		} while (data.containsKey(temp));
 
 		return temp;
 

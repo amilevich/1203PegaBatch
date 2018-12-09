@@ -14,6 +14,15 @@ public class UserInputValidation {
 
 		return input;
 	}
+	public static Scanner isLong(Scanner input) {
+		while (!input.hasNextLong()) {
+			System.out.println(errorMessage);
+			input = new Scanner(System.in);
+		}
+
+		return input;
+	}
+	
 
 	public static Scanner isDouble(Scanner input) {
 		while (!input.hasNextDouble()) {
@@ -45,7 +54,7 @@ public class UserInputValidation {
 	}
 
 	public static String isLetterNumLine(String s) {// Need to get it to accept white spaces
-		while (!s.matches("[a-zA-Z0-9]+")) {
+		while (!s.matches("[\\sa-zA-Z0-9]+")) {
 			System.out.println(errorMessage+2);
 			input = new Scanner(System.in);
 			s = input.nextLine();
