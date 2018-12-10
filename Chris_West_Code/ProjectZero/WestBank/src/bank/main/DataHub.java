@@ -11,6 +11,7 @@ public class DataHub {
 		Bank.data.put("deast4530", new Customers("deast4530", "123", "CUSTOMER", "Daniel", "H", "Bilbo",
 				"300 Tooth Fairy Way", "Mass", "Effect", 4033451928l, 3452, "Saving", false, 100.0));
 		Bank.login.put("cwest5496", new User("cwest5496", "dangIt", "EMPLOYEE"));
+		Bank.login.put("deast4530", new User("deast4530", "123", "CUSTOMER"));
 	}
 
 }

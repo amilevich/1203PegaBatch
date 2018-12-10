@@ -81,5 +81,18 @@ public class UserInputValidation {
 
 		return s;
 	}
+	public static int isInRange(Scanner input) {
+		int countError = 0, number = 0;
+		do {
+			if (countError > 0)
+				System.out.println("Number needs to be 1 or 2 or 3.");
+			input = UserInputValidation.isInt(input);
+			number = input.nextInt();
+			countError++;
+		} while (!(number >= 1 && number <= 3));
+		
+		return number;
+		
+	}
 
 }

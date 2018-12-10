@@ -139,6 +139,13 @@ public class Customers extends User {
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
+
+	@Override
+	public String toString() {
+		return "Customers [firstName=" + firstName + ", middleInitial=" + middleInitial + ", lastName=" + lastName
+				+ ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phoneNum="
+				+ phoneNum + ", accType=" + accType + ", id=" + id + "]";
+	}
 	
 	
 

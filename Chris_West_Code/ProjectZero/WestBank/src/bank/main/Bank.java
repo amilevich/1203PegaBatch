@@ -33,9 +33,10 @@ public class Bank {
 	static HashMap<String, Object> data = new HashMap<String, Object>();
 	static HashMap<String, Object> login = new HashMap<String, Object>();
 	private static User user1;
-	private static Customers customer1;
+	static Customers customer1;
 	private static Employees employee1;
 	private static Admins admin1;
+	static CustomerScreen customerView = new CustomerScreen();
 
 	public static void main(String[] args) {
 		/*
@@ -69,13 +70,7 @@ public class Bank {
 
 		System.out.println("Welcome to West Bank\nPlease choose one of the "
 				+ "following:\nEnter 1 to login to your account.\nEnter 2 to create an account.\nEnter 3 to exit.");
-		do {
-			if (countError > 0)
-				System.out.println("Number needs to be 1 or 2 or 3.");
-			input = UserInputValidation.isInt(input);
-			number = input.nextInt();
-			countError++;
-		} while (!(number >= 1 && number <= 3));
+		number = UserInputValidation.isInRange(input);
 
 		switch (number) {
 		case 1:
@@ -96,10 +91,10 @@ public class Bank {
 		switch (user1.getUser()) {
 		case "CUSTOMER":
 			customer1 = (Customers) data.get(user1.getId());
-			customerOptions();
+			customerView.customerOptions();
 			break;
 		case "EMPLOYEE":
-			
+
 			employeeOptions();
 			break;
 		case "ADMIN":
@@ -132,9 +127,8 @@ public class Bank {
 
 				if (user1.getPassWord().equals(passWord)) {
 					authenticate = true;
-					
+
 					System.out.println("Logging in...");
-					
 
 				}
 			} else {
@@ -209,42 +203,20 @@ public class Bank {
 
 	/*
 	 * 
-	 * Customer Screen, Employee Screen, Admin Screen
+	 * Employee Screen its other related methods
 	 * 
 	 */
-
-	public static void customerOptions() {
-		System.out.println("Welcome back " + customer1.getFirstName() + " " + customer1.getLastName());
-		System.out.println("Account Balance:\n$ " + customer1.getBalance());
-		System.out.println("Options:");
-		System.out.println("Type 1 to view personal information.");
-		System.out.println("Type 2 to transfer a balance, withdraw from your balance, and or make a deposit.");
-		System.out.println("Type 3 to log-out.");
-		
-		do {
-			if (countError > 0)
-				System.out.println("Number needs to be 1 or 2 or 3.");
-			input = UserInputValidation.isInt(input);
-			number = input.nextInt();
-			countError++;
-		} while (!(number >= 1 && number <= 3));
-		
-		switch() {
-		case 1: // view personal information
-			break;
-		case 2: // make transfer, withdraw, deposit
-			break;
-			
-			
-		}
-			
-	}
-
 	public static void employeeOptions() {
 
 	}
 
+	/*
+	 * 
+	 * Admin Screen its other related methods
+	 * 
+	 */
 	public static void adminOptions() {
 
 	}
+
 }
