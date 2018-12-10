@@ -4,7 +4,9 @@ public class Account {
 //	protected double withdraw;
 //	protected double deposit;
 //	protected double transferFunds;
-	
+	public Account() {
+		
+	}
 	public double withdrawMoney(double amount) {
 		double bal = Bank.customer1.getBalance();
 		double withdraw = bal - amount;

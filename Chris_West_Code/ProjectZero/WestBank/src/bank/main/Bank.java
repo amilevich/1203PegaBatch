@@ -34,6 +34,7 @@ public class Bank {
 	static HashMap<String, Object> login = new HashMap<String, Object>();
 	private static User user1;
 	static Customers customer1;
+	static Account account1;
 	private static Employees employee1;
 	private static Admins admin1;
 	static CustomerScreen customerView = new CustomerScreen();
@@ -91,7 +92,7 @@ public class Bank {
 		switch (user1.getUser()) {
 		case "CUSTOMER":
 			customer1 = (Customers) data.get(user1.getId());
-			customerView.customerOptions();
+			customerView.customerScreen();
 			break;
 		case "EMPLOYEE":
 

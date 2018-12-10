@@ -13,7 +13,7 @@ public class Customers extends User {
 	String id;
 	String passWord;
 	double balance;
-
+	
 	public Customers(String id, String passWord, String user, String firstName, String middleInitial, String lastName,
 			String address, String city, String state, Long phoneNum, int zip, String accType, Boolean newAccount
 			, double balance) {
