@@ -12,25 +12,15 @@ import java.util.Scanner;
 public class Driver {
 
 	public static void main(String[] args) {
-		// Variable Declaration and Initialization
-		int userIn, maxOption;
-		int minOption = 1; // Minimum select value will always be 1
+		// Variable Initialization
+		String exitMessage = "Application Ended";
 		// Scanner Instantiation
 		Scanner input = new Scanner(System.in);
 		// Application Execution
-		maxOption = welcomeDisplay();
-		// Ensure scanner input of correct type and in range
-		do {
-			while (!input.hasNextInt()) {
-				input.next(); // Need this line or else loops infinitely
-				System.out.println("Please Enter a Number");
-			}
-			userIn = input.nextInt();
-			welcomeInput(userIn);
-		} while ((userIn < minOption) || (userIn > maxOption));
+		welcomeDriver(input);
 		// Close Scanner object
 		input.close();
-		System.out.println("End");
+		System.out.println(exitMessage);
 	}
 
 	/**
@@ -66,12 +56,13 @@ public class Driver {
 	 * Select Menu Option Based Upon Scanner Input
 	 * 
 	 * @param userInput
+	 * @param userIn
 	 */
 
-	public static void welcomeInput(int userInput) {
+	public static void welcomeInput(Scanner userIn, int userInput) {
 		switch (userInput) {
 		case 1:
-			homePageDisplay();
+			homePageDriver(userIn);
 			break;
 		case 2:
 			System.out.println("Contact");
@@ -83,7 +74,51 @@ public class Driver {
 			System.out.println("Please Select A Valid Input");
 		}
 	}
-	
+
+	/**
+	 * Runs all welcome screen functions
+	 * 
+	 * @param userIn
+	 * @param userNum
+	 * @param maxOp
+	 */
+	public static void welcomeDriver(Scanner userIn) {
+		int maxOp = welcomeDisplay();
+		int userNum = validateInput(userIn, maxOp);
+		welcomeInput(userIn, userNum);
+	}
+
+	/**
+	 * Validates input for option menu to ensure int and within value range
+	 * 
+	 * @param userNum
+	 * @param maxOp
+	 * @return returns the validated input
+	 */
+
+	public static int validateInput(Scanner userIn, int maxOp) {
+		int userNum = 0;
+		String errorMessage = "Please Enter Valid Input";
+		int minOp = 1;
+		do {
+			while (!userIn.hasNextInt()) {
+				userIn.next(); // Need this line to get next input or loops infinitely
+				System.out.println(errorMessage);
+			}
+			userNum = userIn.nextInt();
+			if ((userNum < minOp) || (userNum > maxOp)) {
+				System.out.println(errorMessage);
+			}
+		} while ((userNum < minOp) || (userNum > maxOp));
+		return userNum;
+	}
+
+	/**
+	 * Displays homepage
+	 * 
+	 * @return number of options in select menu
+	 */
+
 	public static int homePageDisplay() {
 		// Varaiable Initialization
 		String name = "BlAnk HomePage";
@@ -100,5 +135,29 @@ public class Driver {
 		homepageMenu.displayOptions();
 
 		return homepageMenu.getOptions().length;
+	}
+
+	public static void homePageInput(Scanner userIn, int userInput) {
+		switch (userInput) {
+		case 1:
+			System.out.println("Customer");
+			break;
+		case 2:
+			System.out.println("Employee Under Construction");
+			break;
+		case 3:
+			welcomeDriver(userIn);
+			break;
+		case 4:
+			break;
+		default:
+			System.out.println("Please Select a Valid Input");
+		}
+	}
+
+	public static void homePageDriver(Scanner userIn) {
+		int maxOp = homePageDisplay();
+		int userNum = validateInput(userIn, maxOp);
+		homePageInput(userIn, userNum);
 	}
 }
