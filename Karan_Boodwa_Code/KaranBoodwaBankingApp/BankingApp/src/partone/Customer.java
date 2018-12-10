@@ -2,10 +2,14 @@ package partone;
 
 import java.util.ArrayList;
 
+import partone.Transaction.operation;
+
 public class Customer extends User {
 
 	// Data members
 	private ArrayList<Integer> bankAccounts = new ArrayList<Integer>();
+	
+	private UserAuthorizer userAuth = UserAuthorizer.getUserAuthSingleton();
 
 	/**
 	 * Default constructor
@@ -54,7 +58,7 @@ public class Customer extends User {
 				break;
 			// View Accounts:
 			case 2:
-				printAccs();
+				System.out.println(printAccs());
 				break;
 			// Withdraw:
 			case 3:
@@ -84,7 +88,13 @@ public class Customer extends User {
 	// Transaction methods:
 
 	private void deposit() {
-		// TODO: implement
+		
+		// If the user has no accounts, say so and return them to the menu that brought them here
+		if(bankAccounts.isEmpty()) {
+			System.out.println("You have no account to deposit into. Apply for one today!");
+			return;
+		}
+		
 		/*
 		 * Menu flow: 
 		 * ask for acc number 
@@ -94,7 +104,69 @@ public class Customer extends User {
 		 * send deposit to transaction handler to process
 		 */
 		
-		System.out.println("Depositing");
+		boolean returnToMenu = true;
+		Input in = Input.getInputSingleton();
+		while(returnToMenu) {
+			System.out.println("Deposit");
+			System.out.println("Select account:");
+			
+			// Note: list index is 1 more than loop index
+			// i declared and initialized outside of loop to be used after to display a return to main menu option
+			int i = 0;
+			for(i = 0; i < bankAccounts.size(); i++) {
+				System.out.println(i+1 + ". " + bankAccounts.get(i));
+			}
+			int returnToMenuChoice = i+1;
+			
+			System.out.println(returnToMenuChoice + ". Return to Main Menu");
+			
+			// offset by 1 to account for different number displayed to user
+			int accountChoice = in.getInt() - 1;
+			
+			// If they chose to return to the main menu, do so before checking anything else
+			if(accountChoice == returnToMenuChoice) {
+				System.out.println("Returning to Main Menu...");
+				returnToMenu = false;
+				break;
+			}
+			
+			
+			// Check if they selected an invalid entry on the list and refresh current menu
+			if(accountChoice < 0 || accountChoice > bankAccounts.size()-1) {
+				System.out.println("Invalid account selected");
+				continue;
+			}
+			
+			// List option is valid, prepare a deposit transaction
+			else {
+				
+				// Get the account number from the customers list of accounts
+				int accountNumber = bankAccounts.get(accountChoice);
+				
+				// Get amount to deposit from user:
+				System.out.println("Enter amount to deposit");
+				Double depositAmount = in.getDouble();
+				
+				if(depositAmount < 0) {
+					System.out.println("Error. Invalid deposit amount entered.");
+				}
+				
+				else {
+					// Send transaction to the transaction handler to be processed
+					boolean success = tHandler.processTransaction(new Transaction(operation.DEPOSIT,-1, accountNumber, getUsername()));
+					
+					if(success) {
+						System.out.println("Transaction approved");
+					}
+					else {
+						System.out.println("Transaction declined");
+					}
+				}
+				
+				
+			}
+			
+		}
 
 	}
 
@@ -108,7 +180,8 @@ public class Customer extends User {
 		 * prepare transaction object 
 		 * send withdrawal to transaction handler to process
 		 */
-		System.out.println("Withdrawing");
+		System.out.println("Withdrawal");
+		
 
 	}
 
@@ -129,8 +202,50 @@ public class Customer extends User {
 	}
 
 	private void apply() {
-		System.out.println("Applying");
-		// TODO: stub
+		
+		Input in = Input.getInputSingleton();
+		System.out.println("Applying for a Bank Application");
+		BankAccountApplication app = new BankAccountApplication(getUsername());
+		
+		boolean returnToMenu = true;
+		
+		while(returnToMenu) {
+			System.out.println("Is this a joint account?");
+			System.out.println("1. Yes");
+			System.out.println("2. No");
+			
+			int choice = in.getInt();
+			
+			switch (choice) {
+			case 1:
+				System.out.println("Enter the username of the second account holder");
+				String secondHolder = in.get();
+				if(userAuth.usernameExists(secondHolder)) {
+					app.addHolder(secondHolder);
+					returnToMenu = false;
+				}
+				else {
+					System.out.println("Specified Username does not exist.");
+				}
+				break;
+			case 2:
+				returnToMenu = false;
+				break;
+			default:
+				System.out.println("Invalid Selection");
+				break;
+			}
+		}
+		
+		// Submits the bank application
+		if( userAuth.submitApplication(app) == true) {
+			System.out.println("Application submitted!");
+		}
+		else {
+			System.out.println("Error submitting application.");
+		}
+		
+		
 	}
 
 	private String printAccs() {
@@ -144,15 +259,28 @@ public class Customer extends User {
 		}
 		return s.toString();
 	}
+	
+	
+	public void addAccount(Integer accNum) {
+		bankAccounts.add(accNum);
+	}
+	
+	public void removeAccount(Integer accNum) {
+		bankAccounts.remove(accNum);
+	}
 
 	public static void main(String[] args) {
 		Customer c = new Customer();
-		c.menu();
+		c.bankAccounts.add(c.tHandler.register(c.getUsername()));
+		c.deposit();
+		
 	}
 
 	@Override
 	public String toString() {
 		return "Customer: " + getUsername() + ", " + printAccs();
 	}
+	
+	
 	
 }

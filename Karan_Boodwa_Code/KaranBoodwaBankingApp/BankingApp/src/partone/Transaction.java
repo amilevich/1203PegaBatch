@@ -1,12 +1,25 @@
 package partone;
 
 public class Transaction {
-	private enum operation{DEPOSIT, WITHDRAWL, TRANSFER};
+	public static enum operation{DEPOSIT, WITHDRAW, TRANSFER};
 	private operation op;
 	private int accFrom;
 	private int accTo;
-	private User user;
+	private String username;
+	private double amount;
 	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public double getAmount() {
+		return amount;
+	}
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
 	public int getAccFrom() {
 		return accFrom;
 	}
@@ -19,12 +32,7 @@ public class Transaction {
 	public void setAccTo(int accTo) {
 		this.accTo = accTo;
 	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
+
 	public operation getOp() {
 		return op;
 	}
@@ -32,11 +40,11 @@ public class Transaction {
 		this.op = op;
 	}
 
-	public Transaction(operation op, int accFrom, int accTo, User user) {
+	public Transaction(operation op, int accFrom, int accTo, String username) {
 		this.op = op;
 		this.accFrom = accFrom;
 		this.accTo = accTo;
-		this.user = user;
+		this.username = username;
 	}
 	
 	public Transaction() {
@@ -45,7 +53,7 @@ public class Transaction {
 	
 	@Override
 	public String toString() {
-		return "Transaction [op=" + op + ", accFrom=" + accFrom + ", accTo=" + accTo + ", user=" + user.getUsername() + "]";
+		return "Transaction [op=" + op + ", accFrom=" + accFrom + ", accTo=" + accTo + ", user=" + username + "]";
 	}
 	
 	

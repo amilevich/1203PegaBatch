@@ -1,5 +1,6 @@
 package partone;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 enum UserType {
@@ -11,14 +12,53 @@ enum UserType {
  */
 public class UserAuthorizer {
 
+	// Singleton instance
 	private static UserAuthorizer userAuth = new UserAuthorizer();
+
+	// Map of usernames to User objects
 	private HashMap<String, User> users = new HashMap<String, User>();
+
+	// List of pending bank account applications
+	private ArrayList<BankAccountApplication> applications = new ArrayList<>();
 
 	/**
 	 * UserAuthorizer() Private default constructor
 	 */
 	private UserAuthorizer() {
 
+	}
+
+	/**
+	 * Method used to check if an admin exists with the provided username
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public boolean isAdmin(String username) {
+		// If username does not exist, it can't be an admin
+		if (!usernameExists(username)) {
+			return false;
+		}
+
+		User user = users.get(username);
+		return user.getClass() == Admin.class ? true : false;
+
+	}
+
+	/**
+	 * Method used to check if an employee exists with the provided username
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public boolean isEmployee(String username) {
+		// If username does not exist, it can't be an employee
+		if (!usernameExists(username)) {
+			return false;
+		}
+
+		User user = users.get(username);
+		return user.getClass() == Employee.class ? true : false;
 	}
 
 	/**
@@ -112,63 +152,105 @@ public class UserAuthorizer {
 	 */
 	public User login(String username, String password) {
 		// If a corresponding user is not in the hashmap, returns null
-		if(!users.containsKey(username)) {
+		if (!users.containsKey(username)) {
 			return null;
 		}
-		
+
 		// If an existing user was found and the password is correct, return the user
 		// otherwise, return null
 		User existingUser = users.get(username);
 		return existingUser.getPassword().equals(password) ? existingUser : null;
-		
-		
+
 	}
-	
+
 	/**
 	 * Method that prints all of the users in the hashmap, if passed an employee
 	 * that is currently in the hashmap (for security reasons)
 	 */
-	public void printCustomers(String username,String password) {
+	public void printCustomers(String username, String password) {
 		User user = login(username, password);
-		
-		/* 
-		 * If a user with the provided credentials does not exist in the database OR
-		 * the user provided is not an Employee OR
-		 * the user provided is not an Admin
-		 * then the user does not have the required credentials to view the list of users
+
+		/*
+		 * If a user with the provided credentials does not exist in the database OR the
+		 * user provided is not an Employee OR the user provided is not an Admin then
+		 * the user does not have the required credentials to view the list of users
 		 * (only admins and employees are 'white-listed'
 		 */
-		
-		if(user != null) {
+
+		if (user != null) {
 			String userType = user.getClass().getName();
-			if(userType.equals("partone.Employee") || userType.equals("partone.Admin")) {
+			if (userType.equals("partone.Employee") || userType.equals("partone.Admin")) {
 				// User is authorized to make this method call
 				printCustomers();
 				return;
 			}
 		}
-		
+
 		// User is not authorized to make this method call:
 		System.out.println("ERROR: Invalid Credentials");
-		
+
 	}
-	
-	
-	
+
 	/**
-	 * private printCustomers method only called by public facing one
-	 * to ensure only authorized users can view the list of customers
+	 * Gets a customer profile if a customer exists with the supplied username
+	 * 
+	 * @param username
+	 * @return
 	 */
-	public void printCustomers() {
-		
+	public Customer getCustomer(String username) {
+		if (users.containsKey(username)) {
+			if (users.get(username).getClass().getName().equals("partone.Customer")) {
+				return (Customer) users.get(username);
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * private printCustomers method only called by public facing one to ensure only
+	 * authorized users can view the list of customers
+	 */
+	private void printCustomers() {
+
 		// Loop through all the users in the hashmap, printing all of the customers
-		for(User user : users.values()) {
-			if(user.getClass().getName().equals("partone.Customer")) {
+		for (User user : users.values()) {
+			if (user.getClass().getName().equals("partone.Customer")) {
 				System.out.println(user.toString());
 			}
 		}
 	}
-	
+
+	/**
+	 * Method to submit a bank account application
+	 * 
+	 * @param app Bank account application to submit
+	 * @return true if application was submitted correctly. false if users specified
+	 *         in the application do not exist
+	 */
+	public boolean submitApplication(BankAccountApplication app) {
+
+		ArrayList<String> holders = app.getHolders();
+
+		// Input check to ensure that all usernames specified on the application are
+		// valid
+		for (String user : holders) {
+			if (!(usernameExists(user))) {
+				return false;
+			}
+		}
+
+		// Adds the submitted application to the list of pending apps
+		applications.add(app);
+		return true;
+	}
+
+	public ArrayList<BankAccountApplication> getPendingApplications() {
+		return applications;
+	}
+
 	public static void main(String[] args) {
 		UserAuthorizer ua = UserAuthorizer.getUserAuthSingleton();
 //		
@@ -185,8 +267,7 @@ public class UserAuthorizer {
 //		ua.register("empl1", "emplpass", UserType.EMPLOYEE);
 //		Employee e = (Employee) ua.login("empl1", "emplpass");
 //		e.menu();
-		
-		
+
 //		ua.register("empl2", "emplpass", UserType.EMPLOYEE);
 //		ua.register("empl3", "emplpass", UserType.EMPLOYEE);
 //		ua.register("empl4", "emplpass", UserType.EMPLOYEE);

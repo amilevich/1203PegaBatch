@@ -116,6 +116,16 @@ public class Input {
 		return s;
 
 	}
+	
+	/**
+	 * Closes the Scanner System.in stream once no reference to this object exists (program ends)
+	 * for safety
+	 */
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+		sc.close();
+	}
 
 	public static void main(String[] args) {
 		// TDD testing simple i/o cases

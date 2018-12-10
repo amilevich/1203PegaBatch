@@ -15,7 +15,7 @@ public abstract class User {
 	
 
 	// Reference to TransactionHandler to actually process any user transactions
-	private TransactionHandler tHandler = TransactionHandler.getTHandler();
+	protected TransactionHandler tHandler = TransactionHandler.getTHandler();
 	
 
 	// Default constructor
