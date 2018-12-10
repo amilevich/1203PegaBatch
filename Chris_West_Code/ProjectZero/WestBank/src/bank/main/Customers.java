@@ -31,10 +31,6 @@ public class Customers extends User {
 		this.balance = balance;
 	}
 
-//	public Customers(String id, String passWord, String user) {
-//		super(id, passWord, user);
-//		// TODO Auto-generated constructor stub
-//	}
 
 	public String getFirstName() {
 		return firstName;
@@ -142,9 +138,9 @@ public class Customers extends User {
 
 	@Override
 	public String toString() {
-		return "Customers [firstName=" + firstName + ", middleInitial=" + middleInitial + ", lastName=" + lastName
-				+ ", address=" + address + ", city=" + city + ", state=" + state + ", zip=" + zip + ", phoneNum="
-				+ phoneNum + ", accType=" + accType + ", id=" + id + "]";
+		return "\n\nPersonal Information \nFirst: " + firstName + "\nMiddle: " + middleInitial + "\nLast: " + lastName
+				+ "\nAddress: " + address + "\nCity:" + city + "\nState: " + state + "\nZip: " + zip + "\nPhone number: "
+				+ phoneNum + ", accType=" + accType + "\nID: " + super.id + "";
 	}
 	
 	

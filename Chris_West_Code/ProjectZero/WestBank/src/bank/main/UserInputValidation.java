@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class UserInputValidation {
 	private static String errorMessage = "Input is wrong data type!";
-	private static Scanner input = new Scanner(System.in);
+	//private static Scanner input = new Scanner(System.in);
 
 	public static Scanner isInt(Scanner input) {
 		while (!input.hasNextInt()) {
@@ -36,8 +36,8 @@ public class UserInputValidation {
 	public static String isLetters(String s) {
 		while (!s.matches("[a-zA-Z]+")) {
 			System.out.println(errorMessage);
-			input = new Scanner(System.in);
-			s = input.next();
+			Bank.input = new Scanner(System.in);
+			s = Bank.input.next();
 		}
 
 		return s;
@@ -46,8 +46,8 @@ public class UserInputValidation {
 	public static String isLetterNum(String s) {
 		while (!s.matches("[a-zA-Z0-9]+")) {
 			System.out.println(errorMessage);
-			input = new Scanner(System.in);
-			s = input.next();
+			Bank.input = new Scanner(System.in);
+			s = Bank.input.next();
 		}
 
 		return s;
@@ -56,8 +56,8 @@ public class UserInputValidation {
 	public static String isLetterNumLine(String s) {// Need to get it to accept white spaces
 		while (!s.matches("[\\sa-zA-Z0-9]+")) {
 			System.out.println(errorMessage+2);
-			input = new Scanner(System.in);
-			s = input.nextLine();
+			Bank.input = new Scanner(System.in);
+			s = Bank.input.nextLine();
 		}
 
 		return s;
@@ -66,8 +66,8 @@ public class UserInputValidation {
 	public static String isLetterNumSpecial(String s) {
 		while (!s.matches("[a-zA-Z0-9%^!@]+")) {
 			System.out.println(errorMessage);
-			input = new Scanner(System.in);
-			s = input.next();
+			Bank.input = new Scanner(System.in);
+			s = Bank.input.next();
 		}
 
 		return s;
@@ -75,21 +75,22 @@ public class UserInputValidation {
 	public static String isALetter(String s) {
 		while (!s.matches("[a-zA-Z]")) {
 			System.out.println(errorMessage);
-			input = new Scanner(System.in);
-			s = input.next();
+			Bank.input = new Scanner(System.in);
+			s = Bank.input.next();
 		}
 
 		return s;
 	}
-	public static int isInRange(Scanner input) {
+	public static int isInRange(Scanner input, int min, int max) {
+		
 		int countError = 0, number = 0;
 		do {
 			if (countError > 0)
-				System.out.println("Number needs to be 1 or 2 or 3.");
+				System.out.println("Number needs to be a number from " + min + " to " + max);
 			input = UserInputValidation.isInt(input);
 			number = input.nextInt();
 			countError++;
-		} while (!(number >= 1 && number <= 3));
+		} while (!(number >= min && number <= max));
 		
 		return number;
 		

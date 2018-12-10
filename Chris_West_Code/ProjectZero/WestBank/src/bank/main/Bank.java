@@ -28,81 +28,30 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Bank {
-	private static Scanner input = new Scanner(System.in);
+	protected static Scanner input = new Scanner(System.in);
 	static Registration reg;
 	static HashMap<String, Object> data = new HashMap<String, Object>();
 	static HashMap<String, Object> login = new HashMap<String, Object>();
 	private static User user1;
 	static Customers customer1;
-	static Account account1;
+	static Account account1 = new Account();
 	private static Employees employee1;
 	private static Admins admin1;
-	static CustomerScreen customerView = new CustomerScreen();
+	private static HrDept hr1;
+	protected static CustomerScreen customerView = new CustomerScreen();
 
 	public static void main(String[] args) {
 		/*
-		 * Declarations in General
+		 * Declarations
 		 */
-		String[] txtFile = { "UAccounts.txt", "InProgress.txt" };
-		String txt;
-		Boolean isRead;
-		int number, countError = 0;
 
-		/*
-		 * Object Declarations
-		 */
-		HRDEPT hr1;
 		DataHub dh1;
-
-//		/*
-//		 * Hashmap filled with random data for testing purposes
-//		 */
-//		data.put("cwest5960", new Registration()); // example
-//		data.put("cwest5961", new Employees("", "", "")); // example
 
 		dh1 = new DataHub();
 		dh1.initializeTempData();
 
-		/*
-		 * 
-		 * Welcome Screen
-		 * 
-		 */
-
-		System.out.println("Welcome to West Bank\nPlease choose one of the "
-				+ "following:\nEnter 1 to login to your account.\nEnter 2 to create an account.\nEnter 3 to exit.");
-		number = UserInputValidation.isInRange(input);
-
-		switch (number) {
-		case 1:
-			login();
-			break;
-		case 2:
-			register();
-			break;
-		case 3:
-			return;
-
-		}
-		/*
-		 * 
-		 * User Switching
-		 * 
-		 */
-		switch (user1.getUser()) {
-		case "CUSTOMER":
-			customer1 = (Customers) data.get(user1.getId());
-			customerView.customerScreen();
-			break;
-		case "EMPLOYEE":
-
-			employeeOptions();
-			break;
-		case "ADMIN":
-			adminOptions();
-			break;
-
-		}
+		welcome();
+		userSwitch();
 
 	}
 	/*
@@ -115,7 +64,7 @@ public class Bank {
 		Boolean authenticate = false;
 		int attempts = 0;
 		do {
-			System.out.println("Enter ID: ");
+			System.out.println("\nEnter ID: ");
 			String id = input.next();
 			UserInputValidation.isLetterNum(id);
 
@@ -129,7 +78,7 @@ public class Bank {
 				if (user1.getPassWord().equals(passWord)) {
 					authenticate = true;
 
-					System.out.println("Logging in...");
+					System.out.println("\nLogging in...");
 
 				}
 			} else {
@@ -200,6 +149,41 @@ public class Bank {
 
 		return temp;
 
+	}
+
+	public static void userSwitch() {
+		switch (user1.getUser()) {
+		case "CUSTOMER":
+			customer1 = (Customers) data.get(user1.getId());
+			customerView.customerScreen();
+			break;
+		case "EMPLOYEE":
+
+			employeeOptions();
+			break;
+		case "ADMIN":
+			adminOptions();
+			break;
+
+		}
+	}
+
+	public static void welcome() {
+		int number;
+		System.out.println("Welcome to West Bank\nPlease choose one of the "
+				+ "following:\nEnter 1 to login to your account.\nEnter 2 to create an account.\nEnter 3 to exit.");
+		number = UserInputValidation.isInRange(input, 1, 3);
+
+		switch (number) {
+		case 1:
+			login();
+			break;
+		case 2:
+			register();
+			break;
+		case 3:
+			return;
+		}
 	}
 
 	/*

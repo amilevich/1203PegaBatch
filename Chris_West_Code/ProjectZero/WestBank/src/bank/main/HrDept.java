@@ -1,6 +1,6 @@
 package bank.main;
 
-public class HRDEPT {
+public class HrDept {
 	String id;
 	String passWord;
 	String typeUser;
