@@ -6,17 +6,17 @@ public class Customers extends User {
 	String lastName;
 	String address;
 	String city, state;
-	int phoneNum;
+	Long phoneNum;
 	int zip;
 	String accType;
 	Boolean newAccount;
 	String id;
 	String passWord;
-	double balance = 0;
+	double balance;
 
 	public Customers(String id, String passWord, String user, String firstName, String middleInitial, String lastName,
-			String address, String city, String state, int phoneNum, int zip, String accType, Boolean newAccount,
-			String id2, String passWord2, double balance) {
+			String address, String city, String state, Long phoneNum, int zip, String accType, Boolean newAccount
+			, double balance) {
 		super(id, passWord, user);
 		this.firstName = firstName;
 		this.middleInitial = middleInitial;
@@ -28,15 +28,13 @@ public class Customers extends User {
 		this.zip = zip;
 		this.accType = accType;
 		this.newAccount = newAccount;
-		id = id2;
-		passWord = passWord2;
 		this.balance = balance;
 	}
 
-	public Customers(String id, String passWord, String user) {
-		super(id, passWord, user);
-		// TODO Auto-generated constructor stub
-	}
+//	public Customers(String id, String passWord, String user) {
+//		super(id, passWord, user);
+//		// TODO Auto-generated constructor stub
+//	}
 
 	public String getFirstName() {
 		return firstName;
@@ -86,11 +84,11 @@ public class Customers extends User {
 		this.state = state;
 	}
 
-	public int getPhoneNum() {
+	public Long getPhoneNum() {
 		return phoneNum;
 	}
 
-	public void setPhoneNum(int phoneNum) {
+	public void setPhoneNum(Long phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 
