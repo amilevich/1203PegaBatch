@@ -1,6 +1,8 @@
 package com.project.files;
 
-public class Menu {
+import java.util.Scanner;
+
+public abstract class Menu {
 	// Class State
 	private String menuName = "Default";
 	private String menuMessage = "Default";
@@ -52,7 +54,7 @@ public class Menu {
 		this.menuOptions = menuOptions;
 	}
 
-	// Class Methods
+	// Concrete Class Methods
 	public void displayHeader() {
 		System.out.println(menuName);
 		// Print a line of = under each character of the menu name
@@ -77,4 +79,55 @@ public class Menu {
 			System.out.println("[" + (i + 1) + "] " + this.menuOptions[i]);
 		}
 	}
+
+	/**
+	 * Validates input for option menu to ensure int and within value range
+	 * 
+	 * @param userNum
+	 * @param maxOp
+	 * @return returns the validated input
+	 */
+
+	public int validateInput(Scanner userIn, int maxOp) {
+		int userNum = 0;
+		String errorMessage = "Please Enter Valid Input";
+		int minOp = 1;
+		do {
+			while (!userIn.hasNextInt()) {
+				userIn.next(); // Need this line to get next input or loops infinitely
+				System.out.println(errorMessage);
+			}
+			userNum = userIn.nextInt();
+			if ((userNum < minOp) || (userNum > maxOp)) {
+				System.out.println(errorMessage);
+			}
+		} while ((userNum < minOp) || (userNum > maxOp));
+		return userNum;
+	}
+
+	// Abstract Methods
+	/**
+	 * Displays the menu name, message, prompt and options
+	 * 
+	 * @return the number of options to use for later validation
+	 */
+
+	public abstract int menuDisplay();
+
+	/**
+	 * Switch statement which allows user to select desired option
+	 * 
+	 * @param userIn
+	 * @param userInput
+	 */
+
+	public abstract void menuInput(Scanner userIn, int userInput);
+
+	/**
+	 * Invokes display amd input methods and validates user input
+	 * 
+	 * @param userIn
+	 */
+
+	public abstract void menuDriver(Scanner userIn);
 }
