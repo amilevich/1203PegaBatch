@@ -9,16 +9,14 @@ public class Employee extends Person{
 		super(username, password, userType);
 		}
 		public static void viewPendingAccounts() {
-			for (int i = 0; i < Account.hashsize(); i++) {
-				if (Account.pullFromHash(i).isApproved()==false && Account.pullFromHash(i).isOpen()==true) {//pending accounts will have isApproved false and isOpen true
+			for (int i = 1; i <= Account.hashsize(); i++) {
+				Account a = Account.pullFromHash(i);
+				boolean x = a.isApproved();
+				boolean y =a.isOpen();
+				if (!x && y) {//pending accounts will have isApproved false and isOpen true
 					
-					System.out.println(Account.pullFromHash(i).getID() + ", "+ Account.pullFromHash(i).getAccType());//will show account number and account type
+					System.out.println(a.getID() + ", "+ a.getAccType());//will show account number and account type
 				}
-			}
-		}
-		static void viewCustomers() {
-			for (int i = 0; i < Customer.hashsize(); i++) {
-					System.out.println(Account.pullFromHash(i).getID());//pulls the directory of customers
 			}
 		}
 }

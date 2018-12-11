@@ -57,13 +57,15 @@ public class Person {
 					return false;
 		}
 		public static boolean checkUsername (String input) {
-			if (Person.pullFromHash(input).getUsername().equals(input))
+			Person p = Person.pullFromHash(input);
+			if (p.getUsername().equals(input))
 				return true;
 			else
 				return false;			
 		}
 		public static boolean checkPassword (String input) {
-			if (Person.pullFromHash(input).getPassword().equals(input))
+			Person p = Person.pullFromHash(input);
+			if (p.getPassword().equals(input))
 				return true;
 			else
 				return false;
@@ -72,7 +74,8 @@ public class Person {
 			personMap.put(username , toBeAdded);
 		}
 		public static Person pullFromHash(String username) {
-			return personMap.get(username);
+			Person p = personMap.get(username);
+			return p;
 		}
 		public static int hashsize() {
 			return personMap.size();

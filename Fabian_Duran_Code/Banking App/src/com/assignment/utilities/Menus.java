@@ -68,11 +68,7 @@ public class Menus {//this will also be a singleton, because main will only need
 		System.out.print("username: ");
 		userString = new String(input.inputString());
 		System.out.println();
-		//testing occured here
-		System.out.println(userString);
-		System.out.println(Customer.pullFromCHash(userString));
-		System.out.println("something");
-		//test ends here
+
 		if (userString.equals("esc")) {//priority check, if user wants to quit
 			Account.logout();
 		}
@@ -214,7 +210,7 @@ public class Menus {//this will also be a singleton, because main will only need
 		case 2://make a joint account
 			System.out.println("Please enter the user name of the other account holder: ");//joint accounts take two people
 			tempS = input.inputString();
-			if (Customer.checkCHash(tempS)) {
+			if (Customer.checkCPassword(tempS)) {
 				Account b = new Account();
 				b.setID();
 				b = new Account(b.getID(), true, false, 'j', 0.00);//gives Id number, isOpen:true, isApproved:false, joint account, balance of 0
@@ -238,7 +234,7 @@ public class Menus {//this will also be a singleton, because main will only need
 	public void accountActions(int userAccount) {//will show additional option for Bank Admin
 		tempD = Account.pullFromHash(userAccount).getBalance();
 		int tempA = 0;//used to for transfer method
-		System.out.println("Account: " + userAccount + "has a balance of $" + tempD +"\nWhat would you like to do?");
+		System.out.println("Account: " + userAccount + " has a balance of $" + tempD +"\nWhat would you like to do?");
 		System.out.println("1. Deposit");
 		System.out.println("2. Withdraw");
 		System.out.println("3. Transfer");
@@ -264,7 +260,7 @@ public class Menus {//this will also be a singleton, because main will only need
 					System.out.println("This account cannot be overdrawn!");
 				}else {
 					Account.pullFromHash(userAccount).withdraw(tempD);
-					System.out.println("Success! $" + tempD + "has been withdrawn from this account.");
+					System.out.println("Success! $" + tempD + " has been withdrawn from this account.");
 				}
 				accountActions(userAccount);
 			case 3:
@@ -279,7 +275,7 @@ public class Menus {//this will also be a singleton, because main will only need
 						System.out.println("This account cannot be overdrawn!");
 					}else {
 						Account.pullFromHash(userAccount).transfer(tempD, tempA);
-						System.out.println("Success! $" + tempD + "has been transferred to " + tempA +".");
+						System.out.println("Success! $" + tempD + " has been transferred to " + tempA +".");
 					}
 
 				}else {
@@ -334,9 +330,10 @@ public class Menus {//this will also be a singleton, because main will only need
 		Employee.viewPendingAccounts();
 		System.out.print("Enter account number to review account: ");
 		tempI = input.inputInt();
+		Account a = Account.pullFromHash(tempI);
 		if (tempI == 0)//this should be fine since, no account should have an ID of 0
 			Account.logout();
-		else if (tempI == Account.pullFromHash(tempI).getID() && Account.pullFromHash(tempI).isApproved==false)//ensure only unapproved accounts can be selected
+		else if (tempI == a.getID() && a.isApproved==false)//ensure only unapproved accounts can be selected
 			decidePendingAccount(tempI);
 		else {
 			System.out.println("Invalid number! Please a select an account number from this list.");
@@ -345,8 +342,9 @@ public class Menus {//this will also be a singleton, because main will only need
 	}
 	
 	public void decidePendingAccount(int userAccount) {//for approving accounts
+		Account a = Account.pullFromHash(userAccount);
 		System.out.println("Here is the account:");
-		System.out.println(Customer.pullFromIDHash(userAccount) + Account.pullFromHash(userAccount).toString());
+		System.out.println(Customer.pullFromIDHash(userAccount) + a.toString());
 		System.out.println("1. Approve");
 		System.out.println("2. Deny");
 		System.out.println("3. Logout");
@@ -356,12 +354,12 @@ public class Menus {//this will also be a singleton, because main will only need
 		switch(tempI) {
 		
 		case 1:
-			Account.pullFromHash(userAccount).setApproved(true);
+			a.setApproved(true);
 			System.out.println(userAccount + "is approved!");
 			viewPendingAccounts();
 		case 2:
-			Account.pullFromHash(userAccount).setApproved(false);
-			Account.pullFromHash(userAccount).setOpen(false);//to deny an account is kinda also to cancel an account, right?
+			a.setApproved(false);
+			a.setOpen(false);//to deny an account is kinda also to cancel an account, right?
 			System.out.println(userAccount + "is denied");
 			viewPendingAccounts();
 		case 3:

@@ -108,7 +108,8 @@ public class Account {
 		map.put(iD , toBeAdded);
 	}
 	public static Account pullFromHash(Integer iD) {
-		return map.get(iD);
+		Account a = map.get(iD);
+		return a;
 	}
 	public static int hashsize() {
 		return map.size();

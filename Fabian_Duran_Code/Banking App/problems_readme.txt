@@ -1,1 +1,1 @@
-The initial problem would that my username strings are not being referenced correctly in my code and because of this any input a user makes a creates a null pointer exception. I think would run properly once I'm actually able correctly initialize the strings in my hashmaps
+fixed the hashmaps, the only issue left would be in regards to accessing individual customer arraylist

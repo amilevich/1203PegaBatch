@@ -63,7 +63,7 @@ public class Customer extends Person {
 	}
 
 	public void viewCustomerAccounts(String username) {
-		System.out.println("Customer [Username: "+ username + "Account IDs: " );//meant to show the username and all account IDs and corresponding balances
+		//meant to show the username and all account IDs and corresponding balances
 		for (int i = 0; i < customerAccounts.size(); i++ ) {
 			if (Account.pullFromHash(customerAccounts.get(i)).isApproved()) {
 				System.out.println(customerAccounts.get(i) + " -> Balance: $" + Account.pullFromHash(customerAccounts.get(i)).getBalance());//shows specific Id and corresponding balance
@@ -85,28 +85,24 @@ public class Customer extends Person {
 		customerMap.put(username , toBeAdded);
 	}
 	public static Customer pullFromCHash(String username) {
-		return customerMap.get(username);
+		Customer n = customerMap.get(username);
+		return n;
 	}
 	public static int hashsize() {
 		return customerMap.size();
 	}
 	
-	public static boolean checkCHash (String input) {//returns true if the username already exists in the hashmap
-		if (customerMap.get(input).getUsername().equals(input))
-			return true;
-		else
-			return false;
-	}
-	
 	public static boolean checkCUsername (String input) {
-		String tempS = new String(Customer.pullFromHash(input).getUsername());
+		Customer n = customerMap.get(input);
+		String tempS = n.getUsername();
 		if (tempS.equals(input))
 			return true;
 		else
 			return false;			
 	}
 	public static boolean checkCPassword (String input) {
-		String tempS = Customer.pullFromHash(input).getPassword();
+		Customer n = customerMap.get(input);
+		String tempS = n.getPassword();
 		if (tempS.equals(input))
 			return true;
 		else
