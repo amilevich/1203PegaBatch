@@ -1,6 +1,5 @@
 package com.project.files.menus;
 
-
 import java.util.Scanner;
 
 import com.project.files.InputValidation;
@@ -41,13 +40,20 @@ public class CustomerDashMenu extends Menu {
 	public void menuInput(Scanner userIn, int userInput) {
 		switch (userInput) {
 		case 1:
-			LoginInput logInput=new LoginInput();
+			LoginInput logInput = new LoginInput();
 			logInput.inputDisplay();
 			break;
 		case 2:
-			ApplicationInput appInput=new ApplicationInput();
+			ApplicationInput appInput = new ApplicationInput();
 			appInput.inputDisplay();
 			appInput.getInput(userIn);
+			char acctType = InputValidation.acctTypeValidate(userIn);
+			if (acctType == 'J') {
+				System.out.println("Enter Information for Joint Holder");
+				appInput.getInput(userIn);
+			} else {
+				System.out.println("Application Awaiting Approval");
+			}
 			break;
 		case 3:
 			System.out.println("Status");

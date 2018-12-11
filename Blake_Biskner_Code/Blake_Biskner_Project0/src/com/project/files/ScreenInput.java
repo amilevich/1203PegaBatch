@@ -37,11 +37,4 @@ public class ScreenInput {
 		System.out.println(inputScreenPrompt);
 	}
 	
-//	public void promptInput(Scanner userIn,String[] inputScreenInput) {
-//		for(String prompt:inputScreenInput) {
-//			System.out.println("Please Input "+prompt);
-//			userIn.
-//			
-//		}
-//	}
 }
