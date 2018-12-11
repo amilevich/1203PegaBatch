@@ -11,6 +11,10 @@ import java.util.ArrayList;
 public class BankAccount {
 
 	// Amount of money in the bank account
+	// Note: there is no constraint on the amount to be 2 decimal places e.g.
+	// At the moment that makes this banking application general in nature (think cryptocurrency w/ small subdivisions ;) )
+	// This functionality can be implemented in the future 
+	// by leveraging 'Decimal Formats' in Java
 	private double balance = 0.0;
 	
 	// ArrayList of usernames referencing the owners of the account
