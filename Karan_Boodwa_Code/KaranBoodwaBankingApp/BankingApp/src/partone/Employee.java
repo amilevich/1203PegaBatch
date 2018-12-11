@@ -56,7 +56,7 @@ public class Employee extends User {
 				
 				// Lookup the users accounts and print the account information
 				if( userAuth.usernameExists(user) ) {
-					
+					System.out.println(userAuth.getCustomer(user).printAccs());
 				}
 				else {
 					System.out.println("Username not found");
@@ -139,6 +139,7 @@ public class Employee extends User {
 					case 2:
 						// removing the application from the list of pending applications acts as a denial
 						apps2.remove(appNum);
+						System.out.println("Account denied");
 						break;
 					// Return To Menu (aka do nothing)
 					case 3:

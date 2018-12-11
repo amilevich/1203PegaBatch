@@ -123,7 +123,7 @@ public class Admin extends Employee {
 		}
 		
 		// Package transaction and send it to transaction handler to handles
-		Transaction transaction = new Transaction(operation.WITHDRAW, accFrom, -1, getUsername());
+		Transaction transaction = new Transaction(operation.WITHDRAW, accFrom, -1, amount, getUsername());
 		boolean success = tHandler.processTransaction(transaction);
 		
 		if(success) {
@@ -157,7 +157,7 @@ public class Admin extends Employee {
 		}
 		
 		// Package transaction and send it to transaction handler to handles
-		Transaction transaction = new Transaction(operation.DEPOSIT, -1, accTo, getUsername());
+		Transaction transaction = new Transaction(operation.DEPOSIT, -1, accTo, amount, getUsername());
 		boolean success = tHandler.processTransaction(transaction);
 		
 		if(success) {
@@ -196,7 +196,7 @@ public class Admin extends Employee {
 		}
 		
 		// All checks passed, prepare transaction and send to transaction handler to process
-		Transaction transaction = new Transaction(operation.TRANSFER, accFrom, accTo, getUsername());
+		Transaction transaction = new Transaction(operation.TRANSFER, accFrom, accTo, amount, getUsername());
 		boolean success = tHandler.processTransaction(transaction);
 		
 		if(success) {

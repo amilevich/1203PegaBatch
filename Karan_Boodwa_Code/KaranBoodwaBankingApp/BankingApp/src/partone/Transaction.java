@@ -40,11 +40,12 @@ public class Transaction {
 		this.op = op;
 	}
 
-	public Transaction(operation op, int accFrom, int accTo, String username) {
+	public Transaction(operation op, int accFrom, int accTo, double amount, String username) {
 		this.op = op;
 		this.accFrom = accFrom;
 		this.accTo = accTo;
 		this.username = username;
+		this.amount = amount;
 	}
 	
 	public Transaction() {

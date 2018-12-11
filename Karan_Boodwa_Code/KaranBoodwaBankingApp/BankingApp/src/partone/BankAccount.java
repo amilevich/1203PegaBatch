@@ -18,6 +18,8 @@ public class BankAccount {
 	// This is also extensible to allow for >2 account holders 
 	private ArrayList<String> holders = new ArrayList<String>();
 	
+	private int accountNumber = 0;
+	
 	
 	// Getters and Setters:
 	
@@ -26,11 +28,14 @@ public class BankAccount {
 	}
 
 	public void deposit(double amount) {
-		this.balance += amount;
+		System.out.println(accountNumber);
+		System.out.println("Amount to deposit:" + amount);
+		this.balance = balance + amount;
+		System.out.println("Balance after deposit: " + balance);
 	}
 	
 	public void withdraw(double amount) {
-		this.balance -= amount;
+		this.balance = balance - amount;
 	}
 
 	public ArrayList<String> getHolders() {
@@ -45,9 +50,17 @@ public class BankAccount {
 		this.holders.add(holder);
 	}
 
+	public int getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(int accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
 	@Override
 	public String toString() {
-		return "BankAccount [balance=" + balance + ", holders=" + holders + "]";
+		return "BankAccount [Account Number= " + accountNumber + ", balance=" + balance + ", holders=" + holders + "]";
 	}
 	
 

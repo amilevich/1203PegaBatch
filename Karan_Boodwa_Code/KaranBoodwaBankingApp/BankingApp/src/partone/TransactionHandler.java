@@ -260,9 +260,12 @@ public class TransactionHandler {
 
 		BankAccount ba = new BankAccount();
 		ba.addHolder(username);
-
+		ba.setAccountNumber(accNumber);
 		bankAccounts.put(accNumber, ba);
-
+		
+		
+		// Checking to ensure the account was successfully hashed
+		System.out.println(bankAccounts.get(accNumber).toString());
 		return accNumber;
 	}
 
