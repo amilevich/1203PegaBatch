@@ -46,6 +46,7 @@ public class Bank {
 	protected static CustomerScreen customerView = new CustomerScreen();
 	protected static EmployeeScreen employeeView = new EmployeeScreen();
 	static DataHub dh1;
+	static HashMap<String, Object> processing = new HashMap<String, Object>();
 	private static Boolean jAcc = false, rAcc = false;
 
 	public static void main(String[] args) {
@@ -144,6 +145,8 @@ public class Bank {
 		System.out.println(id);
 		reg = new Registration(firstName, middleInitial, lastName, address, city, state, zip, phoneNum, rAcc, jAcc,
 				newAccount, id, passWord, "CUSTOMER");
+		addProcessing();
+		System.out.print("Processing Account....");
 	}
 
 	public static String generateID(String first, String last) { // Look at (3)
@@ -169,10 +172,10 @@ public class Bank {
 			break;
 		case "EMPLOYEE":
 
-			employeeOptions();
+			employeeView.employeeScreen();
 			break;
 		case "ADMIN":
-			adminOptions();
+			// adminOptions();
 			break;
 
 		}
@@ -190,6 +193,7 @@ public class Bank {
 			break;
 		case 2:
 			register();
+			login();
 			break;
 		case 3:
 			return;
@@ -212,22 +216,11 @@ public class Bank {
 		}
 	}
 
-	/*
-	 * 
-	 * Employee Screen its other related methods
-	 * 
-	 */
-	public static void employeeOptions() {
-
-	}
-
-	/*
-	 * 
-	 * Admin Screen its other related methods
-	 * 
-	 */
-	public static void adminOptions() {
-
+	public static void addProcessing() {
+		processing.put(reg.getId(),
+				new Registration(reg.getFirstName(), reg.getMiddleInitial(), reg.getLastName(), reg.getAddress(),
+						reg.getCity(), reg.getState(), reg.getZip(), reg.getPhoneNum(), reg.getrAcc(), reg.getjAcc(),
+						reg.getNewAccount(), reg.getId(), reg.getPassWord(), reg.getUserType()));
 	}
 
 }

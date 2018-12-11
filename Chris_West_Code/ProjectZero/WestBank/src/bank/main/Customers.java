@@ -8,20 +8,15 @@ public class Customers extends User {
 	String city, state;
 	Long phoneNum;
 	int zip;
-	String accType;
 	Boolean newAccount;
 	String id;
 	String passWord;
 	double balance;
 	Boolean rAcc, jAcc;
-	
-	
-
-
 
 	public Customers(String id, String passWord, String user, String firstName, String middleInitial, String lastName,
-			String address, String city, String state, Long phoneNum, Boolean rAcc, Boolean jAcc, int zip, String accType, Boolean newAccount
-			, double balance) {
+			String address, String city, String state, Long phoneNum, Boolean rAcc, Boolean jAcc, int zip,
+			Boolean newAccount, double balance) {
 		super(id, passWord, user);
 		this.firstName = firstName;
 		this.middleInitial = middleInitial;
@@ -31,7 +26,7 @@ public class Customers extends User {
 		this.state = state;
 		this.phoneNum = phoneNum;
 		this.zip = zip;
-		this.accType = accType;
+
 		this.newAccount = newAccount;
 		this.balance = balance;
 		this.rAcc = rAcc;
@@ -42,20 +37,18 @@ public class Customers extends User {
 		return rAcc;
 	}
 
-
 	public void setrAcc(Boolean rAcc) {
 		this.rAcc = rAcc;
 	}
-
 
 	public Boolean getjAcc() {
 		return jAcc;
 	}
 
-
 	public void setjAcc(Boolean jAcc) {
 		this.jAcc = jAcc;
 	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -120,14 +113,6 @@ public class Customers extends User {
 		this.zip = zip;
 	}
 
-	public String getAccType() {
-		return accType;
-	}
-
-	public void setAccType(String accType) {
-		this.accType = accType;
-	}
-
 	public Boolean getNewAccount() {
 		return newAccount;
 	}
@@ -163,10 +148,8 @@ public class Customers extends User {
 	@Override
 	public String toString() {
 		return "\n\nPersonal Information \nFirst: " + firstName + "\nMiddle: " + middleInitial + "\nLast: " + lastName
-				+ "\nAddress: " + address + "\nCity:" + city + "\nState: " + state + "\nZip: " + zip + "\nPhone number: "
-				+ phoneNum + ", accType=" + accType + "\nID: " + super.id + "";
+				+ "\nAddress: " + address + "\nCity:" + city + "\nState: " + state + "\nZip: " + zip
+				+ "\nPhone number: " + phoneNum + "\nID: " + super.id + "";
 	}
-	
-	
 
 }
