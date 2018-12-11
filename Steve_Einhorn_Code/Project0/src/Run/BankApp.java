@@ -367,7 +367,7 @@ public class BankApp {
 		String [] splitStrings = new String [3];
 		String choice = "";
 		
-		System.out.println(choice);
+		
 
 		while ( !choice.equals("9") ) {
 		
