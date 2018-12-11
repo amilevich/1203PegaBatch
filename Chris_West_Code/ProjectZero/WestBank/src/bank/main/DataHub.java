@@ -1,5 +1,7 @@
 package bank.main;
 
+import java.util.ArrayList;
+
 public class DataHub {
 
 	public void initializeTempData() {
@@ -9,9 +11,46 @@ public class DataHub {
 		Bank.data.put("cwest5960", new Registration()); // example
 		Bank.data.put("cwest5961", new Employees("", "", "")); // example
 		Bank.data.put("deast4530", new Customers("deast4530", "123", "CUSTOMER", "Daniel", "H", "Bilbo",
-				"300 Tooth Fairy Way", "Mass", "Effect", 4033451928l, 3452, "Saving", false, 100.0));
+				"300 Tooth Fairy Way", "Mass", "Effect", 4033451928l,true, true, 3452, "Saving", false, 100.0));
+		Bank.data.put("beast4530", new Customers("beast4530", "123", "CUSTOMER", "Daniel", "W", "Bilbo",
+				"300 Tooth Fairy Way", "Mass", "Effect", 4033451928l,true, true, 3452, "Saving", false, 200.0));
+		Bank.data.put("feast4530", new Customers("deast4530", "123", "CUSTOMER", "Daniel", "H", "Bilbo",
+				"300 Tooth Fairy Way", "Mass", "Effect", 4033451928l,true, true, 3452, "Saving", false, 50.0));
 		Bank.login.put("cwest5496", new User("cwest5496", "dangIt", "EMPLOYEE"));
 		Bank.login.put("deast4530", new User("deast4530", "123", "CUSTOMER"));
+		Bank.login.put("beast4530", new User("beast4530", "123", "CUSTOMER"));
+		Bank.login.put("feast4530", new User("feast4530", "123", "CUSTOMER"));
+	}
+
+	public void initialize() {
+		ArrayList <String> jAcc = new ArrayList<String>();
+		
+		jAcc.add("Beast4530");
+		jAcc.add("Feast4530");
+		
+		Bank.joint.put("cwest5496", jAcc);
+	}
+	public void addingJointAcc(String id) {
+		ArrayList <String> jAcc = new ArrayList<String>();
+		
+		if(Bank.joint.containsKey(Bank.customer1.getId())) {
+			jAcc = Bank.joint.get(Bank.customer1.getId());
+			jAcc.add(id);
+			Bank.joint.put(Bank.customer1.getId(), jAcc);
+			
+			if (Bank.joint.containsKey(id)) {
+				jAcc = Bank.joint.get(id);
+				jAcc.add(Bank.customer1.getId());
+				Bank.joint.put(id, jAcc);
+			}else {
+				jAcc = new ArrayList<String>();
+				jAcc.add(Bank.customer1.getId());
+				Bank.joint.put(id, jAcc);
+			}
+		
+		}
+		
+		
 	}
 
 }

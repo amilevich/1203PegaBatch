@@ -23,33 +23,41 @@
 
 package bank.main;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Bank {
+
 	protected static Scanner input = new Scanner(System.in);
 	static Registration reg;
 	static HashMap<String, Object> data = new HashMap<String, Object>();
 	static HashMap<String, Object> login = new HashMap<String, Object>();
+	static HashMap<String, ArrayList<String>> joint = new HashMap<String, ArrayList<String>>();
 	private static User user1;
-	static Customers customer1;
+	static Customers customer1, customer2;
 	static Account account1 = new Account();
 	private static Employees employee1;
 	private static Admins admin1;
 	private static HrDept hr1;
+	static ArrayList<String> joints = new ArrayList<String>();
+	protected static ArrayList<String> jointAccounts = new ArrayList<String>();
 	protected static CustomerScreen customerView = new CustomerScreen();
+	protected static EmployeeScreen employeeView = new EmployeeScreen();
+	static DataHub dh1;
+	private static Boolean jAcc = false, rAcc = false;
 
 	public static void main(String[] args) {
 		/*
 		 * Declarations
 		 */
 
-		DataHub dh1;
-
 		dh1 = new DataHub();
 		dh1.initializeTempData();
-
+		dh1.initialize();
+		// joints = joint.get("cwest5496");
+		// System.out.println(joints.get(0));
 		welcome();
 		userSwitch();
 
@@ -79,7 +87,9 @@ public class Bank {
 					authenticate = true;
 
 					System.out.println("\nLogging in...");
+					if (joint.containsKey(id)) {
 
+					}
 				}
 			} else {
 				attempts++;
@@ -87,7 +97,7 @@ public class Bank {
 		} while (!authenticate && attempts < 3);
 
 		if (!authenticate) {
-			System.out.println("Good-Bye!");
+			System.out.println("Log-ins failed!");
 			return;
 		}
 
@@ -127,12 +137,12 @@ public class Bank {
 		String passWord = input.next();
 		UserInputValidation.isLetterNumSpecial(passWord); // make this more functional later
 
-		String accType = "single"; // edit this later I forgot to add implementation in thought process prob. be
-									// switch-case
+		accType();
+
 		Boolean newAccount = true;
 		String id = generateID(firstName, lastName);
 		System.out.println(id);
-		reg = new Registration(firstName, middleInitial, lastName, address, city, state, zip, phoneNum, accType,
+		reg = new Registration(firstName, middleInitial, lastName, address, city, state, zip, phoneNum, rAcc, jAcc,
 				newAccount, id, passWord, "CUSTOMER");
 	}
 
@@ -183,6 +193,22 @@ public class Bank {
 			break;
 		case 3:
 			return;
+		}
+	}
+
+	public static void accType() {
+		int number;
+		System.out.println("\nEnter 1 to open a regular account.\nEnter 2 to create a joint account.");
+		number = UserInputValidation.isInRange(input, 1, 2);
+
+		switch (number) {
+		case 1:
+			rAcc = true;
+			break;
+		case 2:
+			jAcc = true;
+			break;
+
 		}
 	}
 

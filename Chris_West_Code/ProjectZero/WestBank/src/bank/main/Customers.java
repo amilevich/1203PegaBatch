@@ -13,9 +13,14 @@ public class Customers extends User {
 	String id;
 	String passWord;
 	double balance;
+	Boolean rAcc, jAcc;
 	
+	
+
+
+
 	public Customers(String id, String passWord, String user, String firstName, String middleInitial, String lastName,
-			String address, String city, String state, Long phoneNum, int zip, String accType, Boolean newAccount
+			String address, String city, String state, Long phoneNum, Boolean rAcc, Boolean jAcc, int zip, String accType, Boolean newAccount
 			, double balance) {
 		super(id, passWord, user);
 		this.firstName = firstName;
@@ -29,9 +34,28 @@ public class Customers extends User {
 		this.accType = accType;
 		this.newAccount = newAccount;
 		this.balance = balance;
+		this.rAcc = rAcc;
+		this.jAcc = jAcc;
+	}
+
+	public Boolean getrAcc() {
+		return rAcc;
 	}
 
 
+	public void setrAcc(Boolean rAcc) {
+		this.rAcc = rAcc;
+	}
+
+
+	public Boolean getjAcc() {
+		return jAcc;
+	}
+
+
+	public void setjAcc(Boolean jAcc) {
+		this.jAcc = jAcc;
+	}
 	public String getFirstName() {
 		return firstName;
 	}

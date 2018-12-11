@@ -8,14 +8,16 @@ public class Registration {
 	String city, state;
 	Long phoneNum;
 	int zip;
-	String accType;
 	Boolean newAccount;
 	String id;
 	String passWord;
 	String userType;
+	Boolean jAcc;
+	Boolean rAcc;
 
 	public Registration(String firstName, String middleInitial, String lastName, String address, String city,
-			String state, int zip, Long phoneNum, String accType, Boolean newAccount, String id, String passWord, String userType) {
+			String state, int zip, Long phoneNum, Boolean rAcc, Boolean jAcc, Boolean newAccount, String id,
+			String passWord, String userType) {
 		super();
 		this.firstName = firstName;
 		this.middleInitial = middleInitial;
@@ -25,16 +27,36 @@ public class Registration {
 		this.state = state;
 		this.phoneNum = phoneNum;
 		this.zip = zip;
-		this.accType = accType;
 		this.newAccount = newAccount;
 		this.id = id;
 		this.passWord = passWord;
 		this.userType = userType;
+		this.rAcc = rAcc;
+		this.jAcc = jAcc;
 	}
 
 	public Registration() {
-
+		
 	}
+	public Boolean getrAcc() {
+		return rAcc;
+	}
+
+
+	public void setrAcc(Boolean rAcc) {
+		this.rAcc = rAcc;
+	}
+
+
+	public Boolean getjAcc() {
+		return jAcc;
+	}
+
+
+	public void setjAcc(Boolean jAcc) {
+		this.jAcc = jAcc;
+	}
+
 
 	public String getFirstName() {
 		return firstName;
@@ -100,14 +122,6 @@ public class Registration {
 		this.zip = zip;
 	}
 
-	public String getAccType() {
-		return accType;
-	}
-
-	public void setAccType(String accType) {
-		this.accType = accType;
-	}
-
 	public Boolean getNewAccount() {
 		return newAccount;
 	}
@@ -139,7 +153,5 @@ public class Registration {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-
-	
 
 }
