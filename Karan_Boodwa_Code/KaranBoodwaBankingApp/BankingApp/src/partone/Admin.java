@@ -29,7 +29,7 @@ public class Admin extends Employee {
 		while(returnToMenu) {
 			System.out.println("1. Admin Operations");
 			System.out.println("2. Employee Operations");
-			System.out.println("3. Quit");
+			System.out.println("3. Logout");
 			
 			int choice = in.getInt();
 			

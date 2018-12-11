@@ -178,8 +178,8 @@ public class UserAuthorizer {
 		 */
 
 		if (user != null) {
-			String userType = user.getClass().getName();
-			if (userType.equals("partone.Employee") || userType.equals("partone.Admin")) {
+			
+			if (user.getClass() == Employee.class || user.getClass() == Admin.class) {
 				// User is authorized to make this method call
 				printCustomers();
 				return;
@@ -199,7 +199,7 @@ public class UserAuthorizer {
 	 */
 	public Customer getCustomer(String username) {
 		if (users.containsKey(username)) {
-			if (users.get(username).getClass().getName().equals("partone.Customer")) {
+			if (users.get(username).getClass() == Customer.class) {
 				return (Customer) users.get(username);
 			} else {
 				return null;
@@ -217,7 +217,7 @@ public class UserAuthorizer {
 
 		// Loop through all the users in the hashmap, printing all of the customers
 		for (User user : users.values()) {
-			if (user.getClass().getName().equals("partone.Customer")) {
+			if (user.getClass() == Customer.class) {
 				System.out.println(user.toString());
 			}
 		}
