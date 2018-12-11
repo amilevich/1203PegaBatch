@@ -94,6 +94,7 @@ public class CustomerScreen {
 		} else {
 			System.out.println("You don't have sufficient funds!");
 		}
+		Bank.dh1.updateAccounts();
 		moneyScreen();
 	}
 
@@ -111,6 +112,7 @@ public class CustomerScreen {
 		} else {
 			System.out.println("You entered either a zero or negative number. No nothing occurred.");
 		}
+		Bank.dh1.updateAccounts();
 		moneyScreen();
 
 	}
@@ -134,6 +136,8 @@ public class CustomerScreen {
 		} else {
 			System.out.println("\nYou entered either a zero or negative number. Wrong account name. Or you don't have enough money. No nothing occurred.");
 		}
+		Bank.dh1.updateAccounts();
+		Bank.dh1.updateAccounts2();
 		moneyScreen();
 	}
 

@@ -31,7 +31,7 @@ import java.util.Scanner;
 public class Bank {
 
 	protected static Scanner input = new Scanner(System.in);
-	static Registration reg;
+	static Registration reg= new Registration(),reg2 = new Registration();
 	static HashMap<String, Object> data = new HashMap<String, Object>();
 	static HashMap<String, Object> login = new HashMap<String, Object>();
 	static HashMap<String, ArrayList<String>> joint = new HashMap<String, ArrayList<String>>();
@@ -110,36 +110,36 @@ public class Bank {
 		System.out.println("Please enter your first name, middle initial, and last name: ");
 		String firstName = input.next();
 		UserInputValidation.isLetters(firstName);
-
+		Bank.reg.setFirstName(firstName);
 		String middleInitial = input.next();
 		UserInputValidation.isALetter(middleInitial);
-
+		Bank.reg.setMiddleInitial(middleInitial);
 		String lastName = input.next();
 		UserInputValidation.isLetters(lastName);
-
+Bank.reg.setLastName(lastName);
 		System.out.println("Please enter your address: ");
 		input.nextLine();
 		String address = input.nextLine();
 		UserInputValidation.isLetterNumLine(address);
-
+Bank.reg.setAddress(address);
 		System.out.println("Please enter your city, state, zip: ");
 		String city = input.next();
 		UserInputValidation.isLetters(city);
-
+Bank.reg.setCity(city);
 		String state = input.next();
 		UserInputValidation.isLetters(state);
-
+		Bank.reg.setState(state);
 		input = UserInputValidation.isInt(input);
 		int zip = input.nextInt();
-
+		Bank.reg.setZip(zip);
 		System.out.println("Please enter your phone number: ");
 		input = UserInputValidation.isLong(input);
 		Long phoneNum = input.nextLong();
-
+		Bank.reg.setPhoneNum(phoneNum);
 		System.out.println("Please enter your passWord(Letters, numbers, special characters(%^!@): ");
 		String passWord = input.next();
 		UserInputValidation.isLetterNumSpecial(passWord); // make this more functional later
-
+		Bank.reg.setPassWord(passWord);
 		accType();
 
 		Boolean newAccount = true;
@@ -147,7 +147,7 @@ public class Bank {
 		System.out.println(id);
 		reg = new Registration(firstName, middleInitial, lastName, address, city, state, zip, phoneNum, rAcc, jAcc,
 				newAccount, id, passWord, "CUSTOMER");
-		addProcessing();
+		dh1.addProcessing();
 		System.out.print("Processing Account....");
 	}
 
@@ -219,11 +219,11 @@ public class Bank {
 		}
 	}
 
-	public static void addProcessing() {
-		processing.put(reg.getId(),
-				new Registration(reg.getFirstName(), reg.getMiddleInitial(), reg.getLastName(), reg.getAddress(),
-						reg.getCity(), reg.getState(), reg.getZip(), reg.getPhoneNum(), reg.getrAcc(), reg.getjAcc(),
-						reg.getNewAccount(), reg.getId(), reg.getPassWord(), reg.getUserType()));
-	}
+//	public static void addProcessing() {
+//		processing.put(reg.getId(),
+//				new Registration(reg.getFirstName(), reg.getMiddleInitial(), reg.getLastName(), reg.getAddress(),
+//						reg.getCity(), reg.getState(), reg.getZip(), reg.getPhoneNum(), reg.getrAcc(), reg.getjAcc(),
+//						reg.getNewAccount(), reg.getId(), reg.getPassWord(), reg.getUserType()));
+//	}
 
 }

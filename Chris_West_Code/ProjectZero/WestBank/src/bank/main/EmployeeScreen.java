@@ -34,13 +34,13 @@ public class EmployeeScreen {
 		}
 
 		if (Bank.processing.containsKey(id)) {
-			Bank.reg = (Registration) Bank.processing.get(id);
-			Bank.reg.toString();
+			Bank.reg2 = (Registration) Bank.processing.get(id);
+			Bank.reg2.toString();
 			System.out.println("Type 1 to Approve. Type 2 to Deny");
 			int number = UserInputValidation.isInRange(Bank.input, 1, 2);
 
 			if (number == 1) {
-				Bank.reg.setNewAccount(true);
+				Bank.reg2.setNewAccount(false);
 				Bank.dh1.accountApproved(id);
 			}
 		}

@@ -54,10 +54,24 @@ public class DataHub {
 		
 	}
 	public void accountApproved(String id) {
-		Bank.reg = (Registration) Bank.processing.get(id);
-		Bank.data.put(Bank.reg.getId(), new Customers(Bank.reg.getId(), Bank.reg.getPassWord(), "CUSTOMER", Bank.reg.getFirstName(), Bank.reg.getMiddleInitial(), Bank.reg.getLastName(),
-				Bank.reg.getAddress(), Bank.reg.getCity(), Bank.reg.getState(), Bank.reg.getPhoneNum(),Bank.reg.getrAcc(), Bank.reg.getjAcc(), Bank.reg.getZip(), true, 0));
-		Bank.login.put(Bank.reg.getId(), new User(Bank.reg.getId(), Bank.reg.getPassWord(), "CUSTOMER"));
+		Bank.reg2 = (Registration) Bank.processing.get(id);
+		Bank.data.put(Bank.reg2.getId(), new Customers(Bank.reg2.getId(), Bank.reg2.getPassWord(), "CUSTOMER", Bank.reg2.getFirstName(), Bank.reg2.getMiddleInitial(), Bank.reg2.getLastName(),
+				Bank.reg2.getAddress(), Bank.reg2.getCity(), Bank.reg2.getState(), Bank.reg2.getPhoneNum(),Bank.reg2.getrAcc(), Bank.reg2.getjAcc(), Bank.reg2.getZip(), true, 0));
+		Bank.login.put(Bank.reg2.getId(), new User(Bank.reg2.getId(), Bank.reg2.getPassWord(), "CUSTOMER"));
+	}
+	public void updateAccounts() {
+		Bank.data.put(Bank.customer1.getId(), new Customers(Bank.customer1.getId(), Bank.customer1.getPassWord(), "CUSTOMER", Bank.customer1.getFirstName(), Bank.customer1.getMiddleInitial(), Bank.customer1.getLastName(),
+				Bank.customer1.getAddress(), Bank.customer1.getCity(), Bank.customer1.getState(), Bank.customer1.getPhoneNum(),Bank.customer1.getrAcc(), Bank.customer1.getjAcc(), Bank.customer1.getZip(), Bank.customer1.getNewAccount(), Bank.customer1.getBalance()));
+	}
+	public void updateAccounts2() {
+		Bank.data.put(Bank.customer2.getId(), new Customers(Bank.customer2.getId(), Bank.customer2.getPassWord(), "CUSTOMER", Bank.customer2.getFirstName(), Bank.customer2.getMiddleInitial(), Bank.customer2.getLastName(),
+				Bank.customer2.getAddress(), Bank.customer2.getCity(), Bank.customer2.getState(), Bank.customer2.getPhoneNum(),Bank.customer2.getrAcc(), Bank.customer2.getjAcc(), Bank.customer2.getZip(), Bank.customer2.getNewAccount(), Bank.customer1.getBalance()));
+	}
+	public void addProcessing() {
+		Bank.processing.put(Bank.reg.getId(),
+				new Registration(Bank.reg.getFirstName(), Bank.reg.getMiddleInitial(), Bank.reg.getLastName(), Bank.reg.getAddress(),
+						Bank.reg.getCity(), Bank.reg.getState(), Bank.reg.getZip(), Bank.reg.getPhoneNum(), Bank.reg.getrAcc(), Bank.reg.getjAcc(),
+						Bank.reg.getNewAccount(), Bank.reg.getId(), Bank.reg.getPassWord(), Bank.reg.getUserType()));
 	}
 
 }
