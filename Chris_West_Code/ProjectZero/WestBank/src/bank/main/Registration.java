@@ -1,6 +1,14 @@
 package bank.main;
 
 public class Registration {
+	@Override
+	public String toString() {
+		return "Registration [firstName=" + firstName + ", middleInitial=" + middleInitial + ", lastName=" + lastName
+				+ ", address=" + address + ", city=" + city + ", state=" + state + ", phoneNum=" + phoneNum + ", zip="
+				+ zip + ", newAccount=" + newAccount + ", id=" + id + ", userType=" + userType + ", jAcc=" + jAcc
+				+ ", rAcc=" + rAcc + "]";
+	}
+
 	String firstName;
 	String middleInitial;
 	String lastName;

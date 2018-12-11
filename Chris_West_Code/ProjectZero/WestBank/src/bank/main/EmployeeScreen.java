@@ -16,6 +16,7 @@ public class EmployeeScreen {
 		
 		if (Bank.processing.containsKey(id)) {
 			Bank.reg = (Registration) Bank.processing.get(id);
+			Bank.reg.toString();
 			System.out.println("Type 1 to Approve. Type 2 to Deny");
 			int number = UserInputValidation.isInRange(Bank.input, 1, 2);
 			
