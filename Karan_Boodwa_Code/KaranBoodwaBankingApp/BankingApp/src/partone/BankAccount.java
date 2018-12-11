@@ -28,10 +28,7 @@ public class BankAccount {
 	}
 
 	public void deposit(double amount) {
-		System.out.println(accountNumber);
-		System.out.println("Amount to deposit:" + amount);
 		this.balance = balance + amount;
-		System.out.println("Balance after deposit: " + balance);
 	}
 	
 	public void withdraw(double amount) {

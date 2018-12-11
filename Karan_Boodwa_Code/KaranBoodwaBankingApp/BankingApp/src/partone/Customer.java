@@ -232,7 +232,7 @@ public class Customer extends User {
 				System.out.println("Enter amount to withdraw");
 				Double amount = in.getDouble();
 
-				if (amount < 0 || amount < tHandler.getBalance(accountNumber)) {
+				if (amount < 0 || amount > tHandler.getBalance(accountNumber)) {
 					System.out.println("Error. Invalid withdrawal amount entered.");
 				}
 

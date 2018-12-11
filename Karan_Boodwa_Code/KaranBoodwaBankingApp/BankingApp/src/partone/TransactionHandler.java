@@ -265,7 +265,7 @@ public class TransactionHandler {
 		
 		
 		// Checking to ensure the account was successfully hashed
-		System.out.println(bankAccounts.get(accNumber).toString());
+		//System.out.println(bankAccounts.get(accNumber).toString());
 		return accNumber;
 	}
 
