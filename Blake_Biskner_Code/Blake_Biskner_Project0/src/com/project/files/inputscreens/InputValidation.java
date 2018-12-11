@@ -3,6 +3,8 @@ package com.project.files.inputscreens;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import com.project.files.Driver;
+
 /**
  * Utility Class for Input Validation (cannot be instantiated= like Math)
  * 
@@ -42,6 +44,20 @@ public class InputValidation {
 			}
 		} while ((userNum < minOp) || (userNum > maxOp));
 		return userNum;
+	}
+	
+	public static String existUserNameValidate(Scanner userIn) {
+		String userStr;
+		String inputSyntax="Please Enter UserName";
+		userStr=confirmDriver(userIn,inputSyntax);
+		return userStr;
+	}
+	
+	public static String existPasswordValidate(Scanner userIn) {
+		String userStr;
+		String inputSyntax="Please Enter Password";
+		userStr=confirmDriver(userIn,inputSyntax);
+		return userStr;
 	}
 
 	/**
@@ -149,9 +165,14 @@ public class InputValidation {
 		String userStr = "";
 		String inputSyntax = "Please Enter Username Consisting of Letters and Digits ONLY";
 		String uniqueMessage = "Username Already Taken";
-		boolean nameTaken = false;
+		boolean nameTaken;
 		do {
 			userStr = confirmDriver(userIn, inputSyntax);
+			if(Driver.customers.containsKey(userStr)) {
+				nameTaken=true;
+			}else {
+				nameTaken=false;
+			}
 			if (nameTaken == true) {
 				System.out.println(uniqueMessage);
 			} else if (numLetterTest(userStr) != true) {

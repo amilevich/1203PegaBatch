@@ -12,7 +12,6 @@ public class Customer {
 	
 	// Personal Information
 	private String name[];
-	private int birthDate;
 	private int age;
 	private String socialSecurity;
 	private String username;
@@ -22,7 +21,6 @@ public class Customer {
 	// Account Information
 	private char acctStatus;
 	private int acctNum; // Unique for each account
-	private boolean firstTransaction;
 	private double balance;
 
 	// Class Behavior
@@ -31,24 +29,29 @@ public class Customer {
 	public Customer() {
 		this.balance = 0;
 		this.acctStatus = 'R'; // Review
-		this.firstTransaction = true;
 		this.acctNum=FileRead.getAcctNum();
 		FileWrite.incrementAcctNum();
 	}
 	public Customer(int acctNum) { // Use for joint so only way to have same account number
 		this.balance=0;
 		this.acctStatus='R';
-		this.firstTransaction=true;
 		this.acctNum=acctNum; // Notice does not increment like the no argument constructor
 		this.acctType='J';
+	}
+	public Customer(String username,int acctNum,String[] name,int age,String socialSecurity,String password, char acctType,double balance,char acctStatus) {
+		this.username=username;
+		this.name=name;
+		this.age=age;
+		this.socialSecurity=socialSecurity;
+		this.password=password;
+		this.acctType=acctType;
+		this.balance=balance;
+		this.acctStatus=acctStatus;
 	}
 
 	// Getters and Setters
 	public String[] getName() {
 		return name;
-	}
-	public int getBirthDate() {
-		return birthDate;
 	}
 	public int getAge() {
 		return age;
@@ -65,8 +68,8 @@ public class Customer {
 	public char getAcctStatus() {
 		return acctStatus;
 	}
-	public boolean getFirstTransaction() {
-		return firstTransaction;
+	public int getAcctNum() {
+		return acctNum;
 	}
 	public double getBalance() {
 		return balance;
@@ -74,9 +77,6 @@ public class Customer {
 	
 	public void setName(String[] name) {
 		this.name=name;
-	}
-	public void setBirthDate(int birthDate) {
-		this.birthDate=birthDate;
 	}
 	public void setAge(int age) {
 		this.age=age;
@@ -96,15 +96,9 @@ public class Customer {
 	public void setAcctStatus(char acctStatus) {
 		this.acctStatus=acctStatus;
 	}
-	public void setFirstTransaction(boolean firstTransaction) {
-		this.firstTransaction=firstTransaction;
-	}
-	public void setAcctNum() {
-		
-	}
 	
 	// ToString Method
 	public String toString() {
-		return (username+":"+acctNum+":"+name[0]+":"+name[1]+":"+age+":"+socialSecurity+":"+password+":"+acctType+"\n");
+		return (username+":"+acctNum+":"+name[0]+":"+name[1]+":"+age+":"+socialSecurity+":"+password+":"+acctType+":"+balance+":"+acctStatus+"\n");
 	}
 }

@@ -10,7 +10,7 @@ public class CustomerDashMenu extends Menu {
 	public CustomerDashMenu() {
 		String name = "Customer Dashboard";
 		String message = "Welcome to the Customer Dashboard";
-		String options[] = { "Sign In", "Apply", "Check Status", "Back to Homepage", "Exit Program" };
+		String options[] = { "Sign In", "Apply", "Back to Homepage", "Exit Program" };
 		setName(name);
 		setMessage(message);
 		setOptions(options);
@@ -42,6 +42,7 @@ public class CustomerDashMenu extends Menu {
 		case 1:
 			LoginInput logInput = new LoginInput();
 			logInput.inputDisplay();
+			logInput.getInput(userIn);
 			break;
 		case 2:
 			ApplicationInput appInput = new ApplicationInput();
@@ -55,24 +56,25 @@ public class CustomerDashMenu extends Menu {
 			customer.setAcctType(acctType);
 			// Account Type Flow
 			if(customer.getAcctType()=='J') {
+				FileWrite.writeToCustomerDataBase(customer);
+				Driver.pullCustomerMap();
+				// Must make new copy of map with first joint holder
+				// Else both holders may have same username
 				System.out.println("Enter Information for Joint Holder");
-				Customer jointCust=new Customer(customer.getAcctType()); // Instantiate with joint account
+				Customer jointCust=new Customer(customer.getAcctNum()); // Instantiate with joint account
 				appInput.getInput(userIn, jointCust);
-				FileWrite.writeToPending(customer);
-				FileWrite.writeToPending(jointCust);
+				FileWrite.writeToCustomerDataBase(jointCust);
 			}else {
 				System.out.println("Application Awaiting Approval");
-				FileWrite.writeToPending(customer);
+				FileWrite.writeToCustomerDataBase(customer);
 			}
 			menuDriver(userIn);
-		case 3:
-			System.out.println("Status");
 			break;
-		case 4:
+		case 3:
 			HomepageMenu menu = new HomepageMenu();
 			menu.menuDriver(userIn);
 			break;
-		case 5:
+		case 4:
 			break;
 		}
 	}

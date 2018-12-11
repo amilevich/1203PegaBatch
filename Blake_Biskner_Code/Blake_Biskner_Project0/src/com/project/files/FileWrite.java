@@ -7,8 +7,8 @@ import java.io.IOException;
 
 public class FileWrite implements FileIO {
 
-	public static void writeToPending(Customer customer) {
-		File file = new File(pendingDataBase);
+	public static void writeToCustomerDataBase(Customer customer) {
+		File file = new File(customerDataBase);
 		try (BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile(), true))) {
 			// Use getAbsolute to overwrite
 			bw.append(customer.toString());
