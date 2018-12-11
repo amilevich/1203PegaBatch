@@ -30,7 +30,8 @@ public class FileRead implements FileIO {
 			String[] dataArray;
 			String username;
 			int acctNum;
-			String name[]=new String[2];;
+			String firstName;
+			String lastName;
 			int age;
 			String socialSecurity;
 			String password;
@@ -41,8 +42,8 @@ public class FileRead implements FileIO {
 				dataArray = userData.split(":");
 				username=dataArray[0];
 				acctNum=Integer.valueOf(dataArray[1]);
-				name[0]=dataArray[2];
-				name[1]=dataArray[3];
+				firstName=dataArray[2];
+				lastName=dataArray[3];
 				age=Integer.valueOf(dataArray[4]);
 				socialSecurity=dataArray[5];
 				password=dataArray[6];
@@ -50,10 +51,11 @@ public class FileRead implements FileIO {
 				balance=Double.valueOf(dataArray[8]);
 				status=dataArray[9].charAt(0);
 				
+				
 				// Input in order (username,acctNum, name[first,last],age,social security,password,acctType,balance,status)
-				Customer customer=new Customer(username,acctNum, name,age,socialSecurity,password,acctType,balance,status);
-				//System.out.println(customer);
+				Customer customer=new Customer(username,acctNum, firstName,lastName,age,socialSecurity,password,acctType,balance,status);
 				map.put(username, customer);
+				//System.out.println(customer);
 			}
 			return map;
 		} catch (IOException e) {

@@ -3,6 +3,7 @@ package com.project.files.inputscreens;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import com.project.files.Customer;
 import com.project.files.Driver;
 
 /**
@@ -220,7 +221,24 @@ public class InputValidation {
 			return 'J'; // Returns J for joint
 		}
 	}
-
+	public static double moneyValidate(Scanner userIn) {
+		String userStr="";
+		String inputSyntax="Please Enter a Positive Dollar Amount";
+		userStr=confirmDriver(userIn,inputSyntax);
+		return  Double.valueOf(userStr);
+	}
+	public static String transferValidate(Scanner userIn) {
+		// Variable Declaration and Initialization
+		String userStr = "";
+		String inputSyntax = "Please Enter a Valid Username";
+		do {
+			userStr = confirmDriver(userIn, inputSyntax);
+			if (Driver.customers.containsKey(userStr) != true) {
+				System.out.println(ERROR_MESSAGE);
+			}
+		} while (Driver.customers.containsKey(userStr)!=true);
+		return userStr;
+	}
 	/**
 	 * Method to echo user input and ensure their data is what they intended
 	 * 
@@ -306,4 +324,26 @@ public class InputValidation {
 		}
 		return isNumLet;
 	}
+	
+//	private static boolean moneyTest(String userStr) {
+//		boolean isMoney=true;
+//		System.out.println(userStr);
+//		String num[]=userStr.split(".");
+//		System.out.println(num[0]);
+//		
+//		if((num.length>2)||(num.length<1)) {
+//			System.err.println("3");
+//			isMoney=false;
+//			return isMoney;
+//		}
+//		for(int i=0;i<num.length;i++) {
+//			isMoney=intTest(num[i]); // False if not digits
+//			System.out.println("hi1");
+//		}
+//		if(num[1].length()!=2) {
+//			isMoney=false;
+//			System.out.println("hi2");
+//		}
+//		return isMoney;
+//	}
 }

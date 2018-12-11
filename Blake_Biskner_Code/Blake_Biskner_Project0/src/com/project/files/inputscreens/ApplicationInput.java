@@ -28,7 +28,8 @@ public class ApplicationInput extends ScreenInput {
 			switch (i) { // Provides distinct functionality (ie input validation) for each type of input
 			case 0: // Name
 				name = InputValidation.nameValidate(userIn);
-				newCust.setName(name);
+				newCust.setFirstName(name[0]);
+				newCust.setLastName(name[1]);
 				break;
 			case 1: // Year of birth
 				userAge = InputValidation.ageValidate(userIn);

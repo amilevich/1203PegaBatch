@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.project.files.Customer;
 import com.project.files.Driver;
+import com.project.files.menus.CustomerAccountMenu;
 
 public class LoginInput extends ScreenInput {
 
@@ -35,8 +36,12 @@ public class LoginInput extends ScreenInput {
 		}
 		if (Driver.customers.containsKey(username)) {
 			Customer customer = Driver.customers.get(username);
+			System.out.println(customer);
+			
+			System.out.println(customer);
 			if (customer.getPassword().equals(password)) {
-				System.out.println("Customer");
+				CustomerAccountMenu custAcctMenu=new CustomerAccountMenu(customer);
+				custAcctMenu.menuDriver(userIn,customer);
 			} else {
 				System.out.println("You Are a Customer but Your Password is Incorrect");
 			}
