@@ -244,6 +244,7 @@ public class TransactionHandler {
 			acc2.deposit(amount);
 			// Add transaction to transaction history
 			transactionHistory.add(transaction);
+			return true;
 		}
 
 		return false;
