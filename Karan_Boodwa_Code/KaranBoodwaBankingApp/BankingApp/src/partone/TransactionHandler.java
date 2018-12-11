@@ -27,7 +27,8 @@ public class TransactionHandler {
 	/*
 	 * variable used in account number generation to begin, account numbers can
 	 * range from 0-10,000,000 if there are too many accounts this range can be
-	 * increased
+	 * increased.
+	 * Can also be dynamically changed based on needs through code
 	 */
 	private static int accountRange = 10000000;
 
@@ -322,7 +323,58 @@ public class TransactionHandler {
 	public double getBalance(int accNum) {
 		return bankAccounts.containsKey(accNum) ? (bankAccounts.get(accNum)).getBalance() : -1;
 	}
+	
+	
+	/**
+	 * cancelAccount(int)
+	 * cancels the bank account with the provided account number
+	 * @param account account number to cancel
+	 */
+	boolean cancelAccount(int account, String username) {
+		
+		// Return false if the account doesn't exist
+		if(!accountExists(account)) {
+			return false;
+		}
+		
+		
+		// First check user credentials:
+		if (userAuth.isAdmin(username)) {
+			Input in = Input.getInputSingleton();
+			System.out.println("Please enter your password to authorize account cancelation");
+			String password = in.get();
 
+			// Password is incorrect. Decline cancellation
+			if (userAuth.login(username, password) == null) {
+				System.out.println("INVALID PASSWORD");
+				return false;
+			} else {
+				// Admin authenticated, proceed with cancellation
+				// get account in question:
+				BankAccount acc = bankAccounts.get(account);
+				
+				// Remove account from every holder's list of accounts
+				for(String holder : acc.getHolders()) {
+					if(userAuth.usernameExists(holder)) {
+						Customer cust = userAuth.getCustomer(holder);
+						cust.removeAccount(account);
+					}
+				}
+				// Remove bank account from hashmap
+				bankAccounts.remove(account);
+				
+				return true;
+				
+				
+			}
+		} else {
+			return false;
+		}
+		
+	}
+	
+	
+	
 	public static void main(String[] args) {
 
 	}

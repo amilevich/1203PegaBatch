@@ -10,8 +10,8 @@ package partone;
  */
 public abstract class User {
 
-	private String username = "";
-	private String password = "";
+	protected String username = "";
+	protected String password = "";
 	
 
 	// Reference to TransactionHandler to actually process any user transactions

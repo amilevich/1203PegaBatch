@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Input {
 	private static Input in = new Input();
 	
-	private static Scanner sc = new Scanner(System.in);
+	private static final Scanner sc = new Scanner(System.in);
 
 	private Input() {
 		// Private Constructor for singleton class

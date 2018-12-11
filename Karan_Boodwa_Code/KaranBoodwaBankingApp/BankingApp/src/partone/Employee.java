@@ -13,7 +13,6 @@ public class Employee extends User {
 	// UserAuthorizer Singleton so the Employees can access user information
 	private UserAuthorizer userAuth = UserAuthorizer.getUserAuthSingleton();
 	
-	private TransactionHandler tHandler = TransactionHandler.getTHandler();
 
 	public Employee() {
 		super();
