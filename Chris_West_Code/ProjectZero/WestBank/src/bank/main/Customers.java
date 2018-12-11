@@ -26,7 +26,7 @@ public class Customers extends User {
 		this.state = state;
 		this.phoneNum = phoneNum;
 		this.zip = zip;
-
+		this.id = id;
 		this.newAccount = newAccount;
 		this.balance = balance;
 		this.rAcc = rAcc;

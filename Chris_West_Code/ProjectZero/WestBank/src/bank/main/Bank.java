@@ -45,6 +45,8 @@ public class Bank {
 	protected static ArrayList<String> jointAccounts = new ArrayList<String>();
 	protected static CustomerScreen customerView = new CustomerScreen();
 	protected static EmployeeScreen employeeView = new EmployeeScreen();
+	protected static AdminScreen adminView = new AdminScreen();
+
 	static DataHub dh1;
 	static HashMap<String, Object> processing = new HashMap<String, Object>();
 	private static Boolean jAcc = false, rAcc = false;
@@ -175,6 +177,7 @@ public class Bank {
 			employeeView.employeeScreen();
 			break;
 		case "ADMIN":
+			adminView.adminScreen();
 			// adminOptions();
 			break;
 

@@ -20,6 +20,7 @@ public class DataHub {
 		Bank.login.put("deast4530", new User("deast4530", "123", "CUSTOMER"));
 		Bank.login.put("beast4530", new User("beast4530", "123", "CUSTOMER"));
 		Bank.login.put("feast4530", new User("feast4530", "123", "CUSTOMER"));
+		Bank.login.put("admin", new User("admin", "123", "ADMIN"));
 	}
 
 	public void initialize() {
