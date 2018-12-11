@@ -2,7 +2,7 @@ package com.project.files.menus;
 
 import java.util.Scanner;
 
-import com.project.files.InputValidation;
+import com.project.files.inputscreens.InputValidation;
 
 public class AboutMenu extends Menu {
 	// Constructor

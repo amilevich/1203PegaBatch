@@ -2,7 +2,7 @@ package com.project.files.menus;
 
 import java.util.Scanner;
 
-import com.project.files.InputValidation;
+import com.project.files.inputscreens.*;
 import com.project.files.*;
 
 public class CustomerDashMenu extends Menu {
@@ -46,15 +46,25 @@ public class CustomerDashMenu extends Menu {
 		case 2:
 			ApplicationInput appInput = new ApplicationInput();
 			appInput.inputDisplay();
-			appInput.getInput(userIn);
+			// Instantiate Customer
+			Customer customer=new Customer();
+			// Initialize Customer State
+			appInput.getInput(userIn,customer);
+			// Initialize Customer Account Type
 			char acctType = InputValidation.acctTypeValidate(userIn);
-			if (acctType == 'J') {
+			customer.setAcctType(acctType);
+			// Account Type Flow
+			if(customer.getAcctType()=='J') {
 				System.out.println("Enter Information for Joint Holder");
-				appInput.getInput(userIn);
-			} else {
+				Customer jointCust=new Customer(customer.getAcctType()); // Instantiate with joint account
+				appInput.getInput(userIn, jointCust);
+				FileWrite.writeToPending(customer);
+				FileWrite.writeToPending(jointCust);
+			}else {
 				System.out.println("Application Awaiting Approval");
+				FileWrite.writeToPending(customer);
 			}
-			break;
+			menuDriver(userIn);
 		case 3:
 			System.out.println("Status");
 			break;
