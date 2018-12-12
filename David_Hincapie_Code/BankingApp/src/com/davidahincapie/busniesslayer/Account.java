@@ -30,7 +30,7 @@ public class Account {
 	}
 
 	public void transferFunds(Account account, double transfer) {
-		withdraw(transfer);
+		this.withdraw(transfer);
 		account.deposit(transfer);
 	}
 

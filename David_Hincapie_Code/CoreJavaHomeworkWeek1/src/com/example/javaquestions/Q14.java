@@ -2,7 +2,6 @@ package com.example.javaquestions;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 
 public class Q14 {
 	// Q14.

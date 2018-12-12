@@ -12,6 +12,7 @@ import com.davidahincapie.busniesslayer.User;
 public class Main {
 	static Scanner scanner = new Scanner(System.in);
 	static int option;
+	static double amount;
 	static boolean session = true;
 	static String userName;
 	static String password;
@@ -20,6 +21,7 @@ public class Main {
 	static User user;
 	static Employee employeeUser;
 	static Customer customerUser;
+	static Customer tempCust;
 	static String inputString;
 
 	public static void main(String[] args) {
@@ -74,12 +76,19 @@ public class Main {
 		}
 	}
 
-	// TODO employee and admin menu
+	public static void employeeEditPromt() {
+
+	}
+
+	public static void customerEditPromt() {
+
+	}
+
 	private static void employeePrompt() {
 		employeeUser = (Employee) user;
 		if (employeeUser.isAdmin()) {
 			System.out.println("\nHello " + employeeUser.getFirstName()
-					+ ", what would you like to do?\n\n 1) View All Users\n 2) View Employees\n 3) View Customers\n 4) Account Approval\n 5) Edit Account\n 6) Close Account"
+					+ ", what would you like to do?\n\n 1) View All Users\n 2) View Employees\n 3) View Customers\n 4) Edit User\n 5) Account Approval\n \n 6) Close Account"
 					+ "\n\n 0) Log Out\n\n 10) Exit\n\n");
 			option = scanner.nextInt();
 			switch (option) {
@@ -108,8 +117,168 @@ public class Main {
 				}
 				employeePrompt();
 				break;
+
 			case 4:
-				Customer tempCust = new Customer();
+				for (User user : userList) {
+					System.out.println(
+							user.getFirstName() + " " + user.getLastName() + ": (User ID) " + user.getUserId());
+				}
+				System.out.print("\n\nWhich account would you like to edit (User Id)? ");
+				inputString = scanner.next();
+				for (int i = 0; i < userList.size(); i++) {
+					if (userList.get(i).getUserId().toString().equals(inputString)) {
+						System.out.println("\nEditing: " + userList.get(i).getFirstName() + " "
+								+ userList.get(i).getLastName() + " \n" + userList.get(i).toString());
+						if (userList.get(i).isCustomer()) {
+							customerUser = (Customer) userList.get(i);
+							System.out.println(
+									"\nWhat would you like to edit?\n 1) First Name\n 2) Last Name\n 3) Username\n 4) Password\n 5) Deposit\n 6) Withdraw\n 7) Transfer\n\n 0) Main Menu");
+							option = scanner.nextInt();
+							switch (option) {
+							case 1:
+								System.out.print("Enter new First Name: ");
+								inputString = scanner.next();
+								System.out.println(
+										"\nUserID: " + userList.get(i).getUserId() + " " + " Changed first name from "
+												+ userList.get(i).getFirstName() + " to " + inputString + ".");
+								userList.get(i).setFirstName(inputString);
+								break;
+							case 2:
+								System.out.print("Enter new Last Name: ");
+								inputString = scanner.next();
+								System.out.println(
+										"\nUserID: " + userList.get(i).getUserId() + " " + " Changed last name from "
+												+ userList.get(i).getLastName() + " to " + inputString + ".");
+								userList.get(i).setLastName(inputString);
+								break;
+							case 3:
+								System.out.print("Enter new Username: ");
+								inputString = scanner.next();
+								System.out.println(
+										"\nUserID: " + userList.get(i).getUserId() + " " + " Changed  username from "
+												+ userList.get(i).getUserName() + " to " + inputString + ".");
+								userList.get(i).setUserName(inputString);
+								break;
+							case 4:
+								System.out.print("Enter new Password: ");
+								inputString = scanner.next();
+								System.out.println(
+										"\nUserID: " + userList.get(i).getUserId() + " " + " Changed password from "
+												+ userList.get(i).getPassword() + " to " + inputString + ".");
+								userList.get(i).setPassword(inputString);
+								break;
+							case 5:
+								System.out.print("Enter Deposit amount: ");
+								amount = scanner.nextDouble();
+								customerUser.getAccount().deposit(amount);
+								System.out.println("\nUserID: " + userList.get(i).getUserId() + "\t" + amount
+										+ " has been deposited. ");
+								break;
+							case 6:
+								System.out.print("Enter Withdraw amount: ");
+								amount = scanner.nextDouble();
+								customerUser.getAccount().withdraw(amount);
+								System.out.println("\nUserID: " + userList.get(i).getUserId() + "\t" + amount
+										+ " has been withdrawn.");
+								break;
+							case 7:
+								for (User user : userList) {
+									if (user.isCustomer()) {
+										tempCust = (Customer) user;
+										System.out.println(tempCust.getFirstName() + " " + tempCust.getLastName()
+												+ ": (Account ID) " + tempCust.getAccount().getAccountId());
+									}
+								}
+								System.out.print("\nEnter account to transfer to (Account Id):");
+								inputString = scanner.next();
+								tempCust = new Customer();
+								for (int j = 0; j < userList.size(); j++) {
+									if (userList.get(j).isCustomer()) {
+										tempCust = (Customer) userList.get(j);
+										if (!tempCust.isApproved()) {
+											System.out.println("The account for " + tempCust.getFirstName()
+													+ " is pending approval.");
+										} else if (tempCust.getAccount().getAccountId().toString()
+												.equals(inputString)) {
+											System.out.print("\nEnter amount you would like to transfer:");
+											amount = scanner.nextDouble();
+											customerUser.getAccount().transferFunds(tempCust.getAccount(), amount);
+											System.out.println("\n" + customerUser.getFirstName() + " "
+													+ customerUser.getLastName() + " tranferred " + amount + " to "
+													+ tempCust.getFirstName() + " " + tempCust.getLastName());
+											break;
+										} else if (j == userList.size() - 1) {
+											System.out.println("Account not found.");
+										}
+
+									}
+								} // end of for
+								break;
+
+							case 0:
+								employeePrompt();
+								break;
+
+							default:
+								System.out.println("Invalid Option.");
+								employeePrompt();
+								break;
+							}
+						} else {
+							System.out.println(
+									"\nWhat would you like to edit?\n 1) First Name\n 2) Last Name\n 3) Username\n 4) Password\n\n 0) Main Menu");
+							option = scanner.nextInt();
+							switch (option) {
+							case 1:
+								System.out.print("Enter new First Name: ");
+								inputString = scanner.next();
+								System.out.println(
+										"\nUserID: " + userList.get(i).getUserId() + " " + " Changed first name from "
+												+ userList.get(i).getFirstName() + " to " + inputString + ".");
+								userList.get(i).setFirstName(inputString);
+								break;
+							case 2:
+								System.out.print("Enter new Last Name: ");
+								inputString = scanner.next();
+								System.out.println(
+										"\nUserID: " + userList.get(i).getUserId() + " " + " Changed last name from "
+												+ userList.get(i).getLastName() + " to " + inputString + ".");
+								userList.get(i).setLastName(inputString);
+								break;
+							case 3:
+								System.out.print("Enter new Username: ");
+								inputString = scanner.next();
+								System.out.println(
+										"\nUserID: " + userList.get(i).getUserId() + " " + " Changed  username from "
+												+ userList.get(i).getUserName() + " to " + inputString + ".");
+								userList.get(i).setUserName(inputString);
+								break;
+							case 4:
+								System.out.print("Enter new Password: ");
+								inputString = scanner.next();
+								System.out.println(
+										"\nUserID: " + userList.get(i).getUserId() + " " + " Changed password from "
+												+ userList.get(i).getPassword() + " to " + inputString + ".");
+								userList.get(i).setPassword(inputString);
+								break;
+							case 0:
+								employeePrompt();
+								break;
+
+							default:
+								System.out.println("Invalid Option.");
+								employeePrompt();
+								break;
+							}
+						}
+					} else if (i == userList.size()) {
+						System.out.println("\nAccount not found.");
+					}
+				}
+				employeePrompt();
+				break;
+			case 5:
+				tempCust = new Customer();
 				System.out.print("\nWhich account would you like to change approval (Account Id)? ");
 				inputString = scanner.next();
 				for (int i = 0; i < userList.size(); i++) {
@@ -126,34 +295,9 @@ public class Main {
 								System.out.println("\nAccount not found.");
 							}
 						} else if (!tempCust.isApproved()) {
-							((Customer) userList.get(i)).setApproved(false);
+							((Customer) userList.get(i)).setApproved(true);
 							System.out.println("\nThe account for " + tempCust.getFirstName() + " has been approved.");
 						}
-					}
-				}
-				employeePrompt();
-				break;
-			case 5:
-				System.out.println("##########  IN PROGRESS  ##########");
-				User tempUser = new User();
-				System.out.print("\n\nWhich account would you like to edit (User Id)? ");
-				inputString = scanner.next();
-				for (int i = 0; i < userList.size(); i++) {
-					if (userList.get(i).getUserId().toString().equals(inputString)) {
-						System.out.println(
-								"\nWhat would you like to edit?\n 1) First Name\n 2) Last Name\n 3) Username\n 4) Password\n 5) Deposit\n 6) Withdraw\n 7) Transfer");
-						switch (option) {
-						case 1:
-							System.out.println("Enter new First Name: ");
-							inputString = scanner.next();
-							userList.get(i).setFirstName(inputString);
-							break;
-
-						default:
-							break;
-						}
-					} else if (i == userList.size() - 1) {
-						System.out.println("\nAccount not found.");
 					}
 				}
 				employeePrompt();
@@ -265,19 +409,30 @@ public class Main {
 				customerPrompt();
 				break;
 			case 4:
-				System.out.print("Enter account ID:");
+				for (User user : userList) {
+					Customer tempCust = new Customer();
+					if (user.isCustomer()) {
+						tempCust = (Customer) user;
+						System.out.println(tempCust.getFirstName() + " " + tempCust.getLastName() + ": "
+								+ tempCust.getAccount().getAccountId());
+					}
+
+				}
+				System.out.print("\nEnter account you would like to transfer to (Account Id):");
 				inputString = scanner.next();
 				Customer tempCust = new Customer();
 				for (int i = 0; i < userList.size(); i++) {
 					if (userList.get(i).isCustomer()) {
 						tempCust = (Customer) userList.get(i);
-						System.out.println("\n" + tempCust.getUserName() + " : "
-								+ tempCust.getAccount().getAccountId().toString());
 						if (!tempCust.isApproved()) {
 							System.out.println("The account for " + tempCust.getFirstName() + " is pending approval.");
 						} else if (tempCust.getAccount().getAccountId().toString().equals(inputString)) {
-							System.out.print("\nEnter amount you would like to transfer:");
-							customerUser.getAccount().transferFunds(tempCust.getAccount(), scanner.nextDouble());
+							System.out.print("\nEnter amount you would like to transfer: ");
+							amount = scanner.nextDouble();
+							customerUser.getAccount().transferFunds(tempCust.getAccount(), amount);
+							System.out.println("\n" + customerUser.getFirstName() + " " + customerUser.getLastName()
+									+ " transferred " + amount + " to " + tempCust.getFirstName() + " "
+									+ tempCust.getLastName());
 							customerPrompt();
 						} else if (i == userList.size() - 1) {
 							System.out.println("Account not found.");
