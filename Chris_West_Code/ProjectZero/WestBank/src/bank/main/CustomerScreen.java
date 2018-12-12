@@ -1,6 +1,6 @@
 package bank.main;
 
-public class CustomerScreen {
+public class CustomerScreen { // Look at (1) in Bank.java
 
 	public void customerScreen() {
 		System.out
@@ -128,7 +128,7 @@ public class CustomerScreen {
 		UserInputValidation.isLetterNum(id);
 		if ((transferAmount > 0) & Bank.data.containsKey(id) & (transferAmount <= Bank.customer1.getBalance())) {
 			double temp = Bank.account1.transferFunds(transferAmount);
-			Bank.customer2 = (Customers) Bank.data.get(id);
+			Bank.customer2 = (Customer) Bank.data.get(id);
 			Bank.customer1.setBalance(temp);
 			Bank.customer2.setBalance(Bank.customer2.getBalance()+transferAmount);
 			//System.out.println(Bank.customer2.getBalance());
@@ -147,7 +147,7 @@ public class CustomerScreen {
 
 	public void logout() {
 		System.out.println("\nLogging out....");
-		return;
+		Bank.welcome();
 
 	}
 

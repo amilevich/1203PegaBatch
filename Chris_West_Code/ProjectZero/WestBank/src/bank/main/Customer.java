@@ -1,20 +1,21 @@
 package bank.main;
 
-public class Customers extends User {
+public class Customer extends User {
 	String firstName;
 	String middleInitial;
 	String lastName;
 	String address;
 	String city, state;
-	Long phoneNum;
-	int zip;
-	Boolean newAccount;
 	String id;
 	String passWord;
-	double balance;
+	Boolean newAccount;
 	Boolean rAcc, jAcc;
+	double balance;
+	int zip;
+	Long phoneNum;
 
-	public Customers(String id, String passWord, String user, String firstName, String middleInitial, String lastName,
+
+	public Customer(String id, String passWord, String user, String firstName, String middleInitial, String lastName,
 			String address, String city, String state, Long phoneNum, Boolean rAcc, Boolean jAcc, int zip,
 			Boolean newAccount, double balance) {
 		super(id, passWord, user);

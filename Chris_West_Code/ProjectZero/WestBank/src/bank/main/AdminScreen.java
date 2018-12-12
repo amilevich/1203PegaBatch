@@ -2,26 +2,28 @@ package bank.main;
 
 import java.util.ArrayList;
 
-public class AdminScreen extends EmployeeScreen {
+public class AdminScreen extends EmployeeScreen { // Look at (1) in Bank.java
+
 
 	public void adminScreen() {
 		employeeScreen();
-
+		
 	}
 
 	@Override
 	public void menu() {
 		System.out.println("\nMenu Options:");
-		System.out.println("Type 1 to for personal information of " + Bank.customer1.getId());
-		System.out.println("Type 2 to for account information of " + Bank.customer1.getId());
-		System.out.println("Type 3 to for account balances of " + Bank.customer1.getId());
-		System.out.println("Type 4 to log-out.");
-		int number = UserInputValidation.isInRange(Bank.input, 1, 4);
+		System.out.println("Type 1 for personal information of " + Bank.customer1.getId());
+		System.out.println("Type 2 for account information of " + Bank.customer1.getId());
+		System.out.println("Type 3 for account balances of " + Bank.customer1.getId());
+		System.out.println("Type 4 for account deletion of " + Bank.customer1.getId() );
+		System.out.println("Type 5 to log-out.");
+		int number = UserInputValidation.isInRange(Bank.input, 1, 5);
 		switch (number) {
 		case 1: // view personal information
 			
 			personalInformation();
-			System.out.println("Change password");
+			System.out.println("Change password: ");
 			String passWord = Bank.input.next();
 			Bank.customer1.setPassWord(passWord);
 			break;
@@ -34,7 +36,9 @@ public class AdminScreen extends EmployeeScreen {
 			getBalances();
 			moneyScreen();
 			break;
-		case 4: // log-out
+		case 4:
+			deleteAccount();
+		case 5: // log-out
 			Bank.customerView.logout();
 			break;
 
@@ -70,11 +74,12 @@ public class AdminScreen extends EmployeeScreen {
 	}
 
 	public void deleteAccount() {
-		System.out.println("Type 1 to delete account\nType 2 to return to previous menu.");
+		System.out.println("\nType 1 to delete account\nType 2 to return to previous menu.");
 		int number = UserInputValidation.isInRange(Bank.input, 1, 2);
 		switch (number) {
 		case 1:
 			removeAllMentions();
+			employeeScreen();
 			break;
 
 		case 2:
@@ -91,7 +96,7 @@ public class AdminScreen extends EmployeeScreen {
 			jAcc = Bank.joint.get(Bank.customer1.getId());
 			for (int x = 0; x < jAcc.size();x++) {
 				String id2 =jAcc.get(x);
-				Bank.customer2 = (Customers) Bank.data.get(id2);
+				Bank.customer2 = (Customer) Bank.data.get(id2);
 				jAcc2 = Bank.joint.get(Bank.customer2.getId());
 				for (String y : jAcc2)
 					jAcc2.remove(s);

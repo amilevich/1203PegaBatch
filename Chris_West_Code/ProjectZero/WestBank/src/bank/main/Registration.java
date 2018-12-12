@@ -1,13 +1,6 @@
 package bank.main;
 
 public class Registration {
-	@Override
-	public String toString() {
-		return "Registration [firstName=" + firstName + ", middleInitial=" + middleInitial + ", lastName=" + lastName
-				+ ", address=" + address + ", city=" + city + ", state=" + state + ", phoneNum=" + phoneNum + ", zip="
-				+ zip + ", newAccount=" + newAccount + ", id=" + id + ", userType=" + userType + ", jAcc=" + jAcc
-				+ ", rAcc=" + rAcc + "]";
-	}
 
 	String firstName;
 	String middleInitial;
@@ -161,5 +154,11 @@ public class Registration {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-
+	@Override
+	public String toString() {
+		return "\nRegistration:\nFirst: " + firstName + "\nMiddle Initial: " + middleInitial + "\nLast: " + lastName
+				+ "\nAddress: " + address + "\nCity: " + city + "\nState: " + state + "\nPhone: " + phoneNum + "\nZip: "
+				+ zip + "\nNew Account: " + newAccount + "\nID: " + id + "\nUser: " + userType + "\nJoint Account: " + jAcc
+				+ "\nRegular Account: " + rAcc;
+	}
 }

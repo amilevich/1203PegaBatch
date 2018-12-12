@@ -29,19 +29,20 @@ public class EmployeeScreen {
 			}
 		} while (!found);
 		if (Bank.data.containsKey(id)) {
-			Bank.customer1 = (Customers) Bank.data.get(id);
+			Bank.customer1 = (Customer) Bank.data.get(id);
 
 		}
 
 		if (Bank.processing.containsKey(id)) {
-			Bank.reg2 = (Registration) Bank.processing.get(id);
-			Bank.reg2.toString();
+			Bank.reg = (Registration) Bank.processing.get(id);
+			System.out.println(Bank.reg.toString());
 			System.out.println("Type 1 to Approve. Type 2 to Deny");
 			int number = UserInputValidation.isInRange(Bank.input, 1, 2);
 
 			if (number == 1) {
-				Bank.reg2.setNewAccount(false);
+				Bank.reg.setNewAccount(false);
 				Bank.dh1.accountApproved(id);
+				approvalDeny();
 			}
 		}
 	}
@@ -88,7 +89,7 @@ public class EmployeeScreen {
 			ArrayList<String> jAcc = new ArrayList<String>();
 			jAcc = Bank.joint.get(Bank.customer1.getId());
 			for (String x : jAcc) {
-				Bank.customer2 = (Customers) Bank.data.get(x);
+				Bank.customer2 = (Customer) Bank.data.get(x);
 				System.out.println(Bank.customer2.getId() + "\nBalance: " + Bank.customer2.getBalance());
 			}
 		}

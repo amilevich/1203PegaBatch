@@ -3,10 +3,7 @@ package bank.main;
 public class User {
 	String id;
 	String passWord;
-	String user;
-	//enum userType {CUSTOMER, EMPLOYEE, ADMIN};
-	
-	
+	String user;	
 	
 	public User(String id, String passWord, String user) {
 		super();
