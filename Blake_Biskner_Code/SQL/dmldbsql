@@ -1,0 +1,29 @@
+-- DML= Date Base Manipulation Language
+-- READ= Uses the select keyword to return a result set
+-------------------- Flash Card DML ---------------------------
+-- CREATE
+INSERT INTO flashcard VALUES(1,'What is Java','Awesome');
+INSERT INTO flashcard VALUES(2,'What is C#','Awesome?');
+INSERT INTO flashcard (fc_id,fc_question)VALUES(3,'What is Java??');
+FC_ID
+FC_QUESTION
+FC_ANSWER
+
+--READ
+SELECT * FROM flashcard;
+--SET fc_question='What is Java?'
+--WHERE fc_id=1;
+
+--UPDATE
+UPDATE flashcard
+SET fc_question='What is Java'
+WHERE fc_id=2;
+
+-- DELETE
+DELETE flashcard
+WHERE fc_id=2;
+
+-------------------------- FC USER FAKE DATA
+INSERT INTO fc_user VALUES(1,'BATMAN','123');
+INSERT INTO fc_user VALUES(2,'SUPERMAN','321');
+INSERT INTO fc_user VALUES(3,'AQUAMAN','123');

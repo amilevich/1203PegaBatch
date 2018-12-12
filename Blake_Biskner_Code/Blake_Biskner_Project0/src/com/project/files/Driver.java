@@ -1,9 +1,7 @@
 package com.project.files;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Set;
 
 // Import menu classes
 import com.project.files.menus.WelcomeMenu;
@@ -26,8 +24,6 @@ public class Driver {
 		Scanner input = new Scanner(System.in);
 		// Map Initialization
 		pullCustomerMap();
-		Set<String> keys=customers.keySet();
-		Iterator<String> itr=keys.iterator();
 		// WelcomeMenu Instantiation
 		WelcomeMenu menu = new WelcomeMenu();
 		menu.menuDriver(input);

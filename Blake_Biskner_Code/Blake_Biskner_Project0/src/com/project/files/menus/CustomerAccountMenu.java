@@ -74,21 +74,12 @@ public class CustomerAccountMenu {
 			switch(userNum) {
 			case 1:
 				System.out.println("Please Enter How Much to Deposit");
-				money=InputValidation.moneyValidate(userIn); // Fix
-				customer.deposit(money);
 				break;
 			case 2:
 				System.out.println("Please Enter How Much to Withdraw");
-				money=InputValidation.moneyValidate(userIn);
-				customer.withdraw(money);
 				break;
 			case 3:
 				System.out.println("Please Enter How Much to Transfer");
-				money=InputValidation.moneyValidate(userIn);
-				System.out.println("Please Enter Username of Transfer Account");
-				transferName=InputValidation.transferValidate(userIn);
-				Customer transferCustomer=Driver.customers.get(transferName);
-				transferCustomer.deposit(money);
 				break;
 			}
 			break;

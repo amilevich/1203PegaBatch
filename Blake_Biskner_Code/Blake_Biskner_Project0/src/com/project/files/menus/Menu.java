@@ -68,7 +68,9 @@ public abstract class Menu {
 	public void displayPrompt() {
 		System.out.println(menuPrompt);
 	}
-
+	
+	// Separated header and prompt so I could display the
+	// length of the hash map in the welcome message
 	public void displayHeadPrompt() {
 		this.displayHeader();
 		this.displayPrompt();
@@ -87,7 +89,6 @@ public abstract class Menu {
 	 * @param maxOp
 	 * @return returns the validated input
 	 */
-
 
 
 	// Abstract Methods

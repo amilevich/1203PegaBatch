@@ -51,11 +51,10 @@ public class FileRead implements FileIO {
 				balance=Double.valueOf(dataArray[8]);
 				status=dataArray[9].charAt(0);
 				
-				
-				// Input in order (username,acctNum, name[first,last],age,social security,password,acctType,balance,status)
-				Customer customer=new Customer(username,acctNum, firstName,lastName,age,socialSecurity,password,acctType,balance,status);
-				map.put(username, customer);
+				// Input in order (username,acctNum, first name, last name,age,social security,password,acctType,balance,status)
+				Customer customer=new Customer(username,acctNum,firstName,lastName,age,socialSecurity,password,acctType,balance,status);
 				//System.out.println(customer);
+				map.put(username, customer);
 			}
 			return map;
 		} catch (IOException e) {

@@ -19,7 +19,7 @@ public class ApplicationInput extends ScreenInput {
 	}
 
 	public void getInput(Scanner userIn, Customer newCust) {
-		String name[];
+		String[] name;
 		int userAge=0;
 		String userSocSec;
 		String username;

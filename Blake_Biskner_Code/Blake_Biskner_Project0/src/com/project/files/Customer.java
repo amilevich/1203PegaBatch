@@ -41,12 +41,12 @@ public class Customer {
 		this.acctType = 'J';
 	}
 
-	public Customer(String username, int acctNum, String firstName, String lastName, int age, String socialSecurity, String password,
-			char acctType, double balance, char acctStatus) {
+	public Customer(String username, int acctNum, String firstName, String lastName, int age, String socialSecurity,
+			String password, char acctType, double balance, char acctStatus) {
 		this.username = username;
 		this.acctNum = acctNum;
-		this.firstName=firstName;
-		this.lastName=lastName;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.age = age;
 		this.socialSecurity = socialSecurity;
 		this.password = password;
@@ -59,6 +59,7 @@ public class Customer {
 	public String getFirstName() {
 		return firstName;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -94,9 +95,9 @@ public class Customer {
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
-	
+
 	public void setLastName(String lastName) {
-		this.lastName=lastName;
+		this.lastName = lastName;
 	}
 
 	public void setAge(int age) {
@@ -121,31 +122,6 @@ public class Customer {
 
 	public void setAcctStatus(char acctStatus) {
 		this.acctStatus = acctStatus;
-	}
-
-	// Mutator Methods
-	public void deposit(double num) {
-		this.balance += num;
-	}
-	public void withdraw(double num) {
-		double diff=this.balance-num;
-		if((diff)<0) {
-			System.out.println("Over Drawn by "+ Math.abs(diff));
-			System.out.println("Please Enter a Lesser Amount");
-		}else {
-			this.balance-=num;
-		}
-	}
-	public void transfer(double num, Customer customer) {
-		double tmp=this.balance;
-		double diff=tmp-this.balance;
-		if((tmp-this.balance)<0) {
-			System.out.println("Over Drawn by "+ Math.abs(diff));
-			System.out.println("Please Enter a Lesser Amount");
-		}else {
-			this.balance-=num;
-			customer.deposit(num);
-		}
 	}
 
 	// ToString Method
