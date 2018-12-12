@@ -34,6 +34,10 @@ Task: Insert two new records into Genre table
 Task: Insert two new records into Employee table
 Task: Insert two new records into Customer table
 */
+SELECT * FROM genre;
 
-INSERT INTO genre;
-    
+INSERT INTO genre
+VALUES(26,'');
+
+INSERT INTO genre
+VALUES(27,'');
