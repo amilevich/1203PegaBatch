@@ -1,6 +1,5 @@
 package com.project.files.inputscreens;
 
-import java.util.Scanner;
 
 public class ScreenInput {
 	// Class State

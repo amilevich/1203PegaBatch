@@ -16,7 +16,16 @@ public class FileWrite implements FileIO {
 
 		}
 	}
-
+	
+	public static void writeToAccountDataBase(Account account) {
+		File file= new File(accountDataBase);
+		try(BufferedWriter bw=new BufferedWriter(new FileWriter(file.getAbsoluteFile(),true))){
+			bw.append(account.toString());
+		} catch (IOException e) {
+		
+		}
+	}
+	
 	public static void incrementAcctNum() {
 		File file=new File(acctNumDocument);
 		Integer acctNum=FileRead.getAcctNum();

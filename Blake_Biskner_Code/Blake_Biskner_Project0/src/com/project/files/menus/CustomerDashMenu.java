@@ -26,7 +26,6 @@ public class CustomerDashMenu extends Menu {
 		// Menu Display
 		displayHeadPrompt();
 		displayOptions();
-
 		return getOptions().length;
 	}
 
@@ -40,9 +39,10 @@ public class CustomerDashMenu extends Menu {
 	public void menuInput(Scanner userIn, int userInput) {
 		switch (userInput) {
 		case 1:
-			LoginInput logInput = new LoginInput();
+			String[] screenInput= {"Username", "Password"};
+			LoginInput logInput = new LoginInput(screenInput);
 			logInput.inputDisplay();
-			logInput.getInput(userIn);
+			logInput.getCustomerInput(userIn);
 			break;
 		case 2:
 			ApplicationInput appInput = new ApplicationInput();

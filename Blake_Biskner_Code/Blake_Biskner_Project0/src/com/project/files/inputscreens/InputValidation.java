@@ -73,6 +73,15 @@ public class InputValidation {
 		userStr = confirmDriver(userIn, inputSyntax);
 		return userStr;
 	}
+	
+	public static Integer existEmployeeIdValidate(Scanner userIn) {
+		String userStr;
+		String inputSyntax="Please Enter Employee Id";
+		do{
+			userStr=confirmDriver(userIn, inputSyntax);			
+		}while(intTest(userStr)!=true);
+		return Integer.valueOf(userStr);
+	}
 
 	/**
 	 * Method to validate user input first and last name

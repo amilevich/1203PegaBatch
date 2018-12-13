@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FileRead implements FileIO {
@@ -53,7 +54,6 @@ public class FileRead implements FileIO {
 				
 				// Input in order (username,acctNum, first name, last name,age,social security,password,acctType,balance,status)
 				Customer customer=new Customer(username,acctNum,firstName,lastName,age,socialSecurity,password,acctType,balance,status);
-				//System.out.println(customer);
 				map.put(username, customer);
 			}
 			return map;
@@ -61,4 +61,58 @@ public class FileRead implements FileIO {
 			return null;
 		}
 	}
+	public static HashMap<Integer,Employee> readEmployeeDataBase() {
+		File file = new File(employeeDataBase);
+		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+			HashMap<Integer,Employee> map=new HashMap<Integer,Employee>();
+			String userData;
+			String[] dataArray;
+			Integer id;
+			String level;
+			while ((userData = br.readLine()) != null) {
+				dataArray = userData.split(":");
+				id=Integer.valueOf(dataArray[0]);
+				level=dataArray[1];
+				Employee emp=new Employee(id, level);
+				map.put(id, emp);
+			}
+			return map;
+		} catch (IOException e) {
+			return null;
+		}
+	}
+	
+	public static HashMap<Integer,Account> readAccountDataBase(){
+		File file=new File(accountDataBase);
+		try(BufferedReader br=new BufferedReader(new FileReader(file))){
+			HashMap<Integer,Account> map=new HashMap<Integer,Account>();
+			Account acct=null;
+			String data;
+			String[] dataArray;
+			Integer id;
+			Double balance;
+			ArrayList<Customer> holders=new ArrayList<Customer>();
+			Customer customer1;
+			Customer customer2;
+			while((data=br.readLine())!=null) {
+				dataArray=data.split(":");
+				id=Integer.valueOf(dataArray[0]);
+				balance=Double.valueOf(dataArray[1]);
+				customer1=Driver.customers.get(dataArray[2]);
+				holders.add(customer1);
+				if(dataArray.length==4) { // Check if there  are 2 holders
+					customer2=Driver.customers.get(dataArray[3]);
+					holders.add(customer2);
+					acct=new Account(id,balance,customer1,customer2);
+				} else {
+					acct=new Account(id, balance, customer1);
+				}
+				map.put(id, acct);
+			}
+			return map;
+		} catch (IOException e){
+				return null;
+		}
+	}
 }
+

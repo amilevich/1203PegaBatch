@@ -3,6 +3,7 @@ package com.project.files.menus;
 import java.util.Scanner;
 
 import com.project.files.inputscreens.InputValidation;
+import com.project.files.inputscreens.LoginInput;
 
 public class HomepageMenu extends Menu {
 
@@ -44,7 +45,10 @@ public class HomepageMenu extends Menu {
 			custMenu.menuDriver(userIn);
 			break;
 		case 2:
-			System.out.println("Employee Under Construction");
+			String[] screenInput= {"Employee Id"};
+			LoginInput empMenu= new LoginInput(screenInput);
+			empMenu.displayHeader();
+			empMenu.getEmployeeInput(userIn);
 			break;
 		case 3:
 			WelcomeMenu welcMenu = new WelcomeMenu();
