@@ -21,6 +21,12 @@ public class FlashCard implements Serializable{
 	// no-args constructor
 	public FlashCard() {}
 	
+	public FlashCard(String fcQuestion, String fcAnswer) {
+		super();
+		this.fcQuestion = fcQuestion;
+		this.fcAnswer = fcAnswer;
+	}
+	
 	public FlashCard(int fcId, String fcQuestion, String fcAnswer) {
 		super();
 		this.fcId = fcId;

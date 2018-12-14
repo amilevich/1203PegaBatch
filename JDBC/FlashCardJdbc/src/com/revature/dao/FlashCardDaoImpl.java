@@ -16,7 +16,7 @@ public class FlashCardDaoImpl implements FlashCardDao {
 
 	private final static String USERNAME = "flashcard_db";
 	private final static String PASSWORD = "p4ssw0rd";
-	private final static String URL = "jdbc:oracle:thin:@octocat.ccwgu9dykdjd.us-west-2.rds.amazonaws.com:1521:ORCL";
+	private final static String URL = "jdbc:oracle:thin:@octocatdb.cdupfru9241v.us-east-1.rds.amazonaws.com:1521:ORCL";
 	
 	
 	/*
@@ -118,5 +118,9 @@ public class FlashCardDaoImpl implements FlashCardDao {
 		return fc;
 	}
 
-
+public static void main(String[] args) {
+	System.out.println("main");
+	new FlashCardDaoImpl().createFlashCardProc(new FlashCard("work?", "hopefully"));
+	
+}
 }
