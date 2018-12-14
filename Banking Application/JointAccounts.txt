@@ -1,0 +1,30 @@
+-----
+Status: open
+Type: Joint
+Number of Account Holders: 3
+ihab2
+ihab3
+ihab4
+0.0
+passwordex2
+ihabbaghdadi2
+-----
+open
+Joint
+3
+Ihab,
+Ihab,
+Ihab
+0.0
+password
+ihabbaghdadi
+-----
+open
+Joint
+3
+Ihab
+Ihab
+Ihab
+0.0
+password
+ihabbaghdadi
