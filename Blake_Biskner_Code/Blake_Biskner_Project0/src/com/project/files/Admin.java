@@ -1,31 +1,32 @@
 package com.project.files;
 
-import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Set;
 
 import com.project.files.inputscreens.InputValidation;
 
-public class Admin extends Employee {
-	public Admin() {
-		super();
+public class Admin extends Employee{
+	
+	public Admin(Integer employeeId,String level) {
+		super(employeeId,level);
 	}
 	
-	public void cancel(String username) {
-		Driver.customers.remove(username);
+	public void employeeInfo(Scanner userIn) {
+		int empId=InputValidation.existEmployeeIdValidate(userIn);
+		if(Driver.employees.containsKey(empId)) {
+			System.out.println(Driver.employees.get(empId));
+		}
 	}
 	
-	public void deposit(double num, Customer customer) {
-		customer.deposit(num);
+	public void cancel(Scanner userIn) {
+		Integer acctNum=InputValidation.acctNumValidate(userIn);
+		if(InputValidation.acctExistValidate(acctNum)==true){
+			Account acct=Driver.accounts.get(acctNum);
+			for(Customer cust:acct.getHolders()) {
+				cust.setAcctStatus('D');
+			}
+			System.out.println("Cancelled Account "+acct.getAcctNum());
+		} else {
+			System.out.println("Account Does Not Exist");
+		}
 	}
-
-	public void withdraw(double num, Customer customer) {
-		customer.withdraw(num);
-	}
-
-	public void transfer(double num, Customer customerFrom, Customer customerTo) {
-		customerFrom.transfer(num, customerTo);
-	}
-	
-
 }

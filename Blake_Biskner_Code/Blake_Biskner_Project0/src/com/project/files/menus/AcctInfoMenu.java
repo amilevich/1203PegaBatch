@@ -26,7 +26,7 @@ public class AcctInfoMenu extends PersonalMenu {
 		}
 		System.out.println("Account Number " + customer.getAcctNum());
 		System.out.println(type + " Account");
-		System.out.printf("Account Balance $%.2f", customer.getBalance());
+		System.out.printf("Account Balance $%.2f", customer.getAcct().getBalance());
 		System.out.print('\n');
 		this.displayOptions();
 		return getOptions().length;

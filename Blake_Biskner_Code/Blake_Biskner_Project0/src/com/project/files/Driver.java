@@ -1,9 +1,8 @@
 package com.project.files;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Scanner;
-import java.util.Set;
+
 
 // Import menu classes
 import com.project.files.menus.WelcomeMenu;
@@ -33,23 +32,27 @@ public class Driver {
 		// WelcomeMenu Instantiation
 		WelcomeMenu menu = new WelcomeMenu();
 		menu.menuDriver(input);
+		// Update Databases
+		FileWrite.updateAccountDataBase();
+		FileWrite.updateCustomerDataBase();
 		// Close Scanner object
 		input.close();
 		System.out.println(exitMessage);
 		
-		// Test Set Manipulation
-		Set<Integer> keys=accounts.keySet();
-		Iterator<Integer> itr=keys.iterator();
-		while(itr.hasNext()) {
-			Integer key=itr.next();
-			System.out.println(accounts.get(key));
-		}
-		Set<String> val=customers.keySet();
-		Iterator<String> iter=val.iterator();
-		while(iter.hasNext()) {
-			String value=iter.next();
-			System.out.println(customers.get(value));
-		}
+//		// Test Set Manipulation
+//		Set<Integer> keys=accounts.keySet();
+//		Iterator<Integer> itr=keys.iterator();
+//		while(itr.hasNext()) {
+//			Integer key=itr.next();
+//			System.out.println(accounts.get(key));
+//		}
+//		Set<String> val=customers.keySet();
+//		Iterator<String> iter=val.iterator();
+//		while(iter.hasNext()) {
+//			String value=iter.next();
+//			System.out.println(customers.get(value));
+//		}
+//		
 		
 	}
 	

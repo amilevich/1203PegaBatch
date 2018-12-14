@@ -1,5 +1,1 @@
-BlakeUser:0:Blake:Biskner:23:123456789:Password:J:0.0:R
-BobMan:0:Bob:Man:28:111111111:BobPass:J:0.0:R
-Farm:1:Cow:Chicken:38:234567890:Moo:P:0.0:R
-oldthing:2:Leanord:Old:118:000000000:hardcandy:J:0.0:R
-newPerson:2:Lisa:Old:118:000000001:lisaPassword:J:0.0:R
+BlakeUser:6:Blake:Biskner:23:123456789:Password:P:A

@@ -1,6 +1,9 @@
 package com.project.files;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import com.project.files.inputscreens.InputValidation;
 
 public class Account {
 	// Class State
@@ -30,8 +33,39 @@ public class Account {
 		this(id, balance,holder1);
 		this.holders.add(holder2);
 	}
+	public double getBalance() {
+		return balance;
+	}
+	public ArrayList<Customer> getHolders(){
+		return holders;
+	}
+	public int getAcctNum() {
+		return id;
+	}
 	public void addHolder(Customer customer) {
 		holders.add(customer);
+	}
+	
+	public void deposit(Double money) {
+		balance+=money;
+		System.out.println("New Balance is "+balance);
+	}
+	public void withdraw(Double money) {
+		balance-=money;
+		System.out.println("New Balance is "+balance);
+	}
+	public void transfer(Double money, Account acct, Scanner userIn) {
+		int transferNum=InputValidation.acctNumValidate(userIn);
+		boolean exists=InputValidation.acctExistValidate(transferNum);
+		if(exists) {
+			Account transferAcct=Driver.accounts.get(transferNum);
+			this.withdraw(money);
+			transferAcct.deposit(money);
+		}
+		else {
+			System.out.println("Transfer Account Does Not Exist");
+		}
+		System.out.println("New Balance is "+balance);
 	}
 	public String toString() {
 		String toStr=(id+":"+balance+":"+(holders.get(0)).getUsername());

@@ -24,13 +24,16 @@ public class EmployeeMenu extends PersonalMenu {
 	public void menuInput(Scanner userIn, int userInput, Employee employee) {
 		switch (userInput) {
 		case 1:
-			System.out.println("Customers");
+			employee.customerInfo(userIn);
+			menuDriver(userIn,employee);
 			break;
 		case 2:
-			System.out.println("Accounts");
+			employee.acctInfo(userIn);
+			menuDriver(userIn,employee);
 			break;
 		case 3:
 			employee.approveApp(userIn);
+			menuDriver(userIn, employee);
 			break;
 		case 4:
 			HomepageMenu homeMenu = new HomepageMenu();

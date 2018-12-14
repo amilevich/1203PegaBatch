@@ -1,0 +1,105 @@
+INSERT INTO Actor VALUES(1,'Adam Sandler','Big Daddy 3', TO_DATE('19960725','YYYYMMDD'),'12345 lane rd',125,'20-AUG-16 07.17.54.098000000 PM');
+INSERT INTO Actor VALUES(2,'Joe','Movie A', TO_DATE('19960725','YYYYMMDD'),'12345 lane rd',125,'20-AUG-16 07.17.54.098000000 PM');
+INSERT INTO Actor VALUES(3,'Tom','Movie B', TO_DATE('19960725','YYYYMMDD'),'12345 lane rd',125,'20-AUG-16 07.17.54.098000000 PM');
+INSERT INTO Actor VALUES(4,'Jerry','Movie C', TO_DATE('19960725','YYYYMMDD'),'12345 lane rd',125,'20-AUG-16 07.17.54.098000000 PM');
+INSERT INTO Actor VALUES(5,'Jerry','Movie C', TO_DATE('19960725','YYYYMMDD'),'12345 lane rd',125,'20-AUG-16 07.17.54.098000000 PM');
+INSERT INTO Actor VALUES(6,'Jerry','Movie C', TO_DATE('19960725','YYYYMMDD'),'12345 lane rd',125,'20-AUG-16 07.17.54.098000000 PM');
+
+SELECT * FROM Actor;
+SELECT act_name,act_film FROM ACTOR;
+SELECT * FROM actor WHERE act_film='Movie A';
+
+-- Change Tom and Jerry Years in Media to 150
+UPDATE Actor
+SET act_years_in_media=150
+WHERE act_name='Tom'
+OR
+act_name='Jerry';
+-- See actors that have been in media more than 130 years
+SELECT * FROM Actor
+WHERE act_years_in_media > 130;
+
+SELECT COUNT(act_name) FROM Actor;
+SELECT COUNT(act_address) FROM Actor;
+SELECT AVG(act_years_in_media) FROM Actor;
+
+SELECT act_name, SUM(act_years_in_media) FROM actor
+GROUP BY act_name;
+
+ALTER TABLE Actor
+ADD movie_type INT;
+
+ALTER TABLE Actor
+DROP COLUMN movie_type;
+
+ALTER TABLE Actor
+ADD FOREIGN KEY(movie_type) REFERENCES movie_type(movie_id);
+
+CREATE TABLE movie_type(
+movie_id INT,
+movie_category VARCHAR(40),
+PRIMARY KEY(movie_id)
+);
+
+INSERT INTO movie_type VALUES(1,'Comedy');
+INSERT INTO movie_type VALUES(2,'Horror');
+INSERT INTO movie_type VALUES(3,'Drama');
+INSERT INTO movie_type VALUES(4,'Action');
+INSERT INTO movie_type VALUES(5,'Thriller');
+
+UPDATE Actor
+SET movie_type=1;
+
+-- Show actors, movie, movie_type (not_the_number)
+SELECT act_name, act_film, movie_category
+FROM Actor
+INNER JOIN movie_type
+ON movie_type=movie_id;
+
+CREATE OR REPLACE FUNCTION get_max_id
+RETURN NUMBER
+IS
+    -- Section for variable declaration
+    max_id NUMBER;
+BEGIN
+    SELECT MAX(act_id) INTO max_id FROM Actor;
+    RETURN max_id;
+END;
+/
+
+-- Test getMax ID usign an anonymous function
+DECLARE 
+    max_number NUMBER;
+BEGIN max_number:=get_max_id();
+    DBMS_OUTPUT.PUT_LINE('max number is: '||max_number);
+END;
+/
+
+-- Return the max either x or y
+CREATE OR REPLACE FUNCTION findMax(x IN NUMBER, y IN NUMBER)
+RETURN NUMBER
+IS
+    max_number NUMBER;
+BEGIN
+    IF x>y THEN
+        max_number:=x;
+    ELSE
+        max_number:=y;
+    END IF;
+RETURN
+    max_number;
+END;
+/
+
+DECLARE
+    first_number INT;
+    second_number INT;
+    max_number INT;
+BEGIN
+    first_number:=15;
+    second_number:=10;
+    max_number:=findMax(first_number,second_number);
+    DBMS_OUTPUT.PUT_LINE('max number is '||max_number);
+END;
+/
+ 

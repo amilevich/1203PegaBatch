@@ -1,2 +1,2 @@
-1:Admin
-2:Employee
+1:admin
+2:employee

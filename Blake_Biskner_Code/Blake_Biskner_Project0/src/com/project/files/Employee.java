@@ -42,6 +42,7 @@ public class Employee {
 					applicant.setAcctStatus('A');
 					Account jtAcct=Driver.accounts.get(applicant.getAcctNum());
 					jtAcct.addHolder(applicant);
+					applicant.setAcct(jtAcct);
 					FileWrite.writeToAccountDataBase(jtAcct);
 					// Write to database now that both users are on the account
 				} else {
@@ -56,6 +57,7 @@ public class Employee {
 				if(answer==1) { // Approved
 					applicant.setAcctStatus('A');
 					Account acct=new Account(applicant.getAcctNum(),applicant);
+					applicant.setAcct(acct); // Set customer account
 					Driver.accounts.put(applicant.getAcctNum(),acct);
 					if(applicant.getAcctType()=='J') {
 						flagged.put(applicant.getAcctNum(), applicant.getAcctStatus());
@@ -71,6 +73,26 @@ public class Employee {
 				}
 			}
 		}
+	}
+	
+	public void customerInfo(Scanner userIn) {
+		String username=InputValidation.existUserNameValidate(userIn);
+		if(Driver.customers.containsKey(username)) {
+			System.out.println(Driver.customers.get(username));
+		}
+	}
+	
+	public void acctInfo(Scanner userIn) {
+		Integer acctNum=InputValidation.acctNumValidate(userIn);
+		if(Driver.accounts.containsKey(acctNum)) {
+			System.out.println(Driver.accounts.get(acctNum));
+		}
+	}
+	
+	public String toString() {
+		String id=("Employee id "+employeeId);
+		String empLevel=("Employee level "+level);
+		return (id+" "+empLevel);
 	}
 }
 

@@ -26,7 +26,8 @@ public class CustomerPersonalMenu extends PersonalMenu {
 	public void menuInput(Scanner userIn, int userInput, Customer customer) {
 		switch (userInput) {
 		case 1:
-			System.out.println("Actions");
+			AcctPersonalMenu acctMenu=new AcctPersonalMenu();
+			acctMenu.menuDriver(userIn, customer);
 			break;
 		case 2:
 			AcctInfoMenu infoMenu = new AcctInfoMenu(customer);
@@ -41,6 +42,7 @@ public class CustomerPersonalMenu extends PersonalMenu {
 			menu.menuDriver(userIn);
 			break;
 		case 5:
+			System.out.println("hi");
 			break;
 		}
 	}

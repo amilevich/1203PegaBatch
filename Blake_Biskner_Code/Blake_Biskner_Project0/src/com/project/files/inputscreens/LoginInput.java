@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.project.files.Customer;
 import com.project.files.Driver;
 import com.project.files.Employee;
+import com.project.files.menus.AdminPersonalMenu;
 import com.project.files.menus.CustomerDashMenu;
 import com.project.files.menus.CustomerPersonalMenu;
 import com.project.files.menus.EmployeeMenu;
@@ -46,8 +47,8 @@ public class LoginInput extends ScreenInput {
 				case 'R':
 					System.out.println("Application Under Review Please Check Back");
 					break;
-				case 'C':
-					System.out.println("Your Account Has Been Cancelled");
+				case 'D': // Deined or cancelled
+					System.out.println("Your Account Has Been Cancelled or Denied");
 					break;
 				case 'A':
 					CustomerPersonalMenu menu=new CustomerPersonalMenu(customer);
@@ -56,13 +57,15 @@ public class LoginInput extends ScreenInput {
 				}
 			} else { // Wrong password
 				System.out.println("You Are a Customer but Your Password is Incorrect");
-				System.out.println("hi4");
+				CustomerDashMenu custDash=new CustomerDashMenu();
+				custDash.menuDriver(userIn);
 			}
 		} else { // You are not a customer
 			System.out.println("You Are Not a Customer");
+			CustomerDashMenu custMen=new CustomerDashMenu();
+			custMen.menuDriver(userIn);
 		}
-		CustomerDashMenu custDash=new CustomerDashMenu();
-		custDash.menuDriver(userIn);
+
 	}
 	
 	public void getEmployeeInput(Scanner userIn) {
@@ -71,8 +74,9 @@ public class LoginInput extends ScreenInput {
 		System.out.println(id);
 		if(Driver.employees.containsKey(id)) {
 			Employee employee=Driver.employees.get(id);
-			if(employee.getLevel().equals("Admin")) { // Admin
-				System.out.println("Admin");
+			if(employee.getLevel().equals("admin")) { // Admin
+				AdminPersonalMenu adMenu=new AdminPersonalMenu();
+				adMenu.menuDriver(userIn, employee);
 			} else { // Employee
 				EmployeeMenu empMenu=new EmployeeMenu();
 				empMenu.menuDriver(userIn, employee);
