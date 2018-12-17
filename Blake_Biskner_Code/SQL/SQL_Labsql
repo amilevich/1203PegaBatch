@@ -1,0 +1,617 @@
+---------- SQL Lab ----------
+----- Blake Biskner ---------
+
+
+----- 2.0 SQL Queries -------
+---------- 2.1 Select --------
+-- Q.2.1.1 Select all records from Employee Table
+SELECT * FROM Employee;
+
+-- Q.2.1.2 Select all records from Employee table where last name is King
+SELECT * FROM Employee
+WHERE LastName='King';
+
+-- Q.2.1.3 Select all records from Employee table where first name is Andrew and REPORTSTO is NULL
+SELECT * FROM Employee
+WHERE FirstName='Andrew' AND ReportsTo IS NULL;
+
+
+---------- 2.2 ORDER BY ----------
+-- Q.2.2.1 Select all albums in Album table and sort result set in decreasing order by title
+SELECT * FROM Album ORDER BY title DESC;
+
+-- Q.2.2.2 Select first name from Cutomer and sort result set in ascending order by city
+SELECT FirstName FROM Customer ORDER BY City;
+
+
+---------- 2.3 Insert Into ----------
+-- Q.2.3.1 Insert two new records into the Genre table
+INSERT INTO Genre
+VALUES (26, 'Book Adaptation');
+INSERT INTO Genre
+VALUES (27, 'Online Broadcast');
+
+-- Q.2.3.2 Insert two new records into the Employee table
+INSERT INTO Employee
+VALUES(9,'Thomas','Tim','Sales Manager',1,'10-JAN-80','04-OCT-11','1234 Another Rd','Tampa','FL','USA','1234','+1 (123)123-1231','+1 (123)123-4567','d@gmail.com');
+INSERT INTO Employee
+VALUES(10,'Robert','Big','IT Manager',1,'11-JAN-90','10-MAR-12','4567 Still Ave','Tampa','FL','USA','5678','+1 (012)345-6789','+1 (901)234-5678','e@gmail.com');
+
+-- Q.2.3.3 Insert two new records into the Customer table
+INSERT INTO Customer
+VALUES(60,'Ron','Bob','Revature','123 Some St','Tampa','FL','USA','123456','(123)123-4567',NULL,'b@gmail.com',1);
+INSERT INTO Customer
+VALUES(61,'Tom','Robertson','Revature','456 Other St','Tampa','FL','USA','789012','(890)123-4567','FAX','c@gmail.com',2);
+
+
+---------- 2.4 Update ----------
+-- Q.2.4.1 Update Aaron Mitchell in Customer Table to Robert Walter
+UPDATE Customer SET FirstName='Robert',LastName='Walter'
+WHERE FirstName='Aaron' AND LastName='Mitchell';
+-- Q.2.4.2 Update name of artist in the Artist Table "Creedence Clearwater Revival" to "CCR"
+UPDATE Artist SET Name='CCR'
+WHERE Name='Creedence Clearwater Revival';
+
+
+---------- 2.5 Like ----------
+-- Q.2.5.1 Select all invoices with a billing address like "T%"
+SELECT * FROM Invoice
+WHERE BillingAddress LIKE 'T%';
+
+
+---------- 2.6 Between ----------
+-- Q.2.6.1 Select all invoices that have a total between 15 and 50
+SELECT * FROM Invoice
+WHERE Total BETWEEN 15 AND 50;
+
+-- Q.2.6.2 Select all employees hired between 1 of June 2003 and 1 March 2004
+SELECT * FROM Employee
+WHERE HireDate BETWEEN '01-JUN-03' AND '01-MAR-2004';
+
+
+---------- 2.7 Delete ----------
+-- Q.2.7.1 Delete a record in Cutomer table where the name is Robert Walter
+-- 1 Alter the Invoice Table to remove constraints
+-- Remove Foreign Key
+ALTER TABLE Invoice
+DROP CONSTRAINT FK_INVOICECUSTOMERID;
+-- Allow Null
+ALTER TABLE Invoice
+DROP CONSTRAINT SYS_C005240;
+-- 2 Determine the id of Robert Walter
+SELECT CustomerId FROM Customer WHERE FirstName='Robert' AND LastName='Walter';
+-- 3 Set the "foregin key" which refer to Robert Walter to null (id=32)
+UPDATE Invoice SET CustomerId=NULL WHERE CustomerId=32;
+-- 4 Reapply Foreign Key (values can now be null in column)
+ALTER TABLE Invoice
+ADD CONSTRAINT FK_INVOICECUSTOMERID
+FOREIGN KEY(CustomerId) REFERENCES Customer(CustomerId);
+
+
+---------- 3.0 SQL Functions ----------
+---------- 3.1 System Defined Functions ----------
+-- Q.3.1.1 Create a function that returns the current time
+CREATE OR REPLACE FUNCTION get_time
+RETURN VARCHAR2
+IS
+    time_now VARCHAR2(40);
+BEGIN
+    SELECT TO_CHAR(SYSDATE,'HH24:MI:SS') INTO time_now FROM DUAL;
+    RETURN time_now;
+END;
+/
+-- Anonymous function to execute function
+DECLARE
+    time_now VARCHAR2(40);
+BEGIN
+    time_now:=get_time;
+    DBMS_OUTPUT.PUT_LINE('The Current Time is '||time_now);
+END;
+/
+
+-- Q.3.1.2 Create a function that returns the length of a mediatype from the mediatype table
+CREATE OR REPLACE FUNCTION get_media_length(media_id INT)
+RETURN INT
+IS
+    media_name VARCHAR2(40);
+    type_len INT;
+BEGIN
+    SELECT Name INTO media_name FROM MediaType WHERE MediaTypeId=media_id;
+    type_len:=LENGTH(media_name);
+    RETURN type_len;
+END;
+/
+-- Anonymous function to execute function
+DECLARE
+    media_id INT;
+    media_name VARCHAR2(40);
+    type_len INT;
+BEGIN
+    media_id:=1;
+    SELECT Name INTO media_name FROM MediaType WHERE MediaTypeId=media_id;
+    type_len:=get_media_length(media_id);
+    DBMS_OUTPUT.PUT_LINE('The Length of '|| media_name ||' is '|| type_len);
+END;
+/
+
+
+---------- 3.2 System Defined Aggregate Functions ----------
+-- Q.3.2.1 Create a function that returns the average total of all invoices
+
+CREATE OR REPLACE FUNCTION get_avg_invoice
+RETURN NUMBER
+IS
+    avg_invoice NUMBER(10,2);
+BEGIN
+    SELECT AVG(Total) INTO avg_invoice FROM Invoice;
+    RETURN avg_invoice;
+END;
+/
+-- Anonymous function to execute get_avg_invoice
+DECLARE
+    avg_invoice_total NUMBER(10,2);
+BEGIN
+    avg_invoice_total:=get_avg_invoice;
+    DBMS_OUTPUT.PUT_LINE('The Average Total of the Invoices is $'||avg_invoice_total);
+END;
+/
+SELECT * FROM Track;
+-- Q.3.2.2 Create a function that returns the most expensive track
+-- Create a table in which to store track names
+CREATE OR REPLACE TYPE TRACKNAME IS TABLE OF VARCHAR2(100);
+/
+-- Iterate through each record with the highest unit price
+CREATE OR REPLACE FUNCTION get_expensive_track
+RETURN TRACKNAME
+IS
+    track_price NUMBER(5,2);
+    expensive_track VARCHAR2(100);
+    lctr INT;
+    track_table TRACKNAME:=TRACKNAME();
+BEGIN
+    SELECT MAX(UnitPrice) INTO track_price FROM Track;
+    lctr:=1;
+    FOR track_itr IN (SELECT Name FROM Track WHERE UnitPrice=track_price)
+    LOOP
+        track_table.EXTEND();
+        track_table(lctr):=track_itr.Name;
+        lctr:=lctr+1;
+   END LOOP;
+   RETURN track_table;
+END;
+/
+SELECT * FROM TABLE(get_expensive_track);
+
+
+---------- 3.3 User Defined Scalar Functions ----------
+-- Q.3.3.1 Create a function that returns the average price of invoiceline items in the invoicelines tables
+CREATE OR REPLACE FUNCTION get_avg_invoiceline
+RETURN NUMBER
+IS
+    avg_price NUMBER(5,2);
+BEGIN
+    SELECT AVG(UnitPrice) INTO avg_price FROM InvoiceLine;
+    RETURN avg_price;
+END;
+/
+-- Anonymous function to execute get_avg_invoiceline
+DECLARE
+    avg_price NUMBER(5,2);
+BEGIN
+    avg_price:=get_avg_invoiceline();
+    DBMS_OUTPUT.PUT_LINE('Average price of invoiceline is '||avg_price);
+END;
+/
+
+
+---------- 3.4 User Defined Table Valued Functions ----------
+-- Q.3.4.1 Create a function that returns all employees who are born after 1968
+-- Create new datatype which will store employee names
+CREATE OR REPLACE TYPE EMPLOYEE_NAME IS TABLE OF VARCHAR2(100);
+/
+-- Create function to return table of all young employees
+CREATE OR REPLACE FUNCTION get_young_emp
+RETURN
+    EMPLOYEE_NAME
+IS
+    CURSOR emps IS SELECT EmployeeId FROM Employee WHERE BirthDate>TO_DATE(1968,'YYYY');
+    emp_table EMPLOYEE_NAME:=EMPLOYEE_NAME();
+    itr INT;
+BEGIN
+    itr:=1;
+    FOR emp_id IN emps
+    LOOP
+        emp_table.EXTEND();
+        emp_table(itr):=emp_id.EmployeeId;
+        itr:=itr+1;
+    END LOOP;
+    RETURN emp_table;
+END;
+/
+SELECT * FROM TABLE(get_young_emp);
+
+
+---------- 4.0  Stored Procedures ----------
+---------- 4.1 Basic Stored Procedures ----------
+-- Q.4.1.1 Create a stored procedure that selects the first and last names of all employees
+CREATE OR REPLACE PROCEDURE get_emp_name(emp_cursor OUT SYS_REFCURSOR)
+AS
+BEGIN
+    OPEN emp_cursor FOR SELECT FirstName, LastName FROM Employee;
+END;
+/
+SELECT * FROM Employee;
+-- Anonymous function to execute procedure
+DECLARE
+    emp_cur SYS_REFCURSOR;
+    first_name VARCHAR2(20);
+    last_name VARCHAR2(20);
+BEGIN
+    get_emp_name(emp_cur);
+    LOOP
+        FETCH emp_cur INTO first_name,last_name;
+        EXIT WHEN emp_cur%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE(first_name||' '||last_name);
+    END LOOP;
+    CLOSE emp_cur;
+END;
+/
+
+SELECT * FROM Employee;
+---------- 4.2 Stored Procedure Input Parameters ----------
+-- Q.4.2.1 Create a stored procedure that updates the personal information of an employee
+CREATE OR REPLACE PROCEDURE update_emp_info(
+emp_id IN INT,
+emp_last IN VARCHAR2,
+emp_first IN VARCHAR2,
+emp_birth IN DATE,
+emp_address IN VARCHAR2,
+emp_city IN VARCHAR2,
+emp_state IN VARCHAR2,
+emp_country IN VARCHAR2,
+emp_phone IN VARCHAR2,
+emp_fax IN VARCHAR2,
+emp_email IN VARCHAR2)
+AS
+BEGIN
+    Update Employee SET
+    LastName=emp_last,
+    FirstName=emp_first,
+    BirthDate=emp_birth,
+    Address=emp_address,
+    City=emp_city,
+    State=emp_state,
+    COUNTRY=emp_country,
+    Phone=emp_phone,
+    Fax=emp_fax,
+    Email=emp_email
+    WHERE
+    EmployeeId=emp_id;
+END;
+/
+-- Anonymous function to execute set_emp_info
+DECLARE
+    emp_id INT;
+    emp_last VARCHAR2(20);
+    emp_first VARCHAR2(20);
+    emp_birth DATE;
+    emp_address VARCHAR2(50);
+    emp_city VARCHAR2(20);
+    emp_state VARCHAR2(5);
+    emp_country VARCHAR2(10);
+    emp_phone VARCHAR2(50);
+    emp_fax VARCHAR2(50);
+    emp_email VARCHAR2(50);
+BEGIN
+    emp_id:=10;
+    emp_last:='Wilson';
+    emp_first:='William';
+    emp_birth:='10-JUN-10';
+    emp_address:='123 New Pl';
+    emp_city:='Tampa';
+    emp_state:='FL';
+    emp_country:='USA';
+    emp_phone:='+1 (123) 456-1234';
+    emp_fax:='+1 (890)123-7890';
+    emp_email:='e@gmail.com';
+    update_emp_info(
+    emp_id,
+    emp_last,
+    emp_first,
+    emp_birth,
+    emp_address,
+    emp_city,
+    emp_state,
+    emp_country,
+    emp_phone,
+    emp_fax,
+    emp_email);
+END;
+/
+SELECT * FROM Employee;
+-- Q.4.2.2 Create a stored procedure that returns managers of an employee
+CREATE OR REPLACE PROCEDURE get_emp_boss(emp_id IN OUT INT, emp_boss_cursor OUT SYS_REFCURSOR)
+AS
+BEGIN
+        OPEN emp_boss_cursor FOR SELECT ReportsTo FROM Employee WHERE EmployeeID=emp_id;
+END;
+/
+-- Anonymos function to execute get_emp_boss
+DECLARE
+    emp_boss_cur SYS_REFCURSOR;
+    emp_boss INT;
+    emp_id INT;
+BEGIN
+    emp_id:=5;
+    LOOP
+        get_emp_boss(emp_id, emp_boss_cur);
+        FETCH emp_boss_cur INTO emp_boss;
+        -- If the returned value of reportsto is not null
+        IF emp_boss IS NOT NULL THEN
+            DBMS_OUTPUT.PUT_LINE(emp_boss);
+            -- Change the employee id to the reportsto value to examine the next level of management
+            emp_id:=emp_boss;
+        END IF;
+        EXIT WHEN emp_boss IS NULL;
+    END LOOP;
+    CLOSE emp_boss_cur;
+END;
+/
+SELECT * FROM Customer;
+
+---------- 4.3 Stored Procedure Output Parameters ----------
+-- Q.4.3.1 Create a stored procedure that returns the name and company of a customer
+CREATE OR REPLACE PROCEDURE get_cust_info(
+cust_id IN INT,
+cust_first OUT VARCHAR2,
+cust_last OUT VARCHAR2,
+cust_comp OUT VARCHAR2)
+AS
+BEGIN
+    SELECT FirstName INTO cust_first FROM Customer WHERE CustomerId=cust_id;
+    SELECT LastName INTO cust_last FROM Customer WHERE CustomerId=cust_id;
+    SELECT Company INTO cust_comp FROM Customer WHERE CustomerId=cust_id;
+END;
+/
+-- Anonymous function to execute get_cust_info
+DECLARE
+    cust_id INT;
+    cust_first VARCHAR2(100);
+    cust_last VARCHAR2(100);
+    cust_comp VARCHAR2(100);
+BEGIN
+    cust_id:=10;
+    get_cust_info(cust_id,cust_first,cust_last,cust_comp);
+    DBMS_OUTPUT.PUT_LINE(cust_first||' '||cust_last||' '||cust_comp);
+END;
+/
+
+SELECT * FROM InvoiceLine;
+---------- 5.0 Transactions ----------
+-- Q.5.1 Create a transaction that given an invoice id will delete that invoice
+CREATE OR REPLACE PROCEDURE delete_invoice(
+    invoice_id IN INT)
+AS
+BEGIN
+    DELETE Invoice WHERE InvoiceId=invoice_id;
+    -- Update all foreign keys with value of invoice_id to be null (as the parent key no longer exists)
+    UPDATE InvoiceLine SET InvoiceId=NULL WHERE InvoiceId=invoice_id;
+    COMMIT;
+END;
+/
+-- Anonymous function to execute stored procedure
+ALTER TABLE InvoiceLine
+DROP CONSTRAINT FK_INVOICELINEINVOICEID;
+ALTER TABLE InvoiceLine
+DROP CONSTRAINT SYS_C005245;
+DECLARE
+    invoice_id INT;
+BEGIN
+    invoice_id:=1;
+    delete_invoice(invoice_id);
+END;
+/
+ALTER TABLE InvoiceLine
+ADD CONSTRAINT FK_INOVOICELINEINVOICEID
+FOREIGN KEY(InvoiceId) REFERENCES Invoice(InvoiceId);
+SELECT InvoiceId FROM InvoiceLine;
+
+-- Q.5.2. Create a transaction nested within a stored procedure that inserts a new record in the customer table
+CREATE OR REPLACE PROCEDURE insert_customer(
+cust_id IN INT,
+cust_first IN VARCHAR2,
+cust_last IN VARCHAR2,
+cust_comp IN VARCHAR2,
+cust_address IN VARCHAR2,
+cust_city IN VARCHAR2,
+cust_state IN VARCHAR2,
+cust_country IN VARCHAR2,
+cust_postal IN VARCHAR2,
+cust_phone IN VARCHAR2,
+cust_fax IN VARCHAR2,
+cust_email IN VARCHAR2,
+cust_support IN INT)
+AS
+BEGIN
+    INSERT INTO Customer(
+        CustomerId,
+        FirstName,
+        LastName,
+        Company,
+        Address,
+        City,
+        State,
+        Country,
+        PostalCode,
+        Phone,
+        Fax,
+        Email,
+        SupportRepId)
+    VALUES(
+        cust_id,
+        cust_first,
+        cust_last,
+        cust_comp,
+        cust_address,
+        cust_city,
+        cust_state,
+        cust_country,
+        cust_postal,
+        cust_phone,
+        cust_fax,
+        cust_email,
+        cust_support
+        );
+    COMMIT;
+END;
+/
+SELECT * FROM Customer;
+-- Anonymous function to execute procedure
+DECLARE
+    cust_id INT;
+    cust_first VARCHAR2(100);
+    cust_last VARCHAR2(100);
+    cust_comp VARCHAR2(100);
+    cust_address VARCHAR2(100);
+    cust_city VARCHAR2(100);
+    cust_state VARCHAR2(5);
+    cust_country VARCHAR2(20);
+    cust_postal VARCHAR2(20);
+    cust_phone VARCHAR2(100);
+    cust_fax VARCHAR2(100);
+    cust_email VARCHAR2(100);
+    cust_support INT;
+BEGIN
+    cust_id:=62;
+    cust_first:='Todd';
+    cust_last:='Dylon';
+    cust_comp:='Revature';
+    cust_address:='123 Another St';
+    cust_city:='Tampa';
+    cust_state:='FL';
+    cust_country:='USA';
+    cust_postal:='1';
+    cust_phone:='+1 (123)123-1234';
+    cust_fax:='+1 (123)123-1234';
+    cust_email:='h@gmail.com';
+    cust_support:=3;
+    insert_customer(
+    cust_id,
+    cust_first,
+    cust_last,
+    cust_comp,
+    cust_address,
+    cust_city,
+    cust_state,
+    cust_country,
+    cust_postal,
+    cust_phone,
+    cust_fax,
+    cust_email,
+    cust_support);
+END;
+/
+
+
+---------- 6.0 Triggers ----------
+---------- 6.1 After For Trigger ----------
+-- Q.6.1.1 Create an after insert trigger on the employees table after a new record is inserted
+CREATE OR REPLACE TRIGGER after_emp_insert
+AFTER INSERT ON Employee
+FOR EACH ROW
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('New row inserted');
+END;
+/
+-- Trigger test
+INSERT INTO Employee (EmployeeId,LastName,FirstName) VALUES(20,'Mark','Chase');
+DELETE Employee WHERE EmployeeId=20;
+
+-- Q.6.1.2 Create an after update trigger on the album table after a row is updated in the table
+CREATE OR REPLACE TRIGGER after_album_update
+AFTER UPDATE ON Album
+FOR EACH ROW
+DECLARE
+    old_id INT;
+    old_title VARCHAR2(200);
+    old_art INT;
+    new_id INT;
+    new_title VARCHAR2(200);
+    new_art INT;
+BEGIN
+    old_id:=:OLD.AlbumId;
+    old_title:=:OLD.Title;
+    old_art:=:OLD.ArtistId;
+    
+    new_id:=:NEW.AlbumId;
+    new_title:=:NEW.Title;
+    new_art:=:NEW.ArtistId;
+    
+    DBMS_OUTPUT.PUT_LINE(old_id||' '||old_title||' '||old_art||' Changed to '||new_id||' '||new_title||' '||new_art);
+END;
+/
+-- Test Trigger
+UPDATE Album SET Title='Big Ones Update' WHERE Title='Big Ones';
+UPDATE Album SET Title='Big Ones' WHERE Title='Big Ones Update';
+
+-- Q.6.1.3 Create an after trigger on the customer table that fires after a row is deleted
+CREATE OR REPLACE TRIGGER after_cust_delete
+AFTER DELETE ON Customer
+FOR EACH ROW
+DECLARE
+    cust_id INT;
+BEGIN
+    cust_id:=:OLD.CustomerId;
+    DBMS_OUTPUT.PUT_LINE('Customer '||cust_id||' Deleted');
+END;
+/
+-- Test Trigger
+DELETE FROM Customer WHERE CustomerId=61;
+
+
+---------- 7.0 Joins ----------
+---------- 7.1 Inner Joins ----------
+-- Q.7.1.1 Create an inner join that joins customers and orders and specifies the name of the customer and the invoice id
+SELECT c.FirstName, c.LastName, i.InvoiceId
+FROM Customer c
+INNER JOIN Invoice i ON c.CustomerId=i.CustomerId;
+
+---------- 7.2 Outer Join ----------
+-- Q.7.2.1 Create an outer join that joins the customer and invoice table
+-- and specifies the customer id, first name, last name, invoice id, and total
+SELECT c.CustomerId, c.FirstName, c.LastName, i.InvoiceId, i.Total
+FROM Customer c
+FULL OUTER JOIN Invoice i ON c.CustomerId=i.CustomerId;
+
+---------- 7.3 Right Join ----------
+-- Q.7.3.1 Create a right join that joins album and artist specifying artist name and title
+SELECT art.Name, alb.Title
+FROM Artist art
+RIGHT OUTER JOIN Album alb ON art.ArtistId=alb.ArtistId;
+
+
+---------- 7.4 Cross Join ----------
+-- Q.7.4.1 Create a cross join that joins album and artist and sorts by artist name in ascending order
+SELECT art.ArtistId, art.Name,alb.AlbumId,alb.Title,alb.ArtistId
+FROM Artist art
+INNER JOIN Album alb ON 1=1
+ORDER BY art.Name;
+
+
+---------- 7.5 Self Join ----------
+-- Q.7.5.1 Perform a self join on the employee table joining on the reports to column
+SELECT emp.FirstName, boss.FirstName
+FROM Employee emp
+LEFT OUTER JOIN Employee boss ON emp.ReportsTo=boss.EmployeeId;
+SELECT * FROM Employee;
+
+COMMIT;
+
+
+---------- 9.0 Administration ----------
+-- Q.9.0.1 Create a .bak for the chinook database
+-- 1 Went to AWS portal
+-- 2 Went to rds
+-- 3 Went to database instance octocatdb
+-- 4 Went to Maintanence and backups
+-- 5 Hit Take Snapshot and set sqlLab as the snapshot identifier
