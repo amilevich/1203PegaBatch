@@ -124,12 +124,29 @@ END;
 
 --3.4 User Defined Table Valued Functions
 --Create a function that returns all employees who are born after 1968.
-CREATE OR REPLACE FUNCTION born_after_1968(o_ref OUT SYS_REFCURSOR)
+CREATE OR REPLACE FUNCTION born_after_1968
 RETURN SYS_REFCURSOR
 IS o_ref SYS_REFCURSOR;
 BEGIN
     OPEN o_ref FOR SELECT firstname, lastname, birthdate FROM employee WHERE birthdate >='01-JAN-69';
     RETURN o_ref;
+END;
+/
+
+DECLARE
+  result_cursor  SYS_REFCURSOR;
+  firstname employee.firstname%type;
+  lastname employee.lastname%type;
+  birthdate employee.birthdate%type;
+BEGIN 
+result_cursor := born_after_1968;
+LOOP
+    FETCH result_cursor INTO firstname, lastname, birthdate;
+    EXIT WHEN result_cursor%NOTFOUND;
+    DBMS_OUTPUT.PUT_LINE(lastname || ', ' || firstname || ' ' || birthdate);
+    
+END LOOP;
+CLOSE result_cursor;
 END;
 /
 
