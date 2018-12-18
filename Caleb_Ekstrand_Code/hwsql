@@ -289,7 +289,53 @@ EXECUTE newcust(1000, 'asdfasdf', 'ffffsf', 'aaaaaa@aaaa.aaa');
 --6.1
 --Task - Create an after insert trigger on the employee table fired after a new record is inserted into the
 --table.
-    
+CREATE OR REPLACE TRIGGER employeeinserted
+AFTER INSERT ON employee
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('HI... you made an insert into employee');
+END;
+/
+--Task – Create an after update trigger on the album table that fires after a row is inserted in the table
+CREATE OR REPLACE TRIGGER albumupdated
+AFTER UPDATE ON album
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Hi... you made an update to album');
+END;
+/
+--Task – Create an after delete trigger on the customer table that fires after a row is deleted from the
+--table.
+CREATE OR REPLACE TRIGGER customerdeleted
+AFTER DELETE ON customer
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('HI... you made a delete to customer');
+END;
+/
+--7.0--
+--7.1
+--Task – Create an inner join that joins customers and orders and specifies the name of the customer and
+--the invoiceId.
+SELECT firstname, lastname, invoiceid FROM customer
+INNER JOIN invoice ON customer.customerid = invoice.customerid;
+
+--7.2
+--Task – Create an outer join that joins the customer and invoice table, specifying the CustomerId,
+--firstname, lastname, invoiceId, and total.
+SELECT customer.customerid, firstname, lastname, invoiceid, total FROM customer
+FULL OUTER JOIN invoice ON customer.customerid = invoice.customerid;
+
+--7.3
+--Task – Create a right join that joins album and artist specifying artist name and title.
+SELECT name, title FROM album
+RIGHT JOIN artist ON album.artistid = artist.artistid;
+--7.4
+--Task – Create a cross join that joins album and artist and sorts by artist name in ascending order.
+SELECT * FROM album
+CROSS JOIN artist
+ORDER  BY artist.name ASC;
+--7.5
+--Task – Perform a self-join on the employee table, joining on the reportsto column
+SELECT * FROM employee a
+INNER JOIN employee b ON a.employeeid = b.reportsto;
 
 
 
