@@ -1,0 +1,301 @@
+--2.0
+--2.1
+SELECT * FROM employee;
+
+SELECT * FROM employee
+WHERE lastname = 'King';
+
+SELECT * FROM employee
+WHERE firstname = 'Andrew' AND reportsto = NULL;
+
+--2.2
+
+--2.3
+SELECT * FROM genre; --for testing
+SELECT * FROM employee; --for testing
+SELECT * FROM customer; --for testing
+
+INSERT INTO genre VALUES(26, 'Punk');
+INSERT INTO genre VALUES(27, 'Ska');
+
+INSERT INTO employee(employeeid, lastname, firstname) VALUES(9, 'Stevenson', 'Steve');
+INSERT INTO employee(employeeid, lastname, firstname) VALUES(10, 'Bobberson', 'Bob');
+
+INSERT INTO customer(customerid, firstname, lastname, email) VALUES(60, 'Don', 'Quixote','dquixote@gmail.com');
+INSERT INTO customer(customerid, firstname, lastname, email) VALUES(61, 'Queen', 'Latifa', 'qlatifa@gmail.com');
+
+--2.4
+SELECT * FROM artist; --for testing
+SELECT * FROM customer; -- for testing
+
+UPDATE customer
+SET firstname = 'Robert', lastname = 'Walter'
+WHERE firstname = 'Aaron' AND lastname = 'Mitchell';
+
+UPDATE artist
+SET name = 'CCR'
+WHERE name = 'Creedence Clearwater Revival';
+
+--2.5
+SELECT * FROM invoice
+WHERE billingaddress LIKE 'T%';
+
+--2.6
+SELECT * FROM invoice
+WHERE total BETWEEN 15 AND 50;
+
+SELECT * FROM employee
+WHERE hiredate BETWEEN '01-JUN-03' AND '01-MAR-04';
+
+--2.7
+SELECT * FROM customer; --for testing
+DELETE invoiceline
+WHERE invoiceid IN
+    (SELECT invoiceid FROM invoice
+        WHERE customerid =
+            (SELECT customerid FROM customer
+                WHERE firstname = 'Robert' AND lastname = 'Walter'));
+
+DELETE invoice
+WHERE customerid =
+    (SELECT customerid FROM customer
+        WHERE firstname = 'Robert' AND lastname = 'Walter');
+
+DELETE customer
+WHERE firstname = 'Robert' AND lastname = 'Walter';
+
+--3.0--
+--3.1
+CREATE OR REPLACE FUNCTION current_time
+RETURN VARCHAR2
+IS
+    z VARCHAR2(20);
+BEGIN
+    z := to_char(localtimestamp, 'HH24-MI-SS');
+    RETURN z;
+END;
+/
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(current_time);
+END;
+/
+CREATE OR REPLACE FUNCTION medialength(i INT)
+RETURN NUMBER
+IS
+    len NUMBER;
+BEGIN
+    SELECT LENGTH(name) INTO len FROM mediatype
+        WHERE mediatypeid = i;
+    RETURN len;
+END;
+/
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(medialength(2));
+END;
+/
+SELECT * FROM mediatype; -- For testing
+
+--3.2
+--Task – Create a function that returns the average total of all invoices
+SELECT AVG(total) FROM invoice; --testing
+SELECT * FROM invoice; --testing
+
+CREATE OR REPLACE FUNCTION avg_total_of_invoices
+RETURN NUMBER
+IS
+    a NUMBER(38,2);
+BEGIN
+    SELECT AVG(total) INTO a FROM invoice;
+    RETURN a;
+END;
+/
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(avg_total_of_invoices);
+END;
+/
+--Task – Create a function that returns the most expensive track
+SELECT * FROM track; --testing
+SELECT MAX(unitprice) FROM track;
+SELECT * FROM track
+    WHERE unitprice = 
+        (SELECT MAX(unitprice) FROM track);
+
+CREATE OR REPLACE FUNCTION most_exp_track
+RETURN VARCHAR2
+IS
+    z VARCHAR2(5000);
+BEGIN
+    SELECT name INTO z FROM track
+        WHERE unitprice =
+            (SELECT MAX(unitprice) FROM track);
+    RETURN z;
+END;
+/
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(most_exp_track);
+END;
+/
+
+--3.3
+--Task – Create a function that returns the average price of invoiceline items in the invoiceline table
+CREATE OR REPLACE FUNCTION avgprice
+RETURN NUMBER
+IS
+    z NUMBER;
+BEGIN
+    SELECT AVG(unitprice) INTO z FROM invoiceline;
+    RETURN z;
+END;
+/
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(avgprice);
+END;
+/
+--3.4
+--Task – Create a function that returns all employees who are born after 1968.
+SELECT listagg(firstname, ' ') WITHIN GROUP (ORDER BY employeeid) FROM employee
+    WHERE birthdate >= '1-JAN-69'; --for testing 
+    
+CREATE OR REPLACE FUNCTION bornafter
+RETURN VARCHAR2
+IS
+    z VARCHAR2(500);
+BEGIN
+    SELECT listagg(firstname, ' ') WITHIN GROUP (ORDER BY employeeid) INTO z FROM employee
+    WHERE birthdate >= '1-JAN-69';
+    RETURN z;
+END;
+/
+BEGIN
+    DBMS_OUTPUT.PUT_LINE(bornafter);
+END;
+/
+--4.0--
+--4.1
+--Task – Create a stored procedure that selects the first and last names of all the employees.
+CREATE OR REPLACE PROCEDURE employeenames (result_set OUT SYS_REFCURSOR) 
+AS
+BEGIN
+    OPEN result_set FOR SELECT firstname, lastname FROM employee;
+END;
+/
+DECLARE 
+    temp_cursor SYS_REFCURSOR;
+    firstname EMPLOYEE.FIRSTNAME%TYPE;
+    lastname EMPLOYEE.LASTNAME%TYPE;
+BEGIN
+    employeenames (result_set => temp_cursor);
+    LOOP
+        FETCH temp_cursor INTO firstname, lastname;
+        EXIT WHEN temp_cursor%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE(firstname || ' | ' || lastname);
+    END LOOP;
+END;
+/
+--4.2
+--Task – Create a stored procedure that updates the personal information of an employee
+CREATE OR REPLACE PROCEDURE updateemployee
+(emp_id IN NUMBER,
+    emp_bdate IN DATE,
+    emp_hdate IN DATE,
+    emp_add IN VARCHAR2,
+    emp_city IN VARCHAR2,
+    emp_state IN VARCHAR2,
+    emp_pc IN VARCHAR2,
+    emp_phone IN VARCHAR2,
+    emp_fax IN VARCHAR2,
+    emp_email IN VARCHAR2)
+AS
+BEGIN
+    UPDATE employee
+    SET birthdate = emp_bdate,
+        hiredate = emp_hdate,
+        address = emp_add,
+        city = emp_city,
+        postalcode = emp_pc,
+        phone = emp_phone,
+        fax = emp_fax,
+        email = emp_email
+        WHERE employeeid = emp_id;
+END;
+/
+EXECUTE updateemployee(1, '10-SEP-77', '12-DEC-65', 'BANANA DRIVE', 'COOKIELAND', 'BROWNIEVERSE', 'POSTAL', '8675309', '8675309...again', 'AAAAAAA@gmail.com');
+--Task – Create a stored procedure that returns the managers of an employee.
+CREATE OR REPLACE PROCEDURE manager(employee IN NUMBER, first OUT VARCHAR2, last OUT VARCHAR2)
+AS
+BEGIN
+    SELECT firstname, lastname INTO first, last FROM employee
+    WHERE employeeid = 
+        (SELECT reportsto FROM employee WHERE employeeid = employee);
+END;
+/
+DECLARE
+    fname EMPLOYEE.FIRSTNAME%TYPE;
+    lname EMPLOYEE.LASTNAME%TYPE;
+BEGIN
+    manager (4, first=>fname, last=>lname);
+    DBMS_OUTPUT.PUT_LINE(fname || ' ' || lname);
+END;
+/
+
+--4.3
+--Task – Create a stored procedure that returns the name and company of a customer
+CREATE OR REPLACE PROCEDURE name_company(cust_id IN NUMBER, cust_fname OUT VARCHAR2, cust_lname OUT VARCHAR2, cust_comp OUT VARCHAR2)
+AS
+BEGIN
+    SELECT firstname, lastname, company INTO cust_fname, cust_lname, cust_comp FROM customer WHERE customerid = cust_id;
+END;
+/
+DECLARE
+    fname CUSTOMER.FIRSTNAME%TYPE;
+    lname CUSTOMER.LASTNAME%TYPE;
+    comp CUSTOMER.COMPANY%TYPE;
+BEGIN
+    name_company(3, cust_fname=>fname, cust_lname=>lname, cust_comp=>comp);
+    DBMS_OUTPUT.PUT_LINE(fname || ' ' || lname || ' works for ' || comp);
+END;
+/
+--5.0--
+--5.1
+--Task – Create a transaction that given a invoiceId will delete that invoice (There may be constraints that
+--rely on this, find out how to resolve them).
+CREATE OR REPLACE PROCEDURE deleteinvoice(iv_id IN NUMBER)
+AS
+BEGIN
+    DELETE invoiceline
+        WHERE invoiceid IN
+            (SELECT invoiceid FROM invoice
+                WHERE invoiceid = iv_id);
+    DELETE invoice
+        WHERE invoiceid = iv_id;
+END;
+/
+EXECUTE deleteinvoice(111);
+--Task – Create a transaction nested within a stored procedure that inserts a new record in the Customer
+--table
+CREATE OR REPLACE PROCEDURE newcust
+(cust_id IN NUMBER,
+    cust_fname IN VARCHAR2,
+    cust_lname IN VARCHAR2,
+    cust_email IN VARCHAR2)
+AS
+BEGIN
+    INSERT INTO customer(customerid, firstname, lastname, email) VALUES(cust_id, cust_fname, cust_lname, cust_email);
+END;
+/
+EXECUTE newcust(1000, 'asdfasdf', 'ffffsf', 'aaaaaa@aaaa.aaa');
+
+--6.0--
+--6.1
+--Task - Create an after insert trigger on the employee table fired after a new record is inserted into the
+--table.
+    
+
+
+
+
+
+    
+    
+    
+    
