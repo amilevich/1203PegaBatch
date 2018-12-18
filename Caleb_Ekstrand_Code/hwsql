@@ -338,7 +338,11 @@ SELECT * FROM employee a
 INNER JOIN employee b ON a.employeeid = b.reportsto;
 
 
-
+--9.0--
+/*
+I could not figure out how to create a .bak file but you can create and restore a snapshot on AWS and from sql developer you can
+go to tools and export and then later import a database. Nothing I found had to do with .bak however. 
+*/
 
 
     
