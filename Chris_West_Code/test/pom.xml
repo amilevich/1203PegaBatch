@@ -4,4 +4,17 @@
   <artifactId>test</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
+  <properties>
+  
+  
+  
+  <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+  </properties>
+<!-- ojdbc7.jar example -->
+<dependency>
+    <groupId>com.oracle</groupId>
+    <artifactId>ojdbc7</artifactId>
+    <version>12.1.0</version>
+</dependency>
 </project>

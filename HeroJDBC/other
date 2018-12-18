@@ -1,0 +1,14 @@
+public static ConnFactory cf = ConnFactory.getInstance();
+
+
+CREATE OR REPLACE PROCEDURE INSERTSUPERHERO(NAME IN VARCHAR2)
+AS
+BEGIN
+INSERT INTO SUPERHERO VALUES(,);
+COMMIT;
+END;
+/
+
+String sql = "{call INSERTSUPERHERO(?)";
+CallableStatement call = conn.prepareCall(sql);
+call.setString(1, heroName);
