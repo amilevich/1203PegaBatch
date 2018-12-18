@@ -368,3 +368,10 @@ SELECT a.employeeid, a.lastname, a.firstname, a.reportsto, b.firstname, b.lastna
 -------------------------9.0 Administration
 --In this section you will be creating backup files of your database. After you create the backup file you will also restore the database. Research or try random things then communicate with batchmates, do not ask trainer.
 --Task – Create a .bak file for the Chinook database.
+
+--I was able to create a backup of the database, it wasn't a .bak
+--or at least there isn't a way for me to identify the backup as .bak
+--I went to Amazon web services website, accessed the RDBS that was made for this
+--training course. I created an additional 'snapshot' under backup & maintenance
+--this snapshot is a backup copy of the database that has the option to restore the database
+--back to that snapshot instance
