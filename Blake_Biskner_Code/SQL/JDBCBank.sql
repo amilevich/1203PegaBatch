@@ -27,7 +27,7 @@ CREATE TABLE LookupStatus(
 ----- Customer Account and Employee Table Creation -----
 CREATE TABLE BankAccount(
     account_id INT,
-    account_balance NUMBER(38,2),
+    account_balance NUMBER(38,2) DEFAULT 0.0,
     PRIMARY KEY(account_id)
 );
 
@@ -44,12 +44,12 @@ CREATE TABLE BankCustomer(
     customer_first VARCHAR2(100),
     customer_last VARCHAR2(100),
     customer_age INT,
-    customer_social INT,
+    customer_social VARCHAR2(10),
+    customer_type INT,
     customer_status INT,
     customer_account INT,
-    customer_type INT,
     PRIMARY KEY(customer_username),
-    FOREIGN KEY(customer_account) REFERENCES BankAccount(account_id),
+    FOREIGN KEY (customer_account) REFERENCES BankAccount(account_id),
     FOREIGN KEY(customer_status) REFERENCES LookupStatus(status_id),
     FOREIGN KEY(customer_type) REFERENCES LookupType(type_id)
 );
@@ -76,4 +76,42 @@ COMMIT;
 INSERT INTO BankEmployee(employee_id,employee_level) VALUES (EMP_SEQ.NEXTVAL,1);
 INSERT INTO BankEmployee(employee_id,employee_level) VALUES (EMP_SEQ.NEXTVAL,2);
 COMMIT;
+
+---------- Create Stored Procedures ----------
+----- Insert New Customer -----
+CREATE OR REPLACE PROCEDURE Insert_Customer(
+new_username IN VARCHAR2,
+new_password IN VARCHAR2,
+new_first IN VARCHAR2,
+new_last IN VARCHAR2,
+new_age IN INT,
+new_social IN VARCHAR2,
+new_type IN INT,
+new_status IN INT)
+AS
+account_num INT;
+BEGIN
+-- As I will use the account number twice I must only increment once
+-- Thus I cannot use ACCT_SEQ.NEXTVAL bot times
+account_num:=ACCT_SEQ.NEXTVAL;
+
+INSERT INTO BankAccount(account_id)
+VALUES(account_num);
+
+INSERT INTO BankCustomer
+VALUES(
+new_username,
+new_password,
+new_first,
+new_last,
+new_age,
+new_social,
+new_type,
+new_status,
+account_num);
+
+COMMIT;
+END;
+/
+SELECT * FROM BankCustomer;
 

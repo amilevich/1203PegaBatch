@@ -154,14 +154,14 @@ public class InputValidation {
 		String userStr = "";
 		String inputSyntax = "Please Enter Username Consisting of Letters and Digits ONLY";
 		String uniqueMessage = "Username Already Taken";
-		boolean nameTaken;
+		boolean nameTaken=false;
 		do {
 			userStr = confirmDriver(userIn, inputSyntax);
-			if (Driver.customers.containsKey(userStr)) {
-				nameTaken = true;
-			} else {
-				nameTaken = false;
-			}
+//			if (Driver.customers.containsKey(userStr)) {
+//				nameTaken = true;
+//			} else {
+//				nameTaken = false;
+//			}
 			if (nameTaken == true) {
 				System.out.println(uniqueMessage);
 			} else if (numLetterTest(userStr) != true) {
@@ -198,16 +198,16 @@ public class InputValidation {
 	 * @return returns 'J' char for joint and 'P' char for personal
 	 */
 
-	public static char acctTypeValidate(Scanner userIn) {
+	public static int acctTypeValidate(Scanner userIn) {
 		int selection = 0;
 		int maxOptions = 2;
 		String inputSyntax = "Please Select an Account Type (Those Under 18 Must Select Joint)\n[1] Personal\n[2] Joint";
 		System.out.println(inputSyntax);
 		selection = optionValidate(userIn, maxOptions);
 		if (selection == 1) {
-			return 'P'; // Returns P for personal
+			return 1; // Returns 1 for personal
 		} else {
-			return 'J'; // Returns J for joint
+			return 2; // Returns 2 for joint
 		}
 	}
 	

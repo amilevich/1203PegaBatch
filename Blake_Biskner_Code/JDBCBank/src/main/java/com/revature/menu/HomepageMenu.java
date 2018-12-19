@@ -49,8 +49,8 @@ public class HomepageMenu extends Menu{
 	public void menuInput(Scanner userIn, int userInput) {
 		switch (userInput) {
 		case 1:
-//			CustomerDashMenu custMenu = new CustomerDashMenu();
-//			custMenu.menuDriver(userIn);
+			CustomerDashMenu custMenu = new CustomerDashMenu();
+			custMenu.menuDriver(userIn);
 			break;
 		case 2:
 //			String[] screenInput= {"Employee Id"};

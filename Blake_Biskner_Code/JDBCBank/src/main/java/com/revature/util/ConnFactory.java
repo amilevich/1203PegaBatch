@@ -30,9 +30,9 @@ public class ConnFactory {
 	}
 
 	public static synchronized ConnFactory getInstance() {
-		if (cf == null) {
-			cf = new ConnFactory();
-		}
+//		if (cf == null) {
+//			cf = new ConnFactory();
+//		}
 		return cf;
 	}
 

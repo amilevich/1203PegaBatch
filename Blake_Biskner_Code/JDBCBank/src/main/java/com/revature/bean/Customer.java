@@ -9,12 +9,12 @@ package com.revature.bean;
 
 public class Customer {
 	// Class State
+	private String username;
+	private String password;
 	private String firstName;
 	private String lastName;
 	private int age;
 	private String socialSecurity;
-	private String username;
-	private String password;
 	private int acctType;
 	private int acctStatus;
 	private int acctNum;
@@ -32,15 +32,15 @@ public class Customer {
 		this.acctType = 2; // Joint
 	}
 
-	public Customer(String username, int acctNum, String firstName, String lastName, int age, String socialSecurity,
-			String password, char acctType, char acctStatus) {
+	public Customer(String username, String password, String firstName, String lastName, int age, String socialSecurity,
+			int acctType,int acctStatus) {
 		this.username = username;
-		this.acctNum = acctNum;
+		this.password=password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
 		this.socialSecurity = socialSecurity;
-		this.password = password;
+		this.acctType = acctType;
 		this.acctStatus = acctStatus;
 	}
 
@@ -63,6 +63,10 @@ public class Customer {
 
 	public String getPassword() {
 		return password;
+	}
+	
+	public String getSocialSecurity() {
+		return socialSecurity;
 	}
 
 	public int getAcctType() {
@@ -112,7 +116,7 @@ public class Customer {
 	// ToString
 	@Override
 	public String toString() {
-		return (username + ":" + acctNum + ":" + firstName + ":" + ":" + lastName + ":" + age + ":" + socialSecurity
-				+ ":" + password + ":" + acctType + ":" + acctStatus + "\n");
+		return (username + ":" + password + ":" + firstName + ":" + lastName + ":" + age + ":" + socialSecurity + ":"
+				+ acctType + ":" + acctStatus + ":" + acctNum + "\n");
 	}
 }

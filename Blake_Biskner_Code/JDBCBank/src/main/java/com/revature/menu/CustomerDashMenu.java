@@ -1,7 +1,10 @@
 package com.revature.menu;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.revature.bean.Customer;
+import com.revature.daoimpl.CustomerDAOImpl;
 import com.revature.input.ApplicationInput;
 import com.revature.util.InputValidation;
 
@@ -54,30 +57,36 @@ public class CustomerDashMenu extends Menu {
 			// logInput.getCustomerInput(userIn);
 			break;
 		case 2: // Sign Up
-			 ApplicationInput appInput = new ApplicationInput();
-			 appInput.inputDisplay();
+			ApplicationInput appInput = new ApplicationInput();
+			appInput.inputDisplay();
 			// Instantiate Customer
-			// Customer customer=new Customer();
+			Customer customer = new Customer();
 			// Initialize Customer State
-			// appInput.getInput(userIn,customer);
+			appInput.getInput(userIn, customer);
 			// Initialize Customer Account Type
-			// char acctType = InputValidation.acctTypeValidate(userIn);
-			// customer.setAcctType(acctType);
+			int acctType = InputValidation.acctTypeValidate(userIn);
+			customer.setAcctType(acctType);
 			// Account Type Flow
-			// if(customer.getAcctType()=='J') {
-			// FileWrite.writeToCustomerDataBase(customer);
-			// Driver.pullCustomerMap();
-			// Must make new copy of map with first joint holder
-			// Else both holders may have same username
-			// System.out.println("Enter Information for Joint Holder");
-			// Customer jointCust=new Customer(customer.getAcctNum()); // Instantiate with
-			// joint account
-			// appInput.getInput(userIn, jointCust);
-			// FileWrite.writeToCustomerDataBase(jointCust);
-			// }else {
-			// System.out.println("Application Awaiting Approval");
-			// FileWrite.writeToCustomerDataBase(customer);
-			// }
+			if (customer.getAcctType() == 2) { // Joint
+				// FileWrite.writeToCustomerDataBase(customer);
+				// Driver.pullCustomerMap();
+				// Must make new copy of map with first joint holder
+				// Else both holders may have same username
+				// System.out.println("Enter Information for Joint Holder");
+				// Customer jointCust=new Customer(customer.getAcctNum()); // Instantiate with
+				// joint account
+				// appInput.getInput(userIn, jointCust);
+				// FileWrite.writeToCustomerDataBase(jointCust);
+			} else {
+				System.out.println("Application Awaiting Approval");
+				CustomerDAOImpl cdi = new CustomerDAOImpl();
+				try {
+					cdi.createCustomer(customer);
+				} catch (SQLException e) {
+					System.out.println("Customer Creation Unsuccessful");
+					e.printStackTrace();
+				}
+			}
 			menuDriver(userIn);
 			break;
 		case 3:
