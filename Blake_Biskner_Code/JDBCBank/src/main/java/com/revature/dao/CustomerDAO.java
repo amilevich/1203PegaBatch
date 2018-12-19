@@ -15,6 +15,7 @@ public interface CustomerDAO {
 	// CREATE
 	public void createCustomer(Customer customer) throws SQLException;
 	// READ
+	public void getCustomerMap() throws SQLException;
 
 	// UPDATE
 

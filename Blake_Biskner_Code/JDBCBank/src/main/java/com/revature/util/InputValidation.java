@@ -3,6 +3,8 @@ package com.revature.util;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import com.revature.driver.Driver;
+
 
 
 /**
@@ -154,14 +156,14 @@ public class InputValidation {
 		String userStr = "";
 		String inputSyntax = "Please Enter Username Consisting of Letters and Digits ONLY";
 		String uniqueMessage = "Username Already Taken";
-		boolean nameTaken=false;
+		boolean nameTaken;
 		do {
 			userStr = confirmDriver(userIn, inputSyntax);
-//			if (Driver.customers.containsKey(userStr)) {
-//				nameTaken = true;
-//			} else {
-//				nameTaken = false;
-//			}
+			if (Driver.customers.containsKey(userStr)) {
+				nameTaken = true;
+			} else {
+				nameTaken = false;
+			}
 			if (nameTaken == true) {
 				System.out.println(uniqueMessage);
 			} else if (numLetterTest(userStr) != true) {

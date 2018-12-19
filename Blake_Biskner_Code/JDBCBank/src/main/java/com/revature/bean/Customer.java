@@ -33,7 +33,7 @@ public class Customer {
 	}
 
 	public Customer(String username, String password, String firstName, String lastName, int age, String socialSecurity,
-			int acctType,int acctStatus) {
+			int acctType, int acctStatus, int acctNum) {
 		this.username = username;
 		this.password=password;
 		this.firstName = firstName;
@@ -41,7 +41,8 @@ public class Customer {
 		this.age = age;
 		this.socialSecurity = socialSecurity;
 		this.acctType = acctType;
-		this.acctStatus = acctStatus;
+		this.acctStatus=acctStatus;
+		this.acctNum=acctNum;
 	}
 
 	// Getters and Setters
