@@ -439,6 +439,7 @@ public class CustomerMenu {
 				break;
 			case 3:
 				returnToMenu = false;
+				break;
 			default:
 				System.out.println("Invalid Selection");
 				break;

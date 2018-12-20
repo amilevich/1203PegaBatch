@@ -189,14 +189,10 @@ public class EmployeeMenu {
 		}else {
 			System.out.println("Customers:");
 			for(int i = 0; i < customers.size(); i++) {
-				System.out.println(i+". " + customers.get(i));
+				System.out.println(i+1+". " + customers.get(i));
 			}
 			System.out.println("---------------------");
 		}
-	}
-
-	public static void main(String[] args) {
-		new EmployeeMenu().approveOrDeny();
 	}
 
 }
