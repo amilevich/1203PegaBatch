@@ -1,0 +1,34 @@
+The login for superuser is:
+Username: superuser
+password: superuser
+
+
+There are 4 types of accounts:
+Customer
+Employee
+Admin
+Superuser
+
+Superusers can create other users, and can specify the account type
+i.e. a superuser can create an admin or even another superuser
+
+If you don't want to create an employee or admin using the superuser, login for
+Employee:
+username: littlefinger
+password: littlefinger
+
+admin:
+username: varys
+password: varys
+
+Superuser vs Admin
+I felt that admin dealt more with the bank administation, i.e. bank accounts and such
+while the superuser dealt more with the database and the administration of the 
+data
+Admin can do things with bank accounts, deposit, withdraw, transfer
+while superuser can create, update and delete users
+When the superuser deletes a user, it deletes all information pertaining to that user
+all transactions regarding that user
+all accounts belonging solely to that user (i.e, if a joint account still has an existing holder it wont be deleted)
+relationships in junction table connecting the user to its accounts
+and the user itself
