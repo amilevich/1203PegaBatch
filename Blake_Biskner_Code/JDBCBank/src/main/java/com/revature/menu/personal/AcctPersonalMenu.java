@@ -62,39 +62,39 @@ public class AcctPersonalMenu extends PersonalMenu {
 		}
 	}
 	
-//	// Overridden function for admin
-//	public void menuInput(Scanner userIn,int userInput,Customer customer, Employee admin)
-//	{
-//		Double money;
-//		Account userAcct;
-//		switch(userInput) {
-//		case 1:
-//			money=InputValidation.amountValidate(userIn);
-//			userAcct=customer.getAcct();
-//			userAcct.deposit(money);
-//			menuDriver(userIn, customer, admin);
-//			break;
-//		case 2:
-//			money=InputValidation.enoughMoneyValidate(userIn, customer);
-//			userAcct=customer.getAcct();
-//			userAcct.withdraw(money);;
-//			menuDriver(userIn,customer,admin);
-//			break;
-//		case 3:
-//			money=InputValidation.enoughMoneyValidate(userIn, customer);
-//			userAcct=customer.getAcct();
-//			userAcct.transfer(money,userAcct,userIn);
-//			menuDriver(userIn,customer,admin);
-//			break;
-//		case 4:
-//			// Only difference in code used to put admin back on their menu
-//			AdminPersonalMenu adminMenu=new AdminPersonalMenu();
-//			adminMenu.menuDriver(userIn,admin);
-//			break;
-//		case 5:
-//			break;
-//		}
-//	}
+	// Overridden function for admin
+	public void menuInput(Scanner userIn,int userInput,Customer customer, Employee admin)
+	{
+		Double money;
+		Account userAcct;
+		switch(userInput) {
+		case 1:
+			money=InputValidation.amountValidate(userIn);
+			userAcct=customer.getAcct();
+			userAcct.deposit(money);
+			menuDriver(userIn, customer, admin);
+			break;
+		case 2:
+			money=InputValidation.enoughMoneyValidate(userIn, customer);
+			userAcct=customer.getAcct();
+			userAcct.withdraw(money);;
+			menuDriver(userIn,customer,admin);
+			break;
+		case 3:
+			money=InputValidation.enoughMoneyValidate(userIn, customer);
+			userAcct=customer.getAcct();
+			userAcct.transfer(money,userAcct,userIn);
+			menuDriver(userIn,customer,admin);
+			break;
+		case 4:
+			// Only difference in code used to put admin back on their menu
+			AdminPersonalMenu adminMenu=new AdminPersonalMenu();
+			adminMenu.menuDriver(userIn,admin);
+			break;
+		case 5:
+			break;
+		}
+	}
 	
 	public void menuDriver(Scanner userIn, Customer customer) {
 		int maxOp=menuDisplay();
@@ -103,9 +103,9 @@ public class AcctPersonalMenu extends PersonalMenu {
 	}
 	
 	// Overridden to support admin menuInput
-//	public void menuDriver(Scanner userIn, Customer customer, Employee admin) {
-//		int maxOp=menuDisplay();
-//		int userNum=InputValidation.optionValidate(userIn, maxOp);
-//		menuInput(userIn,userNum,customer,admin);
-//	}
+	public void menuDriver(Scanner userIn, Customer customer, Employee admin) {
+		int maxOp=menuDisplay();
+		int userNum=InputValidation.optionValidate(userIn, maxOp);
+		menuInput(userIn,userNum,customer,admin);
+	}
 }

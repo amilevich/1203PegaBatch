@@ -7,6 +7,7 @@ import com.revature.bean.Employee;
 import com.revature.driver.Driver;
 import com.revature.menu.CustomerDashMenu;
 import com.revature.menu.HomepageMenu;
+import com.revature.menu.personal.AdminPersonalMenu;
 import com.revature.menu.personal.CustomerPersonalMenu;
 import com.revature.menu.personal.EmployeeMenu;
 import com.revature.util.InputValidation;
@@ -93,8 +94,8 @@ public class LoginInput extends ScreenInput {
 		if (Driver.employees.containsKey(id)) {
 			Employee employee = Driver.employees.get(id);
 			if (employee.getLevel() == ADMIN) {
-				// AdminPersonalMenu adMenu=new AdminPersonalMenu();
-				// adMenu.menuDriver(userIn, employee);
+				AdminPersonalMenu adMenu = new AdminPersonalMenu();
+				adMenu.menuDriver(userIn, employee);
 			} else { // Employee
 				EmployeeMenu empMenu = new EmployeeMenu();
 				empMenu.menuDriver(userIn, employee);

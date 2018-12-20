@@ -241,7 +241,7 @@ public class InputValidation {
 	}
 
 	/**
-	 * Method to Validate EMployee Id
+	 * Method to Validate Employee Id
 	 *
 	 * @param userIn
 	 * @return user validated id number
@@ -327,6 +327,38 @@ public class InputValidation {
 			}
 		} while (amount > balance);
 		return amount;
+	}
+
+	/**
+	 * Method That Validates Input Username
+	 * 
+	 * @param userIn
+	 * @return returns user vetted username
+	 * 
+	 */
+
+	public static String customerSelectValidate(Scanner userIn) {
+		String userStr;
+		String inputSyntax = "Please Enter a Username";
+		userStr = confirmDriver(userIn, inputSyntax);
+		return userStr;
+	}
+
+	/**
+	 * Method to Confirm Username Exists in Current Database
+	 * 
+	 * @param username
+	 * @return returns true if a customer possesses this username
+	 * 
+	 */
+	public static boolean existCustomerValidate(String username) {
+		boolean custExist = false;
+		if (Driver.customers.containsKey(username)) {
+			custExist = true;
+			return custExist;
+		} else {
+			return custExist;
+		}
 	}
 
 	// Helper Methods
