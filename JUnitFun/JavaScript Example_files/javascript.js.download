@@ -1,0 +1,43 @@
+//JavaScript is NOT related to Java
+//not compiled- interpreted
+//Loosely typed-variable types are assigned at runtime
+var a=10;
+//console.log(a);
+a="chaos";
+//console.log(a);
+var b,c,d,e,f,g,h,e;
+b= "10";
+c=true;
+d= {};
+e= null;
+g=(0/0);
+h= [];
+i= function () {};
+//Booleans- True and False| Truthy and Falsy
+//Truthy- True and everything that isn't falsy
+//Falsy- False, 0, Undefined, Null, NaN,""
+
+//Type Cohersion
+//== performs type cohersion
+//=== does not
+
+//console.log("7+7+7");
+//console.log(7+'7'+7);
+//console.log('7'+7+7);
+//console.log(7+7+'7');
+
+//console.log("5==5");
+//console.log(5==5);
+//console.log(5=='5');
+//console.log(5==='5');
+
+console.log("tests:");
+console.log(false==1);
+console.log(false==0);
+ console.log(false===0);
+// console.log(true==1);
+// console.log(true===1);
+// console.log(true==0);
+
+
+
