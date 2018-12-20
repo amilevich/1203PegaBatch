@@ -147,7 +147,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<String> getCustomers() {
 		try (Connection conn = cf.getConnection()) {
-			String sql = "SELECT username FROM user_view WHERE type=Customer";
+			String sql = "SELECT username FROM user_view WHERE type='Customer'";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			List<String> customers = new ArrayList<String>();

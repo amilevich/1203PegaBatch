@@ -169,6 +169,7 @@ public class EmployeeMenu {
 		List<Account> accounts = tHandler.getAccountsByUsername(user);
 		if (user == null || accounts == null || accounts.isEmpty()) {
 			System.out.println("No accounts to display.");
+			return;
 		}
 		System.out.format("%-10s%-11s%-20s%n", "Account ", "Balance", "Holders");
 		System.out.println("--------- ---------- ----------------------");
@@ -184,6 +185,7 @@ public class EmployeeMenu {
 		List<String> customers = userAuth.getCustomers();
 		if(customers==null || customers.isEmpty()) {
 			System.out.println("No customers to display");
+			return;
 		}else {
 			System.out.println("Customers:");
 			for(int i = 0; i < customers.size(); i++) {
