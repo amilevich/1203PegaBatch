@@ -1,14 +1,18 @@
 package project.users;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import project.account.Account;
+import project.daoimpl.CustomerAccDAOImpl;
+import project.daoimpl.UserDAOImpl;
 
 public class Customer extends User{
 	private String phoneNumber;
 	private String address;
 	private ArrayList<Account> accountNumbers = new ArrayList<>();
-	
+	private UserDAOImpl udi = new UserDAOImpl();
+	private CustomerAccDAOImpl cadi = new CustomerAccDAOImpl();
 	
 	public Customer(String username, String password, String name, String phoneNumber, String address) {
 		super();
@@ -17,6 +21,21 @@ public class Customer extends User{
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
+		try {
+			udi.createCustomer(username, password, name, address, phoneNumber);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public Customer(String username, String password, String name, String phoneNumber, String address, int cheating) {
+		super();
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
+		//this.cheating = cheating... I just needed another constructor...
 	}
 	public void withdraw(double amount, int number) {
 		for (Account i : accountNumbers) {
@@ -49,9 +68,17 @@ public class Customer extends User{
 	}
 	public void addAccount(Account account) {
 		this.accountNumbers.add(account);
+		try {
+			cadi.createPair(this.username, account.getAccountNumber());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	public ArrayList<Account> getAccounts() {
 		return accountNumbers;
+	}
+	public void setAccounts(ArrayList<Account> accounts) {
+		this.accountNumbers = accounts;
 	}
 	public boolean hasAccount(int num) {
 		for(Account i : accountNumbers) {

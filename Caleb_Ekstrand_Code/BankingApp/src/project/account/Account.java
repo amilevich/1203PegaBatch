@@ -1,6 +1,9 @@
 package project.account;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import project.daoimpl.AccountDAOImpl;
 
 public class Account {
 	private int accountNumber;
@@ -8,16 +11,39 @@ public class Account {
 	private String type;
 	private boolean activated = false;
 	private static ArrayList<Account> accounts = new ArrayList<>();
+	private static AccountDAOImpl adi = new AccountDAOImpl();
 	
-	public Account(){
+	public Account(String type){
 		if (accounts.size() > 0) {
 			this.accountNumber = accounts.get(accounts.size()-1).getAccountNumber()+1;
 		} else {
 			this.accountNumber = 1;
 		}
+		this.type = type;
 		accounts.add(this);
+		try {
+			adi.createAccount(this.accountNumber, this.type);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
+	public Account(int accountNumber, double balance, String type, boolean activated) {
+		this.accountNumber = accountNumber;
+		this.balance = balance;
+		this.type = type;
+		this.activated = activated;
+	}
+	public static void loadAccounts() {
+		try {
+			accounts = adi.getAccounts();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		for(Account i : accounts) {
+			System.out.println(i.toString());
+		}
+	}
 	public int getAccountNumber() {
 		return accountNumber;
 	}
@@ -32,9 +58,21 @@ public class Account {
 
 	public void deposit(double amount) {
 		this.balance += amount;
+		try {
+			adi.setBalance(this.accountNumber, this.balance);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void withdraw(double amount) {
 		this.balance -= amount;
+		try {
+			adi.setBalance(this.accountNumber, this.balance);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public String getType() {
@@ -51,6 +89,11 @@ public class Account {
 
 	public void setActivated(boolean activated) {
 		this.activated = activated;
+		try {
+			adi.activatedAcc(this.accountNumber);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static ArrayList<Account> getAccounts() {
