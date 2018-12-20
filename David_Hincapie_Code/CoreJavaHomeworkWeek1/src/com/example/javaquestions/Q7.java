@@ -7,7 +7,6 @@ public class Q7 {
 	// Comparator interface.
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Employee jacks = new Employee("jacks", "wood department", 28);
 		Employee jill = new Employee("jill", "herbs department", 34);
 

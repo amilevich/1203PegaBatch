@@ -4,7 +4,6 @@ public class Q2 {
 	// Q2. Write a program to display the first 25 Fibonacci numbers beginning at 0.
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 		for (int i = 0; i < 25; i++) {
 

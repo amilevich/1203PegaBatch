@@ -22,8 +22,9 @@ public class Menus {
 		String answer = scan.nextLine();
 		
 		FlashCard fc = new FlashCard(0, question, answer);
-		
+		scan.close();
 		return fc;
+		
 		
 	}
 }

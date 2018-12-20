@@ -8,7 +8,6 @@ public class Q5 {
 	// StringBuilder, or StringBuffer APIs.
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		String userString;
 		int userInt;
 		System.out.println("Enter a String: ");

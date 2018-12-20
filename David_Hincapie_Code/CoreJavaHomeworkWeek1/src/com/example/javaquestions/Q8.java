@@ -7,7 +7,6 @@ public class Q8 {
 	// “karan”, “madam”, ”tom”, “civic”, “radar”, “jimmy”, “kayak”, “john”, “refer”,
 	// “billy”, “did”
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		ArrayList<String> strings = new ArrayList<String>();
 		ArrayList<String> palindromes = new ArrayList<String>();
 

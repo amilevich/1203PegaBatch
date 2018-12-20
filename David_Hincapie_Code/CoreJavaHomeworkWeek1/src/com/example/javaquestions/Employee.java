@@ -49,7 +49,6 @@ public class Employee {
 
 	@Override
 	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
 		return super.equals(obj);
 	}
 
@@ -64,7 +63,6 @@ class SortByName implements Comparator<Employee> {
 
 	@Override
 	public int compare(Employee o1, Employee o2) {
-		// TODO Auto-generated method stub
 		return o1.getName().length() - o2.getName().length();
 	}
 
@@ -74,7 +72,6 @@ class SortByDepartment implements Comparator<Employee> {
 
 	@Override
 	public int compare(Employee o1, Employee o2) {
-		// TODO Auto-generated method stub
 		return o1.getDepartment().length() - o2.getDepartment().length();
 	}
 
@@ -84,7 +81,6 @@ class SortByAge implements Comparator<Employee> {
 
 	@Override
 	public int compare(Employee o1, Employee o2) {
-		// TODO Auto-generated method stub
 		return o1.getAge() - o2.getAge();
 	}
 

@@ -1,6 +1,5 @@
 package com.revature;
 
-import java.util.Scanner;
 
 import com.revature.dao.FlashCardDao;
 import com.revature.dao.FlashCardDaoImpl;

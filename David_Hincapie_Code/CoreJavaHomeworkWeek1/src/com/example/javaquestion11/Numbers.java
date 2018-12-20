@@ -6,7 +6,6 @@ public class Numbers {
 
 	public Numbers() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public static float getFloat1() {
