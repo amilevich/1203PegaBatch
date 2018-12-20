@@ -9,13 +9,20 @@ import java.util.ArrayList;
 
 import oracle.jdbc.OracleTypes;
 
-
+/*
+ * dao implementation that query/interacts with that bank_user table in the database
+ */
 
 public class BankUserDaoImpl implements BankUserDao {
 private static Connection conn;
 	public BankUserDaoImpl(Connection conn) {
 		this.conn = conn;
 	}
+	/*
+	 * Inserts user, uses callable statement to get index created at insertion by trigger
+	 * (non-Javadoc)
+	 * @see BankUserDao#insertUser(BankUser, boolean)
+	 */
 	@Override
 	public BankUser insertUser(BankUser user, boolean commit) {
 		String username = user.getUsername();
@@ -50,7 +57,11 @@ private static Connection conn;
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+/*
+ * Deletes user, specified
+ * (non-Javadoc)
+ * @see BankUserDao#deleteUser(BankUser, boolean)
+ */
 	@Override
 	public boolean deleteUser(BankUser user, boolean commit) {
 		try  {
@@ -74,19 +85,19 @@ private static Connection conn;
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+//this particular method of deleting a user is not yet implemented
 	@Override
 	public boolean deleteUser(String username, boolean commit) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+//functionality not yet implemented
 	@Override
 	public int getUserID(String username) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+//method for updating user info (superuser does this)
 	@Override
 	public BankUser updateUser(BankUser user, boolean commit) {
 		try  {
@@ -114,7 +125,7 @@ private static Connection conn;
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+//gets user by username
 	@Override
 	public BankUser getUser(String username) {
 		try {
@@ -144,13 +155,14 @@ private static Connection conn;
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+//not yet implemeneted
 	@Override
 	public BankUser getUser(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+//checks if a user exists with that username
+	//sees if there are records returned when looking for records with username specified
 	@Override
 	public boolean userExists(String username) {
 		try {
@@ -168,7 +180,11 @@ private static Connection conn;
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+/*
+ * gets all users existing in the bank, this method is never called, but the functionality is there
+ * (non-Javadoc)
+ * @see BankUserDao#getAllUsers()
+ */
 	@Override
 	public ArrayList<BankUser> getAllUsers() {
 		ArrayList<BankUser> users = new ArrayList<BankUser>();
@@ -198,7 +214,7 @@ private static Connection conn;
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+//method used when logging it, it checks if a user exists matching both the username and password specified
 	@Override
 	public BankUser validateUser(BankUser user) {
 		String username = user.getUsername();
@@ -226,6 +242,7 @@ private static Connection conn;
 		}
 		return null;
 	}
+	//gets all users associated with this bank account
 	@Override
 	public ArrayList<BankUser> getAccountUsers(BankAccount acc) {
 		ArrayList<BankUser> users = new ArrayList<BankUser>();

@@ -1,4 +1,8 @@
-
+/*
+ * This is the class that maps to the users in the database
+ * Contains string that refers to meaning behind account types (though this data is also stored in database
+ * basic pojo basically
+ */
 public class BankUser {
 	private int id;
 	private String firstname;

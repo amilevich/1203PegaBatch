@@ -1,7 +1,11 @@
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
 import java.util.Calendar;
-
+/*
+ * Object class that maps to the transaction table in the database
+ * recipientAccountNumber is not used at this time, left in for future functionality
+ * method usersFullName is getting the full name of the user when talking to user in menu easily
+ */
 public class Transaction {
 	private int userID;
 	private int accountNumber;
@@ -39,9 +43,6 @@ public class Transaction {
 		trans += ", Amount: $" + amount;
 		trans += ", Resulting Balance: $" + df.format(resultingBalance);
 		trans += ", Initiator: " + this.usersFullName;
-		if(recipientAccountNumber <1) {
-			trans += ", Recipient Account: " + this.recipientAccountNumber;
-		}
 		trans += ", " + time;
 		
 		return trans;

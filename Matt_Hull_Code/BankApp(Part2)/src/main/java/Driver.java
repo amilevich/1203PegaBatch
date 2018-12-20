@@ -10,11 +10,14 @@ import java.util.Scanner;
 public class Driver {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		/*
+		 * This initiates the scanner that is passed to the terminal for use and then passes it
+		 * it instantiates the terminal which acts as the front end, the  ServerCommunicater which
+		 * is what the terminal interacts with in order to send the data to the back end
+		 * and the connection, which is passed to the servercommunicator, which is then passed to the
+		 * dao implementations in the servercommunicator
+		 */
 		Scanner scan = new Scanner(System.in);
-//		final String USERNAME = "bank_db";
-//		final String PASSWORD = "p4ssw0rd";
-//		final String URL = "jdbc:oracle:thin:@octocatdb.cquzk1ryvr4n.us-east-2.rds.amazonaws.com:1521:ORCL";
 		Properties prop = new Properties();
 		Connection conn;
 		try {
@@ -28,6 +31,7 @@ public class Driver {
 			Terminal term = new Terminal(scan,serv);
 			term.interact();
 			conn.close();
+			scan.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

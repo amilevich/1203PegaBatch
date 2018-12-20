@@ -9,14 +9,17 @@ import java.sql.Types;
 import java.util.ArrayList;
 
 import oracle.jdbc.OracleTypes;
-
+/*
+ * the class deals with the interaction with the table that records all transactions of accounts (Deposits, withdraws, etc)
+ * Maps to that table
+ */ 
 public class TransactionDaoImpl implements TransactionDao {
 	private static Connection conn;
 
 	public TransactionDaoImpl(Connection conn) {
 		this.conn = conn;
 	}
-
+//gets all transactions initiated by that user
 	@Override
 	public ArrayList<Transaction> getUserTransactions(BankUser user) {
 
@@ -45,7 +48,7 @@ public class TransactionDaoImpl implements TransactionDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+//gets all transactions associated with this account
 	@Override
 	public ArrayList<Transaction> getAccountTransactions(BankAccount account) {
 		ArrayList<Transaction> trans = new ArrayList<Transaction>();
@@ -74,13 +77,13 @@ public class TransactionDaoImpl implements TransactionDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+//not yet implemented
 	@Override
 	public ArrayList<Transaction> getAccountTransactions(int accountNumber) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+//inserts transaction into x_action table
 	@Override
 	public Transaction insertTransaction(Transaction trans, boolean commit) {
 		/*
@@ -113,19 +116,19 @@ public class TransactionDaoImpl implements TransactionDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+//not yet implemented
 	@Override
 	public boolean deleteTransaction(Transaction trans, boolean commit) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+//not yet implemented
 	@Override
 	public boolean deleteTransactions(int id, boolean commit) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+//deletes transaction relating to this acc
 	@Override
 	public boolean deleteTransactions(BankAccount acc, boolean commit) {
 		int accID = acc.getAccountNumber();
@@ -146,7 +149,7 @@ public class TransactionDaoImpl implements TransactionDao {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+//deletes transactions relating to this user
 	@Override
 	public boolean deleteTransactions(BankUser user, boolean commit) {
 		try {
@@ -166,7 +169,7 @@ public class TransactionDaoImpl implements TransactionDao {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+// deletes all transactions relating to an account that has no relationships
 	@Override
 	public boolean deleteOrphanAccountTransactions(boolean commit) {
 		try {

@@ -1,4 +1,8 @@
-
+/*
+ * This is the object that maps to the junction table of the database that
+ * indicated which user has access to which account
+ * basic pojo basically
+ */
 public class Ownership {
 	private int accountNumber;
 	private int userID;
