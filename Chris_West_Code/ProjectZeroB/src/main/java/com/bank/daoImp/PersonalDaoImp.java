@@ -16,7 +16,8 @@ public class PersonalDaoImp {
 	public PersonalInformation getPersonalInfo(int userID) {
 
 		try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
-			String sql = "SELECT * FROM PERSONAL WHERE USER_ID = ?";
+			String sql = "SELECT PERSONAL_FIRST_NAME, PERSONAL_MIDDLE_INITIAL, PERSONAL_LAST_NAME,PERSONAL_ADDRESS, "
+					+ "PERSONAL_CITY, PERSONaL_STATE, PERSONAL_ZIP, PERSONAL_PHONE_NUMBER FROM PERSONAL WHERE USER_ID = ?";
 
 			// Prepared Statement
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -27,9 +28,8 @@ public class PersonalDaoImp {
 
 			if (rs.next()) {
 
-				return new PersonalInformation(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getInt(9),
-						rs.getLong(10));
+				return new PersonalInformation(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getInt(7), rs.getLong(8));
 			}
 
 		} catch (SQLException e) {
@@ -38,5 +38,7 @@ public class PersonalDaoImp {
 		}
 		return null;
 	}
+	
+//	public 
 
 }

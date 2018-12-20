@@ -12,7 +12,24 @@ public class Registration {
 	String email;
 	String passWord;
 	String userType;
+	String userName;
 	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -94,11 +111,11 @@ public class Registration {
 		this.userType = userType;
 	}
 
-	@Override
-	public String toString() {
-		return "\nRegistration:\nFirst: " + firstName + "\nMiddle Initial: " + middleInitial + "\nLast: " + lastName
-				+ "\nAddress: " + address + "\nCity: " + city + "\nState: " + state + "\nPhone: " + phoneNum + "\nZip: "
-				+ zip + "\nNew Account: " + newAccount + "\nID: " + id + "\nUser: " + userType + "\nJoint Account: "
-				+ jAcc + "\nRegular Account: " + rAcc;
-	}
+//	@Override
+//	public String toString() {
+//		return "\nRegistration:\nFirst: " + firstName + "\nMiddle Initial: " + middleInitial + "\nLast: " + lastName
+//				+ "\nAddress: " + address + "\nCity: " + city + "\nState: " + state + "\nPhone: " + phoneNum + "\nZip: "
+//				+ zip + "\nNew Account: " + newAccount + "\nID: " + id + "\nUser: " + userType + "\nJoint Account: "
+//				+ jAcc + "\nRegular Account: " + rAcc;
+//	}
 }

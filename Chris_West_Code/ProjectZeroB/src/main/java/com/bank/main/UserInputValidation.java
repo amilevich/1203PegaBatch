@@ -64,7 +64,7 @@ public class UserInputValidation {
 	}
 
 	public static String isLetterNumSpecial(String s) {
-		while (!s.matches("[a-zA-Z0-9%^!@]+")) {
+		while (!s.matches("[a-zA-Z0-9%^!.@]+")) {
 			System.out.println(errorMessage);
 			Bank.input = new Scanner(System.in);
 			s = Bank.input.next();

@@ -1,147 +1,213 @@
 package com.bank.main;
 
+import java.util.Random;
+
 public class CustomerScreen { // Look at (1) in Bank.java
+	public void newCustomerScreen() {
+		System.out.println("\n\n^^^^^^ Customer Home Screen ^^^^^^");
+		System.out.println(
+				"\n\nWelcome " + Bank.personalInfo1.getFirstName() + " " + Bank.personalInfo1.getLastName() + "!");
+		Bank.msg.newCustomerScreenMsg();
+		int number = UserInputValidation.isInRange(Bank.input, 1, 3);
+		switch (number) {
+		case 1: // view personal information
+			personalInformation(0);
+			break;
+		case 2: // add an account
+			addAccount(0);
+			break;
+		case 3: // log-out
+			 logout();
+			break;
+
+		}
+	}
 
 	public void customerScreen() {
-		System.out
-				.println("\nWelcome back " + Bank.personalInfo1.getFirstName() + " " + Bank.personalInfo1.getLastName() + "!");
-		System.out.println("Account Balance:\n$ " + Bank.account.getBalance();
-		System.out.println("\nMenu Options:");
-		System.out.println("Type 1 to view personal information.");
-		System.out.println("Type 2 to view and add a joint account");
-		System.out.println("Type 3 to transfer a balance, withdraw from your balance, and or make a deposit.");
-		System.out.println("Type 4 to log-out.");
-		int number = UserInputValidation.isInRange(Bank.input, 1, 4);
+		System.out.println("\n\n^^^^^^ Customer Home Screen ^^^^^^");
+		System.out.println(
+				"\nWelcome back " + Bank.personalInfo1.getFirstName() + " " + Bank.personalInfo1.getLastName() + "!");
+		System.out.println("Account Balance:\n$ " + Bank.account.getBalance());
+		Bank.msg.customerScreen();
+		int number = UserInputValidation.isInRange(Bank.input, 1, 5);
 
 		switch (number) {
 		case 1: // view personal information
-			personalInformation();
+			personalInformation(1);
 			break;
-		case 2: // view personal information
-			viewJoint();
+		case 2: // add an account
+			addAccount(1);
 			break;
 		case 3: // make transfer, withdraw, deposit
 			moneyScreen();
 			break;
-		case 4: // log-out
-			logout();
+		case 4:
+			Bank.account.whichAccount();
+			if (Bank.account.getBalance() == 0.0) {
+				if (Bank.account.getAccountType() != "JOINT") {
+					Bank.accDao1.removeAccount();
+					Bank.account = Bank.accDao1.getAccount(Bank.user1.getId());
+				}else {
+					Bank.accDao1.removeJointAccount();
+					Bank.accDao1.removeAccount();
+					Bank.account = Bank.accDao1.getAccount(Bank.user1.getId());
+				}
+			}else {
+				System.out.println("Can't delete the account because you got a balance.");
+			}
+			break;
+		case 5: // log-out
+			 logout();
 			break;
 
 		}
 
 	}
 
-	public void personalInformation() {
-		Bank.personalInfo1.toString();
-		System.out.println("\n***** Personal Information Screen *****\nMenu Options:");
-		System.out.println("Type 1 to edit information.");
-		System.out.println("Type 2 to go back to main screen");
-		System.out.println("Type 3 to log-out.");
-		System.out.println(Bank.personalInfo1.toString());
-		int number = UserInputValidation.isInRange(Bank.input, 1, 3);
+	public void addAccount(int x) {
+		Bank.msg.addAccountMsg();
+		int number = UserInputValidation.isInRange(Bank.input, 1, 4);
+		int accountNum = 0;
+		switch (number) {
+		case 1: // add savings account
+			accountNum = createAccountNumber();
+			Bank.accDao1.addNewAccount(accountNum, "SAVINGS");
+			Bank.msg.processingRegMsg();
+			break;
+		case 2: // add checking account
+			accountNum = createAccountNumber();
+			Bank.accDao1.addNewAccount(accountNum, "CHECKING");
+			Bank.msg.processingRegMsg();
+
+			break;
+		case 3: // add joint account come back to this feature
+			addJoint();
+			break;
+		case 4: // log-out
+			 logout();
+			break;
+
+		}
+		if (x == 1) {
+			customerScreen();
+		} else
+			newCustomerScreen();
+	}
+	public void addJoint() {
+		int accountNum = 0;
+		String userid = "";
+		accountNum = Bank.account.createAccountNumber();
+		do {
+			System.out.println("\nPlease enter a valid email/userid: ");
+			userid = Bank.input.next();
+			UserInputValidation.isLetterNumSpecial(userid);
+			
+			
+		}while (!Bank.Bankuser.userIdCheck(userid,userid));
+		Bank.accDao1.addNewAccount(accountNum, "JOINT");
+		Bank.accDao1.addJointAccount(accountNum, Bank.Bankuser.userId(userid,userid));
+	}
+
+	public void personalInformation(int x) {
+		Bank.msg.personalInfoMsg();
+		System.out.println("\n\n" + Bank.personalInfo1.toString());
+		int number = UserInputValidation.isInRange(Bank.input, 1, 2);
 
 		switch (number) {
-		case 1: // edit personal information
-			editInformation();
+		case 1: // main employee screen
+			if (x == 1) {
+				customerScreen();
+			} else
+				newCustomerScreen();
+
 			break;
-		case 2: // main employee screen
-			customerScreen();
-			break;
-		case 3: // log-out
-			logout();
+		case 2: // log-out
+			 logout();
 			break;
 		}
 	}
 
 	public void moneyScreen() {
-		System.out.println("\n***** Money Screen *****\nMenu Options:");
-		System.out.println("Type 1 to make a transfer");
-		System.out.println("Type 2 to make a deposit");
-		System.out.println("Type 3 to make a withdraw");
-		System.out.println("Type 4 to go back to main menu");
-		System.out.println("Type 5 to log-out");
+		Bank.msg.moneyScreen();
 		int number = UserInputValidation.isInRange(Bank.input, 1, 5);
 
 		switch (number) {
 		case 1:
+			Bank.account.whichAccount();
 			transferScreen();
 			break;
 		case 2:
+			Bank.account.whichAccount();
 			depositScreen();
 			break;
 		case 3:
+			Bank.account.whichAccount();
 			withdrawScreen();
-			return;
+			break;
 		case 4:
 			customerScreen();
 			break;
 		case 5:
-			logout();
+			 logout();
 			break;
 		}
+		moneyScreen();
+
 	}
 
 	public void withdrawScreen() {
-		System.out
-				.println("\nHow much would you like to withdraw? \nCurrent Balance: \n$" + Bank.personalInfo1.getBalance());
+		System.out.println("\nHow much would you like to withdraw? \nCurrent Balance: \n$" + Bank.account.getBalance());
 		Bank.input = UserInputValidation.isDouble(Bank.input);
 		double withdrawAmount = Bank.input.nextDouble();
-		double temp = Bank.account1.withdrawMoney(withdrawAmount);
+		double temp = Bank.account.withdrawMoney(withdrawAmount);
 
 		if (temp >= 0) {
-			Bank.personalInfo1.setBalance(temp);
-			System.out.println("Your withdraw was sucessful!\nNew Balance: \n$" + Bank.personalInfo1.getBalance());
+			Bank.account.setBalance(temp);
+			System.out.println("Your withdraw was sucessful!\nNew Balance: \n$" + Bank.account.getBalance());
 		} else {
 			System.out.println("You don't have sufficient funds!");
 		}
-		Bank.dh1.updateAccounts();
-		moneyScreen();
+		Bank.accDao1.updateAccountBalance();
 	}
 
 	public void depositScreen() {
-		System.out
-				.println("\nHow much would you like to deposit? \nCurrent Balance: \n$" + Bank.personalInfo1.getBalance());
+		System.out.println("\nHow much would you like to deposit? \nCurrent Balance: \n$" + Bank.account.getBalance());
 		Bank.input = UserInputValidation.isDouble(Bank.input);
 
 		double depositAmount = Bank.input.nextDouble();
 		if (depositAmount > 0) {
-			double temp = Bank.account1.depositMoney(depositAmount);
+			double temp = Bank.account.depositMoney(depositAmount);
 
-			Bank.personalInfo1.setBalance(temp);
-			System.out.println("Your deposit was sucessful!\nNew Balance: \n$" + Bank.personalInfo1.getBalance());
+			Bank.account.setBalance(temp);
+			System.out.println("Your deposit was sucessful!\nNew Balance: \n$" + Bank.account.getBalance());
 		} else {
 			System.out.println("You entered either a zero or negative number. No nothing occurred.");
 		}
-		Bank.dh1.updateAccounts();
-		moneyScreen();
+		Bank.accDao1.updateAccountBalance();
 
 	}
 
 	public void transferScreen() {
-		System.out
-				.println("\nHow much would you like to transfer? \nCurrent Balance: \n$" + Bank.personalInfo1.getBalance());
+		System.out.println(
+				"\nHow much would you like to transfer? \nCurrent Balance: \n$" + Bank.account.getBalance());
 		Bank.input = UserInputValidation.isDouble(Bank.input);
 
 		double transferAmount = Bank.input.nextDouble();
 		System.out.println("\nWho would you like to transfer to?");
-		String id = Bank.input.next();
-		UserInputValidation.isLetterNum(id);
-		if ((transferAmount > 0) & Bank.data.containsKey(id) & (transferAmount <= Bank.personalInfo1.getBalance())) {
-			double temp = Bank.account1.transferFunds(transferAmount);
-			Bank.personalInfo2 = (Customer) Bank.data.get(id);
-			Bank.personalInfo1.setBalance(temp);
-			Bank.personalInfo2.setBalance(Bank.personalInfo2.getBalance()+transferAmount);
-			//System.out.println(Bank.personalInfo2.getBalance());
-			System.out.println("\nYour transfer was sucessful!\nNew Balance: \n$" + Bank.personalInfo1.getBalance());
+		Bank.account.transferTo();
+		if ((transferAmount > 0) & (transferAmount <= Bank.account.getBalance())) {
+			double temp = Bank.account2.transferFunds(transferAmount);
+			
+			Bank.account.setBalance(temp);
+			Bank.account2.setBalance(Bank.account2.getBalance() + transferAmount);
+			// System.out.println(Bank.personalInfo2.getBalance());
+			System.out.println("\nYour transfer was sucessful!\nNew Balance: \n$" + Bank.account.getBalance());
 		} else {
-			System.out.println("\nYou entered either a zero or negative number. Wrong account name. Or you don't have enough money. No nothing occurred.");
+			System.out.println(
+					"\nYou entered either a zero or negative number. Wrong account name. Or you don't have enough money. No nothing occurred.");
 		}
-		Bank.dh1.updateAccounts();
-		Bank.dh1.updateAccounts2();
-		moneyScreen();
-	}
-
-	public void editInformation() {
+		Bank.accDao1.updateAccountBalance();
+		Bank.accDao1.updateAccountBalance2();
 
 	}
 
@@ -150,48 +216,14 @@ public class CustomerScreen { // Look at (1) in Bank.java
 		Bank.welcome();
 
 	}
+	public int createAccountNumber() {
+		Random rm = new Random();
+		int number = 0;
+		do {
+			number = rm.nextInt(900000000) + 100000000;
+		} while (Bank.accDao1.accountExist2(number));
 
-	public void jointAcc() {
-		if (Bank.joints.isEmpty()) {
-			System.out.println("Joint Accounts: No");
-		} else {
-			System.out.println("Joint Accounts: Yes");
-			for (String s : Bank.joints)
-				System.out.println(s);
-		}
-
-	}
-
-	public void viewJoint() {
-		System.out.println("\n***** Joint Account Screen *****\nMenu Options:");
-		System.out.println("Type 1 to add a joint Account");
-		System.out.println("Type 2 to go back to main menu");
-		System.out.println("Type 3 to log-out");
-		int number = UserInputValidation.isInRange(Bank.input, 1, 3);
-
-		switch (number) {
-		case 1:
-			transferScreen();
-			break;
-		case 2:
-			customerScreen();
-			break;
-		case 3:
-			logout();
-			break;
-		}
-	}
-
-	public void addJoint() {
-		System.out.println("Please enter the account: ");
-		String id = Bank.input.next();
-		UserInputValidation.isLetterNum(id);
-		if (Bank.data.containsKey(id)) {
-			Bank.dh1.addingJointAcc(id);
-		} else {
-			System.out.println("Account doesn't exist...sending you back to Joint account menu.");
-			viewJoint();
-		}
+		return number;
 	}
 
 }

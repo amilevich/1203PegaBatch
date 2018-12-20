@@ -11,17 +11,16 @@ public class PersonalInformation {
 	int zip;
 	Long phoneNum;
 
-	public PersonalInformation(int userID, String firstName, String middleInitial, String lastName, String address, String city,
-			String state, String id, int zip, Long phoneNum) {
+	public PersonalInformation(String firstName, String middleInitial, String lastName, String address, String city,
+			String state, int zip, Long phoneNum) {
 		super();
-		this.userID = userID;
+		
 		this.firstName = firstName;
 		this.middleInitial = middleInitial;
 		this.lastName = lastName;
 		this.address = address;
 		this.city = city;
 		this.state = state;
-		this.id = id;
 		this.zip = zip;
 		this.phoneNum = phoneNum;
 	}
@@ -110,7 +109,7 @@ public class PersonalInformation {
 	public String toString() {
 		return "\n\nPersonal Information \nFirst: " + firstName + "\nMiddle: " + middleInitial + "\nLast: " + lastName
 				+ "\nAddress: " + address + "\nCity:" + city + "\nState: " + state + "\nZip: " + zip
-				+ "\nPhone number: " + phoneNum + "\nID: ";
+				+ "\nPhone number: " + phoneNum;
 	}
 
 }
