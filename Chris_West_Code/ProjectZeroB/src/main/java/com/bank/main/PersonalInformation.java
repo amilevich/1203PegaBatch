@@ -14,7 +14,7 @@ public class PersonalInformation {
 	public PersonalInformation(String firstName, String middleInitial, String lastName, String address, String city,
 			String state, int zip, Long phoneNum) {
 		super();
-		
+
 		this.firstName = firstName;
 		this.middleInitial = middleInitial;
 		this.lastName = lastName;
@@ -107,9 +107,14 @@ public class PersonalInformation {
 
 	@Override
 	public String toString() {
-		return "\n\nPersonal Information \nFirst: " + firstName + "\nMiddle: " + middleInitial + "\nLast: " + lastName
-				+ "\nAddress: " + address + "\nCity:" + city + "\nState: " + state + "\nZip: " + zip
-				+ "\nPhone number: " + phoneNum;
+		return "\n\n" + Bank.msg.tab + Bank.msg.tab + Bank.msg.tab + "Personal Information \n" + Bank.msg.tab
+				+ Bank.msg.tab + "First: " + Bank.msg.tab + Bank.msg.tab + firstName + "\n" + Bank.msg.tab
+				+ Bank.msg.tab + "Middle: " + Bank.msg.tab + "   " + middleInitial + "\n" + Bank.msg.tab + Bank.msg.tab
+				+ "Last: " + Bank.msg.tab + Bank.msg.tab +" "+ lastName + "\n" + Bank.msg.tab + Bank.msg.tab + "Address: "
+				+ Bank.msg.tab +"  "+ address + "\n" + Bank.msg.tab + Bank.msg.tab + "City: " +Bank.msg.tab+ " "+ Bank.msg.tab + city + "\n"
+				+ Bank.msg.tab + Bank.msg.tab + "State: " + "    "+Bank.msg.tab + state + "\n" + Bank.msg.tab + Bank.msg.tab
+				+ "Zip:   " + Bank.msg.tab+ Bank.msg.tab + zip + "\n" + Bank.msg.tab + Bank.msg.tab + "Phone number: " + " "
+				+ phoneNum;
 	}
 
 }

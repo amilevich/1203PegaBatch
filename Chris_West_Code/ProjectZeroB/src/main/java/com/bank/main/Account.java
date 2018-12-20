@@ -90,11 +90,13 @@ public Account() {
 	public void whichAccount() {
 		int count = 0;
 		int accountNumber = 0;
+		System.out.println("\n\n<---- BEGIN ---- ACCOUNT LIST ---- BEGIN ---->\n\n");
 		if (getAccountSize() > 1) {
 			for (Integer x : accounts) {
-				System.out.println("Account # " + x + "\n ID number: " + count);
+				System.out.println("Account # " + x + "\n ID number: " + count + "\n\n");
 				count++;
 			}
+			System.out.println("\n\n<---- END ---- ACCOUNT LIST ---- END ---->\n\n");
 			do {
 			System.out.print("Enter the account ID number that you want to access: ");
 			Bank.input = UserInputValidation.isInt(Bank.input);
@@ -103,13 +105,30 @@ public Account() {
 			Bank.account = Bank.accDao1.getAccountByNumber(accounts.get(accountNumber));
 		}
 	}
-	
+	public void whichAccount2() {
+		int count = accounts.size()-1;
+		int accountNumber = 0;
+		System.out.println("\n\n<---- BEGIN ---- ACCOUNT LIST ---- BEGIN ---->\n\n");
+		if (getAccountSize() > 1) {
+			for (Integer x : accounts) {
+				System.out.println("Account # " + x + "\n ID number: " + count + "\n\n");
+				count--;
+			}
+			System.out.println("\n\n<---- END ---- ACCOUNT LIST ---- END ---->\n\n");
+			do {
+			System.out.print("Enter the account ID number that you want to access: ");
+			Bank.input = UserInputValidation.isInt(Bank.input);
+			accountNumber = Bank.input.nextInt();
+			}while(accountNumber < 0 && accountNumber > getAccountSize());
+			Bank.account2 = Bank.accDao1.getAccountByNumber(accounts.get(accountNumber));
+		}
+	}
 	public void transferTo() {
 		int accountNumber = 0;
 		do {
 		UserInputValidation.isInt(Bank.input);
 		accountNumber = Bank.input.nextInt();
-		System.out.println("Test");
+		//System.out.println("Test");
 		}while(!(Bank.accDao1.accountExistTransfer(accountNumber)));
 		
 		Bank.account2 = Bank.accDao1.getAccountTransfer(accountNumber);

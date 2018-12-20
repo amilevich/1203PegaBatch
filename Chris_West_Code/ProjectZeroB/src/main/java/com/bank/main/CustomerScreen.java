@@ -42,19 +42,7 @@ public class CustomerScreen { // Look at (1) in Bank.java
 			moneyScreen();
 			break;
 		case 4:
-			Bank.account.whichAccount();
-			if (Bank.account.getBalance() == 0.0) {
-				if (Bank.account.getAccountType() != "JOINT") {
-					Bank.accDao1.removeAccount();
-					Bank.account = Bank.accDao1.getAccount(Bank.user1.getId());
-				}else {
-					Bank.accDao1.removeJointAccount();
-					Bank.accDao1.removeAccount();
-					Bank.account = Bank.accDao1.getAccount(Bank.user1.getId());
-				}
-			}else {
-				System.out.println("Can't delete the account because you got a balance.");
-			}
+			deleteAccount();
 			break;
 		case 5: // log-out
 			 logout();
@@ -63,7 +51,21 @@ public class CustomerScreen { // Look at (1) in Bank.java
 		}
 
 	}
-
+	public void deleteAccount() {
+		Bank.account.whichAccount();
+		if (Bank.account.getBalance() == 0.0) {
+			if (Bank.account.getAccountType() != "JOINT") {
+				Bank.accDao1.removeAccount();
+				Bank.account = Bank.accDao1.getAccount(Bank.user1.getId());
+			}else {
+				Bank.accDao1.removeJointAccount();
+				Bank.accDao1.removeAccount();
+				Bank.account = Bank.accDao1.getAccount(Bank.user1.getId());
+			}
+		}else {
+			System.out.println("Can't delete the account because you got a balance.");
+		}
+	}
 	public void addAccount(int x) {
 		Bank.msg.addAccountMsg();
 		int number = UserInputValidation.isInRange(Bank.input, 1, 4);

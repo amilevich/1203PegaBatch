@@ -35,6 +35,7 @@ public class Bank {
 	public static Registration reg = new Registration();
 	public static Account account, account2, account3;
 	public static SystemMsg msg = new SystemMsg();
+	public static AdminScreen adminView = new AdminScreen();
 	public static CustomerScreen customerView = new CustomerScreen();
 	public static EmployeeScreen employeeView = new EmployeeScreen();
 	public static User user1, user2;
@@ -56,11 +57,11 @@ public class Bank {
 	public static void login() {
 		msg.loginMsg();
 		System.out.println("\nEnter username/email address: ");
-		String username = "tbarron8885"; // input.next(); "cm2050"
+		String username = "Juvenile@westbank.west2coast"; // input.next(); "cm2050"
 		// UserInputValidation.isLetterNumSpecial(username);
 
 		System.out.println("Enter password: ");
-		String passWord = "5rw4ZNtG"; // input.next();"123"
+		String passWord = "qEV4nNUv"; // input.next();"123"
 		// UserInputValidation.isLetterNumSpecial(passWord);
 		user1 = Bankuser.getUserById(username, passWord, username);
 
@@ -94,7 +95,7 @@ public class Bank {
 			employeeView.employeeScreen();
 			break;
 		case "ADMIN":
-			// adminView.adminScreen();
+			adminView.adminScreen();
 			break;
 		case "SUPERUSER":
 			System.out.println("YES");

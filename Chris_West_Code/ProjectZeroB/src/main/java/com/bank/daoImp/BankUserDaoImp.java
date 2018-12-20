@@ -30,15 +30,15 @@ public class BankUserDaoImp implements BankUserDao {
 	public User getUserById(String username, String password, String email) {
 
 		try (Connection conn = cr.getConnection()) {
-			String sql = "SELECT * FROM BANKUSER WHERE USER_USERNAME = ? AND USER_PASSWORD = ?";
+			String sql = "SELECT * FROM BANKUSER WHERE (USER_USERNAME = ? OR USER_EMAIL_Address = ?) AND USER_PASSWORD = ?";
 
 			// Prepared Statement
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setString(1, username);
 
-//			//ps.setString(1, email);
-			ps.setString(2, password);
+			ps.setString(2, username);
+			ps.setString(3, password);
 
 			ResultSet rs = ps.executeQuery();
 
