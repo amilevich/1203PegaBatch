@@ -186,7 +186,6 @@ public class BankApplication {
 						else {
 							invalidPassword = false;
 							// All criteria needed for account creation done!
-
 							User user = new User(username, password, userType);
 							userAuth.register(user);
 							System.out.println("Account has been created!");

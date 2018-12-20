@@ -45,6 +45,7 @@ public class EmployeeMenu {
 		while (returnToMenu) {
 
 			System.out.println("Welcome back to The First Bank of Karan, valued employee!");
+			System.out.println("---------------------------------");
 			System.out.println("1. Customers");
 			System.out.println("2. Bank Accounts");
 			System.out.println("3. Approve/Deny Pending Accounts");

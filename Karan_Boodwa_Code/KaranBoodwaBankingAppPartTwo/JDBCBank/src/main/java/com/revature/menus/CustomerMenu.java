@@ -52,6 +52,7 @@ public class CustomerMenu {
 
 		while (returnToMenu) {
 			System.out.println("Main Menu");
+			System.out.println("---------------------------------");
 			System.out.println("1. Apply for Bank Account");
 			System.out.println("2. View Account(s)");
 			System.out.println("3. Withdraw");
@@ -103,7 +104,7 @@ public class CustomerMenu {
 		// If the user has no accounts, say so and return them to the menu that brought
 		// them here
 		if (bankAccounts.isEmpty()) {
-			System.out.println("You have no account to deposit into. Apply for one today!");
+			System.out.println("You have no accounts to transfer funds between. Apply for one today!");
 			return;
 		}
 		/*
@@ -265,7 +266,7 @@ public class CustomerMenu {
 				System.out.println("Enter amount to deposit");
 				Double depositAmount = in.getDouble();
 
-				if (depositAmount < 0) {
+				if (depositAmount < 0 || depositAmount > 1000000) {
 					System.out.println("Error. Invalid deposit amount entered.");
 				}
 

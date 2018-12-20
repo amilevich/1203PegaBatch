@@ -59,6 +59,7 @@ public class AdminMenu extends EmployeeMenu {
 
 		while (returnToMenu) {
 			System.out.println("Top Secret Admin Menu. Shhhhh");
+			System.out.println("---------------------------------");
 			System.out.println("1. Admin Withdraw");
 			System.out.println("2. Admin Deposit");
 			System.out.println("3. Admin Transfer");
@@ -149,7 +150,7 @@ public class AdminMenu extends EmployeeMenu {
 		System.out.println("Enter amount to deposit");
 		double amount = in.getDouble();
 
-		if (amount < 0) {
+		if (amount < 0 || amount > 1000000) {
 			System.out.println("Error. Invalid amount");
 			return;
 		}

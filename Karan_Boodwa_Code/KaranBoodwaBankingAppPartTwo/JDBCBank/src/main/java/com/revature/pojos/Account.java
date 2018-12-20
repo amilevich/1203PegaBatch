@@ -63,7 +63,7 @@ public class Account {
 	}
 	@Override
 	public String toString() {
-		return "Account [accountNumber=" + accountNumber + ", balance=" + balance + ", accountHolders=" + accountHolders
+		return "Account [Number: " + accountNumber + ", Balance: " + balance + ", Holders: " + accountHolders
 				+ "]";
 	}
 	public Account(int accountNumber, double balance, List<String> accountHolders) {
