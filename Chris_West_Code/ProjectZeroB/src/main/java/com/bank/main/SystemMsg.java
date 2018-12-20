@@ -7,12 +7,12 @@ public class SystemMsg {
 		System.out.print("Processing Account....");
 	}
 
-	public void testMsg() {
-		System.out.println("testing");
+	public void testMsg() { // for testing purposes only
+		System.out.println("Error");
 	}
 
 	public void welcomeMsg() {
-		System.out.print("^^^^^^ Welcome to West Bank ^^^^^^\n\n\nPlease choose one of the " + "following:\n\n" + tab
+		System.out.print("^^^^^^ Welcome to West Bank ^^^^^^\n\nWe're a small bank located in Peachtree City, Georgia.\nFounded back in 2017.\n\nPlease choose one of the " + "following:\n\n" + tab
 				+ "Enter 1 to login to your account.\n" + tab + "Enter 2 to create an account.\n" + tab
 				+ "Enter 3 to exit.\n\n" + tab);
 	}
@@ -22,7 +22,7 @@ public class SystemMsg {
 	}
 
 	public void loginFailedMsg() {
-		System.out.println("Login Attempted Failed");
+		System.out.println("Login Attempted Failed!!");
 	}
 
 	public void newCustomerScreenMsg() {

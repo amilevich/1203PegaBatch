@@ -224,7 +224,7 @@ public class AccountDaoImp {
 	public void updateAccountBalance() { // update the account balances
 		try (Connection conn = cr.getConnection()) {
 			String sql = "UPDATE ACCOUNT SET ACCOUNT_BALANCE = ? WHERE ACCOUNT_ID = ?";
-System.out.println("why: "+Bank.account.getBalance());
+//System.out.println("why: "+Bank.account.getBalance());
 			// Prepared Statement
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setDouble(1, Bank.account.getBalance());

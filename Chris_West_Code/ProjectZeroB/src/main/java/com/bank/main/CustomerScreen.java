@@ -158,6 +158,7 @@ public class CustomerScreen { // Look at (1) in Bank.java
 	}
 
 	public void withdrawScreen() {
+		System.out.println("<---- Withdraw Screen ---->");
 		System.out.println("\nHow much would you like to withdraw? \nCurrent Balance: \n$" + Bank.account.getBalance());
 		Bank.input = UserInputValidation.isDouble(Bank.input);
 		double withdrawAmount = Bank.input.nextDouble();
@@ -173,6 +174,7 @@ public class CustomerScreen { // Look at (1) in Bank.java
 	}
 
 	public void depositScreen() {
+		System.out.println("<---- Deposit Screen ---->");
 		System.out.println("\nHow much would you like to deposit? \nCurrent Balance: \n$" + Bank.account.getBalance());
 		Bank.input = UserInputValidation.isDouble(Bank.input);
 
@@ -190,6 +192,7 @@ public class CustomerScreen { // Look at (1) in Bank.java
 	}
 
 	public void transferScreen() {
+		System.out.println("<---- Transfer Screen ---->");
 		System.out.println(
 				"\nHow much would you like to transfer? \nCurrent Balance: \n$" + Bank.account.getBalance());
 		Bank.input = UserInputValidation.isDouble(Bank.input);

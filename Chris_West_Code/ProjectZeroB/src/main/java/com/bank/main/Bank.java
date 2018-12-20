@@ -57,11 +57,11 @@ public class Bank {
 	public static void login() {
 		msg.loginMsg();
 		System.out.println("\nEnter username/email address: ");
-		String username = "Juvenile@westbank.west2coast"; // input.next(); "cm2050"
+		String username = input.next(); // "cm2050" "Juvenile@westbank.west2coast"; 
 		// UserInputValidation.isLetterNumSpecial(username);
 
 		System.out.println("Enter password: ");
-		String passWord = "qEV4nNUv"; // input.next();"123"
+		String passWord =  input.next(); //"123" "qEV4nNUv";
 		// UserInputValidation.isLetterNumSpecial(passWord);
 		user1 = Bankuser.getUserById(username, passWord, username);
 
