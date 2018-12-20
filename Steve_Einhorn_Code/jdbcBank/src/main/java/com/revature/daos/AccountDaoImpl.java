@@ -104,7 +104,7 @@ public class AccountDaoImpl {
 			String query = "SELECT c.username, c.password, " +
 								  "a.account_nbr, a.account_type, a.account_balance " + 
 							 "FROM customers c " +
-					   		"INNER JOIN accounts a " +
+					   		"LEFT JOIN accounts a " +
 					   		"   ON c.username = a.username";
 						   
 			try {

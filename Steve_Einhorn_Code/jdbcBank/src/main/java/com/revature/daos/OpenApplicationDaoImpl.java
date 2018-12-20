@@ -72,13 +72,13 @@ public class OpenApplicationDaoImpl implements OpenApplicationDao {
 		boolean openApplFound = false;
 		
 		String query = "SELECT id, username, password, acct_type, deposit FROM open_applications " +
-				   		"WHERE username = ? AND password = ? AND acct_type = ?";
+				   		"WHERE username = ?";
 					   
 		try {
 			PreparedStatement ps = conn.prepareStatement(query);
 			ps.setString(1, openAppl.getUsername());
-			ps.setString(2, openAppl.getPassword());
-			ps.setString(3, openAppl.getAcctType());
+//			ps.setString(2, openAppl.getPassword());
+//			ps.setString(3, openAppl.getAcctType());
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
 				openApplFound = true;

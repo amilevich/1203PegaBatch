@@ -20,7 +20,6 @@ public class CustomerDaoImpl implements CustomerDao {
 		String url = "jdbc:oracle:thin:@octocatdb.cowlaewb2yhg.us-east-2.rds.amazonaws.com:1521:ORCL";	
 
 		try {
-			System.out.println("a");
 			return DriverManager.getConnection(url, user,  password);
 		} catch (SQLException e) {
 			e.printStackTrace();

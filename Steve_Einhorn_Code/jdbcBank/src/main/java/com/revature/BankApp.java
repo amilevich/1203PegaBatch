@@ -84,12 +84,14 @@ public class BankApp {
 		openApplication.setAcctType(scanner.nextLine());
 
 		if ( isApplicationAlreadyExists(openApplication) ) {
-			System.out.println("Application Already Exists!");
-		} else {
+//			System.out.println("Application Already Exists!");
+			openApplication.setPassword("X");
+		}
+//		} else {
 			System.out.println("Please enter an Initial Deposit amount");
 			openApplication.setInitDeposit(scanner.nextDouble());
 			makeAccount(openApplication);
-		} 
+//		} 
 
 	}
 	
@@ -198,6 +200,7 @@ public class BankApp {
 
 		int fromAccountNbr;
 		int toAccountNbr;
+		double xferAmount;
 		
 		System.out.println("Please enter the from Account Number");
 		fromAccountNbr = scanner.nextInt();
@@ -205,6 +208,9 @@ public class BankApp {
 		Account fromAccount = getCustomerAccount(fromAccountNbr, customer.getUsername());
 		
 		if ( fromAccount != null ) {
+			
+			System.out.println("Please enter the transfer amount.");
+			xferAmount = scanner.nextInt();
 		
 			System.out.println("\nPlease enter the to Account Number");
 			toAccountNbr = scanner.nextInt();
@@ -215,11 +221,17 @@ public class BankApp {
 				
 				if ( fromAccountNbr != toAccountNbr ) {
 					
-					toAccount.setAccountBal(toAccount.getAccountBal() + fromAccount.getAccountBal());
-					updateAccountBalance(toAccount);
-					fromAccount.setAccountBal(0);
-					updateAccountBalance(fromAccount);
-					System.out.println("Funds Transferred.");
+					if ( xferAmount <= fromAccount.getAccountBal() ) {
+						
+						toAccount.setAccountBal(toAccount.getAccountBal() + xferAmount);
+						updateAccountBalance(toAccount);
+						fromAccount.setAccountBal(fromAccount.getAccountBal() - xferAmount);
+						updateAccountBalance(fromAccount);
+						System.out.println("Funds Transferred.");
+						
+					} else {
+						System.out.println("Transfer amount exceeds funds available!");
+					}
 					
 				} else {
 					System.out.println("To Account Must Be Different than From Account!");
@@ -308,6 +320,7 @@ public class BankApp {
 					System.out.println("1. Approve/Deny Apps");
 					System.out.println("2. Withdraw/Deposit");
 					System.out.println("3. Cancel Account");
+					System.out.println("4. Transfer Funds");
 					System.out.println("9. Exit");
 					
 					choice = scanner. nextInt();
@@ -321,6 +334,9 @@ public class BankApp {
 								break;
 								
 						case 3:	doCancelAccount(scanner, employee);
+								break;
+								
+						case 4: xferFundsEmp(scanner);
 								break;
 								
 						default:break;
@@ -418,7 +434,6 @@ public class BankApp {
 					removeOpenApplication(openAppl);
 					System.out.println("Application denied");
 				}
-//				choice = "9";
 				
 			}
 			
@@ -433,7 +448,8 @@ public class BankApp {
 		customer.setUsername(openAppl.getUsername());
 		customer.setPassword(openAppl.getPassword());
 		
-		if ( !customerDao.findCustomer(customer) ) {
+		if ( !customerDao.findCustomer(customer) &&
+			 !openAppl.getPassword().equals("X") ) {
 			customerDao.saveCustomer(customer);
 		}
 
@@ -636,6 +652,63 @@ public class BankApp {
         FileOutputStream fileOut = new FileOutputStream("Accounts.txt");
         fileOut.write(inputStr.getBytes());
         fileOut.close();
+	}
+	
+	private static void xferFundsEmp(Scanner scanner) throws IOException {
+		
+		scanner = new Scanner(System.in);
+
+		String custUsername;
+		int fromAccountNbr;
+		int toAccountNbr;
+		double xferAmount;
+		
+		System.out.println("Please enter the Customer's Username.");
+		custUsername = scanner.nextLine();
+		
+		System.out.println("Please enter the from Account Number");
+		fromAccountNbr = scanner.nextInt();
+		
+		Account fromAccount = getCustomerAccount(fromAccountNbr, custUsername);
+		
+		if ( fromAccount != null ) {
+			
+			System.out.println("\nPlease enter the transfer amount.");
+			xferAmount = scanner.nextDouble();
+		
+			System.out.println("\nPlease enter the to Account Number");
+			toAccountNbr = scanner.nextInt();
+			
+			Account toAccount = getCustomerAccount(toAccountNbr, custUsername);
+			
+			if ( toAccount != null ) {
+				
+				if ( fromAccountNbr != toAccountNbr ) {
+					
+					if ( xferAmount <= fromAccount.getAccountBal() ) {
+						
+						toAccount.setAccountBal(toAccount.getAccountBal() + xferAmount);
+						updateAccountBalance(toAccount);
+						fromAccount.setAccountBal(fromAccount.getAccountBal() - xferAmount);
+						updateAccountBalance(fromAccount);
+						System.out.println("Funds Transferred.");
+						
+					} else {
+						System.out.println("Transfer amount exceeds funds available!");
+					}
+					
+				} else {
+					System.out.println("To Account Must Be Different than From Account!");
+				}
+				
+			} else {
+				System.out.println("This account does not exist for this customer!");
+			}
+		
+		} else {
+			System.out.println("This account does not exist for this customer!");
+		}
+		
 	}
 	
 	public static void viewCustomerAccounts() throws FileNotFoundException, IOException {
