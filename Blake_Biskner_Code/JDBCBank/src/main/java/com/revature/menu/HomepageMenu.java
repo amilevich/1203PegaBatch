@@ -2,8 +2,8 @@ package com.revature.menu;
 
 import java.util.Scanner;
 
+import com.revature.input.LoginInput;
 import com.revature.util.InputValidation;
-
 
 /**
  * Homepage Class
@@ -12,7 +12,7 @@ import com.revature.util.InputValidation;
  * @version 2.0
  */
 
-public class HomepageMenu extends Menu{
+public class HomepageMenu extends Menu {
 
 	// Constructor
 	public HomepageMenu() {
@@ -29,7 +29,7 @@ public class HomepageMenu extends Menu{
 	 * 
 	 * @return number of options in select menu
 	 */
-	
+
 	@Override
 	public int menuDisplay() {
 		displayHeadPrompt();
@@ -44,7 +44,7 @@ public class HomepageMenu extends Menu{
 	 * @param userIn
 	 * @param userInput
 	 */
-	
+
 	@Override
 	public void menuInput(Scanner userIn, int userInput) {
 		switch (userInput) {
@@ -53,10 +53,10 @@ public class HomepageMenu extends Menu{
 			custMenu.menuDriver(userIn);
 			break;
 		case 2:
-//			String[] screenInput= {"Employee Id"};
-//			LoginInput empMenu= new LoginInput(screenInput);
-//			empMenu.displayHeader();
-//			empMenu.getEmployeeInput(userIn);
+			String[] screenInput = { "Employee Id" };
+			LoginInput empMenu = new LoginInput(screenInput);
+			empMenu.displayHeader();
+			empMenu.getEmployeeInput(userIn);
 			break;
 		case 3:
 			WelcomeMenu welcMenu = new WelcomeMenu();
@@ -72,11 +72,11 @@ public class HomepageMenu extends Menu{
 	 * 
 	 * @param userIn
 	 */
-	
+
 	@Override
 	public void menuDriver(Scanner userIn) {
 		int maxOp = menuDisplay();
-		int userNum=InputValidation.optionValidate(userIn, maxOp);
+		int userNum = InputValidation.optionValidate(userIn, maxOp);
 		menuInput(userIn, userNum);
 	}
 

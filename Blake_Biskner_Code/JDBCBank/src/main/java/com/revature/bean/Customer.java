@@ -8,6 +8,11 @@ package com.revature.bean;
  */
 
 public class Customer {
+	// Class Constants
+	public static final int PERSONAL = 1;
+	public static final int JOINT = 2;
+	public static final int REVIEW = 1;
+
 	// Class State
 	private String username;
 	private String password;
@@ -18,31 +23,32 @@ public class Customer {
 	private int acctType;
 	private int acctStatus;
 	private int acctNum;
+//	private Account account=null;
 
 	// Class Behavior
 	// Constructors
 	public Customer() {
-		this.acctStatus = 1;
+		this.acctStatus = REVIEW;
 		// DAO Select
 	}
 
 	public Customer(int acctNum) { // Joint Account Holder
-		this.acctNum = acctNum;
-		this.acctStatus = 1;
-		this.acctType = 2; // Joint
+		this.acctNum = acctNum; // Set by initial holder
+		this.acctStatus = REVIEW;
+		this.acctType = JOINT;
 	}
 
 	public Customer(String username, String password, String firstName, String lastName, int age, String socialSecurity,
 			int acctType, int acctStatus, int acctNum) {
 		this.username = username;
-		this.password=password;
+		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
 		this.socialSecurity = socialSecurity;
 		this.acctType = acctType;
-		this.acctStatus=acctStatus;
-		this.acctNum=acctNum;
+		this.acctStatus = acctStatus;
+		this.acctNum = acctNum;
 	}
 
 	// Getters and Setters
@@ -65,7 +71,7 @@ public class Customer {
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public String getSocialSecurity() {
 		return socialSecurity;
 	}
@@ -81,6 +87,10 @@ public class Customer {
 	public int getAcctNum() {
 		return acctNum;
 	}
+	
+//	public Account getAcct() {
+//		return account;
+//	}
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -113,6 +123,10 @@ public class Customer {
 	public void setAcctStatus(int acctStatus) {
 		this.acctStatus = acctStatus;
 	}
+	
+//	public void setAcct(Account account) {
+//		this.account=account;
+//	}
 
 	// ToString
 	@Override

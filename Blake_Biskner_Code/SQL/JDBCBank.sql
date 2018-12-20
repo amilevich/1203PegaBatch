@@ -55,6 +55,16 @@ CREATE TABLE BankCustomer(
 );
 COMMIT;
 
+----- Create Junction Table of Usernames and Account Numbers -----
+CREATE TABLE JunctionUsernameAccount(
+    customer_username VARCHAR2(100),
+    account_id INT,
+    PRIMARY KEY(customer_username, account_id),
+    FOREIGN KEY(customer_username) REFERENCES BankCustomer(customer_username),
+    FOREIGN KEY(account_id) REFERENCES BankAccount(account_id)
+);
+COMMIT;
+
 ---------- DML ----------
 ----- Populate Lookup Tables -----
 -- LookupStatus
@@ -80,38 +90,75 @@ COMMIT;
 ---------- Create Stored Procedures ----------
 ----- Insert New Customer -----
 CREATE OR REPLACE PROCEDURE Insert_Customer(
-new_username IN VARCHAR2,
-new_password IN VARCHAR2,
-new_first IN VARCHAR2,
-new_last IN VARCHAR2,
-new_age IN INT,
-new_social IN VARCHAR2,
-new_type IN INT,
-new_status IN INT)
+    new_username IN VARCHAR2,
+    new_password IN VARCHAR2,
+    new_first IN VARCHAR2,
+    new_last IN VARCHAR2,
+    new_age IN INT,
+    new_social IN VARCHAR2,
+    new_type IN INT,
+    new_status IN INT)
 AS
-account_num INT;
+    account_num INT;
 BEGIN
 -- As I will use the account number twice I must only increment once
 -- Thus I cannot use ACCT_SEQ.NEXTVAL bot times
-account_num:=ACCT_SEQ.NEXTVAL;
+    account_num:=ACCT_SEQ.NEXTVAL;
+-- Add new account
+    INSERT INTO BankAccount(account_id)
+    VALUES(account_num);
+-- Add new customer
+    INSERT INTO BankCustomer
+    VALUES(
+        new_username,
+        new_password,
+        new_first,
+        new_last,
+        new_age,
+        new_social,
+        new_type,
+        new_status,
+        account_num);
+-- Add new row to junction table
+    INSERT INTO JunctionUsernameAccount
+    VALUES(
+        new_username,
+        account_num);
 
-INSERT INTO BankAccount(account_id)
-VALUES(account_num);
-
-INSERT INTO BankCustomer
-VALUES(
-new_username,
-new_password,
-new_first,
-new_last,
-new_age,
-new_social,
-new_type,
-new_status,
-account_num);
-
-COMMIT;
+    COMMIT;
 END;
 /
-SELECT * FROM BankCustomer;
 
+---------- Insert New Joint Holder ----------
+CREATE OR REPLACE PROCEDURE Insert_Jtcustomer(
+    jt_username IN VARCHAR2,
+    jt_password IN VARCHAR2,
+    jt_first IN VARCHAR2,
+    jt_last IN VARCHAR2,
+    jt_age IN INT,
+    jt_social IN VARCHAR2,
+    jt_type IN INT,
+    jt_status IN INT,
+    jt_account IN INT)
+AS
+BEGIN
+-- Add new customer
+    INSERT INTO BankCustomer VALUES(
+        jt_username,
+        jt_password,
+        jt_first,
+        jt_last,
+        jt_age,
+        jt_social,
+        jt_type,
+        jt_status,
+        jt_account
+    );
+-- Add new row to junction table
+    INSERT INTO JunctionUsernameAccount VALUES(
+        jt_username,
+        jt_account);
+
+    COMMIT;
+END;
+/

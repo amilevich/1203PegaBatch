@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 import com.revature.driver.Driver;
 
-
-
 /**
  * Input Validation Utility Class
  * 
@@ -17,9 +15,9 @@ import com.revature.driver.Driver;
 public class InputValidation {
 
 	private static final String ERROR_MESSAGE = "Please Enter Valid Input";
-	
+
 	// Public Methods
-	
+
 	/**
 	 * Validates input for menu with integer switch statement
 	 * 
@@ -50,7 +48,7 @@ public class InputValidation {
 		} while ((userNum < minOp) || (userNum > maxOp));
 		return userNum;
 	}
-	
+
 	/**
 	 * Method to validate user input first and last name
 	 * 
@@ -212,9 +210,88 @@ public class InputValidation {
 			return 2; // Returns 2 for joint
 		}
 	}
-	
+
+	/**
+	 * Method to Validate Username
+	 * 
+	 * @param userIn
+	 * @return the customer validated String
+	 */
+
+	public static String existUserNameValidate(Scanner userIn) {
+		String userStr;
+		String inputSyntax = "Please Enter UserName";
+		userStr = confirmDriver(userIn, inputSyntax);
+		return userStr;
+	}
+
+	/**
+	 * Method to Validate Username
+	 * 
+	 * @param userIn
+	 * @return user validated password
+	 */
+
+	public static String existPasswordValidate(Scanner userIn) {
+		String userStr;
+		String inputSyntax = "Please Enter Password";
+		userStr = confirmDriver(userIn, inputSyntax);
+		return userStr;
+	}
+
+	/**
+	 * Method to Validate EMployee Id
+	 *
+	 * @param userIn
+	 * @return user validated id number
+	 */
+
+	public static Integer existEmployeeIdValidate(Scanner userIn) {
+		String userStr;
+		String inputSyntax = "Please Enter Employee Id";
+		do {
+			userStr = confirmDriver(userIn, inputSyntax);
+		} while (intTest(userStr) != true);
+		return Integer.valueOf(userStr);
+	}
+
+	/**
+	 * Method to Vet Transfer Number
+	 * 
+	 * @param userIn
+	 * @return Integer Account Number
+	 * 
+	 */
+
+	public static Integer acctNumValidate(Scanner userIn) {
+		String userStr;
+		String inputSyntax = "Please Enter Account Number";
+		do {
+			userStr = confirmDriver(userIn, inputSyntax);
+		} while (intTest(userStr) != true);
+		return Integer.valueOf(userStr);
+	}
+
+	/**
+	 * Method to Ensure Transfer Number Exists
+	 * 
+	 * @param acctNum
+	 * @return Boolean indicating whether account exists
+	 * 
+	 */
+
+	public static Boolean acctExistValidate(int acctNum) {
+		boolean acctExists = true;
+		if (Driver.accounts.containsKey(acctNum) == true) {
+			return acctExists;
+		} else {
+			acctExists = false;
+			return acctExists;
+		}
+	}
+
 	// Private Methods
-	
+
 	/**
 	 * Method to echo user input and ensure their data is what they intended
 	 * 
@@ -259,7 +336,7 @@ public class InputValidation {
 		} while (correct != true);
 		return userStr;
 	}
-	
+
 	/**
 	 * Tests if Input String Can be Converted to Integer (to avoid exception)
 	 * 

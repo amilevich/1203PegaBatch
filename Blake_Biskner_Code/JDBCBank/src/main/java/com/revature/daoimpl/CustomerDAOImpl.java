@@ -43,17 +43,37 @@ public class CustomerDAOImpl implements CustomerDAO {
 		conn.close();
 	}
 
+	@Override
+	public void createJointCustomer(Customer customer) throws SQLException {
+		Connection conn = cf.getConnection();
+		String sql = "{ call INSERT_JtCustomer(?,?,?,?,?,?,?,?,?)";
+		CallableStatement call = conn.prepareCall(sql);
+
+		call.setString(1, customer.getUserName());
+		call.setString(2, customer.getPassword());
+		call.setString(3, customer.getFirstName());
+		call.setString(4, customer.getLastName());
+		call.setInt(5, customer.getAge());
+		call.setString(6, customer.getSocialSecurity());
+		call.setInt(7, customer.getAcctType());
+		call.setInt(8, customer.getAcctStatus());
+		call.setInt(9, customer.getAcctNum());
+
+		call.execute();
+
+		call.close();
+	}
+
 	// READ
-	public void getCustomerMap() throws SQLException{
-//		Map<String, Customer> customerMap=new HashMap<String,Customer>();
-		Connection conn=cf.getConnection();
-		String sql="SELECT * FROM BankCustomer";
-		PreparedStatement ps=conn.prepareStatement(sql);
-		ResultSet rs=ps.executeQuery();
-		Customer customer=null;
-		while(rs.next()) {
-			customer=new Customer(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),
-					rs.getInt(5),rs.getString(6),rs.getInt(7),rs.getInt(8),rs.getInt(9));
+	public void getCustomerMap() throws SQLException {
+		Connection conn = cf.getConnection();
+		String sql = "SELECT * FROM BankCustomer";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		Customer customer = null;
+		while (rs.next()) {
+			customer = new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5),
+					rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getInt(9));
 			Driver.customers.put(rs.getString(1), customer);
 		}
 		conn.close();
