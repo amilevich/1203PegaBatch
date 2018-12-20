@@ -28,9 +28,9 @@ public abstract class User {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		for(String i : usernames) {
-			System.out.println(i);
-		}
+//		for(String i : usernames) {
+//			System.out.println(i);
+//		}
 	}
 	public static boolean usernameExists(String username) {
 		if (usernames.contains(username)) {

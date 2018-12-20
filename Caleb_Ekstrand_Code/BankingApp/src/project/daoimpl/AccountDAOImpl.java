@@ -53,7 +53,16 @@ public class AccountDAOImpl implements AccountDAO{
 
 	@Override
 	public void deleteAccount(int account) throws SQLException{
-		// TODO Auto-generated method stub
+		Connection conn = cf.getConnection();
+		String sql = "DELETE FROM customer_acc_db WHERE acc_num = ?";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setInt(1, account);
+		ps.executeUpdate();
+		sql = "DELETE FROM account_db WHERE acc_num = ?";
+		ps = conn.prepareStatement(sql);
+		ps.setInt(1, account);
+		ps.executeUpdate();
+		conn.close();
 		
 	}
 

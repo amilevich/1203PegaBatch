@@ -1,5 +1,7 @@
 package project.account;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -40,9 +42,9 @@ public class Account {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		for(Account i : accounts) {
-			System.out.println(i.toString());
-		}
+//		for(Account i : accounts) {
+//			System.out.println(i.toString());
+//		}
 	}
 	public int getAccountNumber() {
 		return accountNumber;
@@ -123,6 +125,11 @@ public class Account {
 		for (Account i : accounts) {
 			if (i.getAccountNumber() == account) {
 				accounts.remove(i);
+				try {
+					adi.deleteAccount(i.getAccountNumber());
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 	}

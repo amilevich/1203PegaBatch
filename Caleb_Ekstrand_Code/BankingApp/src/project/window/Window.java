@@ -13,12 +13,13 @@ public class Window {
 	public static void main(String[] args) {
 		// Create a new scanner object to receive inputs
 		Scanner sc = new Scanner(System.in);
-		
-		User.loadUsers(); // loading usernames from database into local storage for easy checking!
 		Account.loadAccounts(); // loading accounts from database into local storage for easy use!
-		//NOTE -- loadAccounts loads the full account objects while loadUsers loads only each users username
-		//This is due to design choices done in part 1 of the project
-		
+		User.loadUsers(); // loading usernames from database into local storage for easy checking!
+
+		// NOTE -- loadAccounts loads the full account objects while loadUsers loads
+		// only each users username
+		// This is due to design choices done in part 1 of the project
+
 		boolean running = true; // whether program is running/another loop should be started
 		while (running) {
 			System.out.println("Welcome to FakeBank!");
@@ -54,70 +55,86 @@ public class Window {
 										case 1:
 											System.out.println("Withdrawl");
 											System.out.println("Enter the number of the account");
-											int number = sc.nextInt();
-											if (((Customer) current).hasAccount(number)) {
-												if (((Customer) current).getAccount(number).isActivated()) {
-													System.out.println("Enter Amount");
-													double withdraw = sc.nextDouble();
-													if ((withdraw > 0)
-															&& (withdraw <= ((Customer) current).getBalance(number))) {
-														((Customer) current).withdraw(withdraw, number);
+											if (sc.hasNextInt()) {
+												int number = sc.nextInt();
+												if (((Customer) current).hasAccount(number)) {
+													if (((Customer) current).getAccount(number).isActivated()) {
+														System.out.println("Enter Amount");
+														double withdraw = sc.nextDouble();
+														if ((withdraw > 0) && (withdraw <= ((Customer) current)
+																.getBalance(number))) {
+															((Customer) current).withdraw(withdraw, number);
+														} else {
+															System.out.println("Invalid withdrawl amount");
+														}
 													} else {
-														System.out.println("Invalid withdrawl amount");
+														System.out.println("Account has not been activated");
 													}
-												} else {
-													System.out.println("Account has not been activated");
-												}
 
+												} else {
+													System.out.println("Account not found");
+												}
 											} else {
-												System.out.println("Account not found");
+												System.out.println("Invalid Input");
+												sc.next();
 											}
 											break;
 										case 2:
 											System.out.println("Deposit");
 											System.out.println("Enter the number of the account");
-											int number1 = sc.nextInt();
-											if (((Customer) current).hasAccount(number1)) {
-												if (((Customer) current).getAccount(number1).isActivated()) {
-													System.out.println("Enter Amount");
-													double deposit = sc.nextDouble();
-													if (deposit > 0) {
-														((Customer) current).deposit(deposit, number1);
+											if (sc.hasNextInt()) {
+												int number1 = sc.nextInt();
+												if (((Customer) current).hasAccount(number1)) {
+													if (((Customer) current).getAccount(number1).isActivated()) {
+														System.out.println("Enter Amount");
+														double deposit = sc.nextDouble();
+														if (deposit > 0) {
+															((Customer) current).deposit(deposit, number1);
+														} else {
+															System.out.println("Invalid deposit amount");
+														}
 													} else {
-														System.out.println("Invalid deposit amount");
+														System.out.println("Account has not been activated");
 													}
-												} else {
-													System.out.println("Account has not been activated");
-												}
 
+												} else {
+													System.out.println("Account not found");
+												}
 											} else {
-												System.out.println("Account not found");
+												System.out.println("Invalid Input");
+												sc.next();
 											}
 											break;
 										case 3:
 											System.out.println("Transfer");
 											System.out.println("Enter the number of the withdrawing account");
-											int account1 = sc.nextInt();
-											if ((((Customer) current).hasAccount(account1)
-													&& (((Customer) current).getAccount(account1).isActivated()))) {
-												System.out.println("Enter the number of the depositing account");
-												int account2 = sc.nextInt();
-												if ((((Customer) current).hasAccount(account2))
-														&& (((Customer) current).getAccount(account2).isActivated())) {
-													System.out.println("Enter Amount to Transfer");
-													double amount = sc.nextDouble();
-													if ((amount > 0)
-															&& (amount <= ((Customer) current).getBalance(account1))) {
-														((Customer) current).withdraw(amount, account1);
-														((Customer) current).deposit(amount, account2);
+											if (sc.hasNextInt()) {
+												int account1 = sc.nextInt();
+												if ((((Customer) current).hasAccount(account1)
+														&& (((Customer) current).getAccount(account1).isActivated()))) {
+													System.out.println("Enter the number of the depositing account");
+													int account2 = sc.nextInt();
+													if ((((Customer) current).hasAccount(account2))
+															&& (((Customer) current).getAccount(account2)
+																	.isActivated())) {
+														System.out.println("Enter Amount to Transfer");
+														double amount = sc.nextDouble();
+														if ((amount > 0) && (amount <= ((Customer) current)
+																.getBalance(account1))) {
+															((Customer) current).withdraw(amount, account1);
+															((Customer) current).deposit(amount, account2);
+														} else {
+															System.out.println("Invalid Amount");
+														}
 													} else {
-														System.out.println("Invalid Amount");
+														System.out.println("Account doesn't exist or isn't activated");
 													}
 												} else {
 													System.out.println("Account doesn't exist or isn't activated");
 												}
 											} else {
-												System.out.println("Account doesn't exist or isn't activated");
+												System.out.println("Invalid Input");
+												sc.next();
 											}
 											break;
 										case 4:
@@ -130,30 +147,35 @@ public class Window {
 										case 5:
 											System.out.println("Request Account");
 											System.out.println("(1) Standard or (2) Joint");
-											int type = sc.nextInt();
-											if (type == 1) {
-												System.out.println("Standard Account Requested");
-												Account a = new Account("standard");
-												((Customer) current).addAccount(a);
-											} else if (type == 2) {
-												System.out.println("Joint");
-												System.out.println(
-														"Enter (0) for new joint account or account number to add an existing account");
-												int num = sc.nextInt();
-												if (num == 0) {
-													System.out.println("New Joint Created");
-													Account a = new Account("joint");
+											if (sc.hasNextInt()) {
+												int type = sc.nextInt();
+												if (type == 1) {
+													System.out.println("Standard Account Requested");
+													Account a = new Account("standard");
 													((Customer) current).addAccount(a);
-												} else if ((Account.accountExists(num))
-														&& (Account.getAccount(num).getType().equals("joint"))
-														&& ((Customer) current).hasAccount(num) == false) {
-													System.out.println("joint exists");
-													((Customer) current).addAccount(Account.getAccount(num));
+												} else if (type == 2) {
+													System.out.println("Joint");
+													System.out.println(
+															"Enter (0) for new joint account or account number to add an existing account");
+													int num = sc.nextInt();
+													if (num == 0) {
+														System.out.println("New Joint Created");
+														Account a = new Account("joint");
+														((Customer) current).addAccount(a);
+													} else if ((Account.accountExists(num))
+															&& (Account.getAccount(num).getType().equals("joint"))
+															&& ((Customer) current).hasAccount(num) == false) {
+														System.out.println("joint exists");
+														((Customer) current).addAccount(Account.getAccount(num));
+													} else {
+														System.out.println("Invalid Input");
+													}
 												} else {
 													System.out.println("Invalid Input");
 												}
 											} else {
 												System.out.println("Invalid Input");
+												sc.next();
 											}
 
 											// System.out.println(a.toString());
@@ -282,7 +304,11 @@ public class Window {
 											System.out.println("Enter number of account you would like to cancel");
 											int account = sc.nextInt();
 											if (Account.accountExists(account)) {
-												Account.cancelAccount(account);
+												if (Account.getAccount(account).getBalance() == 0) {
+													Account.cancelAccount(account);
+												} else {
+													System.out.println("Account is not empty!");
+												}
 											} else {
 												System.out.println("Account does not exist");
 											}

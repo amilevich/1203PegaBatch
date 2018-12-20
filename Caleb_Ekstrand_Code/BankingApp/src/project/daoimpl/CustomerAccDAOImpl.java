@@ -42,8 +42,8 @@ public class CustomerAccDAOImpl implements CustomerAccDAO {
 		Account acc = null;
 		//System.out.println(username);
 		while (rs.next()) {
-			acc = new Account(rs.getInt(1), rs.getDouble(2), rs.getString(3), rs.getBoolean(4));
-			accList.add(acc);
+			//System.out.println(Account.getAccount(rs.getInt(1)));
+			accList.add(Account.getAccount(rs.getInt(1)));
 			//System.out.println(acc);
 		}
 		return accList;
