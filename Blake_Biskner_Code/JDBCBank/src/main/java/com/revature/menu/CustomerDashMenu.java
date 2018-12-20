@@ -101,6 +101,7 @@ public class CustomerDashMenu extends Menu {
 				}
 			}
 			System.out.println("Application Awaiting Approval");
+			Driver.pullCustomerMap(); // Update Map with new customers
 			menuDriver(userIn);
 			break;
 		case 3:

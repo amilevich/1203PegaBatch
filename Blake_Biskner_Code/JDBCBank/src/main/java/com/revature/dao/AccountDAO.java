@@ -3,6 +3,8 @@ package com.revature.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.revature.bean.Account;
+
 /**
  * Account DAO
  * 
@@ -35,6 +37,14 @@ public interface AccountDAO {
 	public List<String> getAccountHolders(int acctNum) throws SQLException;
 	// UPDATE
 
+	/**
+	 * Method to Update Account in Database
+	 * 
+	 * @param account
+	 * @throws SQLException
+	 * 
+	 */
+	public void updateAccount(Account account) throws SQLException;
 	// DELETE
 
 }

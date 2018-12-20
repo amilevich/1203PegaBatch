@@ -174,3 +174,15 @@ BEGIN
 COMMIT;
 END;
 /
+---------- Update Account Balance ----------
+CREATE OR REPLACE PROCEDURE Update_Account_Balance(
+    account_num IN INT,
+    new_balance IN NUMBER)
+AS
+BEGIN
+    UPDATE BankAccount SET account_balance=new_balance
+    WHERE account_id=account_num;
+COMMIT;
+END;
+/
+COMMIT;

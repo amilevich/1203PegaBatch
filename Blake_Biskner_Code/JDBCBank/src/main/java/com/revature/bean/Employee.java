@@ -60,6 +60,9 @@ public class Employee {
 	 */
 
 	public void approveApp(Scanner userIn) {
+		// Get Most Recent Account and Customer Maps
+		Driver.pullCustomerMap();
+		Driver.pullAccountMap();
 		// Variable Declaration
 		int maxOp = 2;
 		String key;

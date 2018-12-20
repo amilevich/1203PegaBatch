@@ -1,9 +1,11 @@
 package com.revature.bean;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.revature.daoimpl.AccountDAOImpl;
 import com.revature.driver.Driver;
 import com.revature.util.InputValidation;
 
@@ -104,6 +106,7 @@ public class Account {
 	 */
 
 	public void transfer(Double money, Account acct, Scanner userIn) {
+		AccountDAOImpl adi = new AccountDAOImpl();
 		int transferNum = InputValidation.acctNumValidate(userIn);
 		boolean acctExists = InputValidation.acctExistValidate(transferNum);
 		if (acctExists == true) { // Account number is valid
@@ -112,24 +115,32 @@ public class Account {
 			this.withdraw(money);
 			// Deposit into recipient
 			transferAcct.deposit(money);
+			try {
+				adi.updateAccount(this);
+				adi.updateAccount(transferAcct);
+			} catch(SQLException e) {
+				System.out.println("Exception Transferring");
+				e.printStackTrace();
+			}
 		} else { // Account number is not valid
 			System.out.println("Transfer Account Does Not Exist");
 		}
 		System.out.println("New Balance is " + balance);
 	}
-	
+
 	@Override
 	public String toString() {
-		int personal=1;
-		int joint=2;
-		int holder=0;
-		int jtHolder=1;
-		if((this.getHolders()).size()==personal) {
-			return(id+":"+balance+":"+(holders.get(holder).getUserName()));
-		} else if((this.getHolders()).size()==joint) {
-			return(id+":"+balance+":"+(holders.get(holder)).getUserName()+":"+(holders.get(jtHolder).getUserName()));
+		int personal = 1;
+		int joint = 2;
+		int holder = 0;
+		int jtHolder = 1;
+		if ((this.getHolders()).size() == personal) {
+			return (id + ":" + balance + ":" + (holders.get(holder).getUserName()));
+		} else if ((this.getHolders()).size() == joint) {
+			return (id + ":" + balance + ":" + (holders.get(holder)).getUserName() + ":"
+					+ (holders.get(jtHolder).getUserName()));
 		} else { // No holders (ie unapproved)
-			return(id+":"+balance);
+			return (id + ":" + balance);
 		}
 	}
 }
