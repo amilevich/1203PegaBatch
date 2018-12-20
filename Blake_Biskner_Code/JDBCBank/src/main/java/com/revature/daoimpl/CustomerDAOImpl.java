@@ -65,6 +65,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	// READ
+	@Override
 	public void getCustomerMap() throws SQLException {
 		Connection conn = cf.getConnection();
 		String sql = "SELECT * FROM BankCustomer";
@@ -80,6 +81,17 @@ public class CustomerDAOImpl implements CustomerDAO {
 	}
 
 	// UPDATE
+	@Override
+	public void updateCustomer(Customer customer) throws SQLException{
+		Connection conn=cf.getConnection();
+		String sql="{ call Update_Customer_Status(?,?)";
+		CallableStatement call=conn.prepareCall(sql);
+		call.setString(1, customer.getUserName());
+		call.setInt(2,customer.getAcctStatus());
+		call.execute();
+		
+		conn.close();
+	}
 
 	// DELETE
 

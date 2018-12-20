@@ -1,11 +1,13 @@
 package com.revature.bean;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
+import com.revature.daoimpl.CustomerDAOImpl;
 import com.revature.driver.Driver;
 import com.revature.util.InputValidation;
 
@@ -19,7 +21,7 @@ import com.revature.util.InputValidation;
 
 public class Employee {
 	// Class Constants
-	public static final int ANSWER_APPROVE=1;
+	public static final int ANSWER_APPROVE = 1;
 	public static final int PERSONAL = 1;
 	public static final int JOINT = 2;
 
@@ -67,6 +69,7 @@ public class Employee {
 		flagged = new HashMap<Integer, Integer>();
 		Set<String> keys = Driver.customers.keySet();
 		Iterator<String> itr = keys.iterator();
+		CustomerDAOImpl cdi = new CustomerDAOImpl();
 		// Iterate through customer hashmap
 		while (itr.hasNext()) {
 			key = itr.next();
@@ -79,12 +82,22 @@ public class Employee {
 					Account jtAcct = Driver.accounts.get(applicant.getAcctNum());
 					jtAcct.addHolder(applicant);
 					applicant.setAcct(jtAcct);
-					// // Write to account now that both users are on account
-					// FileWrite;
+					try {
+						cdi.updateCustomer(applicant);
+					} catch (SQLException e) {
+						System.out.println("Error Updating Joint Holder Status in Database");
+						e.printStackTrace();
+					}
 				} else {
 					applicant.setAcctStatus(DENIED);
+					try {
+						cdi.updateCustomer(applicant);
+					} catch (SQLException e) {
+						System.out.println("Error Updating Customer Status in Database");
+						e.printStackTrace();
+					}
 				}
-			}
+			} // End of flagged
 			// If this is the first joint account holder or a personal account holder
 			if (applicant.getAcctStatus() == REVIEW) {
 				System.out.println("Application " + applicant.getAcctNum());
@@ -93,7 +106,8 @@ public class Employee {
 
 				answer = InputValidation.optionValidate(userIn, maxOp);
 				// Approved
-				if (answer == ANSWER_APPROVE) { // Must use this variable as Approved=2 but the employee selects 1 to approve
+				if (answer == ANSWER_APPROVE) { // Must use this variable as Approved=2 but the employee selects 1 to
+												// approve
 					applicant.setAcctStatus(APPROVED);
 					// Set applicant account equal to the account from the database
 					Account acct = Driver.accounts.get(applicant.getAcctNum());
@@ -103,18 +117,27 @@ public class Employee {
 					acct.addHolder(applicant);
 					if (applicant.getAcctType() == JOINT) {
 						flagged.put(applicant.getAcctNum(), applicant.getAcctStatus());
-					} else {
-						// FileWrite
 					}
-					// Denied
+					try {
+						cdi.updateCustomer(applicant);
+					} catch (SQLException e) {
+						System.out.println("Exception Updating Initial Holder Status");
+						e.printStackTrace();
+					}
 				} else {
 					applicant.setAcctStatus(DENIED);
 					if (applicant.getAcctType() == JOINT) {
 						flagged.put(applicant.getAcctNum(), applicant.getAcctStatus());
 					}
-				}
-			}
-		}
+					try {
+						cdi.updateCustomer(applicant);
+					} catch (SQLException e) {
+						System.out.println("Exception Updating Customer Status in Database");
+						e.printStackTrace();
+					}
+				} // End of denied
+			} // End of Review
+		} // End of while loop through map
 	}
 
 	/**

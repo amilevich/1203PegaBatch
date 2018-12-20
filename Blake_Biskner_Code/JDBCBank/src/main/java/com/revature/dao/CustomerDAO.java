@@ -46,6 +46,15 @@ public interface CustomerDAO {
 	public void getCustomerMap() throws SQLException;
 
 	// UPDATE
+	
+	/**
+	 * Method to Update Customer Data (Particularly Status)
+	 * 
+	 * @throws SQLException
+	 * 
+	 */
+	
+	public void updateCustomer(Customer customer) throws SQLException;
 
 	// DELETE
 }

@@ -162,3 +162,15 @@ BEGIN
 COMMIT;
 END;
 /
+
+---------- Update Customer Status ----------
+CREATE OR REPLACE PROCEDURE Update_Customer_Status(
+    username IN VARCHAR2,
+    new_status IN INT)
+AS
+BEGIN
+    UPDATE BankCustomer SET customer_status=new_status
+    WHERE customer_username=username;
+COMMIT;
+END;
+/
