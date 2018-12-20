@@ -181,7 +181,16 @@ public class EmployeeMenu {
 	}
 
 	private void printCustomers() {
-
+		List<String> customers = userAuth.getCustomers();
+		if(customers==null || customers.isEmpty()) {
+			System.out.println("No customers to display");
+		}else {
+			System.out.println("Customers:");
+			for(int i = 0; i < customers.size(); i++) {
+				System.out.println(i+". " + customers.get(i));
+			}
+			System.out.println("---------------------");
+		}
 	}
 
 	public static void main(String[] args) {

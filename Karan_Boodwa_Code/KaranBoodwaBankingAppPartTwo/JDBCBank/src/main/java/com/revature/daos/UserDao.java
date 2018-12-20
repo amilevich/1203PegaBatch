@@ -1,5 +1,7 @@
 package com.revature.daos;
 
+import java.util.List;
+
 import com.revature.pojos.User;
 
 public interface UserDao {
@@ -10,6 +12,8 @@ public interface UserDao {
 	
 	// Read
 	public User getUserByUsername(String username);
+	
+	public List<String> getCustomers();
 	
 	// Update
 	public boolean updateUser(int userid, String username, String password);

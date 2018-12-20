@@ -180,6 +180,10 @@ public class UserAuthorizer {
 		}
 		 	
 	}
+
+	public List<String> getCustomers() {
+		return userDaoImpl.getCustomers();
+	}
 	
 
 }

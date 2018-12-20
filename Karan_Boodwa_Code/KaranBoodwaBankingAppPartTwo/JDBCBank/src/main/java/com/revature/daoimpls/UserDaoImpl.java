@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.revature.daos.UserDao;
 import com.revature.pojos.User;
@@ -12,7 +14,7 @@ import com.revature.pojos.User.UserType;
 import com.revature.util.ConnFactory;
 
 public class UserDaoImpl implements UserDao {
-	
+
 	public static ConnFactory cf = ConnFactory.getInstance();
 
 	/**
@@ -22,7 +24,7 @@ public class UserDaoImpl implements UserDao {
 	public User getUserByUsername(String username) {
 		try (Connection conn = cf.getConnection()) {
 			String sql = "SELECT * FROM useracc WHERE username=?";
-			PreparedStatement ps = conn.prepareStatement(sql); 
+			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
 			ResultSet rs = ps.executeQuery();
 
@@ -32,8 +34,7 @@ public class UserDaoImpl implements UserDao {
 			 */
 			if (rs.next()) {
 				// ID, Username, Password, Usertype
-				
-				
+
 				User user = new User();
 				user.setId(rs.getInt(1));
 				user.setUsername(rs.getString(2));
@@ -60,7 +61,7 @@ public class UserDaoImpl implements UserDao {
 				default:
 					break;
 				}
-				
+
 				return user;
 
 			} else {
@@ -80,7 +81,7 @@ public class UserDaoImpl implements UserDao {
 		try (Connection conn = cf.getConnection()) {
 			String sql = "INSERT INTO useracc VALUES(null, ?, ?, ?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			
+
 			// Unpack given user into sql arguments
 			ps.setString(1, user.getUsername());
 			ps.setString(2, user.getPassword());
@@ -100,7 +101,7 @@ public class UserDaoImpl implements UserDao {
 			default:
 				break;
 			}
-			
+
 			ps.executeQuery();
 
 		} catch (SQLException e) {
@@ -112,25 +113,23 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean deleteUser(int userid) {
-		try(Connection conn = cf.getConnection()){
-			String sql = "{call delete_user(?)}" ;
+		try (Connection conn = cf.getConnection()) {
+			String sql = "{call delete_user(?)}";
 			CallableStatement cs = conn.prepareCall(sql);
 			cs.setInt(1, userid);
 			cs.execute();
 			return true;
-					
-		}catch(SQLException e) {
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+
 		return false;
 	}
 
 	@Override
 	public boolean updateUser(int userid, String username, String password) {
-		try(Connection conn = cf.getConnection()){
+		try (Connection conn = cf.getConnection()) {
 			String sql = "UPDATE useracc SET username=?, password=? WHERE user_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
@@ -138,10 +137,32 @@ public class UserDaoImpl implements UserDao {
 			ps.setInt(3, userid);
 			ps.executeUpdate();
 			return true;
-			
-		}catch(SQLException e) {
+
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	@Override
+	public List<String> getCustomers() {
+		try (Connection conn = cf.getConnection()) {
+			String sql = "SELECT username FROM user_view WHERE type=Customer";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			List<String> customers = new ArrayList<String>();
+			while (rs.next()) {
+				customers.add(rs.getString(1));
+			}
+			if (!customers.isEmpty()) {
+				return customers;
+			} else {
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }

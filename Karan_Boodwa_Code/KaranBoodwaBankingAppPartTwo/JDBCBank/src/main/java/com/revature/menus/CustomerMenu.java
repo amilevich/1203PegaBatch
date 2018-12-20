@@ -22,7 +22,7 @@ public class CustomerMenu {
 
 	// reference to the singleton instance
 	private TransactionHandler tHandler = TransactionHandler.getTHandler();
-
+	
 	private User user;
 
 	public User getUser() {

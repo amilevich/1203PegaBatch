@@ -1,6 +1,9 @@
 package com.revature.menus;
 
+import java.text.DecimalFormat;
+
 import com.revature.input.Input;
+import com.revature.pojos.Account;
 import com.revature.pojos.Transaction;
 import com.revature.pojos.Transaction.operation;
 import com.revature.pojos.User;
@@ -228,11 +231,14 @@ public class AdminMenu extends EmployeeMenu {
 		System.out.println("2. Return to Menu");
 
 		int choice = in.getInt();
+		Account a = tHandler.getAccountById(acc);
 		switch (choice) {
 		case 1:
 			boolean success = tHandler.cancelAccount(acc);
 			if (success) {
 				System.out.println("Account Canceled");
+				DecimalFormat df = new DecimalFormat("#.00");
+				System.out.println("$" + df.format(a.getBalance()) + " withdrawn.");
 			} else {
 				System.out.println("Error. Account Not Canceled.");
 			}

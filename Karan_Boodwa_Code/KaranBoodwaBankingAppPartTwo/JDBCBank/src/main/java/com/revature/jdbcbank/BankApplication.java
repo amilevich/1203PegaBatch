@@ -160,11 +160,14 @@ public class BankApplication {
 			boolean usernameExists = true;
 			while (usernameExists) {
 				System.out.println("Please enter a username");
-				System.out.println("minimum 3 characters");
+				System.out.println("Minimum of 3 characters. Maximum of 15 characters");
 				String username = in.get();
 				if (username.length() < 3) {
 					System.out.println("Error: minimum of 3 characters needed");
-				} else if (userAuth.usernameExists(username)) {
+				} else if(username.length() > 15) {
+					System.out.println("Error: maximum of 15 characters allowed");
+				}
+				else if (userAuth.usernameExists(username)) {
 					System.out.println("Username already exists, please choose another.");
 				} else {
 					System.out.println("Username available!");
@@ -173,11 +176,14 @@ public class BankApplication {
 					boolean invalidPassword = true;
 					while (invalidPassword) {
 						System.out.println("Please enter a password");
-						System.out.println("minimum 5 characters");
+						System.out.println("Minimum 5 characters. Maximum 15 characters");
 						String password = in.get();
 						if (password.length() < 5) {
 							System.out.println("Error: minimum of 5 characters needed");
-						} else {
+						} else if(password.length() > 15) {
+							System.out.println("Error: maximum of 15 characters allowed");
+						}
+						else {
 							invalidPassword = false;
 							// All criteria needed for account creation done!
 
