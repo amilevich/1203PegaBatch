@@ -19,6 +19,7 @@ import com.revature.util.InputValidation;
 
 public class Employee {
 	// Class Constants
+	public static final int ANSWER_APPROVE=1;
 	public static final int PERSONAL = 1;
 	public static final int JOINT = 2;
 
@@ -74,10 +75,10 @@ public class Employee {
 			if ((flagged.isEmpty() != true) && (flagged.containsKey(applicant.getAcctNum()))) {
 				Integer status = flagged.get(applicant.getAcctNum());
 				if (status == APPROVED) {
-					// applicant.setAcctStatus(APPROVED);
-					// Account jtAcct=Driver.accounts.get(applicant.getAcctNum());
-					// jtAcct.addHolder(applicant);
-					// applicant.setAcct(jtAcct);
+					applicant.setAcctStatus(APPROVED);
+					Account jtAcct = Driver.accounts.get(applicant.getAcctNum());
+					jtAcct.addHolder(applicant);
+					applicant.setAcct(jtAcct);
 					// // Write to account now that both users are on account
 					// FileWrite;
 				} else {
@@ -92,20 +93,25 @@ public class Employee {
 
 				answer = InputValidation.optionValidate(userIn, maxOp);
 				// Approved
-				if (answer == APPROVED) {
+				if (answer == ANSWER_APPROVE) { // Must use this variable as Approved=2 but the employee selects 1 to approve
 					applicant.setAcctStatus(APPROVED);
-					// Account acct=new Account(applicant.getAcctNum(),applicant);
-					// Driver.accounts.put(applicant.getAcctNum(),acct);
-					// if(applicant.getAcctType()==JOINT) {
-					// flagged.put(applicant.getNum(), applicant.getAcctStatus());
+					// Set applicant account equal to the account from the database
+					Account acct = Driver.accounts.get(applicant.getAcctNum());
+					// Set applicant account instance to this account
+					applicant.setAcct(acct);
+					// Add applicant to account object in hashmap
+					acct.addHolder(applicant);
+					if (applicant.getAcctType() == JOINT) {
+						flagged.put(applicant.getAcctNum(), applicant.getAcctStatus());
+					} else {
+						// FileWrite
+					}
+					// Denied
 				} else {
-					// FileWrite
-				}
-				// Denied
-			} else {
-				applicant.setAcctStatus(DENIED);
-				if (applicant.getAcctType() == JOINT) {
-					flagged.put(applicant.getAcctNum(), applicant.getAcctStatus());
+					applicant.setAcctStatus(DENIED);
+					if (applicant.getAcctType() == JOINT) {
+						flagged.put(applicant.getAcctNum(), applicant.getAcctStatus());
+					}
 				}
 			}
 		}
@@ -121,7 +127,7 @@ public class Employee {
 	public void customerInfo(Scanner userIn) {
 		String username = InputValidation.existUserNameValidate(userIn);
 		if (Driver.customers.containsKey(username)) {
-			System.out.println(Driver.customers.get(username));
+			System.out.print(Driver.customers.get(username));
 		}
 	}
 
@@ -133,10 +139,10 @@ public class Employee {
 	 */
 
 	public void acctInfo(Scanner userIn) {
-//		Integer acctNum = inputValidation.acctNumValidate(userIn);
-//		if (Driver.accounts.containsKey(acctNum)) {
-//			System.out.println(Driver.accounts.get(acctNum));
-//		}
+		Integer acctNum = InputValidation.acctNumValidate(userIn);
+		if (Driver.accounts.containsKey(acctNum)) {
+			System.out.println(Driver.accounts.get(acctNum));
+		}
 	}
 
 	@Override

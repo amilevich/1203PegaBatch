@@ -3,6 +3,7 @@ package com.revature.util;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+import com.revature.bean.Customer;
 import com.revature.driver.Driver;
 
 /**
@@ -290,7 +291,45 @@ public class InputValidation {
 		}
 	}
 
-	// Private Methods
+	/**
+	 * Method to Validate Input String and Convert it to Dollar Amount
+	 * 
+	 * @param userIn
+	 * @return double with no more than two decimals
+	 * 
+	 */
+
+	public static Double amountValidate(Scanner userIn) {
+		String userStr = "";
+		String inputSyntax = "Please Input a Dollar Amount in Form \"n.nn\"";
+		do {
+			userStr = confirmDriver(userIn, inputSyntax);
+		} while (dollarTest(userStr) != true);
+		return Double.valueOf(userStr);
+	}
+
+	/**
+	 * Method to Ensure User Does not Overdraw Account
+	 * 
+	 * @param userIn
+	 * @param customer
+	 * @return amount which will not overdraw account
+	 * 
+	 */
+	public static Double enoughMoneyValidate(Scanner userIn, Customer customer) {
+		Double amount;
+		Double balance = (customer.getAcct()).getBalance();
+		do {
+			System.out.println("Your Account Balance is " + balance);
+			amount = amountValidate(userIn);
+			if (amount > balance) {
+				System.out.println("Please Enter Value Less Than Your Balance");
+			}
+		} while (amount > balance);
+		return amount;
+	}
+
+	// Helper Methods
 
 	/**
 	 * Method to echo user input and ensure their data is what they intended
@@ -377,4 +416,42 @@ public class InputValidation {
 		}
 		return isNumLet;
 	}
+
+	/**
+	 * Method to Validate Input Amount is in %.__ form
+	 * 
+	 * @param intStr
+	 * @return true if in dollar form and false otherwise
+	 * 
+	 */
+
+	public static boolean dollarTest(String intStr) {
+		boolean isDollar = true;
+		String[] value;
+		System.out.println(intStr);
+		value = intStr.split("\\.");
+		if (value.length == 1) { // Integer
+			if (intTest(value[0]) == true) {
+				return isDollar;
+			}
+		} else if (value.length == 2) { // In form value.value
+			if (value[1].length() == 2) { // Two numbers after decimal
+				if ((intTest(value[0]) == true) && (intTest(value[1]))) { // Both sides of decimal just contain numbers
+					return isDollar;
+				} else { // Part of value is not integer
+					isDollar = false;
+					return isDollar;
+				}
+			} else { // Not two numbers after decimal
+				isDollar = false;
+				return isDollar;
+			}
+		} else { // In form 123.45.8
+			isDollar = false;
+			return isDollar;
+		}
+		isDollar = false;
+		return isDollar; // Return false just in case no if statements execute (should not happen)
+	}
+
 }

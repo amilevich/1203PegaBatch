@@ -117,17 +117,19 @@ public class Account {
 		}
 		System.out.println("New Balance is " + balance);
 	}
-
+	
 	@Override
 	public String toString() {
-		int joint = 2;
-		int holder1 = 0;
-		int holder2 = 1;
-		String toStr = (id + ":" + balance + ":" + (holders.get(holder1).getUserName()));
-		if (holders.size() == joint) {
-			String toStrJt = (":" + (holders.get(holder2)).getUserName());
-			toStr = toStr + toStrJt;
+		int personal=1;
+		int joint=2;
+		int holder=0;
+		int jtHolder=1;
+		if((this.getHolders()).size()==personal) {
+			return(id+":"+balance+":"+(holders.get(holder).getUserName()));
+		} else if((this.getHolders()).size()==joint) {
+			return(id+":"+balance+":"+(holders.get(holder)).getUserName()+":"+(holders.get(jtHolder).getUserName()));
+		} else { // No holders (ie unapproved)
+			return(id+":"+balance);
 		}
-		return toStr;
 	}
 }

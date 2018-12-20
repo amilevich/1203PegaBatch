@@ -107,6 +107,7 @@ public class Driver {
 		AccountDAOImpl adi=new AccountDAOImpl();
 		List<String> holders; // List of usernames from database
 		Customer customer;
+		int approved=2;
 		try {
 			// Initialize Account Numbers and Balances
 			adi.getAccountMap();
@@ -120,7 +121,9 @@ public class Driver {
 				holders=adi.getAccountHolders(key);
 				for(String username:holders) { // Iterate through each customer tied to account via junction table
 					customer=customers.get(username); // Retieve customer object with given username
-					account.addHolder(customer); // Add the customer to the account arraylist
+					if(customer.getAcctStatus()==approved) { // Only add holders to account if it has been approved
+						account.addHolder(customer); // Add the customer to the account arraylist
+					}
 				}
 			}
 		} catch(SQLException e) {

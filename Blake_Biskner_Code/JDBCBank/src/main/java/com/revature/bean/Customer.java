@@ -23,7 +23,7 @@ public class Customer {
 	private int acctType;
 	private int acctStatus;
 	private int acctNum;
-//	private Account account=null;
+	private Account account;
 
 	// Class Behavior
 	// Constructors
@@ -88,9 +88,9 @@ public class Customer {
 		return acctNum;
 	}
 	
-//	public Account getAcct() {
-//		return account;
-//	}
+	public Account getAcct() {
+		return account;
+	}
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -124,9 +124,9 @@ public class Customer {
 		this.acctStatus = acctStatus;
 	}
 	
-//	public void setAcct(Account account) {
-//		this.account=account;
-//	}
+	public void setAcct(Account account) {
+		this.account=account;
+	}
 
 	// ToString
 	@Override

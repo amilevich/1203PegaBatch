@@ -159,6 +159,6 @@ BEGIN
         jt_username,
         jt_account);
 
-    COMMIT;
+COMMIT;
 END;
 /
