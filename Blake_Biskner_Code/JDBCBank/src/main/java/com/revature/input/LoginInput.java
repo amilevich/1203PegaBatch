@@ -1,9 +1,11 @@
 package com.revature.input;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.revature.bean.Customer;
 import com.revature.bean.Employee;
+import com.revature.daoimpl.AdminDAOImpl;
 import com.revature.driver.Driver;
 import com.revature.menu.CustomerDashMenu;
 import com.revature.menu.HomepageMenu;
@@ -70,6 +72,17 @@ public class LoginInput extends ScreenInput {
 					break;
 				case DENIED:
 					System.out.println("Your Account has Been Cancelled or Denied");
+					// Once Customer has Viewed this Message Delete From Accounts
+					AdminDAOImpl addi=new AdminDAOImpl();
+					try {
+						addi.deleteAccount(customer);
+					} catch(SQLException e) {
+						System.out.println("Error Deleting Account from Database");
+						e.printStackTrace();
+					}
+					// Get Updated Versions of Maps without Deleted User
+					Driver.pullCustomerMap();
+					Driver.pullAccountMap();
 					CustomerDashMenu custDashDeny = new CustomerDashMenu();
 					custDashDeny.menuDriver(userIn);
 					break;

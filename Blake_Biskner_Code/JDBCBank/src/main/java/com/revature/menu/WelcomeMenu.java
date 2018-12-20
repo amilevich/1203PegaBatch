@@ -1,7 +1,11 @@
 package com.revature.menu;
 
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.Set;
 
+import com.revature.bean.Customer;
+import com.revature.driver.Driver;
 import com.revature.util.InputValidation;
 
 /**
@@ -32,13 +36,15 @@ public class WelcomeMenu extends Menu {
 	@Override
 	public int menuDisplay() {
 		// Variable Intialization
+		int numEmp = numEmployees();
+		int custNum = numCustomers();
 		String message1 = "Proudly Serving ";
 		String message2 = "Proudly Employing ";
 
 		// Display Welcome Messages
 		displayHeader();
-		System.out.println(message1 + "n" + " Customers");
-		System.out.println(message2 + "n" + " Employees");
+		System.out.println(message1 + custNum + " Customers");
+		System.out.println(message2 + numEmp + " Employees");
 		displayPrompt();
 		displayOptions();
 
@@ -80,5 +86,40 @@ public class WelcomeMenu extends Menu {
 		int maxOp = menuDisplay();
 		int userNum = InputValidation.optionValidate(userIn, maxOp);
 		menuInput(userIn, userNum);
+	}
+
+	/**
+	 * Method to Get Number of Employees
+	 * 
+	 * @return number of employees
+	 * 
+	 */
+
+	private int numEmployees() {
+		return Driver.employees.size();
+	}
+
+	/**
+	 * Method to Return Active Number of Customers
+	 * 
+	 * @return the number of approved customers
+	 */
+
+	private int numCustomers() {
+		// Variable Declaration and Initialization
+		int count = 0;
+		int approved = 2;
+		Customer customer;
+		// Iterator
+		Set<String> keys = Driver.customers.keySet();
+		Iterator<String> itr = keys.iterator();
+		while (itr.hasNext()) {
+			String key = itr.next();
+			customer = Driver.customers.get(key);
+			if ((customer.getAcctStatus()) == approved) {
+				count++;
+			}
+		}
+		return count;
 	}
 }

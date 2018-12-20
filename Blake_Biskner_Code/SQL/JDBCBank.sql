@@ -185,4 +185,18 @@ BEGIN
 COMMIT;
 END;
 /
+---------- Delete Account ----------
+CREATE OR REPLACE PROCEDURE Delete_Account(
+    account_num IN INT)
+AS
+BEGIN
+    DELETE FROM JunctionUsernameAccount
+    WHERE account_id=account_num;
+    DELETE FROM BankCustomer
+    WHERE customer_account=account_num;
+    DELETE FROM BankAccount
+    WHERE account_id=account_num;
+COMMIT;
+END;
+/
 COMMIT;
