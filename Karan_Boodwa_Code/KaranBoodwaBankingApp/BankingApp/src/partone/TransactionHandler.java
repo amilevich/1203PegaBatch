@@ -76,7 +76,7 @@ public class TransactionHandler {
 			break;
 		}
 
-		return true;
+		return false;
 	}
 
 	/**
