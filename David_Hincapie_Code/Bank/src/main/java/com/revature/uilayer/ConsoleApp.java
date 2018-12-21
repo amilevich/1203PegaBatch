@@ -162,9 +162,9 @@ public class ConsoleApp {
 			customer.setUserType(Usertype.CUSTOMER.toString());
 			customer.setApproved(false);
 			System.out.print("\nPlease enter First Name: ");
-			customer.setFirstName(scanner.next());
+			customer.setFirstName(scanner.nextLine());
 			System.out.print("Please enter Last Name: ");
-			customer.setLastName(scanner.next());
+			customer.setLastName(scanner.nextLine());
 			System.out.print("Please enter User Name: ");
 			username = scanner.next();
 			customer.setUserName(username);
