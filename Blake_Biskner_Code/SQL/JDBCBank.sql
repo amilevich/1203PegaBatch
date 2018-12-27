@@ -199,4 +199,7 @@ BEGIN
 COMMIT;
 END;
 /
-COMMIT;
+
+SELECT * FROM BankCustomer;
+SELECT * FROM BankAccount;
+SELECT * FROM JunctionUsernameAccount;
