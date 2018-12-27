@@ -1,0 +1,56 @@
+class Employee
+
+
+
+{
+University COurses 80%
+Seminars 60%
+Cert Prep Classes 75%
+Cert 100%
+Technical Training 90%
+Other 30%
+}
+
+
+
+2 Complete the Tuition Reimbursement Form
+Form collects (required): basic employee information; date, time, location, description, cost, grading format, and type of event; work-related justification.  
+	       (optionally) include: event-related attachments (pdf, png, jpeg, txt, or doc type) 
+		                       attachments of approvals already provided of .msg (Outlook Email File) file type and type of approval, work time that will be missed.  
+*what do you mean file type and type of approval or work time thatll be missed
+
+
+
+2.1 Business Rules
+CREATE TABLE GRADINGFORMATS(
+	pass
+	fail
+);
+not clear to me
+
+
+1.1 Business Rules
+if (reimbursementApproved == true)
+	"Reimbursement pending
+	if(passingGrade ==1)
+		If (the projected reimbursement for an event exceeds the available reimbursement amount) 
+			Direct Supervisor Approval();
+			TotalReimbursement = amount available; 
+		else 
+			Direct Supervisor Approval();
+			AvailableReimburstment = TotalReimburstment ($1000) – PendingReimburstments – AwardedReimburstments
+
+	else if (presentation over event == true)
+		If (the projected reimbursement for an event exceeds the available reimbursement amount) 
+			Direct Supervisor Approval();
+			TotalReimbursement = amount available; 
+		else 
+			Direct Supervisor Approval();
+			AvailableReimburstment = TotalReimburstment ($1000) – PendingReimburstments – AwardedReimburstments
+else
+
+3.1 stopped
+------------------------------------------------------------------------------------------------------------------------------
+if (astudent = pass) 
+	student uploads proof.(use BLOBs)
+

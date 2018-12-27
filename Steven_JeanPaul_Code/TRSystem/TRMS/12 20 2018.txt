@@ -1,0 +1,116 @@
+Javascript
+
+object oriented
+only lanaguage used by majority
+interpreted and not compiled across numerous browsers
+can use logic to manipulate html elements displayed on the page
+
+
+Iffy
+has to do with scope of functions in js. using a variable within a calling function's function.
+
+falsey/inherently false.
+truthy
+
+var = global and local
+let = everything
+
+const = final constant.
+
+what's hoisting?
+
+Undefined versus undeclared:
+	b is not in our code so when we try to find it, it hasnt be declared or defined.
+	let a ; is undefined because no value is assigned to it.
+
+
+HTTP-protocol for fetching resources		(front) ~~~~~~ AJAX  	    	  (middle) java ----------------------------jdbc------------------------(backend)db
+html,json,xml,plntxt				html~~~Servlets		    "serverside"/servers	    	   		Oracle    ======= WEBSITE
+					css
+					js
+					boostrap
+					(clientside)
+=====================================================================================================================================
+       			PROCESS with tomcat
+       (request-->)  
+client                  tomcat
+      (<--response)  
+       
+
+Today is Servlets
+	Protocol is a rule.
+	Server is our local machine, an address for our local machine. 
+		Servlet is a java class used to extend capabilities of servers that host apps. Way of receiving/responding to client requests. They run in a web container/servlet container(tomcat). Tomcat(networking site) passes http request back and forth, and connection handling. When a client sends a request we use servelets to handle it. Client pushes button and it goes to tomcat, then goes to xml to be guided /prepared , then web container, then back to the client.
+
+
+
+				HIERARCHY			
+SERVLET (interface)		print()	deny()	service()  getservletcontext	getservletconfig <-------------------------servletre...ser - response
+GENERIC SERVLET (abstract class)    impl	impl	no impl
+HTTP SERVLET (abstract class)			impl(doGet, doPost...)		<--------------------------------------------httpservletrequest;....response
+our custom SERVLET (class)	Service(httprequest, ........................................................................)
+
+	HTTP protocol for transfering info over web - PUSH, GET, 
+
+				LIFECYCLE
+Servlet Lifecycle methods
+	init() - turns on a servlet. happens once.
+	service() - for each request we call service. happens multiple times.
+	destroy() - all servlet objects are dereferenced, resources are cleaned up/closed, db connection is closed. happens once.
+
+Called when servlet is created or when web.xml says we need you/when client makes a request(lazy loading), and init() is executed when the servlet is initialized. Servlets are created when the client makes a request/user invokes URL corresponding to servlet(lazy loading - zero is this)......another way to create servlets is to 1- init() when the server starts(eager loading - all other nums are this). 3 methods.
+
+Detour: web.xml is Deployment Descriptor. this is THE config file of our web apps in Java. it dictates which classes to load. we can set paramets. this file tells the browser how to intercept requests coming from clientside browsers.
+
+				SERVICE
+-chief method(2- "service()" ) to handle requests coming from the client. each time service receives a request from client(REQUEST TYPES: post, get, put, delete...) for servlet the server makes a new thread. (doGET, doPOST are methods. make sure to know the differences) the 3 - destroy() is called one time and gives db chance to close db connection and stop background threads or do other cleanup. all servlet instances are destroyed when server shutdown.
+
+3 ways we can respond to a client
+1. PRINTWRITER - directly send txt msg. 
+2. FORWARD someone to something. difference between this and 3 is that you stay in the same server. 2 requests and 1 response. for security. From client perspective sends 1 resp and 1 req.
+3. REDIRECT - be brought to another server or somewhere else. 2 requests and 2 response. 
+
+
+Servlet context(global - only accessible to external) versus servlet config(local is only accessible inside).
+We're defining parameters, something that could be shared between multiple servlets or just within one.
+
+
+Research: differences between get and post methods
+doget and dopost
+
+
+Tuition reimbursement management system. tickets and expenses for students.
+js, css, html, aja, java, sql, host on rds
+--------------------------------------------------------------------------------------------------------------------------
+SDLC - are guidelines
+*Planning
+*Analysis
+*Design
+*Implementation
+*Testing / Integration
+*Maintenance
+
+
+Waterfall
+Requirements must be correct from the beginning. Each iteration consists of the entire sdlc cycle. once done, its very difficult to make changes. There's low management throughout the process. 
+
+Big Bang 
+Everything happening at once. There is no formal structure. It works for small projects/teams like a calculator. Very high management because decision-making happens right then and there "what should this be".
+
+Agile
+More of a style and way of doing. Turn a project into user stories. These are small pieces of the project at a time. There is a Product owner ("what color do you want") and the Stories go through different stages (Backlog, In Progress, Testing, Code Review, Done, Release).
+
+	SCRUM(part of agile methodology) - We have a (consists of scrum master) deals with managing development to determine whats what. do Sprints. Comes from Rugby. User Stories. At the end of each (15 minute standup meetings)Sprint you talk about what went well and what didnt and what learned. Team throughput(how much work can be handled in a Sprint). We will use TRELLO for this.
+		User Stories: is taking a human perspective - "As a (user) I can (view) my ppi"....or As an (admin) I can (view) admin features 
+			Requirements: Customer should be able to log in and be able to view information. Must have at least 1 user story.
+
+		How do we prioritize? "As a user I can edit my personal info" ....during meetings, we decide what level each requirement is. We consider time(generally takes time), difficulty, 
+			Short sizes - XS() S(6) M(6) L(1) XL() ...............keep going until there's 100% agreement
+		
+		So when deciding..... Scrum master says we are 2XL level
+					Dictates first Sprint to be 1 and 6 (1, 6)  [and dont forget, we determine the values]
+						1(XL), 2(S), 3(S), 4(M), 5(M), 6(XL) is our numbering system is....
+
+					*throughput - how much work a team can handle/score wise.... a Medium.
+
+a SCRUM is an agile methodology. A SCRUM MASTER manages user stories in development with a TEAM OF DEVELOPERS as they progress through the SDLC using SPRINTS and STANDUPS/meetings to manage the process. SPRINTS are timed development cycles lasting two weeks or more with daily STAND UPS. A stand up can be as much as 15 minute meetings or more, developers state WHAT WENT WELL, WHAT DIDNT, and WHAT THEY LEARNED. Everyone ultimately agrees on what LEVEL and VALUE each REQUIREMENT is at. They guage each members THROUGHPUT. Identify a THROUGHPUT SCORE(limit) and then set the mission to go.

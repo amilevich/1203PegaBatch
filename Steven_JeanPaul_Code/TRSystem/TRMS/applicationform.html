@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Tuition Reimbusement ApplicationForm</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+
+
+	<form action="action.php">
+	<div class="row">
+	<div class="col-5 col-md-2"><embed height="15%" width="181px" src="trp.PNG"/></div>
+
+	<div class="col-8 col-md-8" style="background-color: yellow; border:solid">
+	<h1 style="position:center">Tuition Reimbursement Form</h1>
+	<br>
+	<header id="tme" action="onload=getTme()"></header>
+	<br>
+
+	<div class="col-4">
+
+  	<input type="text" name="firstname" value="Firstname">
+  	<br>
+  	<input type="text" name="lastname" value="Lastname">
+  	<br>
+  	<input type="text" name="streetaddress" value="Streetaddress">
+  	<br>
+  	<input type="text" name="city" value="City">
+  	<br>
+  	<input type="text" name="state" value="State">
+  	<br>
+  	<input type="text" name="zipcode" value="Zipcode">
+  	<br>
+  	<input type="text" name="email" value="Email">
+  	<br>
+  	<input type="text" name="location" value="Location">
+  	<br>
+	<br>
+	
+  	<input type="number" name="workhours" placeholder="1" min="1" max="100">
+	 Total hours missed.
+
+	</div>
+<hr>
+	<div class="col-1>
+
+	description, 
+	cost, 
+	grading format
+	type of event; 
+	work-related justification.
+
+	</div>
+	<br>
+ 	<br>
+<div class="col-1">
+	Select a file (Optional: pdf, png, jpeg, txt, or doc) : 
+	<input type="file" name="myFile">
+	<hr>
+	
+	Attachments (.msg/Outlook Email File):
+	<input type="file" name="myFile">
+	<br><br>
+	<input type="checkbox" name="choiceone" value="choiceone">Approved
+	<br>
+	<input type="checkbox" name="choicetwo" value="choicetwo">Denied 
+	<br>
+	<input type="checkbox" name="choicethree" value="choicethree">Pending
+	<br><br>
+	 <input type="submit" value="Submit"><br><br>
+	
+</div>
+	  	</div>
+	
+	<div class="col-5 col-md-2" style="text-indent:110px">&copy;<br><embed style="border:dotted"  src="trms.PNG"/></div>
+	</div>
+	</form>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+	<script> 
+	getTme();
+	function getTme(){
+		document.getElementById('tme').innerHTML = Date();
+	}
+	</script>
+</body>
+</html>
