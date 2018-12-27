@@ -21,6 +21,9 @@ public class RequestHelper {
 			System.out.println("in Register.do case");
 			return RegisterController.Register(request);
 			
+		case "/PetsExample/html/PetJSON.do":
+			return HomeController.PetJSON(request, response);
+			
 		default:
 			return "/html/Login.html";
 		}
