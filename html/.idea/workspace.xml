@@ -2,53 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eec9f0c5-9523-454a-93b5-e5694fb95912" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/practice/spdrma.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/caches/identified-project-coordinates.json" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/caches/identified-project-coordinates.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fdt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fdx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.fnm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.frq" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.nrm" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.prx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.tii" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_0.tis" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/segments.gen" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/segments.gen" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/.recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/segments_1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestion11/Numbers.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestion11/Numbers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Employee.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Employee.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Operation.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Operation.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Q2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Q2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Q5.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Q5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Q6.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Q6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Q7.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Q7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Q8.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/Q8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/SortByAge.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/SortByAge.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/SortByDepartment.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/SortByDepartment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/SortByName.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/bin/com/example/javaquestions/SortByName.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestion11/Numbers.java" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestion11/Numbers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Employee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Operation.java" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Operation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Q2.java" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Q2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Q5.java" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Q5.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Q6.java" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Q6.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Q7.java" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Q7.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Q8.java" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/CoreJavaHomeworkWeek1/src/com/example/javaquestions/Q8.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/intellijprefeclipse.epf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/sql/Chinook_Oracle.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/sql/DDL-flashcard_db.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/sql/DML-flashcard_db.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/sql/SQL Lab.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/sql/Untitled.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/sql/admin octocat.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/sql/school.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/sql/sql_lab.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/theme-46064.epf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/theme-46064.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JDBC/FlashCardJdbc/bin/com/revature/Driver.class" beforeDir="false" afterPath="$PROJECT_DIR$/../JDBC/FlashCardJdbc/bin/com/revature/Driver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JDBC/FlashCardJdbc/bin/com/revature/presentation/Menus.class" beforeDir="false" afterPath="$PROJECT_DIR$/../JDBC/FlashCardJdbc/bin/com/revature/presentation/Menus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JDBC/FlashCardJdbc/src/com/revature/Driver.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JDBC/FlashCardJdbc/src/com/revature/Driver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../JDBC/FlashCardJdbc/src/com/revature/presentation/Menus.java" beforeDir="false" afterPath="$PROJECT_DIR$/../JDBC/FlashCardJdbc/src/com/revature/presentation/Menus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/Bank/target/classes/META-INF/maven/com.revature/Bank/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/Bank/target/classes/META-INF/maven/com.revature/Bank/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/MavenFlashCardJDBC/target/classes/META-INF/maven/com.revature/MavenFlashCardJDBC/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/MavenFlashCardJDBC/target/classes/META-INF/maven/com.revature/MavenFlashCardJDBC/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/MavenFlashCardJDBC/target/classes/com/revature/beans/FlashCard.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/MavenFlashCardJDBC/target/classes/com/revature/beans/FlashCard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../David_Hincapie_Code/MavenFlashCardJDBC/target/classes/com/revature/dao/FlashCardDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/../David_Hincapie_Code/MavenFlashCardJDBC/target/classes/com/revature/dao/FlashCardDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -88,11 +46,29 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/practice/javascript.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="271">
-              <caret line="161" column="4" lean-forward="true" selection-start-line="161" selection-start-column="4" selection-end-line="161" selection-end-column="4" />
+              <caret line="161" column="4" selection-start-line="161" selection-start-column="4" selection-end-line="161" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/practice/pokemon.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/practice/pokemon.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="138">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -124,6 +100,8 @@
         <option value="$PROJECT_DIR$/ajax/superhero.html" />
         <option value="$PROJECT_DIR$/ajax/superhero.js" />
         <option value="$PROJECT_DIR$/practice/javascript.js" />
+        <option value="$PROJECT_DIR$/practice/pokemon.js" />
+        <option value="$PROJECT_DIR$/practice/pokemon.html" />
       </list>
     </option>
   </component>
@@ -133,7 +111,9 @@
     <option name="width" value="1400" />
     <option name="height" value="770" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -198,11 +178,13 @@
       <workItem from="1545243811583" duration="1904000" />
       <workItem from="1545249822915" duration="5815000" />
       <workItem from="1545318171254" duration="284000" />
+      <workItem from="1545539308686" duration="11000" />
+      <workItem from="1545539338919" duration="1530000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19378000" />
+    <option name="totallyTimeSpent" value="20919000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="20" y="43" width="1400" height="770" extended-state="0" />
@@ -321,7 +303,21 @@
     <entry file="file://$PROJECT_DIR$/practice/javascript.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
-          <caret line="161" column="4" lean-forward="true" selection-start-line="161" selection-start-column="4" selection-end-line="161" selection-end-column="4" />
+          <caret line="161" column="4" selection-start-line="161" selection-start-column="4" selection-end-line="161" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/practice/pokemon.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/practice/pokemon.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
