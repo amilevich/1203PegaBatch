@@ -1,0 +1,13 @@
+package partone;
+
+import java.util.ArrayList;
+
+/**
+ * AccountApplication
+ * class used as a 'form' to apply for a bank account
+ * @author karan
+ *
+ */
+public class AccountApplication {
+	ArrayList<String> holders;
+}

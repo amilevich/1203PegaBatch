@@ -1,0 +1,25 @@
+package partone;
+
+import java.util.ArrayList;
+
+/**
+ * BankAccountApplication
+ * class to hold the information required for a bank account
+ * @author karan
+ *
+ */
+public class BankAccountApplication {
+	
+	// Proposed account holders
+	private ArrayList<String> holders;
+	
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Holders: ");
+		for(String i : holders) {
+			sb.append(i+", ");
+		}
+	}
+}

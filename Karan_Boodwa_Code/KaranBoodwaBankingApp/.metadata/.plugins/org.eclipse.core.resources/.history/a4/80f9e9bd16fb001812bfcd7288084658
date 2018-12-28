@@ -1,0 +1,20 @@
+package partone;
+
+/**
+ * Abstract user class that encompasses data and functionality shared between
+ * different types of users
+ * 
+ * @author karan
+ *
+ */
+public abstract class User {
+
+	private String username;
+	private String password;
+	
+	
+	public static void main(String[] args) {
+
+	}
+
+}

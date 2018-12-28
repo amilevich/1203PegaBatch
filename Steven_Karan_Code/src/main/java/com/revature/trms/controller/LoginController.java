@@ -10,21 +10,25 @@ import com.revature.trms.models.Employee;
 public class LoginController {
 
 	public static String Login(HttpServletRequest req) {
+		//System.out.println("IN LOGIN CONTROLLER");
+		
 		if (req.getMethod().equals("GET")) {
-			return "/hmtl/login.html";
+			return "/html/login.html";
 		}
 		String username = req.getParameter("username");
+		//System.out.println("username: " + username);
 		String password = req.getParameter("password");
+		//System.out.println("password: " + password);
 
 		EmployeeDAOImpl edi = new EmployeeDAOImpl();
 		Employee emp = new Employee();
 
 		emp = edi.getEmployeeByUsername(username);
-		System.out.println("emp: " + emp);
-		System.out.println(BCrypt.checkpw(password, emp.getPassword()));
+		//System.out.println("emp: " + emp);
+		//System.out.println(BCrypt.checkpw(password, emp.getPassword()));
 		if (emp != null) {
 			if (username.equals(emp.getUsername()) && BCrypt.checkpw(password, emp.getPassword())) {
-				System.out.println("username" + username);
+				//System.out.println("username " + username);
 				req.getSession().setAttribute("Employee", emp);
 				return "/html/index.html";
 			}

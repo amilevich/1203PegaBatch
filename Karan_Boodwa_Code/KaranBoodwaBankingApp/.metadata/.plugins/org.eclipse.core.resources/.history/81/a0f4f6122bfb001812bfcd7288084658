@@ -1,0 +1,8 @@
+package partone;
+
+public class Transaction {
+	private enum op{DEPOSIT, WITHDRAWL, TRANSFER};
+	private int accFrom;
+	private int accTo;
+	private int user;
+}

@@ -1,0 +1,5 @@
+package partone;
+
+public class Transaction {
+	private enum op{DEPOSIT, WITHDRAWL, TRANSFER};
+}

@@ -1,0 +1,23 @@
+package partone;
+
+/**
+ * Abstract user class that encompasses data and functionality shared between
+ * different types of users
+ * 
+ * @author Karan
+ *
+ */
+public abstract class User {
+
+	private String username;
+	private String password;
+	
+	// Reference to TransactionHandler to actually process any user transactions
+	
+	/**
+	 * menu() is the custom user menu i/o that should be implemented in all subclasses
+	 * provides a specialized user experience
+	 */
+	public abstract void menu();
+	
+}
