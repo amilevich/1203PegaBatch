@@ -12,11 +12,12 @@ public class RequestHelper {
 			return HomeController.Home(req);
 		
 		default:
-			break;
+			
+			return HomeController.Home(req);
 		}
 		
 		
-		return null;
+		
 	}
 
 }
