@@ -1,8 +1,0 @@
-User Stories - As a blank I can blank
-Requirements - entity should be able to doAction
-a
-b
-c
-d
-e
-[Backlog, In Prog, Testing, Code Rvew, Done, Release]
