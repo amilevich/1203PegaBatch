@@ -1,3 +1,0 @@
-INDEX VERSION 1.131+/Users/karan/Documents/Training/git/1203PegaBatch/Karan_Boodwa_Code/.metadata/.plugins/org.eclipse.jdt.core
-2585418274.index
-825839462.index
