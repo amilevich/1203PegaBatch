@@ -12,13 +12,11 @@ public class RequestHelper {
 			return HomeController.Home(req);
 		case "/ReimbursementSystem/html/register.do":
 			return RegisterController.Register(req);
+		case "/ReimbursementSystem/html/login.do":
+			return LoginController.Login(req);
 		default:
-			
 			return HomeController.Home(req);
 		}
-		
-		
-		
 	}
 
 }
