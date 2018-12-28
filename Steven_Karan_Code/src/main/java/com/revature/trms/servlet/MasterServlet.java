@@ -22,6 +22,10 @@ public class MasterServlet extends HttpServlet{
 		String targetUrl = RequestHelper.process(req, resp);
 		req.getRequestDispatcher(targetUrl).forward(req, resp);
 	}
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String targetUrl = RequestHelper.process(req, resp);
+	}
 	
 	
 }
