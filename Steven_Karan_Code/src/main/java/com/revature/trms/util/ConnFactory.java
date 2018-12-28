@@ -27,17 +27,20 @@ public class ConnFactory {
 		Connection conn = null;
 		Properties prop = new Properties();
 		try {
-			prop.load(new FileReader("database.properties"));
+			/*prop.load(new FileReader("database.properties"));
 			Class.forName(prop.getProperty("driver"));
-			conn = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("user"),prop.getProperty("password"));
+			conn = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("user"),prop.getProperty("password"));*/
+			
+			String url = "jdbc:oracle:thin:@octocatdb.cujyrzpkrpav.us-east-1.rds.amazonaws.com:1521:ORCL";
+			String user = "reimb_sys_db";
+			String password = "p4ssw0rd";
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection(url, user, password);
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
+			
 			e.printStackTrace();
 		}
 		return conn;

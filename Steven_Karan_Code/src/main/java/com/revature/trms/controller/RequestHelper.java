@@ -10,7 +10,8 @@ public class RequestHelper {
 		switch (req.getRequestURI()) {
 		case "/ReimbursementSystem/html/home.do":
 			return HomeController.Home(req);
-		
+		case "/ReimbursementSystem/html/register.do":
+			return RegisterController.Register(req);
 		default:
 			
 			return HomeController.Home(req);

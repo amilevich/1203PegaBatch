@@ -131,10 +131,10 @@ public class Employee {
 		this.supervisor_lastname = supervisor_lastname;
 	}
 	
-	public Employee(int emp_id, String firstname, String lastname, String email, String username, String password,
+	public Employee(String firstname, String lastname, String email, String username, String password,
 			int department_id, int title_id, int supervisor_id) {
 		super();
-		this.emp_id = emp_id;
+		
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.email = email;

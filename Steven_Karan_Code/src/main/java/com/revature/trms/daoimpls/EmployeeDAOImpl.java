@@ -18,7 +18,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		try (Connection conn = cf.getConnection();) {
 			String sql = "INSERT INTO employee VALUES(null,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			//ps.setInt(1, empl.getEmp_id());
+			
 			ps.setInt(1, empl.getSupervisor_id());
 			ps.setInt(2, empl.getTitle_id());
 			ps.setInt(3, empl.getDepartment_id());
@@ -148,7 +148,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public static void main(String[] args) {
 		EmployeeDAOImpl edi = new EmployeeDAOImpl();
 
-		Employee empl = new Employee(1, "Karan", "Boodwa", "kboodwa@gmail.com", "kboodwa", "8^,dN]\"*48,nPY-@", 1, 1, 1);
+		Employee empl = new Employee("Karan", "Boodwa", "kboodwa@gmail.com", "kboodwa", "8^,dN]\"*48,nPY-@", 1, 1, 1);
 		edi.insertEmployee(empl);
 		Employee empl2 = edi.getEmployeeByUsername("kboodwa");
 		System.out.println(empl2);
