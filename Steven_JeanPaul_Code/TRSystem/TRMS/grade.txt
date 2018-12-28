@@ -1,9 +1,0 @@
-/*
-gradesDAO
-	.
-gradesDAOImpl
-	get()
-*/
-
-grades
-
