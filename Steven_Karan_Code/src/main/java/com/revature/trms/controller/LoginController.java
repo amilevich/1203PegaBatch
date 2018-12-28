@@ -14,7 +14,7 @@ public class LoginController {
 			return "/hmtl/login.html";
 		}
 		String username = req.getParameter("username");
-		String password = BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt());
+		String password = req.getParameter("password");
 		
 		
 		EmployeeDAOImpl edi = new EmployeeDAOImpl();
@@ -22,6 +22,7 @@ public class LoginController {
 		
 		emp = edi.getEmployeeByUsername(username);
 		System.out.println("emp: " + emp);
+		System.out.println(BCrypt.checkpw(password, emp.getPassword()));
 		if(emp!=null)
 			if(username.equals(emp.getUsername()) && BCrypt.checkpw(password, emp.getPassword())) {
 				System.out.println("username" + username);
