@@ -1,8 +1,0 @@
-/*
-
-DirectSupervisor
-DepartmentHead
-BenCoSupervisor
-*/
-
-public abstract class EmployeeSupervisor
