@@ -22,4 +22,6 @@ public class MasterServlet extends HttpServlet{
 		String targetUrl = RequestHelper.process(req, resp);
 		req.getRequestDispatcher(targetUrl).forward(req, resp);
 	}
+	
+	
 }

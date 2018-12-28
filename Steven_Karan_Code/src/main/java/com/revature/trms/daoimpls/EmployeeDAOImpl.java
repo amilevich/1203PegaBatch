@@ -19,7 +19,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			String sql = "INSERT INTO employee VALUES(null,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(1, empl.getSupervisor_id());
+			int super_id = empl.getSupervisor_id();
+			if(super_id > 0) {
+				ps.setInt(1, empl.getSupervisor_id());
+			}
+			else {
+				ps.setNull(1, 1);
+			}
 			ps.setInt(2, empl.getTitle_id());
 			ps.setInt(3, empl.getDepartment_id());
 			ps.setString(4, empl.getEmail());
@@ -60,11 +66,14 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				empl.setTitle_name(rs.getString("title_name"));
 
 				empl.setSupervisor_id(rs.getInt("super_id"));
-				empl.setSupervisor_firstname(rs.getString("super_firstname"));
-				empl.setSupervisor_lastname(rs.getString("super_lastname"));
-
+				
+				if(!rs.wasNull()) {
+					empl.setSupervisor_firstname(rs.getString("super_firstname"));
+					empl.setSupervisor_lastname(rs.getString("super_lastname"));
+				}
+				
 			}
-
+			
 			return empl;
 
 		} catch (SQLException e) {
