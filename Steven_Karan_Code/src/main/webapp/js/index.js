@@ -7,7 +7,7 @@
 	};
 
 function getEmployeePersonalInfo() {
-	let xhttp = XMLHttpRequest();
+	let xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readystate == 4 && xhttp.status == 200) {
 			console.log("emp: "+emp);
@@ -17,7 +17,7 @@ function getEmployeePersonalInfo() {
 	};
 	xhttp.open("PUT",
 			'http://localhost:9000/ReimbursementSystem/html/employeeJSON.do',
-			false);
+			true);
 	xhttp.send();
 }
 
