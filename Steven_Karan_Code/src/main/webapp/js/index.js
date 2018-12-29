@@ -9,7 +9,7 @@
 function getEmployeePersonalInfo() {
 	let xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
-		if (xhttp.readyState == 4 && xhttp.status == 200) {
+		if (xhttp.readystate == 4 && xhttp.status == 200) {
 			console.log("emp: "+emp);
 			let emp = JSON.parse(xhttp.responseText);
 			setValues(emp);
