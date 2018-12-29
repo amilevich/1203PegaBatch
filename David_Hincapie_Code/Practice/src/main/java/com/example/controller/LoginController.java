@@ -8,7 +8,7 @@ import com.example.model.Pet;
 public class LoginController {
 
 	public static String Login(HttpServletRequest request) {
-		
+
 		if (request.getMethod().equals("GET")) {
 			return "/html/Login.html";
 		}
@@ -21,14 +21,14 @@ public class LoginController {
 
 		pet = petDaoImpl.selectByName(name);
 
-		if (pet.getName().equals(name) && pet.getType().equals(type)) {
+		if (name.equals(pet.getName()) && type.equals(pet.getType())) {
 			// sessions persist data beyond the request's lifetime
 			request.getSession().setAttribute("Pet", pet);
-
+			System.out.println("LOGIN METHOD IN LOGIN CONTROLLER");
 			return "/html/Home.html";
+		} else {
+			return "/html/Login.html";
 		}
-
-		return "/html/Login.html";
 	}
 
 }

@@ -18,12 +18,13 @@ public class MasterServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String jsonStuff = RequestHelper.process(req, resp);
-
+		System.out.println("IN MasterServlet doGet");
+		RequestHelper.process(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("IN MasterServlet doPost");
 		String targetURL = RequestHelper.process(req, resp);
 		req.getRequestDispatcher(targetURL).forward(req, resp);
 

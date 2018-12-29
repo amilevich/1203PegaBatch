@@ -12,13 +12,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class HomeController {
 
 	public static String Home(HttpServletRequest request) {
-
 		return null;
 	}
 
 	public static String PetJSON(HttpServletRequest request, HttpServletResponse response) {
 		Pet pet = (Pet) request.getSession().getAttribute("Pet");
-
 		try {
 			response.getWriter().write(new ObjectMapper().writeValueAsString(pet));
 		} catch (JsonProcessingException e) {
@@ -26,7 +24,6 @@ public class HomeController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return null;
 	}
 
