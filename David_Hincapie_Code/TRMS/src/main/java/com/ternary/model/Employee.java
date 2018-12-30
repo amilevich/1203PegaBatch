@@ -4,9 +4,10 @@ public class Employee {
 
 	private int employeeId;
 	private int departmentId;
+	private String departmentName;
 	private String firstName;
 	private String lastName;
-	private EmployeeTitle title;
+	private String title;
 	private String email;
 	private String password;
 	private int reportTo;
@@ -17,6 +18,23 @@ public class Employee {
 		super();
 	}
 
+	public Employee(int employeeId, int departmentId, String departmentName, String firstName, String lastName,
+			String title, String email, String password, int reportTo, String phoneNumber,
+			double availbleFunds) {
+		super();
+		this.employeeId = employeeId;
+		this.departmentId = departmentId;
+		this.departmentName = departmentName;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.title = title;
+		this.email = email;
+		this.password = password;
+		this.reportTo = reportTo;
+		this.phoneNumber = phoneNumber;
+		this.availbleFunds = availbleFunds;
+	}
+
 	public Employee(int employeeId, int departmentId, String firstName, String lastName, String title, String email,
 			String password, int reportTo, String phoneNumber, double availbleFunds) {
 		super();
@@ -24,7 +42,7 @@ public class Employee {
 		this.departmentId = departmentId;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.title = EmployeeTitle.valueOf(title);
+		this.title = title;
 		this.email = email;
 		this.password = password;
 		this.reportTo = reportTo;
@@ -54,6 +72,14 @@ public class Employee {
 		this.departmentId = departmentId;
 	}
 
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -70,11 +96,11 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	public EmployeeTitle getTitle() {
+	public String getTitle() {
 		return title;
 	}
 
-	public void setTitle(EmployeeTitle title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 
@@ -124,7 +150,5 @@ public class Employee {
 				+ ", lastName=" + lastName + ", title=" + title + ", email=" + email + ", password=" + password
 				+ ", reportTo=" + reportTo + ", phoneNumber=" + phoneNumber + ", availbleFunds=" + availbleFunds + "]";
 	}
-	
-	
 
 }
