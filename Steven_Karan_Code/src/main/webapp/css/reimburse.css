@@ -10,5 +10,10 @@
 
 .inline-label{
 	text-align: left;
-	display: inline-block;
+	display: inline-block !important;
+}
+
+
+.full-width{
+	width:100% !important;
 }

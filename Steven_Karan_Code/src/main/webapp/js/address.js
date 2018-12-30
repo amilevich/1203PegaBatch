@@ -1,3 +1,5 @@
+
+
 // This example displays an address form, using the autocomplete feature
 // of the Google Places API to help users fill in the information.
 
@@ -38,7 +40,10 @@ function fillInAddress() {
 
   // Get each component of the address from the place details
   // and fill the corresponding field on the form.
+
+  // Note that sometimes the locality is not included.
   for (var i = 0; i < place.address_components.length; i++) {
+    console.log(place.address_components[i]);
     var addressType = place.address_components[i].types[0];
     if (componentForm[addressType]) {
       var val = place.address_components[i][componentForm[addressType]];

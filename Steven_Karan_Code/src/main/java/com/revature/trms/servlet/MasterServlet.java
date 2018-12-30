@@ -14,7 +14,9 @@ public class MasterServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String targetUrl = RequestHelper.process(req, resp);
-		req.getRequestDispatcher(targetUrl).forward(req, resp);
+		if(targetUrl!= null) {
+			req.getRequestDispatcher(targetUrl).forward(req, resp);
+		}
 	}
 	
 	@Override

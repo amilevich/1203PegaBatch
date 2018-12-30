@@ -25,7 +25,7 @@
 
 			<div class="form-row form-group form-inline">
 				<div class="col-lg-1 col-md-1 col-sm-12">
-					<label class="inline-label" for="event-type" style="text-align: left; display:inline-block;">Type</label>
+					<label class="inline-label" for="event-type">Type</label>
 				</div>
 
 				<div class="col-lg-5 col-md-5 col-sm-12">
@@ -40,9 +40,9 @@
 				</div>
 
 				<div class="col-lg-1 col-md-1 col-sm-12">
-					<label for="event-cost" style="text-align: left; display:inline-block;">Cost</label>
+					<label class="inline-label" for="event-cost">Cost</label>
 				</div>
-				<div class="input-group col-lg-4 col-md-4 col-sm-12">
+				<div class="input-group col-lg-2 col-md-2 col-sm-12">
 					<div class="input-group-prepend">
 						<div class="input-group-text">$</div>
 					</div>
@@ -52,7 +52,7 @@
 
 			<div class="form-row form-group form-inline">
 				<div class="col-lg-1 col-md-1 col-sm-12">
-					<label class="inline-label" for="event-date" style="text-align: left; display:inline-block;">Date</label>
+					<label class="inline-label" for="event-date">Date</label>
 				</div>
 
 				<div class="col-lg-5 col-md-5 col-sm-12">
@@ -62,20 +62,20 @@
 				
 				<div class="col-lg-1 col-md-1 col-sm-12">
 					<!-- time -->
-					<label for="event-date" style="text-align: left; display:inline-block;">Time</label>
+					<label class="inline-label" for="event-date">Time</label>
 				</div>
-				<div class="col-lg-3 col-md-3 col-sm-12">
+				<div class="col-lg-2 col-md-2 col-sm-12">
 					<input class="form-control" type="time" name="event-time">
 				</div>
 			</div>
 
 
 
-
-		<label for="location">Location</label>
+		<hr>
+		<label for="location"> <h5> Location </h5> </label>
 		<!-- Location of event VIA google places api -->
-		<div id="locationField">
-			<input type="text" name="event-location" id="autocomplete" placeholder="Enter the address of the event" class="form-control" onfocus="geolocate()">
+		<div id="locationField" class="form-row form-group">
+			<input type="text" name="event-location" id="autocomplete" placeholder="Enter the address of the event" class="form-control" onfocus="geolocate()" required>
 		</div>
 		<!-- 
 			ids used in places api autocomplete in order:
@@ -87,14 +87,59 @@
 			country
 		 -->
 
-	 
-	 	<input type="text" name="event-location" id="street_number" class="form-control p" disabled="true">
-	 	<input type="text" name="event-location" id="route" class="form-control p" disabled="true">
-	 	<input type="text" name="event-location" id="locality" class="form-control p" disabled="true">
-	 	<input type="text" name="event-location" id="administrative_area_level_1" class="form-control p" disabled="true">
-	 	<input type="text" name="event-location" id="postal_code" class="form-control p" disabled="true">
-	 	<input type="text" name="event-location" id="country" class="form-control p" disabled="true">
+	 	<div class="form-row form-group form-inline">
+	 		<div class="col-lg-2 col-md-2 col-sm-6">
+				<label class="inline-label" for="event-type">Street Number</label>
+			</div>
 
+	 		<div class="col-lg-3 col-md-4 col-sm-6">
+		 		<input type="text" name="event-location" id="street_number" class="form-control p full-width" disabled="true">
+			</div>
+
+			<div class="col-lg-1 col-md-1 col-sm-6">
+				<label class="inline-label" for="event-type">Street</label>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-6">
+		 		<input type="text" name="event-location" id="route" class="form-control p full-width" disabled="true">
+		 	</div>
+		 </div>
+	 	
+	 	
+	 	<div class="form-row form-group form-inline">
+	 		<div class="col-lg-2 col-md-2 col-sm-6">
+				<label class="inline-label" for="event-type">City</label>
+			</div>
+	 		<div class="col-lg-3 col-md-3 col-sm-6">
+		 		<input type="text" name="event-location" id="locality" class="form-control p full-width" disabled="true">
+		 	</div>
+
+		 	<div class="col-lg-1 col-md-1 col-sm-6">
+				<label class="inline-label" for="event-type">State</label>
+			</div>
+		 	<div class="col-lg-2 col-md-2 col-sm-6">
+		 		<input type="text" name="event-location" id="administrative_area_level_1" class="form-control p full-width" disabled="true">
+		 	</div>
+
+		 	<div class="col-lg-1 col-md-1 col-sm-6">
+				<label class="inline-label" for="event-type">Zip Code</label>
+			</div>
+		 	<div class="col-lg-2 col-md-2 col-sm-6">
+		 		<input type="text" name="event-location" id="postal_code" class="form-control p full-width" disabled="true">
+		 	</div>
+		 </div>
+
+	 	
+	 	<div class="form-row">
+	 		<div class="col-lg-2 col-md-2 col-sm-6">
+				<label class="inline-label" for="event-type">Country</label>
+			</div>
+	 		<div class="col-sm-6">
+	 			<input type="text" name="event-location" id="country" class="form-control p" disabled="true">
+	 		</div>
+	 	</div>
+
+	 	<hr>
 
 
 		<div class="form-group">
@@ -130,21 +175,65 @@
 			</div>
 		</div>
 
+		<hr>
+
 		<!-- projected amount reimbursed -->
 		<!-- attachments ;~; -->
 
-		<!-- submit button -->
+		
+	<!-- form end -->
+	
+	<!-- Employee Info (for them to double check, populated via ajax) -->
+	<div class="emp-info">
+
+		<button class="btn btn-info" type="button" data-toggle="collapse" data-target="#personal-info" aria-expanded="false" aria-controls="personalinfo"> 
+			<h3>Personal Information</h3>
+		</button>
+
+		<hr>
+
+		<div id="personal-info" class="collapse">
+			<div class="form-row form-group form-inline">
+		 		<div class="col-lg-1 col-md-2 col-sm-6">
+					<label class="inline-label" for="event-type">First Name</label>
+				</div>
+
+		 		<div class="col-lg-3 col-md-4 col-sm-6">
+			 		<input type="text" name="emp-first-name" id="emp-first-name" class="form-control p full-width" disabled="true">
+				</div>
+
+				<div class="col-lg-1 col-md-2 col-sm-6">
+					<label class="inline-label" for="event-type">Last Name</label>
+				</div>
+
+		 		<div class="col-lg-3 col-md-4 col-sm-6">
+			 		<input type="text" name="emp-last-name" id="emp-last-name" class="form-control p full-width" disabled="true">
+				</div>
+			</div>
+
+			<div class="form-row form-group form-inline">
+				<div class="col-lg-1 col-md-2 col-sm-6">
+					<label class="inline-label" for="event-type">Email</label>
+				</div>
+
+		 		<div class="col-lg-4 col-md-4 col-sm-6">
+			 		<input type="text" name="emp-email" id="emp-email" class="form-control p full-width" disabled="true">
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<!-- submit button -->
 		<div class="">
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</div>
 	</form>
-	<!-- form end -->
-	
-	<!-- Employee Info (for them to double check, populated via ajax) -->
-	<div class="emp-info"></div>
+
 
 	<!-- Custom JS -->
-	<script type="text/javascript" src="../js/reimburse.js"></script>
+	<script type="text/javascript" src="../js/address.js"></script>
 
 	<!-- Google Places -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL2l3EineQlhQVPSaM629sjB2Y_yVhCME&libraries=places&callback=initAutocomplete"async defer></script>
