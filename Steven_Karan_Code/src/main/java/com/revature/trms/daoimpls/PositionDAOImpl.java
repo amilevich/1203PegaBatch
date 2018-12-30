@@ -5,20 +5,19 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.revature.trms.dao.DepartmentDAO;
+import com.revature.trms.dao.PositionDAO;
 import com.revature.trms.util.ConnFactory;
 
-public class DepartmentDAOImpl implements DepartmentDAO {
+public class PositionDAOImpl implements PositionDAO {
 
 	private static ConnFactory cf = ConnFactory.getInstance();
 
 	@Override
-	public boolean dept_exists(String department) {
-		
+	public boolean positionExists(String position) {
 		try(Connection conn = cf.getConnection();){
-			String sql = "SELECT * FROM department WHERE dept = ?";
+			String sql = "SELECT * FROM position WHERE pos = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			ps.setString(1, department);
+			ps.setString(1, position);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
 				return true;
@@ -27,9 +26,6 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
-		
-		
-		
 		return false;
 	}
 

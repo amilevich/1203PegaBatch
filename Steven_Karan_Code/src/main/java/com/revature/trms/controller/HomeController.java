@@ -17,9 +17,13 @@ public class HomeController {
 	}
 	
 	public static String EmpJSON(HttpServletRequest req, HttpServletResponse resp) {
+		
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
+		//System.out.println(emp);
 		try {
+			//System.out.println(new ObjectMapper().writeValueAsString(emp));
 			resp.getWriter().write(new ObjectMapper().writeValueAsString(emp));
+			
 		}catch(JsonProcessingException ex) {
 			ex.printStackTrace();
 		}catch(IOException ex) {

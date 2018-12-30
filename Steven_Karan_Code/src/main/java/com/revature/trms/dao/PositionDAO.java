@@ -1,12 +1,12 @@
 package com.revature.trms.dao;
 
-public interface TitleDAO {
+public interface PositionDAO {
 	// CRUD Methods:
 	
 	// Create
 	
 	// Read
-	public int getTitleID(String name);
+	public boolean positionExists(String position);
 	// Update
 	
 	// Delete

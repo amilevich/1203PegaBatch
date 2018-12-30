@@ -13,6 +13,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	private static ConnFactory cf = ConnFactory.getInstance();
 
+	/**
+	 * Inserts a given employee into the database
+	 * @param empl Employee to be inserted
+	 * @return true if inserted successfully, false otherwise
+	 */
 	@Override
 	public boolean insertEmployee(Employee empl) {
 		try (Connection conn = cf.getConnection();) {
@@ -26,8 +31,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			else {
 				ps.setNull(1, 1);
 			}
-			ps.setInt(2, empl.getTitle_id());
-			ps.setInt(3, empl.getDepartment_id());
+			ps.setString(2, empl.getPosition());
+			ps.setString(3, empl.getDepartment());
 			ps.setString(4, empl.getEmail());
 			ps.setString(5, empl.getFirstname());
 			ps.setString(6, empl.getLastname());
@@ -42,6 +47,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		return false;
 	}
 
+	
 	@Override
 	public Employee getEmployeeByID(int id) {
 		try (Connection conn = cf.getConnection();) {
@@ -59,11 +65,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				empl.setUsername(rs.getString("username"));
 				empl.setPassword(rs.getString("password"));
 
-				empl.setDepartment_id(rs.getInt("dept_id"));
-				empl.setDepartment_name(rs.getString("dept_name"));
+				empl.setDepartment(rs.getString("dept"));
 
-				empl.setTitle_id(rs.getInt("int_id"));
-				empl.setTitle_name(rs.getString("title_name"));
+				empl.setPosition(rs.getString("position"));
 
 				empl.setSupervisor_id(rs.getInt("super_id"));
 				
@@ -92,7 +96,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 			Employee empl = null;
 			if (rs.next()) {
-
 				empl = new Employee();
 				empl.setEmp_id(rs.getInt("emp_id"));
 				empl.setFirstname(rs.getString("firstname"));
@@ -101,11 +104,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				empl.setUsername(rs.getString("username"));
 				empl.setPassword(rs.getString("password"));
 
-				empl.setDepartment_id(rs.getInt("dept_id"));
-				empl.setDepartment_name(rs.getString("dept_name"));
+				empl.setDepartment(rs.getString("dept"));
 
-				empl.setTitle_id(rs.getInt("title_id"));
-				empl.setTitle_name(rs.getString("title_name"));
+				empl.setPosition(rs.getString("pos"));
 
 				empl.setSupervisor_id(rs.getInt("super_id"));
 				empl.setSupervisor_firstname(rs.getString("super_firstname"));
@@ -130,14 +131,15 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public boolean updateEmployee(Employee empl) {
 		try (Connection conn = cf.getConnection();) {
 			// TODO: NOTE: check that not null values are not null from any calling method
-			String sql = "UPDATE employee SET firstname=?, lastname=?, super_id=?, email=?, username=?, password=?, dept_id=?, title_id=? WHERE emp_id=?";
+			String sql = "UPDATE employee SET firstname=?, lastname=?, email=?, username=?, dept=?, pos=? WHERE emp_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, empl.getFirstname());
 			ps.setString(2, empl.getLastname());
-			ps.setInt(3, empl.getSupervisor_id());
+			ps.setString(3, empl.getEmail());
 			ps.setString(4, empl.getUsername());
-			ps.setInt(5, empl.getDepartment_id());
-			ps.setInt(6, empl.getTitle_id());
+			ps.setString(5, empl.getDepartment());
+			ps.setString(6, empl.getPosition());
+			ps.setInt(7, empl.getEmp_id());
 			
 			// Note: at most 1 row can be updated at a time given that the where clause selects an id
 			if ( ps.executeUpdate() >= 1) {
@@ -147,21 +149,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			}
 			
 			
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public static void main(String[] args) {
-		EmployeeDAOImpl edi = new EmployeeDAOImpl();
-
-		Employee empl = new Employee("Karan", "Boodwa", "kboodwa@gmail.com", "kboodwa", "8^,dN]\"*48,nPY-@", 1, 1, 1);
-		edi.insertEmployee(empl);
-		Employee empl2 = edi.getEmployeeByUsername("kboodwa");
-		System.out.println(empl2);
-		// add check to db that emp_id != super_id? OR leave as option for CEO
-
-	}
 }

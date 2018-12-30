@@ -6,7 +6,7 @@ public interface DepartmentDAO {
 	// Create
 	
 	// Read
-	public int getDepartmentID(String deptName);
+	public boolean dept_exists(String department);
 	
 	// Update
 	

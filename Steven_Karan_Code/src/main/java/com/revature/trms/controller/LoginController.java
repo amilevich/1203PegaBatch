@@ -24,6 +24,7 @@ public class LoginController {
 		Employee emp = new Employee();
 
 		emp = edi.getEmployeeByUsername(username);
+		
 		//System.out.println("emp: " + emp);
 		//System.out.println(BCrypt.checkpw(password, emp.getPassword()));
 		if (validCredentials(emp,username,password)) {
@@ -45,7 +46,6 @@ public class LoginController {
 		
 		//Check that the request send has both the username and the password.
 		if(username=="" || password=="") {
-			System.out.println("Request must have a username and password.");
 			return false;
 		}
 		return true;
