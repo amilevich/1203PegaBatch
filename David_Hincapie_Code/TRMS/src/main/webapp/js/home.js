@@ -29,7 +29,7 @@ function setValues(employee) {
 	document.getElementById("phoneNumber").innerHTML = employee.phoneNumber;
 	document.getElementById("employeeId").innerHTML = "Employee ID: " + employee.employeeId;
 	document.getElementById("departmentId").innerHTML = "Department ID: " + employee.departmentId;
-	document.getElementById("reportTo").innerHTML = employee.reportTp;
+	document.getElementById("reportTo").innerHTML = "Supervisor: " + employee.reportTo;
 	document.getElementById("reimbursementFunds").innerHTML = "Availible funds: $" + employee.availbleFunds;
 
 }
