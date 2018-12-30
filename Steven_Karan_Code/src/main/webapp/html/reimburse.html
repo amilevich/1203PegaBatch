@@ -73,11 +73,29 @@
 						</div>
 					</div>
 
-				<!-- <div class="form-group"> 
+				<!-- Location of event VIA google places api -->
+				<div id="locationField">
+					<input type="text" name="event-location" id="autocomplete" placeholder="Enter the address of the event" class="form-control" onfocus="geolocate()">
+				</div>
+				<!-- 
+					ids used in places api autocomplete in order:
+					street_number
+					route
+					locality
+					administrative_area_level_1
+					postal_code
+					country
+				 -->
 
-					 location via google places api
-				
-				</div> -->
+				 <div class="container">
+				 	<input type="text" name="event-location" id="street_number" class="form-control p" disabled="true">
+				 	<input type="text" name="event-location" id="route" class="form-control p" disabled="true">
+				 	<input type="text" name="event-location" id="locality" class="form-control p" disabled="true">
+				 	<input type="text" name="event-location" id="administrative_area_level_1" class="form-control p" disabled="true">
+				 	<input type="text" name="event-location" id="postal_code" class="form-control p" disabled="true">
+				 	<input type="text" name="event-location" id="country" class="form-control p" disabled="true">
+				 </div>
+
 
 				<div class="form-group">
 					<div class="form-row">
@@ -124,9 +142,13 @@
 	</div>
 	
 
-
-
+	<!-- Custom JS -->
 	<script type="text/javascript" src="../js/reimburse.js"></script>
+
+	<!-- Google Places -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL2l3EineQlhQVPSaM629sjB2Y_yVhCME&libraries=places&callback=initAutocomplete"async defer></script>
+
+	<!-- Bootstrap -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
