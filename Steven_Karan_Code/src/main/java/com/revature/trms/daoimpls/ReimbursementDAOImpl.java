@@ -43,7 +43,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	}
 
 	@Override
-	public Reimbursement getReimbursement(int id) {
+	public Reimbursement getReimbursementById(int id) {
 		try (Connection conn = cf.getConnection();) {
 			String sql = "SELECT * FROM reimb_view WHERE reimb_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -200,10 +200,11 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	}
 
 	public static void main(String[] args) {
-		Event event = new Event(Date.valueOf(LocalDate.now()), new Timestamp(System.currentTimeMillis()), "C", "hello this a test.", "Seminars",
-				new Address("12007", "Bruce B Downs Blvd","Tampa", "FL","US","33612"), );
-		Reimbursement reimb = new Reimbursement();
-		new ReimbursementDAOImpl().insertReimbursement(reimb);
+		System.out.println(new AddressDAOImpl().getAddressById(1));
+//		Event event = new Event(Date.valueOf(LocalDate.now()), new Timestamp(System.currentTimeMillis()), "C", "hello this a test.", "Seminars",
+//				new AddressDAOImpl().getAddressById(1), );
+//		Reimbursement reimb = new Reimbursement();
+//		new ReimbursementDAOImpl().insertReimbursement(reimb);
 
 	}
 }

@@ -11,7 +11,7 @@ public interface ReimbursementDAO {
 	public boolean insertReimbursement(Reimbursement reimb);
 	
 	//Read
-	public Reimbursement getReimbursement(int id);
+	public Reimbursement getReimbursementById(int id);
 	public ArrayList<Reimbursement> getAllReimbursement();
 	
 	//Update
