@@ -200,8 +200,9 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	}
 
 	public static void main(String[] args) {
-		Event event = new Event(Date.valueOf(LocalDate.now()), new Timestamp(System.currentTimeMillis()), "C", "hello this a test.", "Seminars",
-				new Address("12007", "Bruce B Downs Blvd","Tampa", "FL","US","33612"), );
+		
+		Event event = new Event(LocalDate.now(), new Timestamp(System.currentTimeMillis()), "C", "hello this a test.", "Seminars",
+				new Address("12007", "Bruce B Downs Blvd","Tampa", "FL","US","33612"), "A to F");
 		Reimbursement reimb = new Reimbursement();
 		new ReimbursementDAOImpl().insertReimbursement(reimb);
 
