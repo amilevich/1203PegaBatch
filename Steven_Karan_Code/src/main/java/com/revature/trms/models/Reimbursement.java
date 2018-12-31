@@ -24,7 +24,7 @@ public class Reimbursement {
 	private int emp_id;
 
 	// Event details
-	private int event_id;
+	private Event event;
 
 	public Reimbursement() {
 
@@ -32,7 +32,7 @@ public class Reimbursement {
 
 	public Reimbursement(int reimb_id, LocalDate request_date, double cost, String justification, int work_time_missed,
 			int status_id, String status_name, boolean urgent, boolean sup_flag, boolean dept_flag, boolean benco_flag,
-			double fund_awarded, int next_id, int emp_id, int event_id) {
+			double fund_awarded, int next_id, int emp_id, Event event) {
 		super();
 		this.reimb_id = reimb_id;
 		this.request_date = request_date;
@@ -48,10 +48,10 @@ public class Reimbursement {
 		this.fund_awarded = fund_awarded;
 		this.next_id = next_id;
 		this.emp_id = emp_id;
-		this.event_id = event_id;
+		this.event = event;
 	}
 
-	public Reimbursement(int status_id, int emp_id, int event_id, LocalDate request_date, double cost,
+	public Reimbursement(int status_id, int emp_id, Event event, LocalDate request_date, double cost,
 			String justification, int work_time_missed) {
 		super();
 		this.request_date = request_date;
@@ -60,7 +60,7 @@ public class Reimbursement {
 		this.work_time_missed = work_time_missed;
 		this.status_id = status_id;
 		this.emp_id = emp_id;
-		this.event_id = event_id;
+		this.event = event;
 	}
 
 	public int getReimb_id() {
@@ -175,12 +175,12 @@ public class Reimbursement {
 		this.emp_id = emp_id;
 	}
 
-	public int getEvent_id() {
-		return event_id;
+	public Event getEvent() {
+		return event;
 	}
 
-	public void setEvent_id(int event_id) {
-		this.event_id = event_id;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class Reimbursement {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + (dept_flag ? 1231 : 1237);
 		result = prime * result + emp_id;
-		result = prime * result + event_id;
+		result = prime * result + ((event == null) ? 0 : event.hashCode());
 		temp = Double.doubleToLongBits(fund_awarded);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((justification == null) ? 0 : justification.hashCode());
@@ -225,7 +225,10 @@ public class Reimbursement {
 			return false;
 		if (emp_id != other.emp_id)
 			return false;
-		if (event_id != other.event_id)
+		if (event == null) {
+			if (other.event != null)
+				return false;
+		} else if (!event.equals(other.event))
 			return false;
 		if (Double.doubleToLongBits(fund_awarded) != Double.doubleToLongBits(other.fund_awarded))
 			return false;
@@ -265,7 +268,7 @@ public class Reimbursement {
 				+ ", justification=" + justification + ", work_time_missed=" + work_time_missed + ", status_id="
 				+ status_id + ", status_name=" + status_name + ", urgent=" + urgent + ", sup_flag=" + sup_flag
 				+ ", dept_flag=" + dept_flag + ", benco_flag=" + benco_flag + ", fund_awarded=" + fund_awarded
-				+ ", next_id=" + next_id + ", emp_id=" + emp_id + ", event_id=" + event_id + "]";
+				+ ", next_id=" + next_id + ", emp_id=" + emp_id + ", event=" + event + "]";
 	}
 
 }

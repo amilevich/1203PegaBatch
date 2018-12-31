@@ -125,10 +125,4 @@ public class AddressDAOImpl implements AddressDAO {
 		// TODO Auto-generated method stub
 		return false;
 	}*/
-	
-	public static void main(String[] args) {
-		System.out.println("hello");
-		System.out.println(new AddressDAOImpl().insertAddress(new Address("This is a text","this is another text", "this is not a text","this is a test", "This is a state", "zipco", "this is a country")));
-	}
-
 }
