@@ -7,7 +7,7 @@ public class Employee {
 	private String departmentName;
 	private String firstName;
 	private String lastName;
-	private String title;
+	private String jobTitle;
 	private String email;
 	private String password;
 	private int reportTo;
@@ -27,7 +27,7 @@ public class Employee {
 		this.departmentName = departmentName;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.title = title;
+		this.jobTitle = title;
 		this.email = email;
 		this.password = password;
 		this.reportTo = reportTo;
@@ -42,7 +42,7 @@ public class Employee {
 		this.departmentId = departmentId;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.title = title;
+		this.jobTitle = title;
 		this.email = email;
 		this.password = password;
 		this.reportTo = reportTo;
@@ -96,12 +96,12 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getJobTitle() {
+		return jobTitle;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setJobTitle(String jobTitle) {
+		this.jobTitle = jobTitle;
 	}
 
 	public String getEmail() {
@@ -146,9 +146,12 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", departmentId=" + departmentId + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", title=" + title + ", email=" + email + ", password=" + password
-				+ ", reportTo=" + reportTo + ", phoneNumber=" + phoneNumber + ", availbleFunds=" + availbleFunds + "]";
+		return "Employee [employeeId=" + employeeId + ", departmentId=" + departmentId + ", departmentName="
+				+ departmentName + ", firstName=" + firstName + ", lastName=" + lastName + ", jobTitle=" + jobTitle
+				+ ", email=" + email + ", password=" + password + ", reportTo=" + reportTo + ", phoneNumber="
+				+ phoneNumber + ", availbleFunds=" + availbleFunds + "]";
 	}
+
+
 
 }

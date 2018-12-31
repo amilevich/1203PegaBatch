@@ -26,5 +26,17 @@ public class HomeController {
 		}
 		return null;
 	}
+	
+	public static String SupervisorJSON(HttpServletRequest request, HttpServletResponse response) {
+		Employee supervisor = (Employee) request.getSession().getAttribute("Supervisor");
+		try {
+			response.getWriter().write(new ObjectMapper().writeValueAsString(supervisor));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }

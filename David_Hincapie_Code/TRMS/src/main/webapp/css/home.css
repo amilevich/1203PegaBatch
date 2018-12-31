@@ -18,9 +18,22 @@ body {
 }
 
 .jumbotron {
+	border-radius: 1rem;
+}
+
+.table {
+	border-radius: 10px;
+}
+
+.card {
+	background-color: whitesmoke;
+	border-radius: 1rem;
+}
+
+.card-body {
 	
 }
 
 .navbar {
-
+	
 }

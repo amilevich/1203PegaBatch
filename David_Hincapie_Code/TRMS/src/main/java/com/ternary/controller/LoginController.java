@@ -18,12 +18,15 @@ public class LoginController {
 
 		EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
 		Employee employee = new Employee();
+		Employee supervisor = new Employee();
 
-		employee = employeeDaoImpl.selectByEmail(email);
+		employee = employeeDaoImpl.selectByEmployeeEmail(email);
+		supervisor = employeeDaoImpl.selectByEmployeeId(employee.getReportTo());
 
 		if (email.equals(employee.getEmail()) && password.equals(employee.getPassword())) {
 			// sessions persist data beyond the request's lifetime
 			request.getSession().setAttribute("Employee", employee);
+			request.getSession().setAttribute("Supervisor", supervisor);
 			System.out.println("LOGIN METHOD IN LOGIN CONTROLLER");
 			return "/html/home.html";
 		} else {

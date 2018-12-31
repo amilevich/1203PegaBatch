@@ -127,6 +127,7 @@ CREATE VIEW empInfo AS SELECT empid, firstname, lastname, jobtitle, dptname, ema
 
 -- View to see employee info [ combines both employee and department table ]
 SELECT * FROM empInfo;
+SELECT * FROM empInfo WHERE email = 'andrew@mail.com';
 
 SELECT * FROM request;
 SELECT * FROM event;
@@ -134,7 +135,6 @@ SELECT * FROM event;
 SELECT * FROM request,event WHERE request.eventid= event.eventid;
 
 SELECT attachment.attachment FROM attachment,request WHERE attachment.requestid=request.requestid;
-
 COMMIT;
 --
 --SELECT * FROM employee, department WHERE employee.dptid = department.dptid;

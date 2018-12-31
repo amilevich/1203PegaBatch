@@ -7,6 +7,8 @@ public interface EmployeeDao {
 	
 	//CRUD
 	
-	public Employee selectByEmail(String email);
+	public Employee selectByEmployeeEmail(String email);
+
+	public Employee selectByEmployeeId(int id);
 
 }
