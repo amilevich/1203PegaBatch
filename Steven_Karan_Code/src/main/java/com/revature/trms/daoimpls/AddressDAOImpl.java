@@ -1,38 +1,43 @@
 package com.revature.trms.daoimpls;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import com.revature.trms.dao.AddressDAO;
 import com.revature.trms.models.Address;
-import com.revature.trms.models.EventType;
 import com.revature.trms.util.ConnFactory;
 
 public class AddressDAOImpl implements AddressDAO {
 
 	private static ConnFactory cf = ConnFactory.getInstance();
 	@Override
-	public boolean insertAddress(Address addr) {
+	public int insertAddress(Address addr) {
+		int rowAffected = 0;
 		try (Connection conn = cf.getConnection();) {
-			String sql = "INSERT INTO address VALUES(null,?,?,?,?,?,?,?)";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			String sql = "BEGIN INSERT INTO address VALUES(null,?,?,?,?,?,?,?) RETURNING address_id INTO ?; END;";
+			CallableStatement cs = conn.prepareCall(sql);
 			
-			ps.setString(1, addr.getAddress_text());
-			ps.setString(2, addr.getStreet_number());
-			ps.setString(3, addr.getRoute());
-			ps.setString(4, addr.getCity());
-			ps.setString(5, addr.getState());
-			ps.setString(6, addr.getZipcode());
-			ps.setString(7, addr.getCountry());
-			ps.executeUpdate();
-			return true;
+			cs.setString(1, addr.getAddress_text());
+			cs.setString(2, addr.getStreet_number());
+			cs.setString(3, addr.getRoute());
+			cs.setString(4, addr.getCity());
+			cs.setString(5, addr.getState());
+			cs.setString(6, addr.getZipcode());
+			cs.setString(7, addr.getCountry());
+			cs.registerOutParameter(8, Types.NUMERIC);
+			cs.executeUpdate();
+			rowAffected = cs.getInt("address_id");
+			conn.commit();
+			return rowAffected;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return rowAffected;
 	}
 
 	@Override
@@ -121,5 +126,9 @@ public class AddressDAOImpl implements AddressDAO {
 		// TODO Auto-generated method stub
 		return false;
 	}*/
+	
+	public static void main(String[] args) {
+		System.out.println(new AddressDAOImpl().insertAddress(new Address("This is a text","this is another text", "this is not a text","this is a test", "This is a state", "This is a zip code", "this is a country")));
+	}
 
 }

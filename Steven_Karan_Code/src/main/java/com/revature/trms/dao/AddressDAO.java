@@ -6,7 +6,7 @@ public interface AddressDAO {
 
 	//CRUDE methods
 		//Create
-		public boolean insertAddress(Address addr);
+		public int insertAddress(Address addr);
 		
 		//Read
 		public Address getAddressById(int id);

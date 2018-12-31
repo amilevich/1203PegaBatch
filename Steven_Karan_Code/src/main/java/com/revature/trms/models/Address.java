@@ -27,6 +27,18 @@ public class Address {
 		this.zipcode = zipcode;
 		this.country = country;
 	}
+	
+	public Address(String address_text, String street_number, String route, String city, String state,
+			String zipcode, String country) {
+		super();
+		this.address_text = address_text;
+		this.street_number = street_number;
+		this.route = route;
+		this.city = city;
+		this.state = state;
+		this.zipcode = zipcode;
+		this.country = country;
+	}
 
 	public int getAddress_id() {
 		return address_id;
