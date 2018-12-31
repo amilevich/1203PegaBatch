@@ -16,7 +16,7 @@ public class Address {
 	}
 
 	public Address(int address_id, String address_text, String street_number, String route, String city, String state,
-			String country) {
+			String zipcode, String country) {
 		super();
 		this.address_id = address_id;
 		this.address_text = address_text;
@@ -24,17 +24,7 @@ public class Address {
 		this.route = route;
 		this.city = city;
 		this.state = state;
-		this.country = country;
-	}
-	
-	public Address(String address_text, String street_number, String route, String city, String state,
-			String country) {
-		super();
-		this.address_text = address_text;
-		this.street_number = street_number;
-		this.route = route;
-		this.city = city;
-		this.state = state;
+		this.zipcode = zipcode;
 		this.country = country;
 	}
 
@@ -86,6 +76,14 @@ public class Address {
 		this.state = state;
 	}
 
+	public String getZipcode() {
+		return zipcode;
+	}
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+
 	public String getCountry() {
 		return country;
 	}
@@ -105,6 +103,7 @@ public class Address {
 		result = prime * result + ((route == null) ? 0 : route.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((street_number == null) ? 0 : street_number.hashCode());
+		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
 		return result;
 	}
 
@@ -149,14 +148,19 @@ public class Address {
 				return false;
 		} else if (!street_number.equals(other.street_number))
 			return false;
+		if (zipcode == null) {
+			if (other.zipcode != null)
+				return false;
+		} else if (!zipcode.equals(other.zipcode))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
 		return "Address [address_id=" + address_id + ", address_text=" + address_text + ", street_number="
-				+ street_number + ", route=" + route + ", city=" + city + ", state=" + state + ", country=" + country
-				+ "]";
+				+ street_number + ", route=" + route + ", city=" + city + ", state=" + state + ", zipcode=" + zipcode
+				+ ", country=" + country + "]";
 	}
 
 }

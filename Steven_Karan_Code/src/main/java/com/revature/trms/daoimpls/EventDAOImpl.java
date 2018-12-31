@@ -18,7 +18,7 @@ public class EventDAOImpl implements EventDAO {
 		try (Connection conn = cf.getConnection();) {
 			String sql = "INSERT INTO event_detail VALUES(null,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
-
+			System.out.println(event);
 			ps.setString(1, event.getType_name());
 			ps.setDate(2, Date.valueOf(event.getStart_date()));
 			ps.setTimestamp(3, event.getStart_time());
@@ -47,7 +47,7 @@ public class EventDAOImpl implements EventDAO {
 			// TODO: NOTE: check that not null values are not null from any calling method
 			String sql = "UPDATE employee SET type_name=?, start_date=?, start_time=?, location_id=?, format_name=?, description=?, passing_grade=?, grade_received=? WHERE event_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			
+			System.out.println(event);
 			ps.setString(1, event.getType_name());
 			ps.setDate(2, Date.valueOf(event.getStart_date()));
 			ps.setTimestamp(3, event.getStart_time());

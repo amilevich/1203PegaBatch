@@ -25,7 +25,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 		try (Connection conn = cf.getConnection();) {
 			String sql = "INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
-
+			
 			ps.setInt(2, reimb.getEmp_id());
 			ps.setInt(3, reimb.getEvent_id());
 			ps.setInt(4, reimb.getStatus_id());
@@ -200,11 +200,12 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	}
 
 	public static void main(String[] args) {
-		
-		Event event = new Event(LocalDate.now(), new Timestamp(System.currentTimeMillis()), "C", "hello this a test.", "Seminars",
-				new Address("12007", "Bruce B Downs Blvd","Tampa", "FL","US","33612"), "A to F");
-		Reimbursement reimb = new Reimbursement();
-		new ReimbursementDAOImpl().insertReimbursement(reimb);
+//		Event event = new Event(LocalDate.now(), new Timestamp(System.currentTimeMillis()), "C", "hello this a test.", "Seminars"
+//				,new AddressDAOImpl().getAddressById(1), "A to F");
+//		new EventDAOImpl().insertEvent(event);
+//		System.out.println(new EventDAOImpl().getEvent(1));
+//		Reimbursement reimb = new Reimbursement();
+//		new ReimbursementDAOImpl().insertReimbursement(reimb);
 
 	}
 }
