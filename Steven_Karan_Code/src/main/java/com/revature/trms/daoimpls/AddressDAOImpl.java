@@ -30,8 +30,7 @@ public class AddressDAOImpl implements AddressDAO {
 			cs.setString(7, addr.getCountry());
 			cs.registerOutParameter(8, Types.NUMERIC);
 			cs.executeUpdate();
-			rowAffected = cs.getInt("address_id");
-			conn.commit();
+			rowAffected = cs.getInt(8);
 			return rowAffected;
 
 		} catch (SQLException e) {
@@ -128,7 +127,8 @@ public class AddressDAOImpl implements AddressDAO {
 	}*/
 	
 	public static void main(String[] args) {
-		System.out.println(new AddressDAOImpl().insertAddress(new Address("This is a text","this is another text", "this is not a text","this is a test", "This is a state", "This is a zip code", "this is a country")));
+		System.out.println("hello");
+		System.out.println(new AddressDAOImpl().insertAddress(new Address("This is a text","this is another text", "this is not a text","this is a test", "This is a state", "zipco", "this is a country")));
 	}
 
 }
