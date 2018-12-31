@@ -16,7 +16,7 @@ public class AddressDAOImpl implements AddressDAO {
 	@Override
 	public boolean insertAddress(Address addr) {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "INSERT INTO address VALUES(null,?,?,?,?,?)";
+			String sql = "INSERT INTO address VALUES(null,?,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
 			ps.setString(1, addr.getAddress_text());
@@ -84,6 +84,30 @@ public class AddressDAOImpl implements AddressDAO {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Override
+	public int getAddressId(Address addr) {
+		try(Connection conn = cf.getConnection();){
+			String sql = "SELECT * FROM address WHERE address_text = ? AND city = ? AND state= ? AND country = ? "
+					+ "AND street_number = ? AND route = ? AND zipcode = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, addr.getAddress_text());
+			ps.setString(2, addr.getCity());
+			ps.setString(3, addr.getState());
+			ps.setString(4, addr.getCountry());
+			ps.setString(5, addr.getStreet_number());
+			ps.setString(6, addr.getRoute());
+			ps.setString(7, addr.getZipcode());
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("address_id");
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 	/*@Override

@@ -77,9 +77,9 @@
 				<div class="col-lg-2 col-md-4 col-sm-12">
 					<!-- type -->
 					<select class="form-control full-width" id="grade-format" name="grade-format" form="reimburse-form">
-						<option value="course">A-F</option>
-					    <option value="seminar">0-100</option>
-					    <option value="certification">Pass/Fail</option>
+						<option value="letter-grade">A-F</option>
+					    <option value="number-grade">0-100</option>
+					    <option value="pass-fail">Pass/Fail</option>
 					</select>
 				</div>
 
@@ -98,7 +98,7 @@
 		<hr>
 
 
-		<label for="location"> <h5> Location </h5> </label>
+		<label for="event-location"> <h5> Location </h5> </label>
 		<!-- Location of event VIA google places api -->
 		<div id="locationField" class="form-row form-group">
 			<input type="text" name="event-location" id="autocomplete" placeholder="Enter the address of the event" class="form-control" onfocus="geolocate()" required>
@@ -115,53 +115,53 @@
 
 	 	<div class="form-row form-group form-inline">
 	 		<div class="col-lg-2 col-md-2 col-sm-6">
-				<label class="inline-label" for="event-type">Street Number</label>
+				<label class="inline-label" for="street-num">Street Number</label>
 			</div>
 
 	 		<div class="col-lg-3 col-md-4 col-sm-6">
-		 		<input type="text" name="event-location" id="street_number" class="form-control p full-width" disabled="true">
+		 		<input type="text" name="street-num" id="street_number" class="form-control p full-width" readonly>
 			</div>
 
 			<div class="col-lg-1 col-md-1 col-sm-6">
-				<label class="inline-label" for="event-type">Street</label>
+				<label class="inline-label" for="event-address-street">Street</label>
 			</div>
 
 			<div class="col-lg-3 col-md-3 col-sm-6">
-		 		<input type="text" name="event-location" id="route" class="form-control p full-width" disabled="true">
+		 		<input type="text" name="event-address-street" id="route" class="form-control p full-width" readonly>
 		 	</div>
 		 </div>
 	 	
 	 	
 	 	<div class="form-row form-group form-inline">
 	 		<div class="col-lg-2 col-md-2 col-sm-6">
-				<label class="inline-label" for="event-type">City</label>
+				<label class="inline-label" for="event-address-city">City</label>
 			</div>
 	 		<div class="col-lg-3 col-md-3 col-sm-6">
-		 		<input type="text" name="event-location" id="locality" class="form-control p full-width" disabled="true">
+		 		<input type="text" name="event-address-city" id="locality" class="form-control p full-width" readonly>
 		 	</div>
 
 		 	<div class="col-lg-1 col-md-1 col-sm-6">
-				<label class="inline-label" for="event-type">State</label>
+				<label class="inline-label" for="event-address-state">State</label>
 			</div>
 		 	<div class="col-lg-2 col-md-2 col-sm-6">
-		 		<input type="text" name="event-location" id="administrative_area_level_1" class="form-control p full-width" disabled="true">
+		 		<input type="text" name="event-address-state" id="administrative_area_level_1" class="form-control p full-width" readonly>
 		 	</div>
 
 		 	<div class="col-lg-1 col-md-1 col-sm-6">
-				<label class="inline-label" for="event-type">Zip Code</label>
+				<label class="inline-label" for="event-address-zip">Zip Code</label>
 			</div>
 		 	<div class="col-lg-2 col-md-2 col-sm-6">
-		 		<input type="text" name="event-location" id="postal_code" class="form-control p full-width" disabled="true">
+		 		<input type="text" name="event-address-zip" id="postal_code" class="form-control p full-width" readonly>
 		 	</div>
 		 </div>
 
 	 	
 	 	<div class="form-row">
 	 		<div class="col-lg-2 col-md-2 col-sm-6">
-				<label class="inline-label" for="event-type">Country</label>
+				<label class="inline-label" for="event-address-country">Country</label>
 			</div>
 	 		<div class="col-sm-6">
-	 			<input type="text" name="event-location" id="country" class="form-control p" disabled="true">
+	 			<input type="text" name="event-address-country" id="country" class="form-control p" readonly>
 	 		</div>
 	 	</div>
 
@@ -225,7 +225,7 @@
 				</div>
 
 		 		<div class="col-lg-3 col-md-4 col-sm-6">
-			 		<input type="text" name="emp-first-name" id="emp-first-name" class="form-control p full-width" disabled="true">
+			 		<input type="text" name="emp-first-name" id="emp-first-name" class="form-control p full-width" readonly>
 				</div>
 
 				<div class="col-lg-1 col-md-2 col-sm-6">
@@ -233,7 +233,7 @@
 				</div>
 
 		 		<div class="col-lg-3 col-md-4 col-sm-6">
-			 		<input type="text" name="emp-last-name" id="emp-last-name" class="form-control p full-width" disabled="true">
+			 		<input type="text" name="emp-last-name" id="emp-last-name" class="form-control p full-width" readonly>
 				</div>
 			</div>
 
@@ -243,7 +243,7 @@
 				</div>
 
 		 		<div class="col-lg-4 col-md-4 col-sm-6">
-			 		<input type="text" name="emp-email" id="emp-email" class="form-control p full-width" disabled="true">
+			 		<input type="text" name="emp-email" id="emp-email" class="form-control p full-width" readonly>
 				</div>
 
 			</div>

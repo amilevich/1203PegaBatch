@@ -12,6 +12,8 @@ public interface AddressDAO {
 		public Address getAddressById(int id);
 		public boolean address_exists(Address addr);
 		
+		public int getAddressId(Address addr);
+		
 		//Update
 		//public boolean updateAddress(Address addr);
 		

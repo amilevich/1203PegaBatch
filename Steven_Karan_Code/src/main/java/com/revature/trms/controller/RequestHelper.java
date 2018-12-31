@@ -16,6 +16,8 @@ public class RequestHelper {
 			return LoginController.Login(req);
 		case "/ReimbursementSystem/html/empJSON.do":
 			return HomeController.EmpJSON(req, resp);
+		case "/ReimbursementSystem/html/reimburse.do":
+			return ReimbursementController.Reimburse(req);
 		default:
 			return HomeController.Home(req);
 		}
