@@ -1,0 +1,526 @@
+registration-(screenname, passwd)
+application form - (firstname, lastname, email, department, reportsto, eventtype, eventlocation, eventcost, gradeformat, summary, workhours, myfile, myfile2)
+	|
+	|
+	|
+	registration
+	application form
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+new project
+Employee must attach Grade or Presentation
+logic : 	grade or presentation received (outside)
+		pending reimburse after benco accept (inner)
+
+After Employee submit upload, BenCo must confirm grade as passing
+After Employee submit upload, Direct Manager must confirm presentation as passing
+Upon confirmation, amount is awarded to Employee
+
+If Direct Supervisor denies, he/she must give reason
+If Direct Supervisor is also dept head then approval skipped
+If Direct Supervisor doesn't complete on time, request auto-approved
+
+DirectSupervisor provide approval for tuition reimbursement
+DirectSupervisor can request additional info before approval
+
+Department Head must provide approval for reimbursement
+Department Head can request additional info from Employee or Direct Supervisor else no approval
+If Department Head incomplete task = request auto-approved
+
+BenCo must also approve reimbursement (UNSKIPPABLE)
+BenCo can request additional info before approval from Employee, Direct Supervisor or Department Head
+BenCo can change reimbursement amount
+When BenCo change reimbursement amnt = inform Employee AND option to cancel
+If BenCo doesnt approve in time, escalation email to BenCo Supervisor
+BenCo can give larger reimbursement amount. BUT must give reason AND marked for report
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>TRMS2</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>MasterServlet2</servlet-name>
+		<servlet-class>com.trms2.servlet2.MasterServlet2</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MasterServlet2</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+</web-app>
+
+
+
+package com.trms2.servlet2;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.trms.controller.RequestHelper2;
+
+public class MasterServlet2 extends HttpServlet{
+
+	private static final long serialVersionUID = -7847823394197344074L;
+
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String jsonProcesses = RequestHelper.process(request, response);
+		System.out.println("IN doGET!!!");
+		//response.getWriter().print(jsonProcesses);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("in|||| doPost servlet");
+		String targetURL = RequestHelper2.process(request, response);
+		request.getRequestDispatcher(targetURL).forward(request, response);
+	}
+}
+
+
+
+package com.trms2.controller2;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class RequestHelper2 {
+
+	public static String process(HttpServletRequest request, HttpServletResponse response) {
+		
+		switch(request.getRequestURI()) {
+		case "/TRMS2/html/login.do":
+			System.out.println("in login.do");
+			return LoginController2.Login(request);
+			
+		case "/TRMS2/html/index.do":
+			System.out.println("in index.do");
+			return IndexController2.Index(request);
+			
+		case "/TRMS2/html/application.do":
+			System.out.println("application.do");
+			return ApplicationController.Apply(request);
+			
+		case "/TRMS/html/Employee2JSON.do":
+			System.out.println("in index.do");
+			return IndexController2.Employee3JSON(request, response);
+			
+		default:
+			System.out.println("default");
+			return "/html/login.html";
+		}	
+	}	
+}
+
+
+
+package com.trms2.controller2;
+import javax.servlet.http.HttpServletRequest;
+import com.trms2.dao2.Employee3DaoImpl;
+import com.trms2.model2.Employee3;
+
+public class ApplicationController2 {
+
+	public static String Apply(HttpServletRequest request) {
+		
+		String screenname = request.getParameter("screenname");
+		String passwd = request.getParameter("passwd");
+		registration-(screenname, passwd)
+
+*) application form - (firstname, lastname, email, department, reportsto, eventtype, eventlocation, eventcost, gradeformat, summary, workhours, myfile, myfile2)ADD ALL name TAGS HERE, DO BIG REPLACEMENT HERE
+		
+*) CREATE AN EMPLOYEE3 AS A class AND IN THE database THAT HAS EVERYTHING AT THIS POINT
+
+		Employee3 employee3 = new Employee3();
+		
+		employee3.setScreenname(screenname);
+		employee3.setPassword(passwd);
+		
+		Employee3DaoImpl employee3DaoImpl = new Employee3DaoImpl();
+		employee3DaoImpl.insertEmployee3(employee3);
+		
+		return "/html/application.html";
+	}
+
+}
+
+
+
+package com.trms2.controller2;
+import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.trms2.model2.Employee3;
+
+public class IndexController2 {
+
+	public static String Index(HttpServletRequest request) {
+		
+		return null;
+	}
+
+	public static String Employee3JSON(HttpServletRequest request, HttpServletResponse response) {
+		Employee3 employee3 = (Employee3)request.getSession().getAttribute("employee3");
+		try {
+			response.getWriter().write(new ObjectMapper().writeValueAsString(employee3));
+			System.out.println(response.getWriter().write(new ObjectMapper().writeValueAsString(employee3)));
+		}catch(JsonProcessingException e) {
+			e.printStackTrace();
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+}
+
+
+
+package com.trms2.controller2;
+
+import javax.servlet.http.HttpServletRequest;
+import com.trms2.dao2.Employee3DaoImpl;
+import com.trms2.model2.Employee3;
+
+public class LoginController2 {
+
+	public static String Login(HttpServletRequest request) {
+		
+		if(request.getMethod().equals("GET")) {
+			return "/html/login.html";
+		}
+		
+		String screenname = request.getParameter("screenname");
+		String passwd = request.getParameter("passwd");
+		
+		Employee3DaoImpl employee3DaoImpl = new Employee3DaoImpl();
+		
+		Employee3 employee3 = new Employee3();
+		
+		employee3 = employee3DaoImpl.selectEmployee3ByScreenname(screenname);
+		System.out.println(employee3);
+		
+		
+		if(screenname.equals(employee3.getScreenname()) && passwd.equals(employee3.getPassword())) {
+			request.getSession().setAttribute("Employee", employee3);
+			return "/html/index.html";
+		}
+		else {
+			return "/html/login.html";
+		}
+		
+		
+		
+	}
+
+}
+
+
+
+package com.trms2.dao2;
+import com.trms2.model2.Employee3;
+public interface Employee3Dao {
+
+	//CREATE
+	public int insertEmployee3(Employee3 employee3);
+	
+	//READ
+	public Employee3 selectEmployee3ByScreenname(String screenname);
+	
+	//UPDATE
+	//public int UpdateEmployee3(Employee3 employee3);
+	
+	//DELETE
+	//public int deleteEmployee3(Employee3 employee3);
+	
+}
+
+
+
+package com.trms2.dao2;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import com.trms2.model2.Employee3;
+
+public class Employee3DaoImpl implements Employee3Dao {
+
+	static {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static String url = "jdbc:oracle:thin:@spiderman.cuji1aq6umug.us-east-2.rds.amazonaws.com:1521:ORCL";
+	private static String username = "";
+	private static String password="";
+	
+	@Override
+	public int insertEmployee3(Employee3 employee3) {
+		try(Connection conn = DriverManager.getConnection(url, username, password)){
+*) CHANGE TO REQUIRED ATTRIBUTES AND LOGIC			
+			PreparedStatement ps = conn.prepareStatement("INSERT INTO Employee3 VALUES(?, ?)");
+			ps.setString(1, employee3.getScreenname());
+			ps.setString(2, employee3.getPassword());
+			return ps.executeUpdate();
+			
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	@Override
+	public Employee3 selectEmployee3ByScreenname(String screenname) {
+		Employee3 employee3 = null;
+		try(Connection conn = DriverManager.getConnection(url, username, password)){
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM Employee3 WHERE screenname=?");
+			ps.setString(1, screenname);
+			ResultSet rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				employee3 = new Employee3(rs.getString("Screenname"), rs.getString("Passwd"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return employee3;
+	}
+
+}
+
+
+
+package com.trms2.model2;
+
+public class Employee3 { 
+
+	private String screenname, passwd;
+	
+	public Employee3() {
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [Screenname = " + screenname + ", Password is = " + passwd + "]";
+	}
+
+
+*) ADD THE REQUIRED ATTRIBUTES
+	public String getScreenname() {
+		return screenname;
+	}
+
+	public void setScreenname(String screenname) {
+		this.screenname = screenname;
+	}
+
+	public String getPassword() {
+		return passwd;
+	}
+
+	public void setPassword(String password) {
+		this.passwd = password;
+	}
+
+	public Employee3(String screenname, String password) {
+		super();
+		this.screenname = screenname;
+		this.passwd = password;
+	}	
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Tuition Reimbursement Management System Home</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel=stylesheet type="text/css" href="../css/style.css"/>
+</head>
+<body>
+
+	<h2>Tuition Reimbursement Management System</h2>
+	<div class="form-control">
+		<h4>Here is the employee's information</h4>
+		<div id="screenname"></div>
+		<div id="passwd"></div>
+	</div>
+
+
+<script src="../js/index.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Dock</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+</head>
+
+
+<body>
+
+	<a href="http://localhost:9005/TRMS/html/application.html"
+		class="btn-primary" id="register-link">TRMS Application Form</a>
+	<br>
+	<form id="Login-form" method="POST" action="login.do" role="form"
+		style="display: block;">
+		
+		 Screenname: <input type="text" name="screenname" id="screenname"
+			class="form-control" placeholder="Screenname" value="Screenname" /> 
+
+		Password: <input type="password" name="passwd" id="passwd"
+			class="form-control" placeholder="Password" value="Password" />
+*) GET LOGIN CREDENTIALS TO GET THROUGH THIS
+	
+		<input type="Submit" class="form-control btn-primary" id="LoginButton"
+		value="Login">
+	</form>
+
+	<script src="../js/index.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
+
+	index.js
+window.onload = function(){
+	getEmployee3Info();
+}
+
+function getEmployee3Info() {
+	let xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			let employee3 = JSON.parse(xhttp.responseText);
+			setValues(employee3);
+		}
+	}
+	xhttp.open("GET", 'http://localhost:9005/TRMS/html/Employee3JSON.do', true);
+	xhttp.send();
+}
+
+function setValues(employee3) {
+	console.log("here");
+	document.getElementById("screenname").innerHTML = "Screenname: " + employee3.screenname;
+	document.getElementById("passwd").innerHTML = "Password: " + employee3.passwd;
+	
+}
+
+
+
+web.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+	<display-name>TRMS2</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>MasterServlet2</servlet-name>
+		<servlet-class>com.trms2.servlet2.MasterServlet2</servlet-class>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MasterServlet2</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+</web-app>
+
+
+
+pom.xml
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>TRMS2</groupId>
+	<artifactId>TRMS2</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<properties>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160810</version>
+
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.8.9</version>
+		</dependency>
+
+	</dependencies>
+</project>
