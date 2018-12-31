@@ -1,4 +1,4 @@
-package com.ternary.dao;
+package com.ternary.util;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -2,7 +2,7 @@ package com.ternary.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.ternary.dao.EmployeeDaoImpl;
+import com.ternary.daoimpl.EmployeeDaoImpl;
 import com.ternary.model.Employee;
 
 public class LoginController {

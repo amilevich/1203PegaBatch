@@ -1,11 +1,13 @@
-package com.ternary.dao;
+package com.ternary.daoimpl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.ternary.dao.EmployeeDao;
 import com.ternary.model.Employee;
+import com.ternary.util.ConnFactory;
 
 public class EmployeeDaoImpl implements EmployeeDao {
 	public static ConnFactory cf = ConnFactory.getInstance();
