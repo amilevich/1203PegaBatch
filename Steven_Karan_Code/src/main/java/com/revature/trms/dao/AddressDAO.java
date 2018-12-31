@@ -9,7 +9,7 @@ public interface AddressDAO {
 		public boolean insertAddress(Address addr);
 		
 		//Read
-		public Address getAddressById(int id);
+		//public Address getAddress(int id);
 		public boolean address_exists(Address addr);
 		
 		//Update
