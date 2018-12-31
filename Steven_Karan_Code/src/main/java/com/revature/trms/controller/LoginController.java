@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.mindrot.jbcrypt.BCrypt;
 
 import com.revature.trms.daoimpls.EmployeeDAOImpl;
+import com.revature.trms.models.Alert;
 import com.revature.trms.models.Employee;
 
 public class LoginController {
@@ -15,6 +16,7 @@ public class LoginController {
 		if (req.getMethod().equals("GET")) {
 			return "/html/login.html";
 		}
+		
 		String username = req.getParameter("username");
 		//System.out.println("username: " + username);
 		String password = req.getParameter("password");
@@ -34,7 +36,10 @@ public class LoginController {
 				return "/html/index.html";
 			}
 		}
-
+		
+		// Set alert message telling user that they entered in an incorrect username/password
+		Alert alert = new Alert("danger","Incorrect Username or Password");
+		req.getSession().setAttribute("Alert", alert);
 		return "/html/login.html";
 	}
 	

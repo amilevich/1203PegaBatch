@@ -18,6 +18,8 @@ public class RequestHelper {
 			return HomeController.EmpJSON(req, resp);
 		case "/ReimbursementSystem/html/reimburse.do":
 			return ReimbursementController.Reimburse(req);
+		case "/ReimbursementSystem/html/alertJSON.do":
+			return AlertController.AlertJSON(req,resp);
 		default:
 			return HomeController.Home(req);
 		}

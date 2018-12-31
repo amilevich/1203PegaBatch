@@ -1,16 +1,22 @@
 package com.revature.trms.controller;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+
 import javax.servlet.http.HttpServletRequest;
 
-import com.revature.trms.daoimpls.AddressDAOImpl;
 import com.revature.trms.models.Address;
+import com.revature.trms.models.Event;
+import com.revature.trms.models.Reimbursement;
 import com.revature.trms.validators.AddressValidator;
+import com.revature.trms.validators.EventValidator;
+import com.revature.trms.validators.ReimbursementValidator;
 
 public class ReimbursementController {
 
 	
 	public static String Reimburse(HttpServletRequest req) {
-		System.out.println("Processing reimbursement");
+		System.out.println("Processing Reimbursement");
 		
 		if (req.getMethod().equals("GET")) {
 			return "/html/reimburse.html";
@@ -38,25 +44,22 @@ public class ReimbursementController {
 			return "/html/reimburse.html";
 		}
 		
-		// insert address into database:
-		AddressDAOImpl adi = new AddressDAOImpl();
-		if( adi.insertAddress(addr) ) {
-			
-			int address_id = adi.getAddressId(addr);
-			System.out.println(address_id);
-			
-			return "/html/index.html";
-		}
 		
-		
-		
-		/*Event event = new Event();
-		//event.setCoverage(req.get);
+		Event event = new Event();
+		event.setType_name(req.getParameter("event-type"));
+		String event_date_str = req.getParameter("event-date");
+		event.setStart_date(LocalDate.parse(event_date_str));
+		String event_time_str = req.getParameter("event-time");
+		event.setStart_time( new Timestamp(Timestamp.parse(event_time_str)));
 		event.setDescription(req.getParameter("description"));
 		event.setFormat_name(req.getParameter("grade-format"));
+		event.setPassing_grade(req.getParameter("passing-grade"));
+		event.setGrade_received(null);
 		
-		String event_date_str = req.getParameter("event-date");
-		LocalDate event_date = LocalDate.parse(event_date_str);
+		if(!EventValidator.validate_Event(event)) {
+			System.out.println("Invalid event");
+			return "/html/reimburse.html";
+		}
 		
 		
 		
@@ -69,7 +72,7 @@ public class ReimbursementController {
 			return "/html/reimburse.html";
 		}
 		
-		Reimbursement reimb = new Reimbursement();
+		/*Reimbursement reimb = new Reimbursement();
 		
 		
 		if(!ReimbursementValidator.validate_Reimbursement(reimb)) {
