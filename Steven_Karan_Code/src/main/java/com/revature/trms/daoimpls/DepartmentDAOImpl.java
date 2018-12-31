@@ -28,8 +28,6 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 			e.printStackTrace();
 		}
 		
-		
-		
 		return false;
 	}
 

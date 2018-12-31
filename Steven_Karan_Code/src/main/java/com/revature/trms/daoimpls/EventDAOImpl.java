@@ -1,0 +1,79 @@
+package com.revature.trms.daoimpls;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import com.revature.trms.dao.EventDAO;
+import com.revature.trms.models.Event;
+import com.revature.trms.util.ConnFactory;
+
+public class EventDAOImpl implements EventDAO {
+
+	private static ConnFactory cf = ConnFactory.getInstance();
+
+	@Override
+	public boolean insertEvent(Event event) {
+		try (Connection conn = cf.getConnection();) {
+			String sql = "INSERT INTO event_detail VALUES(null,?,?,?,?,?,?,?,?)";
+			PreparedStatement ps = conn.prepareStatement(sql);
+
+			ps.setString(1, event.getType_name());
+			ps.setDate(2, Date.valueOf(event.getStart_date()));
+			ps.setTimestamp(3, event.getStart_time());
+			ps.setInt(4, event.getLocation().getAddress_id());
+			ps.setString(5, event.getFormat_name());
+			ps.setString(6, event.getDescription());
+			ps.setString(7, event.getPassing_grade());
+			ps.setString(8, event.getGrade_received());
+			ps.executeUpdate();
+			return true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public Event getEvent(int id) {
+		return null;
+	}
+
+	@Override
+	public boolean updateEvent(Event event) {
+		try (Connection conn = cf.getConnection();) {
+			// TODO: NOTE: check that not null values are not null from any calling method
+			String sql = "UPDATE employee SET type_name=?, start_date=?, start_time=?, location_id=?, format_name=?, description=?, passing_grade=?, grade_received=? WHERE event_id=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1, event.getType_name());
+			ps.setDate(2, Date.valueOf(event.getStart_date()));
+			ps.setTimestamp(3, event.getStart_time());
+			ps.setInt(4, event.getLocation().getAddress_id());
+			ps.setString(5, event.getFormat_name());
+			ps.setString(6, event.getDescription());
+			ps.setString(7, event.getPassing_grade());
+			ps.setString(8, event.getGrade_received());
+			ps.setInt(9, event.getEvent_id());
+			
+			// Note: at most 1 row can be updated at a time given that the where clause selects an id
+			if ( ps.executeUpdate() >= 1) {
+				return true;
+			}else {
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteEvent(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+}
