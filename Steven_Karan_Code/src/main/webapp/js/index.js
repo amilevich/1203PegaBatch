@@ -4,6 +4,7 @@
 window.onload = function() {
 	console.log("in onload function");
 	getEmployeePersonalInfo();
+	getAlert();
 }
 
 function getEmployeePersonalInfo() {

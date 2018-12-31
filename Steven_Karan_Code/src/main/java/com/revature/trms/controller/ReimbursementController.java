@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import javax.servlet.http.HttpServletRequest;
 
 import com.revature.trms.models.Address;
+import com.revature.trms.models.Alert;
 import com.revature.trms.models.Event;
 import com.revature.trms.models.Reimbursement;
 import com.revature.trms.validators.AddressValidator;
@@ -18,9 +19,15 @@ public class ReimbursementController {
 	public static String Reimburse(HttpServletRequest req) {
 		System.out.println("Processing Reimbursement");
 		
+		// Check if user is authenticated:
+		if(req.getAttribute("Employee")==null) {
+			return "/html/index.html";
+		}
+		
 		if (req.getMethod().equals("GET")) {
 			return "/html/reimburse.html";
 		}
+		
 		
 		// if the response is a POST, parse the incoming reimbursement form
 		
@@ -40,7 +47,9 @@ public class ReimbursementController {
 		// Note: Temporarily, same thing is done for every failed validator (returning the page)
 		// Can be changed to inform the user of the specific issue with the form
 		if(!AddressValidator.validate_Address(addr)) {
-			System.out.println("Invalid address");
+			//System.out.println("Invalid address");
+			Alert alert = new Alert("danger","Error: Invalid Address");
+			req.getSession().setAttribute("Alert", alert);
 			return "/html/reimburse.html";
 		}
 		
@@ -56,28 +65,23 @@ public class ReimbursementController {
 		event.setPassing_grade(req.getParameter("passing-grade"));
 		event.setGrade_received(null);
 		
-		if(!EventValidator.validate_Event(event)) {
-			System.out.println("Invalid event");
-			return "/html/reimburse.html";
-		}
-		
-		
-		
-		
-		
 		event.setLocation(addr);
 		
-		
 		if(!EventValidator.validate_Event(event)) {
+			//System.out.println("Invalid event");
+			Alert alert = new Alert("danger","Error: Invalid Event");
+			req.getSession().setAttribute("Alert", alert);
 			return "/html/reimburse.html";
 		}
 		
-		/*Reimbursement reimb = new Reimbursement();
+		
+		Reimbursement reimb = new Reimbursement();
+		
 		
 		
 		if(!ReimbursementValidator.validate_Reimbursement(reimb)) {
 			return "/html/reimburse.html";
-		}*/
+		}
 		
 		// All validators passed, can move forward with inserting the form into the database
 		
