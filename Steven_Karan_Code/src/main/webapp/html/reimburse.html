@@ -69,9 +69,35 @@
 				</div>
 			</div>
 
+			<div class="form-row form-group form-inline">
+				<div class="col-lg-1 col-md-2 col-sm-12">
+					<label class="inline-label" for="grade-format">Grade Format</label>
+				</div>
+
+				<div class="col-lg-2 col-md-4 col-sm-12">
+					<!-- type -->
+					<select class="form-control full-width" id="grade-format" name="grade-format" form="reimburse-form">
+						<option value="course">A-F</option>
+					    <option value="seminar">0-100</option>
+					    <option value="certification">Pass/Fail</option>
+					</select>
+				</div>
+
+
+				<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">
+					<label class="inline-label" for="passing-grade">Passing Grade</label>
+				</div>
+
+				<div class="col-lg-2 col-md-2 col-sm-12">
+					<input class="form-control" type="text" name="passing-grade">
+				</div>
+
+			</div>
 
 
 		<hr>
+
+
 		<label for="location"> <h5> Location </h5> </label>
 		<!-- Location of event VIA google places api -->
 		<div id="locationField" class="form-row form-group">
@@ -226,7 +252,7 @@
 	</div>
 
 	<!-- submit button -->
-		<div class="">
+		<div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</div>
 	</form>
