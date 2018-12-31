@@ -3,9 +3,11 @@ package com.revature.trms.daoimpls;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.revature.trms.dao.EventDAO;
+import com.revature.trms.models.Employee;
 import com.revature.trms.models.Event;
 import com.revature.trms.util.ConnFactory;
 
@@ -38,6 +40,29 @@ public class EventDAOImpl implements EventDAO {
 
 	@Override
 	public Event getEvent(int id) {
+		try (Connection conn = cf.getConnection();) {
+			String sql = "SELECT * FROM event_detail WHERE event_id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+
+			Event event = null;
+			if (rs.next()) {
+				event = new Event();
+				event.setEvent_id(rs.getInt("event_id"));
+				event.setType_name(rs.getString("type_name"));
+				event.setStart_date(rs.getDate("start_date").toLocalDate());
+				event.setStart_time(rs.getTimestamp("start_time"));
+				event.setLocation(new AddressDAOImpl().getAddressById(rs.getInt("location_id")));
+				event.setFormat_name(rs.getString("format_name"));
+				event.setDescription(rs.getString("Description"));
+				event.setPassing_grade(rs.getString("passing_grade"));
+				event.setGrade_received(rs.getString("grade_received"));
+			}
+			return event;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

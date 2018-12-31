@@ -9,25 +9,25 @@ public class Reimbursement {
 	private double cost;
 	private String justification;
 	private int work_time_missed;
-	
-	//Reimbursement status information
+
+	// Reimbursement status information
 	private int status_id;
 	private String status_name;
 	private boolean urgent;
 	private boolean sup_flag;
 	private boolean dept_flag;
 	private boolean benco_flag;
-	private double fund_awarded;//better fit will be in reimbursement, not in status(?)
+	private double fund_awarded;// better fit will be in reimbursement, not in status(?)
 	private int next_id;
-	
-	//Employee Information
+
+	// Employee Information
 	private int emp_id;
-	
-	//Event details
+
+	// Event details
 	private int event_id;
-	
+
 	public Reimbursement() {
-		
+
 	}
 
 	public Reimbursement(int reimb_id, LocalDate request_date, double cost, String justification, int work_time_missed,
@@ -47,6 +47,18 @@ public class Reimbursement {
 		this.benco_flag = benco_flag;
 		this.fund_awarded = fund_awarded;
 		this.next_id = next_id;
+		this.emp_id = emp_id;
+		this.event_id = event_id;
+	}
+
+	public Reimbursement(int status_id, int emp_id, int event_id, LocalDate request_date, double cost,
+			String justification, int work_time_missed) {
+		super();
+		this.request_date = request_date;
+		this.cost = cost;
+		this.justification = justification;
+		this.work_time_missed = work_time_missed;
+		this.status_id = status_id;
 		this.emp_id = emp_id;
 		this.event_id = event_id;
 	}
@@ -255,7 +267,5 @@ public class Reimbursement {
 				+ ", dept_flag=" + dept_flag + ", benco_flag=" + benco_flag + ", fund_awarded=" + fund_awarded
 				+ ", next_id=" + next_id + ", emp_id=" + emp_id + ", event_id=" + event_id + "]";
 	}
-	
-	
 
 }

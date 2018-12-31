@@ -23,16 +23,19 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	@Override
 	public boolean insertReimbursement(Reimbursement reimb) {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
-			ps.setInt(2, reimb.getEmp_id());
-			ps.setInt(3, reimb.getEvent_id());
-			ps.setInt(4, reimb.getStatus_id());
-			ps.setDate(5, Date.valueOf(reimb.getRequest_date()));
-			ps.setDouble(6, reimb.getCost());
-			ps.setString(7, reimb.getJustification());
-			ps.setInt(8, reimb.getWork_time_missed());
+			ps.setInt(1, reimb.getEmp_id());
+			ps.setInt(2, reimb.getEvent_id());
+			if(reimb.getStatus_id() > -1)
+				ps.setInt(3, reimb.getStatus_id());
+			else
+				ps.setNull(3, 1);
+			ps.setDate(4, Date.valueOf(reimb.getRequest_date()));
+			ps.setDouble(5, reimb.getCost());
+			ps.setString(6, reimb.getJustification());
+			ps.setInt(7, reimb.getWork_time_missed());
 			ps.executeUpdate();
 			return true;
 
@@ -200,12 +203,10 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	}
 
 	public static void main(String[] args) {
-//		Event event = new Event(LocalDate.now(), new Timestamp(System.currentTimeMillis()), "C", "hello this a test.", "Seminars"
-//				,new AddressDAOImpl().getAddressById(1), "A to F");
-//		new EventDAOImpl().insertEvent(event);
-//		System.out.println(new EventDAOImpl().getEvent(1));
-//		Reimbursement reimb = new Reimbursement();
-//		new ReimbursementDAOImpl().insertReimbursement(reimb);
+		Reimbursement reimb = new Reimbursement(-1, 3,1, LocalDate.now(), 
+				500.00,"I'm too overworked, just give me some vacation time pleasees!", 400);
+		new ReimbursementDAOImpl().insertReimbursement(reimb);
+		//System.out.println(new ReimbursementDAOImpl().getReimbursement(1));
 
 	}
 }
