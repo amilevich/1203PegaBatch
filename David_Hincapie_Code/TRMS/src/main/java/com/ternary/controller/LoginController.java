@@ -1,9 +1,13 @@
 package com.ternary.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.ternary.daoimpl.EmployeeDaoImpl;
+import com.ternary.daoimpl.RequestDaoImpl;
 import com.ternary.model.Employee;
+import com.ternary.model.Request;
 
 public class LoginController {
 
@@ -28,6 +32,11 @@ public class LoginController {
 			request.getSession().setAttribute("Employee", employee);
 			request.getSession().setAttribute("Supervisor", supervisor);
 			System.out.println("LOGIN METHOD IN LOGIN CONTROLLER");
+
+			RequestDaoImpl requestDaoImpl = new RequestDaoImpl();
+			List<Request> requests = requestDaoImpl.getRequests(employee.getEmployeeId(), "pending");
+			request.getSession().setAttribute("Requests", requests);
+
 			return "/html/home.html";
 		} else {
 			System.out.println("Email or password not found");

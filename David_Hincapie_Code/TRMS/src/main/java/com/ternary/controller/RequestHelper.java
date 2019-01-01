@@ -16,6 +16,9 @@ System.out.println("URI " + request.getRequestURI());
 		case "/TRMS/html/Home.do":
 			System.out.println("IN HOME CONTROLLER");
 			return HomeController.Home(request);
+		case "/TRMS/html/Request.do":
+			System.out.println("IN REQUEST CONTROLLER");
+			return HomeController.Home(request);
 //		case "/TRMS/html/Register.do":
 //			return RegisterController.Register(request);
 		case "/TRMS/html/EmployeeJSON.do":
@@ -24,6 +27,9 @@ System.out.println("URI " + request.getRequestURI());
 		case "/TRMS/html/SupervisorJSON.do":
 			System.out.println("REQUEST HELPER HOMECONTROLLER SWITCH SupervisorJSON.do");
 			return HomeController.SupervisorJSON(request, response);
+		case "/TRMS/html/PendingRequestsJSON.do":
+            System.out.println("REQUEST HELPER HOMECONTROLLER SWITCH");
+            return HomeController.PendingRequestsJSON(request, response);
 		default:
 			System.out.println("IN DEFAULT");
 			return "/TRMS/html/login.html";

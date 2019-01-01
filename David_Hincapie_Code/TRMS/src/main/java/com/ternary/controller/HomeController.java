@@ -1,6 +1,7 @@
 package com.ternary.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ternary.model.Employee;
 
 public class HomeController {
-	
+
 	public static String Home(HttpServletRequest request) {
 		return null;
 	}
@@ -26,7 +27,7 @@ public class HomeController {
 		}
 		return null;
 	}
-	
+
 	public static String SupervisorJSON(HttpServletRequest request, HttpServletResponse response) {
 		Employee supervisor = (Employee) request.getSession().getAttribute("Supervisor");
 		try {
@@ -36,6 +37,21 @@ public class HomeController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return null;
+	}
+
+	public static String PendingRequestsJSON(HttpServletRequest request, HttpServletResponse response) {
+
+		List requests = (List) request.getSession().getAttribute("Requests");
+
+		try {
+			response.getWriter().write(new ObjectMapper().writeValueAsString(requests));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 
