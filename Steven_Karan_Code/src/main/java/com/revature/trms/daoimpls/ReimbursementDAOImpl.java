@@ -20,19 +20,22 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	@Override
 	public boolean insertReimbursement(Reimbursement reimb) {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setInt(1, reimb.getEmp_id());
+			int addr_id = new AddressDAOImpl().insertAddress(reimb.getEvent().getLocation());
+			
+			
+			// insert event (get event id)
 			ps.setInt(2, reimb.getEvent().getEvent_id());
+			ps.setDate(3, Date.valueOf(reimb.getRequest_date()));
+			ps.setString(4, reimb.getJustification());
+			ps.setInt(5, reimb.getWork_time_missed());
 			if (reimb.getStatus_id() > -1)
-				ps.setInt(3, reimb.getStatus_id());
+				ps.setInt(6, reimb.getStatus_id());
 			else
-				ps.setNull(3, 1);
-			ps.setDate(4, Date.valueOf(reimb.getRequest_date()));
-			ps.setDouble(5, reimb.getCost());
-			ps.setString(6, reimb.getJustification());
-			ps.setInt(7, reimb.getWork_time_missed());
+				ps.setNull(6, 1);
 			ps.executeUpdate();
 			return true;
 
@@ -81,6 +84,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				event.setFormat_name(rs.getString("format_name"));
 				event.setDefault_passing_grade(rs.getString("default_passing_grade"));
 				event.setDescription(rs.getString("description"));
+				event.setCost(rs.getDouble("cost"));
 
 				// setting Reimbursement
 				reimb.setReimb_id(rs.getInt("reimb_id"));
@@ -88,7 +92,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				reimb.setEvent(new EventDAOImpl().getEvent(rs.getInt("event_id")));
 				reimb.setStatus_id(rs.getInt("status_id"));
 				reimb.setRequest_date(rs.getDate("request_date").toLocalDate());
-				reimb.setCost(rs.getDouble("cost"));
+				
 				reimb.setJustification(rs.getString("justification"));
 				reimb.setWork_time_missed(rs.getInt("work_time_missed"));
 				reimb.setFund_awarded(rs.getDouble("fund_awarded"));
@@ -142,6 +146,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				event.setDefault_passing_grade(rs.getString("default_passing_grade"));
 				event.setDescription(rs.getString("description"));
 				event.setCoverage(rs.getDouble("coverage"));
+				event.setCost(rs.getDouble("cost"));
 
 				// setting Reimbursement
 				reimb.setReimb_id(rs.getInt("reimb_id"));
@@ -149,7 +154,6 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				reimb.setEvent(new EventDAOImpl().getEvent(rs.getInt("event_id")));
 				reimb.setStatus_id(rs.getInt("status_id"));
 				reimb.setRequest_date(rs.getDate("request_date").toLocalDate());
-				reimb.setCost(rs.getDouble("cost"));
 				reimb.setJustification(rs.getString("justification"));
 				reimb.setWork_time_missed(rs.getInt("work_time_missed"));
 				reimb.setFund_awarded(rs.getDouble("fund_awarded"));
@@ -168,17 +172,16 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	public boolean updateReimbursement(Reimbursement reimb) {
 		try (Connection conn = cf.getConnection();) {
 			// TODO: NOTE: check that not null values are not null from any calling method
-			String sql = "UPDATE reimbursement SET emp_id=?, event_id=?, status_id=?, request_date=?, cost=?, justification=?, work_time_missed=? WHERE reimb_id=?";
+			String sql = "UPDATE reimbursement SET emp_id=?, event_id=?, status_id=?, request_date=?, justification=?, work_time_missed=? WHERE reimb_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setInt(2, reimb.getEmp_id());
 			ps.setInt(3, reimb.getEvent().getEvent_id());
 			ps.setInt(4, reimb.getStatus_id());
 			ps.setDate(5, Date.valueOf(reimb.getRequest_date()));
-			ps.setDouble(6, reimb.getCost());
-			ps.setString(7, reimb.getJustification());
-			ps.setInt(8, reimb.getWork_time_missed());
-			ps.setInt(9, reimb.getReimb_id());
+			ps.setString(6, reimb.getJustification());
+			ps.setInt(7, reimb.getWork_time_missed());
+			ps.setInt(8, reimb.getReimb_id());
 
 			// Note: at most 1 row can be updated at a time given that the where clause
 			// selects an id
@@ -241,6 +244,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				event.setDefault_passing_grade(rs.getString("default_passing_grade"));
 				event.setDescription(rs.getString("description"));
 				event.setCoverage(rs.getDouble("coverage"));
+				event.setCost(rs.getDouble("cost"));
 
 				// setting Reimbursement
 				reimb.setReimb_id(rs.getInt("reimb_id"));
@@ -248,7 +252,6 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				reimb.setEvent(new EventDAOImpl().getEvent(rs.getInt("event_id")));
 				reimb.setStatus_id(rs.getInt("status_id"));
 				reimb.setRequest_date(rs.getDate("request_date").toLocalDate());
-				reimb.setCost(rs.getDouble("cost"));
 				reimb.setJustification(rs.getString("justification"));
 				reimb.setWork_time_missed(rs.getInt("work_time_missed"));
 				reimb.setFund_awarded(rs.getDouble("fund_awarded"));
@@ -305,6 +308,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				event.setDefault_passing_grade(rs.getString("default_passing_grade"));
 				event.setDescription(rs.getString("description"));
 				event.setCoverage(rs.getDouble("coverage"));
+				event.setCost(rs.getDouble("cost"));
 
 				// setting Reimbursement
 				reimb.setReimb_id(rs.getInt("reimb_id"));
@@ -312,7 +316,6 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				reimb.setEvent(new EventDAOImpl().getEvent(rs.getInt("event_id")));
 				reimb.setStatus_id(rs.getInt("status_id"));
 				reimb.setRequest_date(rs.getDate("request_date").toLocalDate());
-				reimb.setCost(rs.getDouble("cost"));
 				reimb.setJustification(rs.getString("justification"));
 				reimb.setWork_time_missed(rs.getInt("work_time_missed"));
 				reimb.setFund_awarded(rs.getDouble("fund_awarded"));

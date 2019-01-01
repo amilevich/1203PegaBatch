@@ -21,7 +21,7 @@ function getEmployeePersonalInfo() {
 			console.log('rdy: ' + xhttp.readystate + 'status: ' + xhttp.status);
 		}
 	};
-	xhttp.open("PUT",
+	xhttp.open("GET",
 			'http://localhost:9000/ReimbursementSystem/html/empJSON.do',
 			true);
 	xhttp.send();

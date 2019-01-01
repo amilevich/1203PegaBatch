@@ -18,7 +18,7 @@ public class EventDAOImpl implements EventDAO {
 	@Override
 	public boolean insertEvent(Event event) {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "INSERT INTO event_detail VALUES(null,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO event_detail VALUES(null,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			System.out.println(event);
 			ps.setString(1, event.getType_name());
@@ -29,6 +29,7 @@ public class EventDAOImpl implements EventDAO {
 			ps.setString(6, event.getDescription());
 			ps.setString(7, event.getPassing_grade());
 			ps.setString(8, event.getGrade_received());
+			ps.setDouble(9, event.getCost());
 			ps.executeUpdate();
 			return true;
 
@@ -58,6 +59,7 @@ public class EventDAOImpl implements EventDAO {
 				event.setDescription(rs.getString("Description"));
 				event.setPassing_grade(rs.getString("passing_grade"));
 				event.setGrade_received(rs.getString("grade_received"));
+				event.setCost(rs.getDouble("cost"));
 			}
 			return event;
 		} catch (SQLException e) {
@@ -69,8 +71,8 @@ public class EventDAOImpl implements EventDAO {
 	@Override
 	public boolean updateEvent(Event event) {
 		try (Connection conn = cf.getConnection();) {
-			// TODO: NOTE: check that not null values are not null from any calling method
-			String sql = "UPDATE employee SET type_name=?, start_date=?, start_time=?, location_id=?, format_name=?, description=?, passing_grade=?, grade_received=? WHERE event_id=?";
+			
+			String sql = "UPDATE employee SET type_name=?, start_date=?, start_time=?, location_id=?, format_name=?, description=?, passing_grade=?, grade_received=?,cost=? WHERE event_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			System.out.println(event);
 			ps.setString(1, event.getType_name());
@@ -81,7 +83,8 @@ public class EventDAOImpl implements EventDAO {
 			ps.setString(6, event.getDescription());
 			ps.setString(7, event.getPassing_grade());
 			ps.setString(8, event.getGrade_received());
-			ps.setInt(9, event.getEvent_id());
+			ps.setDouble(9, event.getCost());
+			ps.setInt(10, event.getEvent_id());
 			
 			// Note: at most 1 row can be updated at a time given that the where clause selects an id
 			if ( ps.executeUpdate() >= 1) {

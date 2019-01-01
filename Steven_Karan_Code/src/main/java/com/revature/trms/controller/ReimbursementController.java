@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.revature.trms.models.Address;
 import com.revature.trms.models.Alert;
+import com.revature.trms.models.Employee;
 import com.revature.trms.models.Event;
 import com.revature.trms.models.Reimbursement;
 import com.revature.trms.validators.AddressValidator;
@@ -18,9 +19,10 @@ public class ReimbursementController {
 	
 	public static String Reimburse(HttpServletRequest req) {
 		System.out.println("Processing Reimbursement");
+		Employee emp = (Employee) req.getAttribute("Employee");
 		
 		// Check if user is authenticated:
-		if(req.getAttribute("Employee")==null) {
+		if(emp==null) {
 			return "/html/index.html";
 		}
 		
@@ -76,14 +78,22 @@ public class ReimbursementController {
 		
 		
 		Reimbursement reimb = new Reimbursement();
-		
+		reimb.setStatus_id(0);
+		reimb.setEmp_id(emp.getEmp_id());
+		// Date
+		reimb.setJustification(req.getParameter("justification"));
+		reimb.setWork_time_missed( Integer.parseInt(req.getParameter("work-missed")) );
 		
 		
 		if(!ReimbursementValidator.validate_Reimbursement(reimb)) {
+			Alert alert = new Alert("danger","Error: Invalid Reimbursement Details");
+			req.getSession().setAttribute("Alert", alert);
 			return "/html/reimburse.html";
 		}
 		
+		
 		// All validators passed, can move forward with inserting the form into the database
+		
 		
 		
 		return "/html/reimburse.html";
