@@ -29,7 +29,7 @@ public class ConnFactory {
 		Properties properties = new Properties();
 		try {
 			String path = "database.properties";
-			properties.load(this.getClass().getResourceAsStream(File.separator + path));
+			properties.load(this.getClass().getResourceAsStream("/" + path));
 			// prop.load(new FileReader(path));
 			Class.forName(properties.getProperty("driver"));
 			conn = DriverManager.getConnection(properties.getProperty("url"), properties.getProperty("username"),
