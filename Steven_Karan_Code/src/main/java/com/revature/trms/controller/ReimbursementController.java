@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.revature.trms.daoimpls.ReimbursementDAOImpl;
 import com.revature.trms.models.Address;
 import com.revature.trms.models.Alert;
 import com.revature.trms.models.Employee;
@@ -67,6 +68,7 @@ public class ReimbursementController {
 		event.setPassing_grade(req.getParameter("passing-grade"));
 		event.setGrade_received(null);
 		
+		// linking address and event:
 		event.setLocation(addr);
 		
 		if(!EventValidator.validate_Event(event)) {
@@ -80,7 +82,8 @@ public class ReimbursementController {
 		Reimbursement reimb = new Reimbursement();
 		reimb.setStatus_id(0);
 		reimb.setEmp_id(emp.getEmp_id());
-		// Date
+		// Setting request_date to today:
+		reimb.setRequest_date(LocalDate.now());
 		reimb.setJustification(req.getParameter("justification"));
 		reimb.setWork_time_missed( Integer.parseInt(req.getParameter("work-missed")) );
 		
@@ -91,9 +94,12 @@ public class ReimbursementController {
 			return "/html/reimburse.html";
 		}
 		
+		// linking event and reimbursement (address transitively)
+		reimb.setEvent(event);
 		
 		// All validators passed, can move forward with inserting the form into the database
-		
+		ReimbursementDAOImpl rdi = new ReimbursementDAOImpl();
+		rdi.insertReimbursement(reimb);
 		
 		
 		return "/html/reimburse.html";

@@ -6,7 +6,7 @@ public interface EventDAO {
 
 	//CRUDE methods
 		//Create
-		public boolean insertEvent(Event event);
+		public int insertEvent(Event event);
 		
 		//Read
 		public Event getEvent(int id);

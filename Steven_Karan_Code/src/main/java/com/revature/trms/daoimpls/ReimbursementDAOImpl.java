@@ -25,9 +25,11 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 
 			ps.setInt(1, reimb.getEmp_id());
 			int addr_id = new AddressDAOImpl().insertAddress(reimb.getEvent().getLocation());
+			reimb.getEvent().getLocation().setAddress_id(addr_id);
 			
+			int event_id = new EventDAOImpl().insertEvent(reimb.getEvent());
+			reimb.getEvent().setEvent_id(event_id);
 			
-			// insert event (get event id)
 			ps.setInt(2, reimb.getEvent().getEvent_id());
 			ps.setDate(3, Date.valueOf(reimb.getRequest_date()));
 			ps.setString(4, reimb.getJustification());
