@@ -35,23 +35,23 @@
 								<br>
 								<div class="col-12">
 									<div class="form-group">
-										<input type="text" name="firstname" value="Firstname">
+										<input type="text" name="firstname" id="firstname" value="Firstname">
 										<br> 
-										<input type="text" name="lastname" value="Lastname">
+										<input type="text" name="lastname" id="lastname" value="Lastname">
 										<br> 
-										<input type="text" name="email" value="Email">
+										<input type="text" name="email" id="email" value="Email">
 										<br> 
-										<input type="text" name="department" value="Department"> 
+										<input type="text" name="department" id="department" value="Department"> 
 										<br> 
-										<input type="text"name="reportsto" value="ReportsTo"> 
+										<input type="text"name="reportsto" id="reportsto" value="ReportsTo"> 
 										<br> 
-										<input type="text" name="eventtype" value="Event Type"> 
+										<input type="text" name="eventtype" id="eventtype" value="Event Type"> 
 										<br>
-										<input type="text" name="eventlocation" value="Event Location">
+										<input type="text" name="eventlocation" id="eventlocation" value="Event Location">
 										<br> 
-										<input type="text" name="eventcost" value="$0.00">
+										<input type="text" name="eventcost" id="eventcost" value="$0.00">
 										<br> 
-										<input type="text" name="gradeformat" value="Grade to pass('A', 'B'..) "> 
+										<input type="text" name="gradeformat" id="gradeformat" value="Grade to pass('A', 'B'..) "> 
 										<br>
 									</div>
 									<div class="form-group">
@@ -59,14 +59,14 @@
 										<textarea class="form-control" id="summary" rows="3">Brief summary about neccessity of certification.</textarea>
 									</div>
 									<br> 
-									<select>
+									<select id="certjustify">
 										<option value="specialization">Job Specialization</option>
 										<option value="expansion">Skillset Expansion</option>
 										<option value="licensing">Licensing</option>
 										<option value="requirements" selected>Requirements</option>
 									</select> Cert justification 
 									<br> 
-									<input type="number" name="workhours" placeholder="6" min="1" max="100"> # Hours
+									<input type="number" name="workhours" id="workhours" placeholder="6" min="1" max="100"> # Hours
 								</div>
 								<hr>
 								<div class="col-1>description, [dropdown list] cost, [cost
@@ -75,9 +75,9 @@
 								</div>
 								<br> <br>
 								<div class="col-1">
-									Select a file (Optional: pdf, png, jpeg, txt, or doc) : <input type="file" name="myFile">
+									Select a file (Optional: pdf, png, jpeg, txt, or doc) : <input type="file" name="myfile" id="myfile">
 									<hr>
-									multiple attachments Attachments (.msg/Outlook Email file): <input type="file" name="myFile2"> 
+									multiple attachments Attachments (.msg/Outlook Email file): <input type="file" name="myfile2" id="myfile2"> 
 									<br> <br>
 									projected reimvbursement amount 
 									<br> <br> 
