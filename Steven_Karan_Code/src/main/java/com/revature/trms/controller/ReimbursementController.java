@@ -1,7 +1,11 @@
 package com.revature.trms.controller;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,14 +24,17 @@ public class ReimbursementController {
 	
 	public static String Reimburse(HttpServletRequest req) {
 		System.out.println("Processing Reimbursement");
-		Employee emp = (Employee) req.getAttribute("Employee");
+		Employee emp = (Employee) req.getSession().getAttribute("Employee");
+		Alert alert = null;
 		
 		// Check if user is authenticated:
 		if(emp==null) {
+			System.out.println("Could not find employee session var");
 			return "/html/index.html";
 		}
 		
 		if (req.getMethod().equals("GET")) {
+			System.out.println("GET method");
 			return "/html/reimburse.html";
 		}
 		
@@ -51,7 +58,7 @@ public class ReimbursementController {
 		// Can be changed to inform the user of the specific issue with the form
 		if(!AddressValidator.validate_Address(addr)) {
 			//System.out.println("Invalid address");
-			Alert alert = new Alert("danger","Error: Invalid Address");
+			alert = new Alert("danger","Error: Invalid Address");
 			req.getSession().setAttribute("Alert", alert);
 			return "/html/reimburse.html";
 		}
@@ -59,10 +66,30 @@ public class ReimbursementController {
 		
 		Event event = new Event();
 		event.setType_name(req.getParameter("event-type"));
-		String event_date_str = req.getParameter("event-date");
-		event.setStart_date(LocalDate.parse(event_date_str));
-		String event_time_str = req.getParameter("event-time");
-		event.setStart_time( new Timestamp(Timestamp.parse(event_time_str)));
+		
+		System.out.println(req.getParameter("event-date"));
+		Date event_date = Date.valueOf(req.getParameter("event-date"));
+		event.setStart_date(event_date.toLocalDate());
+		
+		
+		System.out.println(req.getParameter("event-time"));
+		String event_date_time_str = req.getParameter("event-date") + " " + req.getParameter("event-time");
+		System.out.println(event_date_time_str);
+		
+		String pattern = "yyyy-MM-dd hh:mm";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		java.util.Date date = null;
+		try {
+			date = simpleDateFormat.parse(event_date_time_str);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return "/html/reimburse.html";
+		}
+		
+		Timestamp timestamp = new Timestamp(date.getTime());
+		
+		event.setStart_time(timestamp);
+		
 		event.setDescription(req.getParameter("description"));
 		event.setFormat_name(req.getParameter("grade-format"));
 		event.setPassing_grade(req.getParameter("passing-grade"));
@@ -73,7 +100,7 @@ public class ReimbursementController {
 		
 		if(!EventValidator.validate_Event(event)) {
 			//System.out.println("Invalid event");
-			Alert alert = new Alert("danger","Error: Invalid Event");
+			alert = new Alert("danger","Error: Invalid Event");
 			req.getSession().setAttribute("Alert", alert);
 			return "/html/reimburse.html";
 		}
@@ -89,7 +116,7 @@ public class ReimbursementController {
 		
 		
 		if(!ReimbursementValidator.validate_Reimbursement(reimb)) {
-			Alert alert = new Alert("danger","Error: Invalid Reimbursement Details");
+			alert = new Alert("danger","Error: Invalid Reimbursement Details");
 			req.getSession().setAttribute("Alert", alert);
 			return "/html/reimburse.html";
 		}
@@ -99,9 +126,14 @@ public class ReimbursementController {
 		
 		// All validators passed, can move forward with inserting the form into the database
 		ReimbursementDAOImpl rdi = new ReimbursementDAOImpl();
-		rdi.insertReimbursement(reimb);
+		boolean success = rdi.insertReimbursement(reimb);
 		
-		
+		if(success) {
+			alert = new Alert("success", "Reimbursement Submitted!");
+		}else {
+			alert = new Alert("danger", "Error trying to submit reimbursement. Please try again later.");
+		}
+		req.getSession().setAttribute("Alert", alert);
 		return "/html/reimburse.html";
 		
 		
