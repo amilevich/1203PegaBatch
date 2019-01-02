@@ -20,8 +20,12 @@ public class RequestHelper {
 			return ReimbursementController.Reimburse(req);
 		case "/ReimbursementSystem/html/alertJSON.do":
 			return AlertController.AlertJSON(req,resp);
+		case "/ReimbursementSystem/html/reimburse-list.do":
+			return ReimbursementListController.ReimbursementList(req);
+		case "/ReimbursementSystem/html/reimburse-listJSON.do":
+			return ReimbursementListController.ReimbursementListJSON(req, resp);
 		default:
-			return HomeController.Home(req);
+			return LoginController.Login(req);
 		}
 	}
 

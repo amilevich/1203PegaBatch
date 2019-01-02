@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Reimbursements!</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="../css/styles.css">
+<link rel="stylesheet" type="text/css" href="../css/reimburse.css">
+</head>
+
+<body>
+
+	<div class="container">
+		<div class="title">
+			<h1>Reimbursement List</h1>
+			<hr>
+		</div>
+		<div class="accordion" id="accordionExample">
+			<div class="card">
+				<div class="card-header" id="headingOne" data-toggle="collapse"
+					data-target="#collapseOne">
+					<div class="navbar">
+						<a class="nav-item">Reimburstment id</a>
+						<div class="">Reimbursement Status</div>
+						<div class=" my-2 my-lg-0">Event Date</div>
+					</div>
+
+				</div>
+				<div id="collapseOne" class="collapse show"
+					aria-labelledby="headingOne" data-parent="#accordionExample">
+					<div class="card-body">
+						<div class="card-header" id="headingMenu" data-toggle="collapse">
+							<ul
+								class="nav nav-pills card-header-pills flex-column flex-sm-row">
+
+								<li class="flex-sm-fill text-sm-center nav-item"><a
+									class="list-group-item list-group-item-action active"
+									data-toggle="list" href="#Event">Event</a></li>
+
+								<li class="flex-sm-fill text-sm-center nav-item"><a
+									class="list-group-item list-group-item-action"
+									data-toggle="list" href="#Location">Location</a></li>
+
+								<li class="flex-sm-fill text-sm-center nav-item"><a
+									class="list-group-item list-group-item-action"
+									data-toggle="list" href="#Details">Details</a></li>
+									
+								<li class="flex-sm-fill text-sm-center nav-item"><a
+									class="list-group-item list-group-item-action"
+									data-toggle="list" href="#Status">Status</a></li>
+							</ul>
+						</div>
+						<div class="card-body">
+							<div class="tab-content">
+								<!--  -->
+								<div class="tab-pane fade show active" id="Event" role="tabpanel">
+									<h3>Event Information</h3>
+									<hr>
+
+									<div class="form-row form-group form-inline">
+										<div class="col-lg-1 col-md-1 col-sm-12">
+											<label class="inline-label" for="event-type">Type</label>
+										</div>
+
+										<div class="col-lg-2 col-md-5 col-sm-12">
+											<!-- type -->
+											<label class="form-control full-width" id="event-type">
+											</label>
+										</div>
+
+										<div
+											class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">
+											<label class="inline-label" for="event-cost">Cost</label>
+										</div>
+										<div class="input-group col-lg-2 col-md-2 col-sm-12">
+											<div class="input-group-prepend">
+												<div class="input-group-text">$</div>
+											</div>
+											<label class="form-control" id="event-cost"> </label>
+										</div>
+									</div>
+
+									<div class="form-row form-group form-inline">
+										<div class="col-lg-1 col-md-1 col-sm-12">
+											<label class="inline-label" for="event-date">Date</label>
+										</div>
+
+										<div class="col-lg-2 col-md-5 col-sm-12">
+											<label class="form-control full-width"> </label>
+										</div>
+
+
+										<div
+											class="col-lg-1 col-md-1 col-sm-12 offset-md-1 offset-lg-1">
+											<!-- time -->
+											<label class="inline-label" for="event-date">Time</label>
+										</div>
+										<div class="col-lg-2 col-md-2 col-sm-12">
+											<label class="form-control"> </label>
+										</div>
+									</div>
+
+									<div class="form-row form-group form-inline">
+										<div class="col-lg-1 col-md-2 col-sm-12">
+											<label class="inline-label" for="grade-format">Grade
+												Format</label>
+										</div>
+
+										<div class="col-lg-2 col-md-4 col-sm-12">
+											<!-- type -->
+											<label class="form-control full-width" id="grade-format">
+											</label>
+										</div>
+
+
+										<div
+											class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">
+											<label class="inline-label" for="passing-grade">Passing
+												Grade</label>
+										</div>
+
+										<div class="col-lg-2 col-md-2 col-sm-12">
+											<label class="form-control"> </label>
+										</div>
+									</div>
+								</div>
+								<!--  Event location tabpanel-->
+								<div class="tab-pane fade" id="Location" role="tabpanel">
+									<div class="form-group">
+										<h3>Event Location</h3>
+										<hr>
+										<div id="locationField" class="form-row form-group">
+											<label class="form-row form-group" id="location-text">
+											</label>
+										</div>
+										<div class="form-row form-group form-inline">
+											<div class="col-lg-2 col-md-2 col-sm-6">
+												<label class="inline-label" for="street-num">Street
+													Number</label>
+											</div>
+
+											<div class="col-lg-3 col-md-4 col-sm-6">
+												<input type="text" name="street-num" id="street_number"
+													class="form-control p full-width" readonly>
+											</div>
+
+											<div class="col-lg-1 col-md-1 col-sm-6">
+												<label class="inline-label" for="event-address-street">Street</label>
+											</div>
+
+											<div class="col-lg-3 col-md-3 col-sm-6">
+												<input type="text" name="event-address-street" id="route"
+													class="form-control p full-width" readonly>
+											</div>
+										</div>
+
+
+										<div class="form-row form-group form-inline">
+											<div class="col-lg-2 col-md-2 col-sm-6">
+												<label class="inline-label" for="event-address-city">City</label>
+											</div>
+											<div class="col-lg-3 col-md-3 col-sm-6">
+												<input type="text" name="event-address-city" id="locality"
+													class="form-control p full-width" readonly>
+											</div>
+
+											<div class="col-lg-1 col-md-1 col-sm-6">
+												<label class="inline-label" for="event-address-state">State</label>
+											</div>
+											<div class="col-lg-2 col-md-2 col-sm-6">
+												<input type="text" name="event-address-state"
+													id="administrative_area_level_1"
+													class="form-control p full-width" readonly>
+											</div>
+
+											<div class="col-lg-1 col-md-1 col-sm-6">
+												<label class="inline-label" for="event-address-zip">Zip
+													Code</label>
+											</div>
+											<div class="col-lg-2 col-md-2 col-sm-6">
+												<input type="text" name="event-address-zip" id="postal_code"
+													class="form-control p full-width" readonly>
+											</div>
+										</div>
+
+
+										<div class="form-row">
+											<div class="col-lg-2 col-md-2 col-sm-6">
+												<label class="inline-label" for="event-address-country">Country</label>
+											</div>
+											<div class="col-sm-6">
+												<input type="text" name="event-address-country" id="country"
+													class="form-control p" readonly>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- All the basic information of the reimbursement request -->
+								<div class="tab-pane fade" id="Details" role="tabpanel">
+									<h3>Reimbursement Details</h3>
+									<hr>
+									<div class="form-group">
+										<div class="form-row">
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<!-- description -->
+												<label for="description">Description</label>
+												<textarea class="form-control" name="description" readonly>
+													</textarea>
+											</div>
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<div class="form-row">
+											<div class="col-lg-12 col-md-12 col-sm-12">
+												<!-- work related justification -->
+												<label for="justification">Justification</label>
+												<textarea class="form-control" name="justification" readonly>
+													</textarea>
+											</div>
+										</div>
+									</div>
+
+									<!-- optional fields -->
+									<div class="form-group">
+
+										<!-- work time missed (# of hours) -->
+										<div class="form-row">
+											<div class="col-lg-3 col-md-3 col-sm-12">
+												<label for="work-missed">Work Hours Missed</label> <label
+													class="form-control" id="work-missed"> </label>
+											</div>
+										</div>
+									</div>
+
+									<!--  Tabpanel for presenting all the phases of the reimbursement process-->
+									<!-- -->
+								</div>
+								<div class="tab-pane fade" id="Status" role="tabpanel">
+									<div class="form-group">
+										<div class="form-row form-group form-inline">
+											<div class="col-lg-1 col-md-2 col-sm-12">
+												<label class="inline-label" for="reimb-status">Status:
+												</label>
+											</div>
+											<div class="col-lg-2 col-md-4 col-sm-12">
+												<!-- type -->
+												<label class="form-control full-width" id="reimb-status">
+												</label>
+											</div>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input disabled" type="checkbox"
+												id="checkSuper" disabled> <label
+												class="form-check-label" for="checkSuper"> Approved
+												By Direct Supervisor </label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input disabled" type="checkbox"
+												id="checkSuper" disabled> <label
+												class="form-check-label" for="checkSuper"> Approved
+												By Department Head </label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input disabled" type="checkbox"
+												id="checkSuper" disabled> <label
+												class="form-check-label" for="checkSuper"> Approved
+												By Benefit Coordinator </label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox"
+												id="checkSuper" disabled> <label
+												class="form-check-label" for="checkSuper"> Completed
+												Grading </label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox"
+												id="checkSuper" disabled> <label
+												class="form-check-label" for="checkSuper"> Confirmed
+												By Direct Supervisor </label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox"
+												id="checkSuper" disabled> <label
+												class="form-check-label" for="checkSuper"> Confirmed
+												By Benefit Coordinator </label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox"
+												id="checkSuper" disabled> <label
+												class="form-check-label" for="checkSuper"> Funds
+												Awarded Successfully </label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card-footer">
+								<h4>Manage Reimbursement</h4>
+								<div class="form-group container">
+									<button type="button" class="btn btn-danger">Deny</button>
+									<button type="button" class="btn btn-danger">Cancel</button>
+									<button type="button" class="btn btn-success">Save</button>
+									<button type="button" class="btn btn-primary">Submit</button>
+									<button type="button" class="btn btn-success">Approve</button>
+									<button type="button" class="btn btn-success">Confirm</button>
+									<button type="button" class="btn btn-info" data-toggle="modal"
+										data-target="#requesAddtInfo" data-whatever="@mdo">
+										Request Information</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-footer text-muted"></div>
+				</div>
+			</div>
+		</div>
+
+		<!--Modal used to pop up additional information request form  -->
+		<div class="modal fade" id="requesAddtInfo" tabindex="-1"
+			role="dialog" aria-labelledby="requesAddtInfoLabel"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Request for
+							Additional Information</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="form-group">
+								<label for="sent-to" class="col-form-label">Send to:</label> <select
+									class="form-control" id="send-to" name="sent-to">
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="message-text" class="col-form-label">Message:</label>
+								<textarea class="form-control" id="message-text"></textarea>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Send
+							Request</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Bootstrap -->
+		<script type="text/javascript" src="../js/reimburse-list.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+			integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+			crossorigin="anonymous"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+			integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+			crossorigin="anonymous"></script>
+</body>
+
+</html>

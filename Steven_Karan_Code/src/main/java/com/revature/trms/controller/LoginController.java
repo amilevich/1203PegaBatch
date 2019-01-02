@@ -11,8 +11,13 @@ import com.revature.trms.models.Employee;
 public class LoginController {
 
 	public static String Login(HttpServletRequest req) {
-		//System.out.println("IN LOGIN CONTROLLER");
 		
+		System.out.println("Verifying user authentication(in login)");
+		
+		Employee emp = (Employee) req.getAttribute("Employee");
+		if(emp!=null) {
+			return "/html/login.html";
+		}
 		if (req.getMethod().equals("GET")) {
 			return "/html/login.html";
 		}
@@ -23,8 +28,7 @@ public class LoginController {
 		//System.out.println("password: " + password);
 
 		EmployeeDAOImpl edi = new EmployeeDAOImpl();
-		Employee emp = new Employee();
-
+		emp = null;
 		emp = edi.getEmployeeByUsername(username);
 		
 		//System.out.println("emp: " + emp);
