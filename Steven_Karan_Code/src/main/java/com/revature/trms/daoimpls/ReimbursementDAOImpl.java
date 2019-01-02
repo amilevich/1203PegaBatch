@@ -34,7 +34,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			ps.setDate(3, Date.valueOf(reimb.getRequest_date()));
 			ps.setString(4, reimb.getJustification());
 			ps.setInt(5, reimb.getWork_time_missed());
-			if (reimb.getStatus_id() > -1)
+			if (reimb.getStatus_id() < 0)
 				ps.setInt(6, reimb.getStatus_id());
 			else
 				ps.setNull(6, 1);

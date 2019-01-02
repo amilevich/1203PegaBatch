@@ -19,7 +19,7 @@ public class EventDAOImpl implements EventDAO {
 	@Override
 	public int insertEvent(Event event) {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "INSERT INTO event_detail VALUES(null,?,?,?,?,?,?,?,?,?) RETURNING event_id INTO ?; END;";
+			String sql = "BEGIN INSERT INTO event_detail VALUES(null,?,?,?,?,?,?,?,?,?) RETURNING event_id INTO ?; END;";
 			CallableStatement cs = conn.prepareCall(sql);
 			System.out.println(event);
 			cs.setString(1, event.getType_name());

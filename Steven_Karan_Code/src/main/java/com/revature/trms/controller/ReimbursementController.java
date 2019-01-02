@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -93,6 +93,7 @@ public class ReimbursementController {
 		event.setDescription(req.getParameter("description"));
 		event.setFormat_name(req.getParameter("grade-format"));
 		event.setPassing_grade(req.getParameter("passing-grade"));
+		event.setCost(Integer.parseInt(req.getParameter("event-cost")));
 		event.setGrade_received(null);
 		
 		// linking address and event:
