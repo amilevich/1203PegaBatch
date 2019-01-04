@@ -22,7 +22,7 @@ public class RequestHelper {
 			return AlertController.AlertJSON(req,resp);
 		case "/ReimbursementSystem/html/reimburse-list.do":
 			return ReimbursementListController.ReimbursementList(req);
-		case "/ReimbursementSystem/html/reimburse-listJSON.do":
+		case "/ReimbursementSystem/html/emp-listJSON.do":
 			return ReimbursementListController.ReimbursementListJSON(req, resp);
 		default:
 			return LoginController.Login(req);

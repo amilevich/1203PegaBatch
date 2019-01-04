@@ -15,26 +15,26 @@ import com.revature.trms.models.Reimbursement;
 public class ReimbursementListController {
 
 	public static String ReimbursementList(HttpServletRequest req) {
-
-		return "/html/reimbursement-list.html";
+		Employee emp = (Employee) req.getSession().getAttribute("Employee");
+		// Ensure that user is authenticated...
+		if (emp==null) {
+			return "/html/login.html";
+		}
+		return "/html/reimburse-list.html";
 	}
 
 	public static String ReimbursementListJSON(HttpServletRequest req, HttpServletResponse resp) {
-		
-		System.out.println("Processing Reimbursement List");
-		//Ensure that user is authenticated...
+
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
-		//System.out.println(emp);
-		if(emp == null) {
-			return "/html/login.html";
-		}
+		System.out.println("Processing Reimbursement List");
 		try {
-			ArrayList<Reimbursement> reimb_list = new ReimbursementDAOImpl().getAllReimbursementByEmployee(emp.getEmp_id());
-			//System.out.println(new ObjectMapper().writeValueAsString(reimb_list));
+			ArrayList<Reimbursement> reimb_list = new ReimbursementDAOImpl()
+					.getAllReimbursementByEmployee(emp.getEmp_id());
+			System.out.println(new ObjectMapper().writeValueAsString(reimb_list));
 			resp.getWriter().write(new ObjectMapper().writeValueAsString(reimb_list));
-		}catch(JsonProcessingException ex) {
+		} catch (JsonProcessingException ex) {
 			ex.printStackTrace();
-		}catch(IOException ex) {
+		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
 		return null;
