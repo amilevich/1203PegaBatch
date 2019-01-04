@@ -21,7 +21,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public boolean insertEmployee(Employee empl) {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "INSERT INTO employee VALUES(null,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO employee VALUES(null,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
 			int super_id = empl.getSupervisor_id();
@@ -38,6 +38,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			ps.setString(6, empl.getLastname());
 			ps.setString(7, empl.getUsername());
 			ps.setString(8, empl.getPassword());
+			ps.setDouble(9, empl.getAvailable_funds());
 			ps.executeUpdate();
 			return true;
 
@@ -64,12 +65,14 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				empl.setEmail(rs.getString("email"));
 				empl.setUsername(rs.getString("username"));
 				empl.setPassword(rs.getString("password"));
+				empl.setAvailable_funds(rs.getDouble("available_funds"));
 
 				empl.setDepartment(rs.getString("dept"));
 
 				empl.setPosition(rs.getString("position"));
 
 				empl.setSupervisor_id(rs.getInt("super_id"));
+				
 				
 				if(!rs.wasNull()) {
 					empl.setSupervisor_firstname(rs.getString("super_firstname"));
@@ -103,6 +106,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				empl.setEmail(rs.getString("email"));
 				empl.setUsername(rs.getString("username"));
 				empl.setPassword(rs.getString("password"));
+				empl.setAvailable_funds(rs.getDouble("available_funds"));
 
 				empl.setDepartment(rs.getString("dept"));
 
@@ -131,7 +135,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	public boolean updateEmployee(Employee empl) {
 		try (Connection conn = cf.getConnection();) {
 			// TODO: NOTE: check that not null values are not null from any calling method
-			String sql = "UPDATE employee SET firstname=?, lastname=?, email=?, username=?, dept=?, pos=? WHERE emp_id=?";
+			String sql = "UPDATE employee SET firstname=?, lastname=?, email=?, username=?, dept=?, pos=?, available_funds=? WHERE emp_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, empl.getFirstname());
 			ps.setString(2, empl.getLastname());
@@ -139,7 +143,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 			ps.setString(4, empl.getUsername());
 			ps.setString(5, empl.getDepartment());
 			ps.setString(6, empl.getPosition());
-			ps.setInt(7, empl.getEmp_id());
+			ps.setDouble(7, empl.getAvailable_funds());
+			ps.setInt(8, empl.getEmp_id());
 			
 			// Note: at most 1 row can be updated at a time given that the where clause selects an id
 			if ( ps.executeUpdate() >= 1) {
