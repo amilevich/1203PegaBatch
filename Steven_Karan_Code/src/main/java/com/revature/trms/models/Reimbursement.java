@@ -9,7 +9,9 @@ public class Reimbursement {
 	
 	private String justification;
 	private int work_time_missed;
-
+	private double fund_awarded;
+	
+	
 	// Reimbursement status information
 	private int status_id;
 	private String status_name;
@@ -17,7 +19,6 @@ public class Reimbursement {
 	private boolean sup_flag;
 	private boolean dept_flag;
 	private boolean benco_flag;
-	private double fund_awarded;// better fit will be in reimbursement, not in status(?)
 	private int next_id;
 
 	// Employee Information

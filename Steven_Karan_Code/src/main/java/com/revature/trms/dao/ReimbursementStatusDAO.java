@@ -9,6 +9,7 @@ public interface ReimbursementStatusDAO {
 		
 		//Read
 		//public Reimbursement getReimbursementStatus(Reimbursement reimb);
+		public boolean statusExists(int id);
 		
 		//Update
 		public boolean updateReimbursementStatus(Reimbursement reimb);

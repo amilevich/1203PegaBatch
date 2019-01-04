@@ -27,9 +27,9 @@ public class AddressValidator {
 			return false;
 		}
 		
-		/*if(city == null) {
+		if(city == null) {
 			return false;
-		}*/
+		}
 		
 		if(state == null) {
 			return false;

@@ -17,6 +17,7 @@ import com.revature.trms.models.Event;
 import com.revature.trms.models.Reimbursement;
 import com.revature.trms.validators.AddressValidator;
 import com.revature.trms.validators.EventValidator;
+import com.revature.trms.validators.GeneralValidator;
 import com.revature.trms.validators.ReimbursementValidator;
 
 public class ReimbursementController {
@@ -54,7 +55,8 @@ public class ReimbursementController {
 		// Can be changed to inform the user of the specific issue with the form
 		if(!AddressValidator.validate_Address(addr)) {
 			//System.out.println("Invalid address");
-			alert = new Alert("danger","Error: Invalid Address");
+			alert = new Alert("danger","Error: Invalid Address\nPlease fill in all address fields.");
+			
 			req.getSession().setAttribute("Alert", alert);
 			return "/html/reimburse.html";
 		}
@@ -102,7 +104,17 @@ public class ReimbursementController {
 		// Setting request_date to today:
 		reimb.setRequest_date(LocalDate.now());
 		reimb.setJustification(req.getParameter("justification"));
-		reimb.setWork_time_missed( Integer.parseInt(req.getParameter("work-missed")) );
+		
+		String work_missed_str = req.getParameter("work-missed");
+		System.out.println("Before numeric validation. Work Missed: " + work_missed_str);
+		if(GeneralValidator.isNumeric(work_missed_str)) {
+			System.out.println("valid");
+			reimb.setWork_time_missed( Integer.parseInt(work_missed_str ));
+		}else {
+			System.out.println("invalid");
+			alert = new Alert("danger", "Error: Invalid work time missed.\nOnly numbers are allowed in this field");
+			req.getSession().setAttribute("Alert",alert);
+		}
 		
 		
 		if(!ReimbursementValidator.validate_Reimbursement(reimb)) {

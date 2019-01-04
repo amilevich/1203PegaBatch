@@ -19,9 +19,13 @@ public class GeneralValidator {
 	}
 	
 	
-	public static void main(String args[]) {
-		System.out.println(isAlphaNumeric("Hello!"));
-		System.out.println(isPlainText("Hello!/!@#$%^&*()_\""));
+	public static boolean isNumeric(String s) {
+		return s.matches("[0-9]+");
 	}
+	
+	public static boolean isDecimalNumber(String s) {
+		return s.matches("[0-9]*[.]?[0-9]*");
+	}
+	
 	
 }
