@@ -27,31 +27,27 @@ public class ReimbursementController {
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		Alert alert = null;
 		
-		// Check if user is authenticated:
+		// Check if user is authenticated, if not redirect them to the home page:
 		if(emp==null) {
-			System.out.println("Could not find employee session var");
 			return "/html/index.html";
 		}
 		
 		if (req.getMethod().equals("GET")) {
-			System.out.println("GET method");
 			return "/html/reimburse.html";
 		}
 		
 		
 		// if the response is a POST, parse the incoming reimbursement form
-		
 		// Parse address of event, then event, then remaining reimbursement form fields
 		Address addr = new Address();
 		addr.setAddress_text(req.getParameter("event-location"));
-		
 		addr.setStreet_number(req.getParameter("street-num"));
 		addr.setRoute(req.getParameter("event-address-street"));
 		addr.setCity(req.getParameter("event-address-city"));
 		addr.setState(req.getParameter("event-address-state"));
 		addr.setZipcode(req.getParameter("event-address-zip"));
 		addr.setCountry(req.getParameter("event-address-country"));
-		System.out.println(addr);
+		
 		// validate address, only continue if valid
 		
 		// Note: Temporarily, same thing is done for every failed validator (returning the page)
@@ -66,15 +62,9 @@ public class ReimbursementController {
 		
 		Event event = new Event();
 		event.setType_name(req.getParameter("event-type"));
-		
-		System.out.println(req.getParameter("event-date"));
 		Date event_date = Date.valueOf(req.getParameter("event-date"));
 		event.setStart_date(event_date.toLocalDate());
-		
-		
-		System.out.println(req.getParameter("event-time"));
 		String event_date_time_str = req.getParameter("event-date") + " " + req.getParameter("event-time");
-		System.out.println(event_date_time_str);
 		
 		String pattern = "yyyy-MM-dd hh:mm";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -89,7 +79,6 @@ public class ReimbursementController {
 		Timestamp timestamp = new Timestamp(date.getTime());
 		
 		event.setStart_time(timestamp);
-		
 		event.setDescription(req.getParameter("description"));
 		event.setFormat_name(req.getParameter("grade-format"));
 		event.setPassing_grade(req.getParameter("passing-grade"));

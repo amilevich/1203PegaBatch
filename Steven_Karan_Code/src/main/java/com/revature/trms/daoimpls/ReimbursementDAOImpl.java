@@ -22,13 +22,26 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 		try (Connection conn = cf.getConnection();) {
 			String sql = "INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
+			// Turn off autocomiit
+			conn.setAutoCommit(false);
 
 			ps.setInt(1, reimb.getEmp_id());
 			int addr_id = new AddressDAOImpl().insertAddress(reimb.getEvent().getLocation());
-			reimb.getEvent().getLocation().setAddress_id(addr_id);
+			
+			if(addr_id > 0) {
+				reimb.getEvent().getLocation().setAddress_id(addr_id);
+			}else {
+				return false;
+			}
 			
 			int event_id = new EventDAOImpl().insertEvent(reimb.getEvent());
-			reimb.getEvent().setEvent_id(event_id);
+			if(event_id > 0) {
+				reimb.getEvent().setEvent_id(event_id);
+			}else {
+				return false;
+			}
+			
+			
 			
 			ps.setInt(2, reimb.getEvent().getEvent_id());
 			ps.setDate(3, Date.valueOf(reimb.getRequest_date()));
@@ -38,8 +51,14 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				ps.setInt(6, reimb.getStatus_id());
 			else
 				ps.setNull(6, 1);
-			ps.executeUpdate();
-			return true;
+			if( ps.executeUpdate() > 0) {
+				System.out.println("COMMITTING CHANGES");
+				conn.commit();
+				return true;
+			}
+			
+		
+			return false;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
