@@ -37,7 +37,7 @@ function createReimbursementView(reimb,id){
 	let reimbursement_status = reimb.status_name;
 	
 	switch (reimbursement_status){
-	case false:
+	case null:
 		reimbursement_status = "Status: Saved";
 		button_group = 
 			'<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
@@ -54,6 +54,15 @@ function createReimbursementView(reimb,id){
 		break;
 		
 	case "Pending Department Head Approval":
+		reimbursement_status = "Status: " + reimbursement_status;
+		button_group = 
+			'<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
+			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
+			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
+			'Request Information</button>';
+		break;
+		
+	case "Pending Benifits Coordinator Approval":
 		reimbursement_status = "Status: " + reimbursement_status;
 		button_group = 
 			'<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
@@ -84,8 +93,9 @@ function createReimbursementView(reimb,id){
 				reimb.event.start_date.dayOfMonth < today.getDate()){
 			reimbursement_status = "Status: " + reimbursement_status;
 			button_group = 
-				'<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
-				'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary">Submit</button>';
+				'<button type="button" id="SendButton'+id+'" class="btn btn-success">Send</button>'+
+				'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
+				'Upload Attachment</button>';
 		}
 		break;
 		

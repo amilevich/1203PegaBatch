@@ -22,7 +22,7 @@ public class Reimbursement {
 	private int next_id;
 
 	// Employee Information
-	private int emp_id;
+	private Employee employee;
 
 	// Event details
 	private Event event;
@@ -127,12 +127,12 @@ public class Reimbursement {
 		this.next_id = next_id;
 	}
 
-	public int getEmp_id() {
-		return emp_id;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setEmp_id(int emp_id) {
-		this.emp_id = emp_id;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 
 	public Event getEvent() {
@@ -149,12 +149,12 @@ public class Reimbursement {
 				+ justification + ", work_time_missed=" + work_time_missed + ", status_id=" + status_id
 				+ ", status_name=" + status_name + ", urgent=" + urgent + ", sup_flag=" + sup_flag + ", dept_flag="
 				+ dept_flag + ", benco_flag=" + benco_flag + ", fund_awarded=" + fund_awarded + ", next_id=" + next_id
-				+ ", emp_id=" + emp_id + ", event=" + event + "]";
+				+ ", employee=" + employee + ", event=" + event + "]";
 	}
 
 	public Reimbursement(int reimb_id, LocalDate request_date, String justification, int work_time_missed,
 			int status_id, String status_name, boolean urgent, boolean sup_flag, boolean dept_flag, boolean benco_flag,
-			double fund_awarded, int next_id, int emp_id, Event event) {
+			double fund_awarded, int next_id, Employee employee, Event event) {
 		super();
 		this.reimb_id = reimb_id;
 		this.request_date = request_date;
@@ -168,11 +168,7 @@ public class Reimbursement {
 		this.benco_flag = benco_flag;
 		this.fund_awarded = fund_awarded;
 		this.next_id = next_id;
-		this.emp_id = emp_id;
+		this.employee = employee;
 		this.event = event;
 	}
-	
-
-	
-
 }

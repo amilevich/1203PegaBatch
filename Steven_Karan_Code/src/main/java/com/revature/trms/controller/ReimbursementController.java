@@ -100,7 +100,7 @@ public class ReimbursementController {
 		
 		Reimbursement reimb = new Reimbursement();
 		reimb.setStatus_id(0);
-		reimb.setEmp_id(emp.getEmp_id());
+		reimb.setEmployee(emp);
 		// Setting request_date to today:
 		reimb.setRequest_date(LocalDate.now());
 		reimb.setJustification(req.getParameter("justification"));

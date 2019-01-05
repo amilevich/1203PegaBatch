@@ -19,7 +19,7 @@ public class ReimbursementValidator {
 		}
 		
 		// validate emp_id
-		int emp_id = reimb.getEmp_id();
+		int emp_id = reimb.getEmployee().getEmp_id();
 		EmployeeDAOImpl edi = new EmployeeDAOImpl();
 		if(edi.getEmployeeByID(emp_id)==null) {
 			return false;
