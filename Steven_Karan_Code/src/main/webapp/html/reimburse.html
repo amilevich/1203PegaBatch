@@ -207,52 +207,27 @@
 		<hr>
 
 		<!-- projected amount reimbursed -->
-		<!-- attachments ;~; -->
 
+
+		<!-- attachments -->
+
+		<div class="form-group form-row">
+			<div class="col-lg-2 col-md-2 col-sm-6">
+				<div class="full-width">
+					<label class="btn btn-info">
+						Attach File <input type="file" style="display: none;" id="attach-input">
+					</label>
+				</div>
+			</div> 
+			<div class="col-lg-2 col-md-2 col-sm-6">
+				<div class="container">
+					<p id="filename"></p>
+				</div>
+			</div>
+		</div>
 		
 	<!-- form end -->
 	
-	<!-- Employee Info (for them to double check, populated via ajax) -->
-	<div class="emp-info">
-
-		<button class="btn btn-info" type="button" data-toggle="collapse" data-target="#personal-info" aria-expanded="false" aria-controls="personalinfo"> 
-			<h3>Personal Information</h3>
-		</button>
-
-		<hr>
-
-		<div id="personal-info" class="collapse">
-			<div class="form-row form-group form-inline">
-		 		<div class="col-lg-1 col-md-2 col-sm-6">
-					<label class="inline-label" for="event-type">First Name</label>
-				</div>
-
-		 		<div class="col-lg-3 col-md-4 col-sm-6">
-			 		<input type="text" name="emp-first-name" id="emp-first-name" class="form-control p full-width" readonly>
-				</div>
-
-				<div class="col-lg-1 col-md-2 col-sm-6">
-					<label class="inline-label" for="event-type">Last Name</label>
-				</div>
-
-		 		<div class="col-lg-3 col-md-4 col-sm-6">
-			 		<input type="text" name="emp-last-name" id="emp-last-name" class="form-control p full-width" readonly>
-				</div>
-			</div>
-
-			<div class="form-row form-group form-inline">
-				<div class="col-lg-1 col-md-2 col-sm-6">
-					<label class="inline-label" for="event-type">Email</label>
-				</div>
-
-		 		<div class="col-lg-4 col-md-4 col-sm-6">
-			 		<input type="text" name="emp-email" id="emp-email" class="form-control p full-width" readonly>
-				</div>
-
-			</div>
-		</div>
-
-	</div>
 
 	<!-- submit button -->
 		<div>
