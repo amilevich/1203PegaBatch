@@ -1,11 +1,14 @@
 package com.revature.trms.controller;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class RequestHelper {
 
-	public static String process(HttpServletRequest req, HttpServletResponse resp) {
+	public static String process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
 		switch (req.getRequestURI()) {
 		case "/ReimbursementSystem/html/home.do":
@@ -24,6 +27,8 @@ public class RequestHelper {
 			return ReimbursementListController.ReimbursementList(req);
 		case "/ReimbursementSystem/html/emp-listJSON.do":
 			return ReimbursementListController.ReimbursementListJSON(req, resp);
+		case "/ReimbursementSystem/html/upload.do":
+			return AttachmentController.UploadFile(req);
 		default:
 			return LoginController.Login(req);
 		}
