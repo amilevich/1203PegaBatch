@@ -25,7 +25,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			// Turn off auto-commit
 			conn.setAutoCommit(false);
 
-			ps.setInt(1, reimb.getEmp_id());
+			ps.setInt(1, reimb.getEmployee().getEmp_id());
 			int addr_id = new AddressDAOImpl().insertAddress(reimb.getEvent().getLocation());
 			
 			if(addr_id > 0) {
@@ -111,7 +111,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 
 				// setting Reimbursement
 				reimb.setReimb_id(rs.getInt("reimb_id"));
-				reimb.setEmp_id(rs.getInt("emp_id"));
+				reimb.setEmployee(new EmployeeDAOImpl().getEmployeeByID(rs.getInt("emp_id")));
 				reimb.setEvent(new EventDAOImpl().getEvent(rs.getInt("event_id")));
 				reimb.setStatus_id(rs.getInt("status_id"));
 				reimb.setRequest_date(rs.getDate("request_date").toLocalDate());
@@ -174,7 +174,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 
 				// setting Reimbursement
 				reimb.setReimb_id(rs.getInt("reimb_id"));
-				reimb.setEmp_id(rs.getInt("emp_id"));
+				reimb.setEmployee(new EmployeeDAOImpl().getEmployeeByID(rs.getInt("emp_id")));
 				reimb.setEvent(new EventDAOImpl().getEvent(rs.getInt("event_id")));
 				reimb.setStatus_id(rs.getInt("status_id"));
 				reimb.setRequest_date(rs.getDate("request_date").toLocalDate());
@@ -199,7 +199,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			String sql = "UPDATE reimbursement SET emp_id=?, event_id=?, status_id=?, request_date=?, justification=?, work_time_missed=? WHERE reimb_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 
-			ps.setInt(2, reimb.getEmp_id());
+			ps.setInt(2, reimb.getEmployee().getEmp_id());
 			ps.setInt(3, reimb.getEvent().getEvent_id());
 			ps.setInt(4, reimb.getStatus_id());
 			ps.setDate(5, Date.valueOf(reimb.getRequest_date()));
@@ -272,7 +272,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 
 				// setting Reimbursement
 				reimb.setReimb_id(rs.getInt("reimb_id"));
-				reimb.setEmp_id(rs.getInt("emp_id"));
+				reimb.setEmployee(new EmployeeDAOImpl().getEmployeeByID(rs.getInt("emp_id")));
 				reimb.setEvent(new EventDAOImpl().getEvent(rs.getInt("event_id")));
 				reimb.setStatus_id(rs.getInt("status_id"));
 				reimb.setRequest_date(rs.getDate("request_date").toLocalDate());
@@ -336,7 +336,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 
 				// setting Reimbursement
 				reimb.setReimb_id(rs.getInt("reimb_id"));
-				reimb.setEmp_id(rs.getInt("emp_id"));
+				reimb.setEmployee(new EmployeeDAOImpl().getEmployeeByID(rs.getInt("emp_id")));
 				reimb.setEvent(new EventDAOImpl().getEvent(rs.getInt("event_id")));
 				reimb.setStatus_id(rs.getInt("status_id"));
 				reimb.setRequest_date(rs.getDate("request_date").toLocalDate());

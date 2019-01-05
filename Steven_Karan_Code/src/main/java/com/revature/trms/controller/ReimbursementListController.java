@@ -17,14 +17,14 @@ public class ReimbursementListController {
 	public static String ReimbursementList(HttpServletRequest req) {
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		// Ensure that user is authenticated...
-		if (emp==null) {
+		System.out.println(emp);
+		if (emp == null) {
 			return "/html/login.html";
 		}
 		return "/html/reimburse-list.html";
 	}
 
 	public static String ReimbursementListJSON(HttpServletRequest req, HttpServletResponse resp) {
-
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		System.out.println("Processing Reimbursement List");
 		try {

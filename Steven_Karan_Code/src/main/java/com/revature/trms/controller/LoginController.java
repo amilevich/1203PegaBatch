@@ -23,19 +23,14 @@ public class LoginController {
 		}
 		
 		String username = req.getParameter("username");
-		//System.out.println("username: " + username);
 		String password = req.getParameter("password");
-		//System.out.println("password: " + password);
 
 		EmployeeDAOImpl edi = new EmployeeDAOImpl();
 		emp = null;
 		emp = edi.getEmployeeByUsername(username);
 		
-		//System.out.println("emp: " + emp);
-		//System.out.println(BCrypt.checkpw(password, emp.getPassword()));
 		if (validCredentials(emp,username,password)) {
 			if (username.equals(emp.getUsername()) && BCrypt.checkpw(password, emp.getPassword())) {
-				//System.out.println("username " + username);
 				req.getSession().setAttribute("Employee", emp);
 				return "/html/index.html";
 			}
