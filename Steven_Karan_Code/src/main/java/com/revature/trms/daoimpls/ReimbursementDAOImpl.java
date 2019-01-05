@@ -22,7 +22,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 		try (Connection conn = cf.getConnection();) {
 			String sql = "INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
-			// Turn off autocomiit
+			// Turn off auto-commit
 			conn.setAutoCommit(false);
 
 			ps.setInt(1, reimb.getEmp_id());
@@ -71,7 +71,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	@Override
 	public Reimbursement getReimbursement(int id) {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "SELECT * FROM reimb_view WHERE reimb_id = ?";
+			String sql = "SELECT * FROM reimb_view WHERE reimb_id = ? SORT BY start_date";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -98,7 +98,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				location.setState(rs.getString("state"));
 				location.setCountry(rs.getString("country"));
 
-				// setting Event Details
+				// setting Event Detail
 				event.setLocation(location);
 				event.setEvent_id(rs.getInt("event_id"));
 				event.setType_name(rs.getString("type_name"));
@@ -119,6 +119,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				reimb.setJustification(rs.getString("justification"));
 				reimb.setWork_time_missed(rs.getInt("work_time_missed"));
 				reimb.setFund_awarded(rs.getDouble("fund_awarded"));
+			
 			}
 
 			return reimb;
