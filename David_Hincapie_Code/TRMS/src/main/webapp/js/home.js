@@ -2,6 +2,8 @@
  * 
  */
 
+var employee;
+
 window.onload = function() {
 	getEmployeeInfo();
 	getSupervisorInfo();
@@ -13,7 +15,7 @@ function getEmployeeInfo() {
 	let xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
-			let employee = JSON.parse(xhttp.responseText);
+			employee = JSON.parse(xhttp.responseText);
 			setEmployeeValues(employee);
 		}
 	}
@@ -54,8 +56,6 @@ function setEmployeeValues(employee) {
 			+ employee.departmentName;
 	document.getElementById("reimbursementFunds").innerHTML = "Available funds: $"
 			+ employee.availbleFunds;
-	document.getElementById("firstname").value = employee.firstName;
-	document.getElementById("lastname").value = employee.lastName;
 }
 
 function setSupervisorValues(supervisor) {
@@ -84,6 +84,7 @@ function getPendingRequests() {
 			true);
 	xhttp.send();
 }
+
 function buildHTMLtable(requests) {
 
 	console.log("buildHTMLtable");

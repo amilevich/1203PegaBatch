@@ -36,8 +36,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				employee.setEmail(rs.getString("email"));
 				employee.setPassword(rs.getString("password"));
 				employee.setReportTo(rs.getInt("reportto"));
+				employee.setDepartmentHeadId(rs.getInt("dpthead"));
 				employee.setPhoneNumber(rs.getString("phonenumber"));
-				employee.setAvailbleFunds(rs.getDouble("refund"));
+				employee.setRefund(rs.getDouble("refund"));
+				employee.setRefundPending(rs.getDouble("refundpending"));
 				System.out.println(employee.toString());
 			}
 			connection.close();
@@ -71,8 +73,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
 				employee.setEmail(rs.getString("email"));
 				employee.setPassword(rs.getString("password"));
 				employee.setReportTo(rs.getInt("reportto"));
+				employee.setDepartmentHeadId(rs.getInt("dpthead"));
 				employee.setPhoneNumber(rs.getString("phonenumber"));
-				employee.setAvailbleFunds(rs.getDouble("refund"));
+				employee.setRefund(rs.getDouble("refund"));
+				employee.setRefundPending(rs.getDouble("refundpending"));
 				System.out.println(employee.toString());
 			}
 			connection.close();

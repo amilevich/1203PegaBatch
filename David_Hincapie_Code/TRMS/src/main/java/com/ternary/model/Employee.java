@@ -3,16 +3,17 @@ package com.ternary.model;
 public class Employee {
 
 	private int employeeId;
-	private int departmentId;
-	private String departmentName;
 	private String firstName;
 	private String lastName;
 	private String jobTitle;
+	private String departmentName;
 	private String email;
 	private String password;
 	private int reportTo;
+	private int departmentHeadId;
 	private String phoneNumber;
-	private double availbleFunds;
+	private double refund;
+	private double refundPending;
 
 	public Employee() {
 		super();
@@ -23,7 +24,7 @@ public class Employee {
 			double availbleFunds) {
 		super();
 		this.employeeId = employeeId;
-		this.departmentId = departmentId;
+		this.departmentHeadId = departmentId;
 		this.departmentName = departmentName;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -32,14 +33,14 @@ public class Employee {
 		this.password = password;
 		this.reportTo = reportTo;
 		this.phoneNumber = phoneNumber;
-		this.availbleFunds = availbleFunds;
+		this.refund = availbleFunds;
 	}
 
 	public Employee(int employeeId, int departmentId, String firstName, String lastName, String title, String email,
 			String password, int reportTo, String phoneNumber, double availbleFunds) {
 		super();
 		this.employeeId = employeeId;
-		this.departmentId = departmentId;
+		this.departmentHeadId = departmentId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.jobTitle = title;
@@ -47,7 +48,7 @@ public class Employee {
 		this.password = password;
 		this.reportTo = reportTo;
 		this.phoneNumber = phoneNumber;
-		this.availbleFunds = availbleFunds;
+		this.refund = availbleFunds;
 	}
 
 	public Employee(String email, String password) {
@@ -62,22 +63,6 @@ public class Employee {
 
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
-	}
-
-	public int getDepartmentId() {
-		return departmentId;
-	}
-
-	public void setDepartmentId(int departmentId) {
-		this.departmentId = departmentId;
-	}
-
-	public String getDepartmentName() {
-		return departmentName;
-	}
-
-	public void setDepartmentName(String departmentName) {
-		this.departmentName = departmentName;
 	}
 
 	public String getFirstName() {
@@ -104,6 +89,14 @@ public class Employee {
 		this.jobTitle = jobTitle;
 	}
 
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -128,6 +121,14 @@ public class Employee {
 		this.reportTo = reportTo;
 	}
 
+	public int getDepartmentHeadId() {
+		return departmentHeadId;
+	}
+
+	public void setDepartmentHeadId(int departmentHeadId) {
+		this.departmentHeadId = departmentHeadId;
+	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -136,22 +137,35 @@ public class Employee {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public double getAvailbleFunds() {
-		return availbleFunds;
+	public double getRefund() {
+		return refund;
 	}
 
-	public void setAvailbleFunds(double availbleFunds) {
-		this.availbleFunds = availbleFunds;
+	public void setRefund(double refund) {
+		this.refund = refund;
+	}
+
+	public double getRefundPending() {
+		return refundPending;
+	}
+
+	public void setRefundPending(double refundPending) {
+		this.refundPending = refundPending;
 	}
 
 	@Override
 	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", departmentId=" + departmentId + ", departmentName="
-				+ departmentName + ", firstName=" + firstName + ", lastName=" + lastName + ", jobTitle=" + jobTitle
-				+ ", email=" + email + ", password=" + password + ", reportTo=" + reportTo + ", phoneNumber="
-				+ phoneNumber + ", availbleFunds=" + availbleFunds + "]";
+		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", jobTitle=" + jobTitle + ", departmentName=" + departmentName + ", email=" + email + ", password="
+				+ password + ", reportTo=" + reportTo + ", departmentHeadId=" + departmentHeadId + ", phoneNumber="
+				+ phoneNumber + ", refund=" + refund + ", refundPending=" + refundPending + "]";
 	}
 
-
-
+	
+	
+	
+	
+	
 }
+
+

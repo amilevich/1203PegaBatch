@@ -11,18 +11,12 @@ body {
 	max-width: 100%;
 }
 
-.navbar-nav>li{
-  border-right: 1px solid #000;
-}
-
-.navbar-nav>li:last-child{
-   border: none;
-}
-
 /* Space out content a bit */
 body {
 	padding-bottom: 20px;
 }
+
+
 
 .ternary {
 	text-align: center;
@@ -66,6 +60,12 @@ body {
 	.container {
 		max-width: 730px;
 	}
+}
+
+.submitBtn {
+	position: absolute;
+	right: 10px;
+	bottom: 5px;
 }
 
 .container-narrow>hr {

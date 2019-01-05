@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ternary.model.Employee;
+import com.ternary.model.Request;
 
 public class HomeController {
 
@@ -42,7 +43,7 @@ public class HomeController {
 
 	public static String PendingRequestsJSON(HttpServletRequest request, HttpServletResponse response) {
 
-		List requests = (List) request.getSession().getAttribute("Requests");
+		List<Request> requests = (List<Request>) request.getSession().getAttribute("Requests");
 
 		try {
 			response.getWriter().write(new ObjectMapper().writeValueAsString(requests));

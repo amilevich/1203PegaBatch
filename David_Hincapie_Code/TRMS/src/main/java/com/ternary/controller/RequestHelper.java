@@ -13,12 +13,15 @@ System.out.println("URI " + request.getRequestURI());
 		case "/TRMS/html/login.do":
 			System.out.println("GOING TO LOGIN CONTROLLER");
 			return LoginController.Login(request);
-		case "/TRMS/html/Home.do":
+		case "/TRMS/html/home.do":
 			System.out.println("IN HOME CONTROLLER");
 			return HomeController.Home(request);
 		case "/TRMS/html/Request.do":
 			System.out.println("IN REQUEST CONTROLLER");
 			return HomeController.Home(request);
+		case "/TRMS/html/reimbursement.do":
+			System.out.println("IN REIMBURSEMENT CONTROLLER");
+			return ReimbursementController.ReimbursementJSON(request);
 //		case "/TRMS/html/Register.do":
 //			return RegisterController.Register(request);
 		case "/TRMS/html/EmployeeJSON.do":

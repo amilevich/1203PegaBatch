@@ -15,6 +15,29 @@ public class RequestDaoImpl implements RequestDao {
 
 	public static ConnFactory cf = ConnFactory.getInstance();
 
+	@Override
+	public boolean insertRequest(Request request) throws SQLException {
+		// eventlocation, event, grade, request
+		Connection conn = cf.getConnection();
+		String sql = "INSERT INTO eventLocation VALUES (eventlocation_seq.nextval, ?,?,?,?,?)";
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, request.getStreetAddress());
+		ps.setString(2, request.getCity());
+		ps.setString(3, request.getState());
+		ps.setString(4, request.getZipCode());
+		ps.setString(5, request.getCountry());
+		int rowCount = ps.executeUpdate();
+		if (rowCount == 1) {
+			System.out.println("LOCATION INSERTED SUCCESSFULLY: " + request);
+			conn.close();
+			return true;
+		} else {
+			System.out.println("LOCATION RECORDED INSERTED FAILURE: " + request);
+			conn.close();
+			return false;
+		}
+	}
+
 	public List<Request> getRequests(int empId, String status) {
 
 		List<Request> requests = new ArrayList<Request>();
@@ -32,17 +55,17 @@ public class RequestDaoImpl implements RequestDao {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				request = new Request();
-				request.setEventName(rs.getString("eventName"));
-				request.setDateCompleted(rs.getDate("requestCompleted"));
+				request.setEventType(rs.getString("eventName"));
+				request.setRequestCompleted(rs.getDate("requestCompleted"));
 				request.setRequestId(rs.getInt("requestID"));
-				request.setEmpId(rs.getInt("empID"));
-				request.setEventId(rs.getInt("eventID"));
-				request.setUrgent(rs.getInt("requestUrgent"));
+				request.setEmployeeId(rs.getInt("empID"));
+				// request.setEventId(rs.getInt("eventID"));
+				// request.setUrgent(rs.getInt("requestUrgent"));
 				request.setStatus(rs.getString("requestStatus"));
 				request.setJustification(rs.getString("justification"));
-				request.setApprovalSupervisor(rs.getInt("supervisorApproval"));
-				request.setApprovalDeptHead(rs.getInt("dptHeadApproval"));
-				request.setApprovalBenco(rs.getInt("benCoApproval"));
+				request.setDirectMgrApprovalId(rs.getInt("supervisorApproval"));
+				request.setDeptHeadApprovalId(rs.getInt("dptHeadApproval"));
+				request.setBencoApproval(rs.getInt("benCoApproval"));
 
 				requests.add(request);
 				System.out.println(request.toString());

@@ -161,29 +161,29 @@ public class UserDaoImpl implements UserDao {
 		return null;
 	}
 
-	// // example for callable INSERTUSER would be the name of the storeed procedure
-	// @Override
-	// public void createUsr(String firstName, String lastName, String userName,
-	// String password) throws SQLException {
-	// Connection conn = cf.getConnection();
-	// String sql = "{call INSERTUSER(?, ?, ?, ?)";
-	// CallableStatement cs = conn.prepareCall(sql);
-	// cs.setString(1, firstName);
-	// cs.setString(2, lastName);
-	// cs.setString(3, userName);
-	// cs.setString(4, password);
-	// cs.execute();
-	//
-	// // This returns id
-	// String sql2 = "SELECT userid FROM user where username = ?";
-	// PreparedStatement ps = conn.prepareStatement(sql2);
-	// ps.setString(1, userName);
-	// ResultSet rs = ps.executeQuery();
-	// while (rs.next()) {
-	// System.out.println("The id for this user is: " + rs.getInt(1));
-	// }
-	//
-	// conn.close();
-	// }
+//	 // example for callable INSERTUSER would be the name of the storeed procedure
+//	 @Override
+//	 public void createUsr(String firstName, String lastName, String userName,
+//	 String password) throws SQLException {
+//	 Connection conn = cf.getConnection();
+//	 String sql = "{call INSERTUSER(?, ?, ?, ?)";
+//	 CallableStatement cs = conn.prepareCall(sql);
+//	 cs.setString(1, firstName);
+//	 cs.setString(2, lastName);
+//	 cs.setString(3, userName);
+//	 cs.setString(4, password);
+//	 cs.execute();
+//	
+//	 // This returns id
+//	 String sql2 = "SELECT userid FROM user where username = ?";
+//	 PreparedStatement ps = conn.prepareStatement(sql2);
+//	 ps.setString(1, userName);
+//	 ResultSet rs = ps.executeQuery();
+//	 while (rs.next()) {
+//	 System.out.println("The id for this user is: " + rs.getInt(1));
+//	 }
+//	
+//	 conn.close();
+//	 }
 
 }
