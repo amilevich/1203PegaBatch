@@ -54,8 +54,9 @@ function setEmployeeValues(employee) {
 			+ employee.jobTitle;
 	document.getElementById("departmentName").innerHTML = "Department: "
 			+ employee.departmentName;
+	
 	document.getElementById("reimbursementFunds").innerHTML = "Available funds: $"
-			+ employee.availbleFunds;
+			+ employee.refund;
 }
 
 function setSupervisorValues(supervisor) {
@@ -66,10 +67,9 @@ function setSupervisorValues(supervisor) {
 	}
 }
 
-function onClick(this_) {
-	console.log("in onClick()");
-	console.log("id=" + this_.parentNode.getAttribute("id") + " "
-			+ this_.parentNode.id.value);
+function onClick(id) {
+	document.getElementById("reqId").value = id;
+	document.getElementById("myForm").submit();
 }
 function getPendingRequests() {
 	let xhttp = new XMLHttpRequest();
@@ -84,46 +84,97 @@ function getPendingRequests() {
 			true);
 	xhttp.send();
 }
-
 function buildHTMLtable(requests) {
 
-	console.log("buildHTMLtable");
-
-	var table = document.createElement("table");
-	var tr = table.insertRow(-1);
-
-	for (var i = 0; i < 3; i++) {
-		var th = document.createElement("th"); // TABLE HEADER.
-		if (i == 0) {
-			th.innerHTML = "Event Name";
-		} else if (i == 1) {
-			th.innerHTML = "Completion Date";
-		} else {
-			th.innerHTML = "";
-		}
-		tr.appendChild(th);
-	}
+	var dirMgrApproval = "";
+	var deptHeadApproval = "";
+	var bencoApproval = "";
+	var htmlString = '<table class="table table-hover">';
+	htmlString = htmlString
+			+ '<input type="hidden" id="reqId" name="reqId" value=""></input>';
+	htmlString = htmlString + '<thead class="thead-dark">';
+	htmlString = htmlString + '<th scope="col">Request ID</th>';
+	htmlString = htmlString + '<th scope="col">Event Type</th>';
+	htmlString = htmlString + '<th scope="col">Completed</th>';
+	htmlString = htmlString + '<th scope="col">Amount</th>';
+	htmlString = htmlString + '<th scope="col">Status</th>';
+	htmlString = htmlString + '</thead>';
+	htmlString = htmlString + '<tbody>';
 
 	for (var i = 0; i < requests.length; i++) {
-		tr = table.insertRow(-1);
-		tr.setAttribute("id", requests[i].requestId);
-		for (var j = 0; j < 3; j++) {
-			var tabCell = tr.insertCell(-1);
-			if (j == 0) {
-				tabCell.innerHTML = requests[i].eventName;
-			} else if (j == 1) {
-				tabCell.innerHTML = requests[i].dateCompleted;
-			} else {
-				tabCell.innerHTML = '<button onclick="onClick(this);" class="btn  btn-dark btn-block registerBtn text-uppercase" type="submit">View</button>';
-			}
+
+		if (requests[i].directMgrApproval != 0) {
+			dirMgrApproval = "Approved";
+		} else {
+			dirMgrApproval = "Pending";
 		}
+
+		if (requests[i].deptHeadApproval != 0) {
+			deptHeadApproval = "Approved";
+		} else {
+			deptHeadApproval = "Pending";
+		}
+
+		if (requests[i].bencoApproval != 0) {
+			bencoApproval = "Approved";
+		} else {
+			bencoApproval = "Pending";
+		}
+
+		htmlString = htmlString
+				+ '<tr data-toggle="collapse" data-target="#moreinfo'
+				+ requests[i].requestId + '" '
+				+ 'aria-expanded="false" aria-controls="moreinfo'
+				+ requests[i].requestId + '" >';
+		htmlString = htmlString + '<td>' + requests[i].requestId + '</td>';
+		htmlString = htmlString + '<td>' + requests[i].eventType + '</td>';
+		htmlString = htmlString + '<td>' + requests[i].requestCompleted
+				+ '</td>';
+		htmlString = htmlString + '<td>' + requests[i].projectedReimbursement
+				+ '</td>';
+		htmlString = htmlString + '<td>' + requests[i].status + '</td>';
+		htmlString = htmlString + '</tr>';
+
+		htmlString = htmlString + '<tr class="collapse" id="moreinfo'
+				+ requests[i].requestId + '">';
+		htmlString = htmlString + '<td colspan="6">';
+		htmlString = htmlString + '<div class="container">Description:</div>';
+		htmlString = htmlString + '<div class="container">'
+				+ requests[i].eventDescription + '</div>';
+		htmlString = htmlString + '<br/>';
+		htmlString = htmlString + '<div class="row">';
+		htmlString = htmlString + '<div class="col-4">Event Start: '
+				+ requests[i].eventStart + '</div>';
+		htmlString = htmlString + '<div class="col-4">Event End: '
+				+ requests[i].eventEnd + '</div>';
+		htmlString = htmlString + '</div>';
+		htmlString = htmlString + '<br/>';
+		htmlString = htmlString + '<div class="row">';
+		htmlString = htmlString + '<div class="col-4">Direct Manager: '
+				+ dirMgrApproval + '</div>';
+		htmlString = htmlString + '<div class="col-6">Department Head: '
+				+ deptHeadApproval + '</div>';
+		htmlString = htmlString + '<div class="col-4">BenCo: ' + bencoApproval
+				+ '</div>';
+		htmlString = htmlString + '</div>';
+		htmlString = htmlString + '<br/>';
+		htmlString = htmlString + '<div class="row">';
+		htmlString = htmlString + '<div class="col-8"></div>';
+		htmlString = htmlString + '<div class="col-4" align="center">';
+		htmlString = htmlString + '<input type="button" onClick="onClick('
+				+ requests[i].requestId
+				+ ');" class="btn btn-outline-dark" value="View More"></input>';
+		htmlString = htmlString + '</div>';
+		htmlString = htmlString + '</div>';
+		htmlString = htmlString + '</td>';
+		htmlString = htmlString + '</tr>';
 
 	}
 
-	console.log("table2=" + table);
+	htmlString = htmlString + '</table>';
 
 	var divContainer = document.getElementById("requests");
 	divContainer.innerHTML = "";
-	divContainer.appendChild(table);
+	divContainer.innerHTML = htmlString;
 
 }

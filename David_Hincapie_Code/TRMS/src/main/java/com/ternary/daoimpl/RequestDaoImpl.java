@@ -38,7 +38,7 @@ public class RequestDaoImpl implements RequestDao {
 		}
 	}
 
-	public List<Request> getRequests(int empId, String status) {
+	public List<Request> getRequests(int empId) {
 
 		List<Request> requests = new ArrayList<Request>();
 		Request request;
@@ -47,27 +47,54 @@ public class RequestDaoImpl implements RequestDao {
 
 			Connection connection = cf.getConnection();
 
-			String sql = "SELECT event.eventName, request.* " + "FROM request, event " + "WHERE request.empID = ? "
-					+ "AND request.eventID = event.eventID " + "AND request.requestStatus = ?";
+			String sql = "SELECT * " + "FROM requestInfo " + "WHERE requestInfo.empID = ? ";
+
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, empId);
-			ps.setString(2, status);
+
 			ResultSet rs = ps.executeQuery();
+
 			while (rs.next()) {
+
 				request = new Request();
-				request.setEventType(rs.getString("eventName"));
-				request.setRequestCompleted(rs.getDate("requestCompleted"));
-				request.setRequestId(rs.getInt("requestID"));
-				request.setEmployeeId(rs.getInt("empID"));
-				// request.setEventId(rs.getInt("eventID"));
-				// request.setUrgent(rs.getInt("requestUrgent"));
+				request.setRequestId(rs.getInt("requestId"));
+				request.setEmployeeId(rs.getInt("empId"));
+				request.setRequestCompleted(rs.getDate("dateCompleted"));
+				request.setStatus(rs.getString("requestStatus"));
+				request.setMoreInfo(rs.getBoolean("moreInfo"));
+				request.setJustification(rs.getString("justification"));
 				request.setStatus(rs.getString("requestStatus"));
 				request.setJustification(rs.getString("justification"));
-				request.setDirectMgrApprovalId(rs.getInt("supervisorApproval"));
-				request.setDeptHeadApprovalId(rs.getInt("dptHeadApproval"));
-				request.setBencoApproval(rs.getInt("benCoApproval"));
+				request.setDirectMgrApprovalId(rs.getInt("directManagerApproved"));
+				request.setDeptHeadApprovalId(rs.getInt("departmentHeadApproved"));
+				request.setBencoApproval(rs.getInt("bencoApproved"));
+				request.setDenied(rs.getBoolean("requestDenied"));
+				request.setDeniedReason(rs.getString("deniedReason"));
+				request.setPreApprovedSupervisorId(rs.getInt("preApproved"));
+				request.setApprovalAttachment(rs.getBlob("approvalAttachment"));
+				request.setProjectedReimbursement(rs.getDouble("projectedAward"));
+				request.setAwardChanged(rs.getBoolean("awardChangedBenco"));
+				request.setExceedAvailable(rs.getBoolean("exceedAvilable"));
+				request.setPassingGrade(rs.getString("passingGrade"));
+				request.setFinalGrade(rs.getString("finalGrade"));
+				request.setUploadedPresentation(rs.getBoolean("presentation"));
+				request.setPresentationAttachment(rs.getBlob("presentationAttach"));
+				request.setEventDescription(rs.getString("eventDescription"));
+				request.setEventCost(rs.getDouble("eventCost"));
+				request.setEventStart(rs.getDate("eventStart"));
+				request.setEventEnd(rs.getDate("eventEnd"));
+				// request.setEventTime(rs.getString("eventTime"));
+				request.setEventType(rs.getString("eventTypeName"));
+				request.setReimbCoverage(rs.getInt("reimbursementCoverage"));
+				request.setStreetAddress(rs.getString("streetAddress"));
+				request.setCity(rs.getString("city"));
+				request.setState(rs.getString("state"));
+				request.setCountry(rs.getString("country"));
+				request.setZipCode(rs.getString("zipCode"));
+				request.setGradeType(rs.getString("gradeType"));
 
 				requests.add(request);
+
 				System.out.println(request.toString());
 
 			}
@@ -81,4 +108,5 @@ public class RequestDaoImpl implements RequestDao {
 		return requests;
 
 	}
+
 }

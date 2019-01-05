@@ -34,7 +34,7 @@ public class LoginController {
 			System.out.println("LOGIN METHOD IN LOGIN CONTROLLER");
 
 			RequestDaoImpl requestDaoImpl = new RequestDaoImpl();
-			List<Request> requests = requestDaoImpl.getRequests(employee.getEmployeeId(), "pending");
+			List<Request> requests = requestDaoImpl.getRequests(employee.getEmployeeId());
 			request.getSession().setAttribute("Requests", requests);
 
 			return "/html/home.html";

@@ -8,7 +8,7 @@ import com.ternary.model.Request;
 public interface RequestDao {
 
 	// CRUD OPERTAIONS
-	public abstract boolean insertRequest(Request request) throws SQLException;
+	public boolean insertRequest(Request request) throws SQLException;
 
-	public List<Request> getRequests(int empId, String status);
+	public List<Request> getRequests(int empId);
 }
