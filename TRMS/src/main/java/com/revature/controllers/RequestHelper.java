@@ -15,6 +15,9 @@ public class RequestHelper {
 		case "/TRMS/html/Home.do":
 			return HomeController.Home(request);
 			
+		case "/TRMS/html/application.do":
+			return ApplicationController.App(request);
+			
 		case "/TRMS/html/LoginJSON.do":
 			return HomeController.LoginJSON(request, response);
 			
