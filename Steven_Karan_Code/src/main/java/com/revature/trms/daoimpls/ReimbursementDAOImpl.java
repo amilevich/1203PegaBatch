@@ -42,8 +42,6 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				return false;
 			}
 			
-			
-			
 			ps.setInt(2, reimb.getEvent().getEvent_id());
 			ps.setDate(3, Date.valueOf(reimb.getRequest_date()));
 			ps.setString(4, reimb.getJustification());

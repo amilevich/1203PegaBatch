@@ -59,15 +59,16 @@ function getReimbursementPersonal() {
 }
 function setValues(reimbList) {
 	console.log("in set values function.");
-	if (reimbList !== null) {
+	if (reimbList.reimb_id) {
 		for (let row = 0; reimbList.length > row; row++) {
 			console.log("read rows in json");
 			createReimbursementView(reimbList[row], row);
 		}
 	}
 	else {
+		console.log("No Reimbursements found!")
 		let row = document.createElement("div");
-		row.innerHTML = "Reimbursement list is empty";
+		row.innerHTML = "No tuition reimbursements found!";
 		document.getElementById("accordionReimb").appendChild(row);
 	}
 }
@@ -333,18 +334,16 @@ function reimburseEmployeeAction(reimbursement_status, id){
 		
 	case "Pending Direct Supervisor Confirmation":
 		reimbursement_status = "Status: " + reimbursement_status;
-		return '<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
-			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary">Submit</button>';
+		return '<button type="button" id="ConfirmButton'+id+'" class="btn btn-primary">Confirm</button>';
 		
 	case "Pending Benifits Coordinator Confirmation":
 		reimbursement_status = "Status: " + reimbursement_status;
-		return '<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
-			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary">Submit</button>';
+		return '<button type="button" id="ConfirmButton'+id+'" class="btn btn-primary">Confirm</button>';
 	
 	case "Funds Awarded":
 		reimbursement_status = "Status: " + reimbursement_status;
 		return "";
-		
+
 	default:
 		break;
 	}
