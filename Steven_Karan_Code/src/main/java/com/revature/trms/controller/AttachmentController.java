@@ -15,7 +15,7 @@ import com.revature.trms.models.Attachment;
 public class AttachmentController {
 
 	
-	public static boolean UploadFile(HttpServletRequest req, int reimbursement_id) throws IOException, ServletException {
+	public static boolean UploadFiles(HttpServletRequest req, int reimbursement_id) throws IOException, ServletException {
 		
 		Enumeration e = req.getParameterNames();
 		while(e.hasMoreElements()) {

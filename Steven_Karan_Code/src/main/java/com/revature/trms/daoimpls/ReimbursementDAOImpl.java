@@ -1,10 +1,12 @@
 package com.revature.trms.daoimpls;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 
 import com.revature.trms.dao.ReimbursementDAO;
@@ -22,11 +24,11 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	public boolean insertReimbursement(Reimbursement reimb) {
 		try (Connection conn = cf.getConnection();) {
 			String sql = "BEGIN INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?,?) RETURNING reimb_id INTO ?; END";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			CallableStatement cs = conn.prepareCall(sql);
 			// Turn off auto-commit
 			conn.setAutoCommit(false);
 
-			ps.setInt(1, reimb.getEmployee().getEmp_id());
+			cs.setInt(1, reimb.getEmployee().getEmp_id());
 			int addr_id = new AddressDAOImpl().insertAddress(reimb.getEvent().getLocation());
 			
 			if(addr_id > 0) {
@@ -44,20 +46,23 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			
 			
 			
-			ps.setInt(2, reimb.getEvent().getEvent_id());
-			ps.setDate(3, Date.valueOf(reimb.getRequest_date()));
-			ps.setString(4, reimb.getJustification());
-			ps.setInt(5, reimb.getWork_time_missed());
+			cs.setInt(2, reimb.getEvent().getEvent_id());
+			cs.setDate(3, Date.valueOf(reimb.getRequest_date()));
+			cs.setString(4, reimb.getJustification());
+			cs.setInt(5, reimb.getWork_time_missed());
 			if (reimb.getStatus_id() < 0)
-				ps.setInt(6, reimb.getStatus_id());
+				cs.setInt(6, reimb.getStatus_id());
 			else
-				ps.setNull(6, 1);
+				cs.setNull(6, 1);
 			
-			ps.setDouble(7, reimb.getFund_awarded());
+			cs.setDouble(7, reimb.getFund_awarded());
+			cs.registerOutParameter(8, Types.NUMERIC);
 			
-			if( ps.executeUpdate() > 0) {
+			if( cs.executeUpdate() > 0) {
 				System.out.println("COMMITTING CHANGES");
 				conn.commit();
+				
+				reimb.setReimb_id(cs.getInt(8));
 				return true;
 			}
 		

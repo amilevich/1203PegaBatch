@@ -1,5 +1,6 @@
 package com.revature.trms.controller;
 
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -7,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Enumeration;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.revature.trms.daoimpls.ReimbursementDAOImpl;
@@ -23,7 +25,7 @@ import com.revature.trms.validators.ReimbursementValidator;
 public class ReimbursementController {
 
 	
-	public static String Reimburse(HttpServletRequest req) {
+	public static String Reimburse(HttpServletRequest req) throws IOException, ServletException {
 		System.out.println("Processing Reimbursement");
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		Alert alert = null;
@@ -130,9 +132,10 @@ public class ReimbursementController {
 		ReimbursementDAOImpl rdi = new ReimbursementDAOImpl();
 		boolean success = rdi.insertReimbursement(reimb);
 		
-		if(success) {
+		if(success && reimb.getReimb_id()>0) {
+			
 			// Attach files 
-			//AttachmentController.UploadFile(req, )
+			AttachmentController.UploadFiles(req, reimb.getReimb_id());
 			
 			
 			alert = new Alert("success", "Reimbursement Submitted!");
