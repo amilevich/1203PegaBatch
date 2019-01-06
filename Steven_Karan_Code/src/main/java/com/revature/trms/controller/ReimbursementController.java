@@ -118,7 +118,6 @@ public class ReimbursementController {
 			req.getSession().setAttribute("Alert",alert);
 		}
 		
-		
 		if(!ReimbursementValidator.validate_Reimbursement(reimb)) {
 			alert = new Alert("danger","Error: Invalid Reimbursement Details");
 			req.getSession().setAttribute("Alert", alert);
