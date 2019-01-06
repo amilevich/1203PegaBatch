@@ -110,10 +110,32 @@ function geolocate() {
 }
 
 function getProjectedReimbursement() {
-	var cost = document.getElementById("cost").value;
-	var coverage = document.getElementById("eventType").value;
-	if (document.getElementById("cost").value > 0 && document.getElementById("eventType").value>0) {
-		document.getElementById("projectedReimbursement").value = cost * coverage;
+	let cost = document.getElementById("cost").value;
+	let coverage = 0;
+	let value = document.getElementById("eventType").value;
+	switch (value) {
+	case "1":
+		coverage = .8;
+		break;
+	case "2":
+		coverage = .6;
+		break;
+	case "3":
+		coverage = .75;
+		break;
+	case "4":
+		coverage = 1;
+		break;
+	case "5":
+		coverage = .9;
+		break;
+	case "6":
+		coverage = .3;
+		break;
+	}
+	if (cost > 0 && coverage > 0) {
+		document.getElementById("projectedReimbursement").value = cost
+				* coverage;
 	}
 
 }

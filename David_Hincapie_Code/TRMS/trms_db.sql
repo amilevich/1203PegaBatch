@@ -5,6 +5,13 @@
 --CREATE USER trms_db IDENTIFIED BY p4ssw0rd;
 --GRANT CONNECT, RESOURCE, CREATE VIEW, DBA TO trms_db;
 
+-- Dropping Schema
+--DROP USER trms_db;
+
+-- Creating Schema trms_db
+--CREATE USER trms_db IDENTIFIED BY p4ssw0rd;
+--GRANT CONNECT, RESOURCE, CREATE VIEW, DBA TO trms_db;
+
 DROP TABLE employee CASCADE CONSTRAINTS;
 DROP TABLE department CASCADE CONSTRAINTS;
 DROP TABLE event CASCADE CONSTRAINTS;
@@ -107,6 +114,7 @@ CREATE TABLE event (
     eventlocation      INT,
     eventdescription   VARCHAR2(250),
     eventcost          NUMBER(8, 2),
+    eventTime      VARCHAR2(25),
     eventstart         DATE,
     eventend           DATE,
     PRIMARY KEY ( eventid ),
@@ -137,7 +145,6 @@ CREATE TABLE request (
     requestid       INT NOT NULL,
     empid           INT NOT NULL,
     eventid         INT,
-    approvalid      INT,
     gradeid         INT,
     datecompleted   DATE,
     requeststatus   VARCHAR2(25),
@@ -153,6 +160,7 @@ CREATE TABLE request (
     projectedaward      NUMBER(8, 2),
     awardchangedbenco   NUMBER(8, 2) DEFAULT 0,
     exceedavilable      INT,
+    exceedcomment VARCHAR2(250),
     PRIMARY KEY ( requestid ),
     FOREIGN KEY ( eventid )
         REFERENCES event ( eventid ),
@@ -196,17 +204,17 @@ INSERT INTO department VALUES (dpt_seq.nextval,'Benafits', 3);
 
 --Populating Employee Table
 INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Andrew', 'Adams', 'IT Head', 'andrew@mail.com', 'p4ssw0rd', null, '555 555 1234', 1000,0);
-INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Daan', 'Peters', 'HR Head', 'daan@mail.com', 'p4ssw0rd', null, '555 555 1235', 1000,0);
-INSERT INTO employee VALUES (emp_seq.nextval, 1, 'John', 'Gorden', 'Benco Head', 'john@mail.com', 'p4ssw0rd', null, '555 555 1236', 500,250);
+INSERT INTO employee VALUES (emp_seq.nextval, 2, 'Daan', 'Peters', 'HR Head', 'daan@mail.com', 'p4ssw0rd', null, '555 555 1235', 1000,0);
+INSERT INTO employee VALUES (emp_seq.nextval, 3, 'John', 'Gorden', 'Benco Head', 'john@mail.com', 'p4ssw0rd', null, '555 555 1236', 500,250);
 INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Frank', 'Stevens', 'IT Manager', 'frank@mail.com', 'p4ssw0rd', 1, '555 555 1237', 1000,0);
-INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Robert', 'Brown', 'HR Manager', 'robert@mail.com', 'p4ssw0rd', 2, '555 555 1238', 1000,0);
-INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Mark', 'Steves', 'Benco Manager', 'mark@mail.com', 'p4ssw0rd', 3, '555 555 1238', 1000,0);
+INSERT INTO employee VALUES (emp_seq.nextval, 2, 'Robert', 'Brown', 'HR Manager', 'robert@mail.com', 'p4ssw0rd', 2, '555 555 1238', 1000,0);
+INSERT INTO employee VALUES (emp_seq.nextval, 3, 'Mark', 'Steves', 'Benco Manager', 'mark@mail.com', 'p4ssw0rd', 3, '555 555 1238', 1000,0);
 INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Bob', 'Brains', 'IT Staff', 'bob@mail.com', 'p4ssw0rd', 4, '555 555 1238', 1000,0);
 INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Twain', 'Stirt', 'IT Staff', 'twain@mail.com', 'p4ssw0rd', 4, '555 555 1238', 1000,0);
-INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Kate', 'Beric', 'HR Staff', 'kate@mail.com', 'p4ssw0rd', 5, '555 555 1238', 1000,0);
-INSERT INTO employee VALUES (emp_seq.nextval, 1, 'William', 'Beat', 'HR Staff', 'william@mail.com', 'p4ssw0rd', 5, '555 555 1238', 1000,0);
-INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Bert', 'Simpson', 'Benco Staff', 'bert@mail.com', 'p4ssw0rd', 6, '555 555 1238', 1000,0);
-INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Sandy', 'Beach', 'Benco Staff', 'sandy@mail.com', 'p4ssw0rd', 6, '555 555 1238', 1000,0);
+INSERT INTO employee VALUES (emp_seq.nextval, 2, 'Kate', 'Beric', 'HR Staff', 'kate@mail.com', 'p4ssw0rd', 5, '555 555 1238', 1000,0);
+INSERT INTO employee VALUES (emp_seq.nextval, 2, 'William', 'Beat', 'HR Staff', 'william@mail.com', 'p4ssw0rd', 5, '555 555 1238', 1000,0);
+INSERT INTO employee VALUES (emp_seq.nextval, 3, 'Bert', 'Simpson', 'Benco Staff', 'bert@mail.com', 'p4ssw0rd', 6, '555 555 1238', 1000,0);
+INSERT INTO employee VALUES (emp_seq.nextval, 3, 'Sandy', 'Beach', 'Benco Staff', 'sandy@mail.com', 'p4ssw0rd', 6, '555 555 1238', 1000,0);
 --End Populating Employee table
 
 --Populating grade Fromat table
@@ -221,7 +229,7 @@ INSERT INTO eventType VALUES (eventType_seq.nextval,'University Course', 80);
 INSERT INTO eventType VALUES (eventType_seq.nextval,'Seminars', 60);
 INSERT INTO eventType VALUES (eventType_seq.nextval,'Certification Preparation Classes', 75);
 INSERT INTO eventType VALUES (eventType_seq.nextval,'Certification', 100);
-INSERT INTO eventType VALUES (eventType_seq.nextval,'Technical Training', 80);
+INSERT INTO eventType VALUES (eventType_seq.nextval,'Technical Training', 90);
 INSERT INTO eventType VALUES (eventType_seq.nextval,'Other', 30);
 --End populating event Type table
 
@@ -230,8 +238,10 @@ INSERT INTO eventLocation VALUES (eventlocation_seq.nextval, '12420 N Florida Av
 --END Populating Location Table
 
 --Populating event table
-INSERT INTO event VALUES (event_seq.nextval,1,1,1,'For Dummies',250,'12-OCT-19','12-DEC-19');
-INSERT INTO event VALUES (event_seq.nextval,1,1,1,'For Dummies',250,'12-OCT-19','12-DEC-19');
+INSERT INTO event VALUES (event_seq.nextval,1,1,1,'A studio/performance-oriented course that combines hand-cut stencils, 
+digital tools and photographic processes to create fine art prints, installation and books',250,'12:00','12-OCT-19','12-DEC-19');
+INSERT INTO event VALUES (event_seq.nextval,2,1,1,'A studio/performance-oriented course that combines hand-cut stencils, 
+digital tools and photographic processes to create fine art prints, installation and books',250,'12:00','12-OCT-19','12-DEC-19');
 --END
 
 --Populating grade table
@@ -240,10 +250,10 @@ INSERT INTO grade VALUES (grade_seq.nextval,'C+','A',0,'');
 
 
 --Populating request table
-INSERT INTO request VALUES (request_seq.nextval,5,1,1,1,'12-DEC-19','Processing',0,'Just Cause', 0,0,0,0,'',0,'',190,0,0);
-INSERT INTO request VALUES (request_seq.nextval,5,1,1,1,'12-DEC-19','Processing',0,'Just Cause', 0,0,0,0,'',0,'',190,0,0);
-INSERT INTO request VALUES (request_seq.nextval,5,1,1,1,'12-DEC-19','Processing',0,'Just Cause', 1,0,0,0,'',0,'',190,0,0);
-INSERT INTO request VALUES (request_seq.nextval,5,1,1,1,'12-DEC-19','Processing',0,'Just Cause', 1,1,0,0,'',0,'',190,0,0);
+INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 0,0,0,0,'',0,'',190,0,0,'');
+INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 0,0,0,0,'',0,'',190,0,0,'');
+INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 1,0,0,0,'',0,'',190,0,0,'');
+INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 1,1,0,0,'',0,'',190,0,0,'');
 --END
 
 --Populating more info
@@ -267,9 +277,9 @@ CREATE VIEW requestinfo AS
 SELECT request.requestid, request.empid, request.datecompleted, request.requeststatus, request.moreinfo, request.justification,
        request.directmanagerapproved, request.departmentheadapproved, request.bencoapproved, request.requestdenied, 
        request.deniedreason, request.preapproved, request.approvalattachment,
-       request.projectedaward, request.awardchangedbenco, request.exceedavilable,
+       request.projectedaward, request.awardchangedbenco, request.exceedavilable, request.exceedcomment,
        grade.passinggrade, grade.finalgrade, grade.presentation, grade.presentationattach,
-       event.eventdescription, event.eventcost, event.eventstart, event.eventend,
+       event.eventdescription, event.eventcost,event.eventtime, event.eventstart, event.eventend,
        eventtype.eventtypename, eventtype.reimbursementcoverage,
        eventlocation.streetaddress,eventlocation.city, eventlocation.state, eventlocation.country, eventlocation.zipcode,
        gradingformat.gradetype
@@ -282,5 +292,28 @@ INNER JOIN gradingformat ON event.gradingformat=gradingformat.gformatid;
 
 
 
+
+
+SELECT request.requestid, request.empid, request.datecompleted, request.requeststatus, request.moreinfo, request.justification,
+       request.directmanagerapproved, request.departmentheadapproved, request.bencoapproved, request.requestdenied, 
+       request.deniedreason, request.preapproved, request.approvalattachment,
+       request.projectedaward, request.awardchangedbenco, request.exceedavilable, request.exceedcomment,
+       grade.*,event.*,eventtype.*,eventlocation.*,gradingformat.*
+FROM request
+INNER JOIN grade ON request.gradeid=grade.gradeid
+INNER JOIN event ON request.eventid=event.eventid
+INNER JOIN eventtype ON event.eventtype=eventtype.eventtypeid
+INNER JOIN eventlocation ON event.eventlocation=eventlocation.locationid
+INNER JOIN gradingformat ON event.gradingformat=gradingformat.gformatid;
+
+
+
+
+
+
 SELECT * FROM empInfo;
 SELECT * FROM requestinfo;
+
+
+
+

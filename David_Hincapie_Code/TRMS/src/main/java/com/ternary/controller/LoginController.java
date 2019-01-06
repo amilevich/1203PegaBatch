@@ -1,5 +1,7 @@
 package com.ternary.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +23,17 @@ public class LoginController {
 		String password = request.getParameter("password");
 
 		EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
+		List<Employee> employeeList = new ArrayList<>();
 		Employee employee = new Employee();
 		Employee supervisor = new Employee();
 
 		employee = employeeDaoImpl.selectByEmployeeEmail(email);
+		if (employee == null) {
+			System.out.println("Email or password not found");
+		return "/html/login.html"; 
+		}
 		supervisor = employeeDaoImpl.selectByEmployeeId(employee.getReportTo());
+		employeeList = employeeDaoImpl.getEmployeeList();
 
 		if (email.equals(employee.getEmail()) && password.equals(employee.getPassword())) {
 			// sessions persist data beyond the request's lifetime
@@ -36,12 +44,22 @@ public class LoginController {
 			RequestDaoImpl requestDaoImpl = new RequestDaoImpl();
 			List<Request> requests = requestDaoImpl.getRequests(employee.getEmployeeId());
 			request.getSession().setAttribute("Requests", requests);
-
 			return "/html/home.html";
-		} else {
-			System.out.println("Email or password not found");
-			return "/html/login.html";
-		}
+			
+//			for (int i = 0; i < employeeList.size(); i++) {
+//				if (employee.getEmployeeId() == employeeList.get(i).getReportTo()
+//						|| (employee.getEmployeeId() == employeeList.get(i).getDepartmentHeadId())) {
+//					return "/html/managerhome.html";
+//				} else {
+//					if (i == employeeList.size() - 1) {
+//						return "/html/home.html";
+//					}
+//
+//				}
+//			}//end of for loop checks if employee is a supervisor
+
+		} // end of email and password verification
+		return "/html/login.html";
 	}
 
 }

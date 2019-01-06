@@ -68,7 +68,7 @@
 
 									<div class="col-sm-6 form-group">
 										<label>Date</label> <input type="date" id="reimbursementDate"
-											name="reimbursementDate" value="" class="form-control">
+											name="reimbursementDate" value="" class="form-control" readonly>
 									</div>
 								</div>
 
@@ -101,13 +101,13 @@
 														<label class="control-label">Event Type</label> <br>
 														<select name="eventType" id="eventType" onchange="getProjectedReimbursement()">
 															<option value="0" selected disabled>Select</option>
-															<option value=".8">University Course</option>
-															<option value=".6">Seminar</option>
-															<option value=".75">Certification Preparation
+															<option value="1">University Course</option>
+															<option value="2">Seminar</option>
+															<option value="3">Certification Preparation
 																Class</option>
-															<option value="1">Certification</option>
-															<option value=".9">Technical Training</option>
-															<option value=".3">Other</option>
+															<option value="4">Certification</option>
+															<option value="5">Technical Training</option>
+															<option value="6">Other</option>
 														</select>
 													</div>
 												</div>
@@ -191,7 +191,7 @@
 													<div class="col-sm-4 doubleField">
 														<label class="control-label">Grade Format</label> <br>
 														<select name="gradeFormat" id="gradeFormat">
-															<option value="" selected disabled>Select</option>
+															<option value="0" selected disabled>Select</option>
 															<option value="1">Grade</option>
 															<option value="2">Percentage</option>
 															<option value="3">Pass/Fail</option>

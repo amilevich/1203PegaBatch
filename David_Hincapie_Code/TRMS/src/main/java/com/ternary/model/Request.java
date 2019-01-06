@@ -1,31 +1,30 @@
 package com.ternary.model;
 
 import java.sql.Blob;
-import java.sql.Date;
-import java.util.ArrayList;
+import java.time.LocalDate;
 
 public class Request {
 
 	public Request() {
 	}
 
-	public Request(int requestId, int employeeId, Date requestCompleted, String status, boolean moreInfo,
+	public Request(int requestId, int employeeId, LocalDate requestCompleted, String status, boolean moreInfo,
 			String justification, int directMgrApproval, int deptHeadApproval, int bencoApproval, boolean denied,
 			String deniedReason, int preApproved, Blob approvalAttachment, double projectedReimbursement,
 			boolean awardChanged, boolean exceedAvailable, String passingGrade, String finalGrade, boolean presentation,
-			Blob presentationAttachment, String eventDescription, double eventCost, Date eventStart, Date eventEnd,
-			String eventType, int reimbCoverage, String streetAddress, String city, String state, String country,
-			String zipCode, String gradeType) {
+			Blob presentationAttachment, String eventDescription, double eventCost, LocalDate eventStart,
+			LocalDate eventEnd, String eventType, int reimbCoverage, String streetAddress, String city, String state,
+			String country, String zipCode, String gradeType) {
 		super();
 		this.requestId = requestId;
 		this.employeeId = employeeId;
-		this.requestCompleted = requestCompleted;
+		this.reimbursementDate = requestCompleted;
 		this.status = status;
 		this.moreInfo = moreInfo;
 		this.justification = justification;
 		this.directMgrApprovalId = directMgrApproval;
 		this.deptHeadApprovalId = deptHeadApproval;
-		this.bencoApproval = bencoApproval;
+		this.bencoApprovalId = bencoApproval;
 		this.denied = denied;
 		this.deniedReason = deniedReason;
 		this.preApprovedSupervisorId = preApproved;
@@ -53,41 +52,66 @@ public class Request {
 
 	private int requestId;
 	private int employeeId;
-	private Date requestCompleted;
+
 	private String status;
 	private boolean moreInfo;
 	private String justification;
+
+	
 	private int directMgrApprovalId;
+	private boolean directMgrApproval =false;
 	private int deptHeadApprovalId;
-	private int bencoApproval;
+	private boolean deptHeadApproval = false;
+	private int bencoApprovalId;
+	private boolean bencoApproval = false;
 	private boolean denied;
+	
+	
 	private String deniedReason;
 	private int preApprovedSupervisorId;
 	private Blob approvalAttachment;
 	private double projectedReimbursement;
 	private boolean awardChanged;
 	private boolean exceedAvailable;
-	private String passingGrade;
-	private String finalGrade;
+
 	private boolean uploadedPresentation;
 	private Blob presentationAttachment;
 	private String eventDescription;
-	private double eventCost;
-	private Date eventStart;
-	private Date eventEnd;
+
+	private String eventTime;
+	private LocalDate reimbursementDate;
+	private LocalDate eventStart;
+	private LocalDate eventEnd;
 	private String eventType;
+
+	private int gradeTypeId;
+	private String gradeType;
+	private String passingGrade;
+	private String finalGrade;
+	private String exceedAvailibleComment;
+
+	private double eventCost;
 	private int reimbCoverage;
+
 	private String streetAddress;
 	private String city;
 	private String state;
 	private String country;
 	private String zipCode;
-	private String gradeType;
+
 	// private ArrayList<MoreInfo> moreInfos;
 	// private ArrayList<Blob> attachments;
 
 	public int getRequestId() {
 		return requestId;
+	}
+
+	public int getGradeTypeId() {
+		return gradeTypeId;
+	}
+
+	public void setGradeTypeId(int gradeTypeId) {
+		this.gradeTypeId = gradeTypeId;
 	}
 
 	public void setRequestId(int requestId) {
@@ -102,13 +126,6 @@ public class Request {
 		this.employeeId = employeeId;
 	}
 
-	public Date getRequestCompleted() {
-		return requestCompleted;
-	}
-
-	public void setRequestCompleted(Date requestCompleted) {
-		this.requestCompleted = requestCompleted;
-	}
 
 	public String getStatus() {
 		return status;
@@ -150,12 +167,12 @@ public class Request {
 		this.deptHeadApprovalId = deptHeadApprovalId;
 	}
 
-	public int getBencoApproval() {
-		return bencoApproval;
+	public int getBencoApprovalId() {
+		return bencoApprovalId;
 	}
 
-	public void setBencoApproval(int bencoApproval) {
-		this.bencoApproval = bencoApproval;
+	public void setBencoApprovalId(int bencoApproval) {
+		this.bencoApprovalId = bencoApproval;
 	}
 
 	public boolean isDenied() {
@@ -262,19 +279,19 @@ public class Request {
 		this.eventCost = eventCost;
 	}
 
-	public Date getEventStart() {
+	public LocalDate getEventStart() {
 		return eventStart;
 	}
 
-	public void setEventStart(Date eventStart) {
+	public void setEventStart(LocalDate eventStart) {
 		this.eventStart = eventStart;
 	}
 
-	public Date getEventEnd() {
+	public LocalDate getEventEnd() {
 		return eventEnd;
 	}
 
-	public void setEventEnd(Date eventEnd) {
+	public void setEventEnd(LocalDate eventEnd) {
 		this.eventEnd = eventEnd;
 	}
 
@@ -342,21 +359,73 @@ public class Request {
 		this.gradeType = gradeType;
 	}
 
+	public String getExceedAvailibleComment() {
+		return exceedAvailibleComment;
+	}
+
+	public void setExceedAvailibleComment(String exceedAvailibleComment) {
+		this.exceedAvailibleComment = exceedAvailibleComment;
+	}
+
+	
+	public LocalDate getReimbursementDate() {
+		return reimbursementDate;
+	}
+
+	public void setReimbursementDate(LocalDate reimbursementDate) {
+		this.reimbursementDate = reimbursementDate;
+	}
+	
+	public String getEventTime() {
+		return eventTime;
+	}
+
+	public void setEventTime(String eventTime) {
+		this.eventTime = eventTime;
+	}
+	
+
+	public boolean isDirectMgrApproval() {
+		return directMgrApproval;
+	}
+
+	public void setDirectMgrApproval(boolean directMgrApproval) {
+		this.directMgrApproval = directMgrApproval;
+	}
+
+	public boolean isDeptHeadApproval() {
+		return deptHeadApproval;
+	}
+
+	public void setDeptHeadApproval(boolean deptHeadApproval) {
+		this.deptHeadApproval = deptHeadApproval;
+	}
+
+	public boolean isBencoApproval() {
+		return bencoApproval;
+	}
+
+	public void setBencoApproval(boolean bencoApproval) {
+		this.bencoApproval = bencoApproval;
+	}
+
 	@Override
 	public String toString() {
-		return "Request [requestId=" + requestId + ", employeeId=" + employeeId + ", requestCompleted="
-				+ requestCompleted + ", status=" + status + ", moreInfo=" + moreInfo + ", justification="
-				+ justification + ", directMgrApprovalId=" + directMgrApprovalId + ", deptHeadApprovalId="
-				+ deptHeadApprovalId + ", bencoApproval=" + bencoApproval + ", denied=" + denied + ", deniedReason="
-				+ deniedReason + ", preApprovedSupervisorId=" + preApprovedSupervisorId + ", approvalAttachment="
-				+ approvalAttachment + ", projectedReimbursement=" + projectedReimbursement + ", awardChanged="
-				+ awardChanged + ", exceedAvailable=" + exceedAvailable + ", passingGrade=" + passingGrade
-				+ ", finalGrade=" + finalGrade + ", uploadedPresentation=" + uploadedPresentation
-				+ ", presentationAttachment=" + presentationAttachment + ", eventDescription=" + eventDescription
-				+ ", eventCost=" + eventCost + ", eventStart=" + eventStart + ", eventEnd=" + eventEnd + ", eventType="
-				+ eventType + ", reimbCoverage=" + reimbCoverage + ", streetAddress=" + streetAddress + ", city=" + city
-				+ ", state=" + state + ", country=" + country + ", zipCode=" + zipCode + ", gradeType=" + gradeType
-				+ "]";
+		return "Request [requestId=" + requestId + ", employeeId=" + employeeId + ", status=" + status + ", moreInfo="
+				+ moreInfo + ", justification=" + justification + ", directMgrApprovalId=" + directMgrApprovalId
+				+ ", deptHeadApprovalId=" + deptHeadApprovalId + ", bencoApproval=" + bencoApprovalId + ", denied="
+				+ denied + ", deniedReason=" + deniedReason + ", preApprovedSupervisorId=" + preApprovedSupervisorId
+				+ ", approvalAttachment=" + approvalAttachment + ", projectedReimbursement=" + projectedReimbursement
+				+ ", awardChanged=" + awardChanged + ", exceedAvailable=" + exceedAvailable + ", uploadedPresentation="
+				+ uploadedPresentation + ", presentationAttachment=" + presentationAttachment + ", eventDescription="
+				+ eventDescription + ", eventTime=" + eventTime + ", reimbursementDate=" + reimbursementDate
+				+ ", eventStart=" + eventStart + ", eventEnd=" + eventEnd + ", eventType=" + eventType
+				+ ", gradeTypeId=" + gradeTypeId + ", gradeType=" + gradeType + ", passingGrade=" + passingGrade
+				+ ", finalGrade=" + finalGrade + ", exceedAvailibleComment=" + exceedAvailibleComment + ", eventCost="
+				+ eventCost + ", reimbCoverage=" + reimbCoverage + ", streetAddress=" + streetAddress + ", city=" + city
+				+ ", state=" + state + ", country=" + country + ", zipCode=" + zipCode + "]";
 	}
+
+
 
 }

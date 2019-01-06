@@ -51,6 +51,26 @@ public class Employee {
 		this.refund = availbleFunds;
 	}
 
+	
+	
+	public Employee(int employeeId, String firstName, String lastName, String jobTitle, String departmentName,
+			String email, String password, int reportTo, int departmentHeadId, String phoneNumber, double refund,
+			double refundPending) {
+		super();
+		this.employeeId = employeeId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.jobTitle = jobTitle;
+		this.departmentName = departmentName;
+		this.email = email;
+		this.password = password;
+		this.reportTo = reportTo;
+		this.departmentHeadId = departmentHeadId;
+		this.phoneNumber = phoneNumber;
+		this.refund = refund;
+		this.refundPending = refundPending;
+	}
+
 	public Employee(String email, String password) {
 		super();
 		this.email = email;

@@ -68,6 +68,7 @@ function setSupervisorValues(supervisor) {
 }
 
 function onClick(id) {
+	
 	document.getElementById("reqId").value = id;
 	document.getElementById("myForm").submit();
 }
@@ -85,10 +86,10 @@ function getPendingRequests() {
 	xhttp.send();
 }
 function buildHTMLtable(requests) {
-
-	var dirMgrApproval = "";
-	var deptHeadApproval = "";
-	var bencoApproval = "";
+	
+//	var dirMgrApproval = "";
+//	var deptHeadApproval = "";
+//	var bencoApproval = "";
 	var htmlString = '<table class="table table-hover">';
 	htmlString = htmlString
 			+ '<input type="hidden" id="reqId" name="reqId" value=""></input>';
@@ -128,7 +129,12 @@ function buildHTMLtable(requests) {
 				+ requests[i].requestId + '" >';
 		htmlString = htmlString + '<td>' + requests[i].requestId + '</td>';
 		htmlString = htmlString + '<td>' + requests[i].eventType + '</td>';
-		htmlString = htmlString + '<td>' + requests[i].requestCompleted
+		
+		let day = requests[i].reimbursementDate.dayOfMonth;
+		let month = requests[i].reimbursementDate.monthValue; // Month is 0-indexed
+		let year = requests[i].reimbursementDate.year;
+
+		htmlString = htmlString + '<td>' + month +'/' + day + '/'+ year
 				+ '</td>';
 		htmlString = htmlString + '<td>' + requests[i].projectedReimbursement
 				+ '</td>';
@@ -143,10 +149,19 @@ function buildHTMLtable(requests) {
 				+ requests[i].eventDescription + '</div>';
 		htmlString = htmlString + '<br/>';
 		htmlString = htmlString + '<div class="row">';
+		
+
+		 day = requests[i].eventStart.dayOfMonth;
+		 month = requests[i].eventStart.monthValue; // Month is 0-indexed
+		 year = requests[i].eventStart.year;
 		htmlString = htmlString + '<div class="col-4">Event Start: '
-				+ requests[i].eventStart + '</div>';
+				+ month +'/' + day + '/'+ year + '</div>';
+		
+		 day = requests[i].eventEnd.dayOfMonth;
+		 month = requests[i].eventEnd.monthValue; // Month is 0-indexed
+		 year = requests[i].eventEnd.year;
 		htmlString = htmlString + '<div class="col-4">Event End: '
-				+ requests[i].eventEnd + '</div>';
+				+ month +'/' + day + '/'+ year + '</div>';
 		htmlString = htmlString + '</div>';
 		htmlString = htmlString + '<br/>';
 		htmlString = htmlString + '<div class="row">';
@@ -178,3 +193,4 @@ function buildHTMLtable(requests) {
 	divContainer.innerHTML = htmlString;
 
 }
+

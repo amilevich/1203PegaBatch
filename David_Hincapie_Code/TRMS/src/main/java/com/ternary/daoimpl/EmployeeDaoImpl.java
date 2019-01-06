@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.ternary.dao.EmployeeDao;
 import com.ternary.model.Employee;
@@ -48,7 +51,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		}
 		return employee;
 	}
-	
+
 	@Override
 	public Employee selectByEmployeeEmail(String email) {
 		Employee employee = null;
@@ -84,6 +87,29 @@ public class EmployeeDaoImpl implements EmployeeDao {
 			e.printStackTrace();
 		}
 		return employee;
+	}
+
+	@Override
+	public List<Employee> getEmployeeList() {
+		List<Employee> employeeList = new ArrayList<>();
+		Employee employee = null;
+		Connection conn = cf.getConnection();
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM employee");
+			while (rs.next()) {
+				employee = new Employee(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8), rs.getInt(9), rs.getString(10),
+						rs.getDouble(11), rs.getDouble(12));
+				employeeList.add(employee);
+			}
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return employeeList;
+
 	}
 
 }

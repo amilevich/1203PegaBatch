@@ -8,13 +8,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ternary.daoimpl.RequestDaoImpl;
 import com.ternary.model.Employee;
 import com.ternary.model.Request;
 
 public class HomeController {
 
 	public static String Home(HttpServletRequest request) {
-		return null;
+		Employee employee = (Employee) request.getSession().getAttribute("Employee");
+
+		RequestDaoImpl requestDaoImpl = new RequestDaoImpl();
+		List<Request> requests = requestDaoImpl.getRequests(employee.getEmployeeId());
+		request.getSession().setAttribute("Requests", requests);
+
+		return "/html/home.html";
 	}
 
 	public static String EmployeeJSON(HttpServletRequest request, HttpServletResponse response) {
@@ -43,6 +50,7 @@ public class HomeController {
 
 	public static String PendingRequestsJSON(HttpServletRequest request, HttpServletResponse response) {
 
+		@SuppressWarnings("unchecked")
 		List<Request> requests = (List<Request>) request.getSession().getAttribute("Requests");
 
 		try {
@@ -53,6 +61,31 @@ public class HomeController {
 			e.printStackTrace();
 		}
 
+		return null;
+	}
+
+	public static String ViewRequest(HttpServletRequest request) {
+
+		int requestId = Integer.parseInt(request.getParameter("reqId"));
+
+		RequestDaoImpl requestDaoImpl = new RequestDaoImpl();
+		Request req = new Request();
+
+		req = requestDaoImpl.getRequest(requestId);
+		request.getSession().setAttribute("Request", req);
+
+		return "/html/details.html";
+	}
+
+	public static String RequestJSON(HttpServletRequest request, HttpServletResponse response) {
+		Request req = (Request) request.getSession().getAttribute("Request");
+		try {
+			response.getWriter().write(new ObjectMapper().writeValueAsString(req));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 
