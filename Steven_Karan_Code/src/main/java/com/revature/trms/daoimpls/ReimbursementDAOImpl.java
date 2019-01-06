@@ -23,14 +23,14 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	@Override
 	public boolean insertReimbursement(Reimbursement reimb) {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "BEGIN INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?,?) RETURNING reimb_id INTO ?; END";
+			String sql = "BEGIN INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?,?) RETURNING reimb_id INTO ?; END;";
 			CallableStatement cs = conn.prepareCall(sql);
 			// Turn off auto-commit
 			conn.setAutoCommit(false);
 
 			cs.setInt(1, reimb.getEmployee().getEmp_id());
-			int addr_id = new AddressDAOImpl().insertAddress(reimb.getEvent().getLocation());
 			
+			int addr_id = new AddressDAOImpl().insertAddress(reimb.getEvent().getLocation());
 			if(addr_id > 0) {
 				reimb.getEvent().getLocation().setAddress_id(addr_id);
 			}else {
@@ -44,19 +44,18 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				return false;
 			}
 			
-			
 			cs.setInt(2, reimb.getEvent().getEvent_id());
 			cs.setDate(3, Date.valueOf(reimb.getRequest_date()));
 			cs.setString(4, reimb.getJustification());
 			cs.setInt(5, reimb.getWork_time_missed());
-			if (reimb.getStatus_id() < 0)
+			if (reimb.getStatus_id() > 0)
 				cs.setInt(6, reimb.getStatus_id());
 			else
 				cs.setNull(6, 1);
 			
 			cs.setDouble(7, reimb.getFund_awarded());
 			cs.registerOutParameter(8, Types.NUMERIC);
-			
+			System.out.println(reimb.toString());
 			if( cs.executeUpdate() > 0) {
 				System.out.println("COMMITTING CHANGES");
 				conn.commit();

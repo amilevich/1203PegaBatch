@@ -6,12 +6,13 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Enumeration;
+import java.time.temporal.ChronoUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 import com.revature.trms.daoimpls.ReimbursementDAOImpl;
+import com.revature.trms.daoimpls.ReimbursementStatusDAOImpl;
 import com.revature.trms.models.Address;
 import com.revature.trms.models.Alert;
 import com.revature.trms.models.Employee;
@@ -107,6 +108,19 @@ public class ReimbursementController {
 		reimb.setRequest_date(LocalDate.now());
 		reimb.setJustification(req.getParameter("justification"));
 		
+		//Setting reimbursement status
+		reimb.setStatus_name("Pending Direct Supervisor Approval");
+		reimb.setNext_id(emp.getSupervisor_id());
+		if (event.getStart_date().isBefore(LocalDate.now().plusWeeks(2))) {
+			reimb.setUrgent(true);
+		}
+		else {
+			reimb.setUrgent(false);
+		}
+		
+		// linking event and reimbursement (address transitively)
+		reimb.setEvent(event);
+		
 		String work_missed_str = req.getParameter("work-missed");
 		System.out.println("Before numeric validation. Work Missed: " + work_missed_str);
 		if(GeneralValidator.isNumeric(work_missed_str)) {
@@ -117,24 +131,24 @@ public class ReimbursementController {
 			alert = new Alert("danger", "Error: Invalid work time missed.\nOnly numbers are allowed in this field");
 			req.getSession().setAttribute("Alert",alert);
 		}
-		
+				
 		if(!ReimbursementValidator.validate_Reimbursement(reimb)) {
 			alert = new Alert("danger","Error: Invalid Reimbursement Details");
 			req.getSession().setAttribute("Alert", alert);
 			return "/html/reimburse.html";
 		}
 		
-		// linking event and reimbursement (address transitively)
-		reimb.setEvent(event);
 		
 		// All validators passed, can move forward with inserting the form into the database
 		ReimbursementDAOImpl rdi = new ReimbursementDAOImpl();
 		boolean success = rdi.insertReimbursement(reimb);
 		
+		new ReimbursementStatusDAOImpl().insertReimbursementStatus(reimb);
+		
 		if(success && reimb.getReimb_id()>0) {
 			
 			// Attach files 
-			AttachmentController.UploadFiles(req, reimb.getReimb_id());
+			//AttachmentController.UploadFiles(req, reimb.getReimb_id());
 			
 			
 			alert = new Alert("success", "Reimbursement Submitted!");
