@@ -15,7 +15,7 @@ public class ReimbursementValidator {
 		
 		// null check to begin with to avoid nullptrexceptions later
 		if(reimb == null) {
-			System.out.println("1");
+			System.out.println("Reimbursement null");
 			return false;
 		}
 		
@@ -23,7 +23,7 @@ public class ReimbursementValidator {
 		int emp_id = reimb.getEmployee().getEmp_id();
 		EmployeeDAOImpl edi = new EmployeeDAOImpl();
 		if(edi.getEmployeeByID(emp_id)==null) {
-			System.out.println("2");
+			System.out.println("Reimbursement employee id invalid");
 			return false;
 		}
 		
@@ -31,7 +31,7 @@ public class ReimbursementValidator {
 		Event event = reimb.getEvent();
 		
 		if(event == null) {
-			System.out.println("3");
+			System.out.println("Reimbursement event null");
 			return false;
 		}
 //		if(new EventDAOImpl().getEvent(event.getEvent_id()) == null) {
@@ -46,13 +46,13 @@ public class ReimbursementValidator {
 		
 		// validate justification
 		if(reimb.getJustification()==null || reimb.getJustification().length() > 1000) {
-			System.out.println("5");
+			System.out.println("Reimbursement justification null / too long");
 			return false;
 		}
 		
 		// validate work_time
 		if( reimb.getWork_time_missed() < 0) {
-			System.out.println("6");
+			System.out.println("Reimbursement time missed invalid");
 			return false;
 		}
 		

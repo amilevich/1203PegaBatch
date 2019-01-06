@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
 	<meta charset="UTF-8">
 	<title>Reimbursements!</title>
@@ -10,8 +10,11 @@
 	<link rel="stylesheet" type="text/css" href="../css/reimburse.css">
 </head>
 
-<body>
+<body class="d-flex flex-column h-100">
 
+
+
+	<main class="flex-shrink-0">
 	<div id="alert" class="container"></div> 
 
 	<div class="container">
@@ -198,7 +201,7 @@
 
 			<!-- work time missed (# of hours) -->
 			<div class="form-row">
-				<div class="col-lg-3 col-md-3 col-sm-12">
+				<div class="col-lg-2 col-md-2 col-sm-6">
 					<label for="work-missed">Work Hours Missed</label>
 					<input class="form-control" type="number" id="work-missed" min="1" step="1" name="work-missed" value="0" required>
 				</div>
@@ -245,6 +248,14 @@
 		</div>
 	</form>
 
+	</main>
+
+	<!-- Footer -->
+	<footer class="footer mt-auto bg-dark text-center">
+		<div class="my-1">
+			<small class="text-muted">©2019 Team Burst</small>
+		</div>
+	</footer>
 
 	<!-- Custom JS -->
 	<script type="text/javascript" src="../js/alert.js"></script>
