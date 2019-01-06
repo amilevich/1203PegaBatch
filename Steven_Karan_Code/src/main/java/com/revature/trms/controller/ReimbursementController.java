@@ -148,10 +148,13 @@ public class ReimbursementController {
 		if(success && reimb.getReimb_id()>0) {
 			
 			// Attach files 
-			//AttachmentController.UploadFiles(req, reimb.getReimb_id());
+			if( AttachmentController.UploadFiles(req, reimb.getReimb_id())) {
+				alert = new Alert("success", "Reimbursement Submitted!");
+			}else {
+				alert = new Alert("warning", "Reimbursement Submitted. Error occurred while uploading attachments selected.");
+			}
 			
 			
-			alert = new Alert("success", "Reimbursement Submitted!");
 		}else {
 			alert = new Alert("danger", "Error trying to submit reimbursement. Please try again later.");
 		}
