@@ -33,6 +33,10 @@ public class AttachmentController {
 		}
 		
 		files.forEach(file -> {
+			if(file.getContentType() == null) {
+				return;
+			}
+			
 			Attachment attachment = new Attachment();	
 			attachment.setAttach_name(file.getSubmittedFileName());
 			

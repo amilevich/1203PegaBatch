@@ -11,7 +11,36 @@
 </head>
 
 <body class="d-flex flex-column h-100">
+	<header>
 
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<a href="#" class="navbar-brand">ReimBURST</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-items" aria-controls="navbar-items" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+  		</button>
+		<div class="collapse navbar-collapse" id="navbar-items">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/home.do">Home</a></li>
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Reimbursements
+					</a>
+
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="http://localhost:9000/ReimbursementSystem/html/reimburse.do">Request Form</a>
+						<a class="dropdown-item" href="http://localhost:9000/ReimbursementSystem/html/reimburse-list.do">Status</a>
+					</div>
+				</li>
+			</ul>
+			
+		</div>
+
+	</nav>
+
+	</header>
 
 
 	<main class="flex-shrink-0">
@@ -224,7 +253,7 @@
 					<div class="w-100">
 						<label class="btn btn-upload">
 							<i class="fa fa-cloud-upload"></i> Attach Files 
-							<input type="file" style="display: none;" id="attach-input" multiple>
+							<input type="file" style="display: none;" id="attach-input" name="files" multiple>
 						</label>
 					</div>
 				</div> 

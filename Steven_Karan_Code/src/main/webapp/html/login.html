@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 <head>
 <meta charset="UTF-8">
 <title>Log in</title>
@@ -10,34 +10,77 @@
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
-<body>
-	<div id="alert" class="container"></div> 
+<body class="d-flex flex-column h-100 pt-5">
+	<header>
 
-	<div id="container" class="container">
-		<div class="row">
-			<div class="col-sm-6 offset-sm-3 text-center">
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<a href="#" class="navbar-brand">ReimBURST</a>
 
-				<div class="info-form">
-					<form method="POST" action="login.do" class="form-inlin justify-content-center">
-						<h1>Log In</h1>
-						<div class="form-group">
-							<label for="username">Username: </label> <input type="text"
-								class="form-control" id="username" name="username"
-								placeholder="Enter username...">
-						</div>
-						<div class="form-group">
-							<label for="password">Password: </label> <input type="password"
-								class="form-control" id="password" name="password"
-								placeholder="Enter password...">
-						</div>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-items" aria-controls="navbar-items" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+  		</button>
+		<div class="collapse navbar-collapse" id="navbar-items">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active"><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/home.do">Home</a></li>
 
-						<button type="submit" class="btn btn-primary">Submit</button>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Reimbursements
+					</a>
 
-					</form>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="http://localhost:9000/ReimbursementSystem/html/reimburse.do">Request Form</a>
+						<a class="dropdown-item" href="http://localhost:9000/ReimbursementSystem/html/reimburse-list.do">Status</a>
+					</div>
+				</li>
+			</ul>
+			
+		</div>
+
+	</nav>
+
+	</header>
+
+	<main class="container mt-4">
+		<div id="alert" class="container"></div> 
+
+		<div id="container" class="container">
+			<div class="row">
+				<div class="col-sm-6 offset-sm-3 text-center">
+
+					<div class="info-form">
+						<form method="POST" action="login.do" class="form-inlin justify-content-center">
+							<h1>Log In</h1>
+							<div class="form-group">
+								<label for="username">Username: </label> <input type="text"
+									class="form-control" id="username" name="username"
+									placeholder="Enter username...">
+							</div>
+							<div class="form-group">
+								<label for="password">Password: </label> <input type="password"
+									class="form-control" id="password" name="password"
+									placeholder="Enter password...">
+							</div>
+
+							<button type="submit" class="btn btn-primary">Submit</button>
+
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</main>
+
+	<!-- Footer -->
+	<footer class="footer mt-auto bg-dark text-center">
+		<div class="my-1">
+			<small class="text-muted">©2019 Team Burst</small>
+		</div>
+	</footer>
+
+
+	 <!-- scripts -->
 	<script type="text/javascript" src="../js/alert.js"></script>
 	<script type="text/javascript" src="../js/login.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
