@@ -68,17 +68,14 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				empl.setAvailable_funds(rs.getDouble("available_funds"));
 
 				empl.setDepartment(rs.getString("dept"));
-
-				empl.setPosition(rs.getString("position"));
-
+				empl.setPosition(rs.getString("pos"));
 				empl.setSupervisor_id(rs.getInt("super_id"));
 				
 				
 				if(!rs.wasNull()) {
 					empl.setSupervisor_firstname(rs.getString("super_firstname"));
 					empl.setSupervisor_lastname(rs.getString("super_lastname"));
-				}
-				
+				}	
 			}
 			
 			return empl;
@@ -107,16 +104,13 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 				empl.setUsername(rs.getString("username"));
 				empl.setPassword(rs.getString("password"));
 				empl.setAvailable_funds(rs.getDouble("available_funds"));
-
 				empl.setDepartment(rs.getString("dept"));
-
 				empl.setPosition(rs.getString("pos"));
-
+				
 				empl.setSupervisor_id(rs.getInt("super_id"));
 				empl.setSupervisor_firstname(rs.getString("super_firstname"));
 				empl.setSupervisor_lastname(rs.getString("super_lastname"));
 			}
-
 			return empl;
 		} catch (SQLException e) {
 			e.printStackTrace();

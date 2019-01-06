@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Reimbursements!</title>
+<title>Reimbursements List!</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
@@ -14,10 +14,19 @@
 </head>
 
 <body>
+	
 	<div class="container">
 		<div class="title">
 
-			<h1>Reimbursement List</h1>
+			<h1>Reimbursements</h1>
+			<ul class="nav">
+  				<li class="nav-item">
+    				<a class="nav-link active" href="#personals" id="personal_list">Personal List</a>
+  				</li>
+  				<li class="nav-item">
+    				<a class="nav-link" href="#assignments" id="assigned_list">Assignment List</a>
+  				</li>
+  			</ul>
 			<hr>
 		</div>
 		<div class="accordion" id="accordionReimb">
@@ -60,6 +69,7 @@
 		</div>
 	</div>
 	<!-- Bootstrap -->
+	<script type="text/javascript" src="../js/alert.js"></script>
 	<script type="text/javascript" src="../js/reimburse-list.js"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

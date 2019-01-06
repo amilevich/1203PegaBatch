@@ -25,10 +25,12 @@ public class RequestHelper {
 			return AlertController.AlertJSON(req,resp);
 		case "/ReimbursementSystem/html/reimburse-list.do":
 			return ReimbursementListController.ReimbursementList(req);
-		case "/ReimbursementSystem/html/emp-listJSON.do":
-			return ReimbursementListController.ReimbursementListJSON(req, resp);
+		case "/ReimbursementSystem/html/personal-listJSON.do":
+			return ReimbursementListController.PersonalReimbursementListJSON(req, resp);
 		case "/ReimbursementSystem/html/upload.do":
 			return AttachmentController.UploadFile(req);
+		case "/ReimbursementSystem/html/assignment-listJSON.do":
+			return ReimbursementListController.AssignReimbursementListJSON(req, resp);
 		default:
 			return LoginController.Login(req);
 		}

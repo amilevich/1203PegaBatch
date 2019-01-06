@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import com.revature.trms.dao.ReimbursementDAO;
 import com.revature.trms.models.Address;
+import com.revature.trms.models.Employee;
 import com.revature.trms.models.Event;
 import com.revature.trms.models.Reimbursement;
 import com.revature.trms.util.ConnFactory;
@@ -291,7 +292,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	}
 
 	@Override
-	public ArrayList<Reimbursement> getAllReimbursementRequireManagement(int next) {
+	public ArrayList<Reimbursement> getAllReimbursementByNext(int next) {
 		try (Connection conn = cf.getConnection();) {
 			String sql = "SELECT * FROM reimb_view WHERE next_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
@@ -301,12 +302,23 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 			Reimbursement reimb = null;
 			Event event = null;
 			Address location = null;
-
+			Employee employee = null;
+			
 			while (rs.next()) {
 				reimb = new Reimbursement();
 				event = new Event();
 				location = new Address();
-
+				employee = new Employee();
+				//setting Employee Personal Information
+				employee.setEmp_id(rs.getInt("emp_id"));
+				employee.setFirstname(rs.getString("firstname"));
+				employee.setFirstname(rs.getString("lastname"));
+				employee.setFirstname(rs.getString("email"));
+				employee.setFirstname(rs.getString("pos"));
+				employee.setFirstname(rs.getString("dept"));
+				employee.setFirstname(rs.getString("available_funds"));
+				employee.setSupervisor_id(rs.getInt("super_id"));
+				
 				// setting Reimbursement Status
 				reimb.setUrgent(rs.getInt("urgent") == 1 ? true : false);
 				reimb.setSup_flag(rs.getInt("sup_flag") == 1 ? true : false);

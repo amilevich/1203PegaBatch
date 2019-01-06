@@ -3,10 +3,46 @@
  */
 window.onload = function() {
 	console.log('in windows.onload');
-	getReimbursementForEmployee();
+	getReimbursementPersonal();
+	document.getElementById("assigned_list").addEventListener("click", assignedList, false);
+	document.getElementById("personal_list").addEventListener("click", personalList, false);
+	getAlert();
 };
 
-function getReimbursementForEmployee() {
+function assignedList() {
+	console.log('in assigned list event');
+	var parent = document.getElementById("accordionReimb");
+	removeAllChildNode(parent);
+	getReimbursementAssigned();
+	getAlert();
+}
+
+function personalList() {
+	console.log('in personal list event');
+	var parent = document.getElementById("accordionReimb");
+	removeAllChildNode(parent);
+	getReimbursementPersonal();
+	getAlert();
+}
+
+function getReimbursementAssigned(){
+	let xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if (xhttp.readyState === 4 && xhttp.status === 200){
+			let reimbList = JSON.parse(xhttp.responseText);
+			console.log(xhttp.responseText);
+			setValues(reimbList);
+		} else {
+			console.log('rdy: ' + xhttp.readyState + 'status: ' + xhttp.status);
+		}
+	};
+	xhttp.open('GET',
+			'http://localhost:9000/ReimbursementSystem/html/assignment-listJSON.do',
+			true);
+	xhttp.send();
+}
+
+function getReimbursementPersonal() {
 	let xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === 4 && xhttp.status === 200) {
@@ -17,7 +53,7 @@ function getReimbursementForEmployee() {
 		}
 	};
 	xhttp.open('GET',
-			'http://localhost:9000/ReimbursementSystem/html/emp-listJSON.do',
+			'http://localhost:9000/ReimbursementSystem/html/personal-listJSON.do',
 			true);
 	xhttp.send();
 }
@@ -29,95 +65,17 @@ function setValues(reimbList) {
 			createReimbursementView(reimbList[row], row);
 		}
 	}
+	else {
+		let row = document.createElement("div");
+		row.innerHTML = "Reimbursement list is empty";
+		document.getElementById("accordionReimb").appendChild(row);
+	}
 }
 function createReimbursementView(reimb,id){
 	console.log("in create reimb view method.")
-	let button_group;
 	let reimb_id = "ID: " + reimb.reimb_id;
 	let reimbursement_status = reimb.status_name;
-	
-	switch (reimbursement_status){
-	case null:
-		reimbursement_status = "Status: Saved";
-		button_group = 
-			'<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
-			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary">Submit</button>';
-		break;
-		
-	case "Pending Direct Supervisor Approval":
-		reimbursement_status = "Status: " + reimbursement_status;
-		button_group = 
-			'<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
-			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
-			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
-			'Request Information</button>';
-		break;
-		
-	case "Pending Department Head Approval":
-		reimbursement_status = "Status: " + reimbursement_status;
-		button_group = 
-			'<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
-			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
-			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
-			'Request Information</button>';
-		break;
-		
-	case "Pending Benifits Coordinator Approval":
-		reimbursement_status = "Status: " + reimbursement_status;
-		button_group = 
-			'<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
-			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
-			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
-			'Request Information</button>';
-		break;
-		
-	case "Pending Employee Approval":
-		reimbursement_status = "Status: " + reimbursement_status;
-		button_group = 
-			'<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
-			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
-			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
-			'Request Information</button>';
-		break;
-		
-	case "Pending Additional Information":
-		reimbursement_status = "Status: " + reimbursement_status;
-		button_group = 
-			'<button type="button" id="SubmitButton'+id+'" class="btn btn-danger">Submit Additional Information</button>';
-		break;
-		
-	case "Pending Employee Grading/Presentation":
-		let today = new Date().toLocaleDateString("en-US");
-		if(reimb.event.start_date.year <= today.getFullYear() && 
-				reimb.event.start_date.monthValue <= today.getMonth && 
-				reimb.event.start_date.dayOfMonth < today.getDate()){
-			reimbursement_status = "Status: " + reimbursement_status;
-			button_group = 
-				'<button type="button" id="SendButton'+id+'" class="btn btn-success">Send</button>'+
-				'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
-				'Upload Attachment</button>';
-		}
-		break;
-		
-	case "Pending Employee Grading/Presentation":
-		reimbursement_status = "Status: " + reimbursement_status;
-		button_group = 
-			'<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
-			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary">Submit</button>';
-		break;
-		
-	case "Pending Employee Grading/Presentation":
-		reimbursement_status = "Status: " + reimbursement_status;
-		button_group = 
-			'<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
-			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary">Submit</button>';
-		break;
-	default:
-		break;
-	}
-	
-	
-	
+	let button_group = reimburseEmployeeAction(reimbursement_status, id);
 	// event
 	let event_start_date = reimb.event.start_date.dayOfMonth + '/'
 			+ reimb.event.start_date.month + '/' + reimb.event.start_date.year;
@@ -323,16 +281,78 @@ function createReimbursementView(reimb,id){
 	document.getElementById("accordionReimb").appendChild(row);
 }
 
-// function cloneAccordion(id, len){
-// if(id!==len){
-// let reimb_row = document.getElementById("accordionReimb");
-// let reimb_next_row = reimb_row.cloneNode(true);
-// let children = reimb_next_row.children;
-// reimb_next_row.id = reimb_row.id + id;
-// reimb_row.parentNode.append(reimb_next_row);
-// for (let y = 0; y < children.length; y++) {
-// children[y].id += id
-// }
-// }
-// }
+function reimburseEmployeeAction(reimbursement_status, id){
+	switch (reimbursement_status){
+	case null://personal reimbursement option
+		reimbursement_status = "Status: Saved";
+		return '<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
+			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary">Submit</button>';
+		
+	case "Pending Direct Supervisor Approval":
+		reimbursement_status = "Status: " + reimbursement_status;
+		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
+			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
+			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
+			'Request Information</button>';
+		
+	case "Pending Department Head Approval":
+		reimbursement_status = "Status: " + reimbursement_status;
+		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
+			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
+			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
+			'Request Information</button>';
+		
+	case "Pending Benifits Coordinator Approval":
+		reimbursement_status = "Status: " + reimbursement_status;
+		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
+			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
+			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
+			'Request Information</button>';
+		
+	case "Pending Employee Approval"://personal reimbursement option
+		reimbursement_status = "Status: " + reimbursement_status;
+		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
+			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
+			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
+			'Request Information</button>';
+		
+	case "Pending Additional Information"://(sometimes)personal reimbursement option
+		reimbursement_status = "Status: " + reimbursement_status;
+		return '<button type="button" id="SubmitButton'+id+'" class="btn btn-danger">Submit Additional Information</button>';
+		
+	case "Pending Employee Grading/Presentation"://personal reimbursement option
+		let today = new Date().toLocaleDateString("en-US");
+		if(reimb.event.start_date.year <= today.getFullYear() && 
+				reimb.event.start_date.monthValue <= today.getMonth && 
+				reimb.event.start_date.dayOfMonth < today.getDate()){
+			reimbursement_status = "Status: " + reimbursement_status;
+			return '<button type="button" id="SendButton'+id+'" class="btn btn-success">Send</button>'+
+				'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
+				'Upload Attachment</button>';
+		}
+		
+	case "Pending Direct Supervisor Confirmation":
+		reimbursement_status = "Status: " + reimbursement_status;
+		return '<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
+			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary">Submit</button>';
+		
+	case "Pending Benifits Coordinator Confirmation":
+		reimbursement_status = "Status: " + reimbursement_status;
+		return '<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
+			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary">Submit</button>';
+	
+	case "Funds Awarded":
+		reimbursement_status = "Status: " + reimbursement_status;
+		return "";
+		
+	default:
+		break;
+	}
+}
+
+function removeAllChildNode(parent){
+	while (parent.firstChild) {
+	    parent.removeChild(parent.firstChild);
+	}
+}
 

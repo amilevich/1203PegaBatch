@@ -14,7 +14,7 @@ public interface ReimbursementDAO {
 	public Reimbursement getReimbursement(int id);
 	public ArrayList<Reimbursement> getAllReimbursement();
 	public ArrayList<Reimbursement> getAllReimbursementByEmployee(int emp);
-	public ArrayList<Reimbursement> getAllReimbursementRequireManagement(int emp);
+	public ArrayList<Reimbursement> getAllReimbursementByNext(int emp);
 	
 	
 	//Update
