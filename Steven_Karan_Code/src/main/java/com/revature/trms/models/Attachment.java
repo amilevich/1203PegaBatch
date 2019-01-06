@@ -8,19 +8,17 @@ public class Attachment {
 	private int reimb_id;
 	private String attach_name;
 	private Blob attachment;
-	private String description;
 	
 	public Attachment() {
 		super();
 	}
 
-	public Attachment(int attach_id, int reimb_id, String attach_name, Blob attachment, String description) {
+	public Attachment(int attach_id, int reimb_id, String attach_name, Blob attachment) {
 		super();
 		this.attach_id = attach_id;
 		this.reimb_id = reimb_id;
 		this.attach_name = attach_name;
 		this.attachment = attachment;
-		this.description = description;
 	}
 
 	public int getAttach_id() {
@@ -55,13 +53,7 @@ public class Attachment {
 		this.attachment = attachment;
 	}
 
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	@Override
 	public int hashCode() {
@@ -70,7 +62,6 @@ public class Attachment {
 		result = prime * result + attach_id;
 		result = prime * result + ((attach_name == null) ? 0 : attach_name.hashCode());
 		result = prime * result + ((attachment == null) ? 0 : attachment.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + reimb_id;
 		return result;
 	}
@@ -96,11 +87,6 @@ public class Attachment {
 				return false;
 		} else if (!attachment.equals(other.attachment))
 			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
 		if (reimb_id != other.reimb_id)
 			return false;
 		return true;
@@ -109,7 +95,7 @@ public class Attachment {
 	@Override
 	public String toString() {
 		return "Attachment [attach_id=" + attach_id + ", reimb_id=" + reimb_id + ", attach_name=" + attach_name
-				+ ", attachment=" + attachment + ", description=" + description + "]";
+				+ ", attachment=" + attachment + "]";
 	}
 	
 }

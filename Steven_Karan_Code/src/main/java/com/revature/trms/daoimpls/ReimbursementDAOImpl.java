@@ -20,7 +20,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	@Override
 	public boolean insertReimbursement(Reimbursement reimb) {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?,?)";
+			String sql = "BEGIN INSERT INTO reimbursement VALUES(null,?,?,?,?,?,?,?) RETURNING reimb_id INTO ?; END";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			// Turn off auto-commit
 			conn.setAutoCommit(false);

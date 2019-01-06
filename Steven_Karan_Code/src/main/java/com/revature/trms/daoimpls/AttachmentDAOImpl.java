@@ -17,12 +17,11 @@ public class AttachmentDAOImpl implements AttachmentDAO {
 	@Override
 	public boolean insertAttachment(Attachment attachment, InputStream is) {
 		try(Connection conn = cf.getConnection()){
-			String sql = "INSERT INTO attachment VALUES(null,?,?,?,?)";
+			String sql = "INSERT INTO attachment VALUES(null,?,?,?)";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1,attachment.getReimb_id());
 			ps.setString(2, attachment.getAttach_name());
 			ps.setBlob(3, is);
-			ps.setString(4, attachment.getDescription());
 			
 			int rowsAffected = ps.executeUpdate();
 			if(rowsAffected > 0)
@@ -44,7 +43,7 @@ public class AttachmentDAOImpl implements AttachmentDAO {
 			ps.setInt(1, file_id);
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				attachment = new Attachment(rs.getInt("attach_id"),rs.getInt("reimb_id"), rs.getString("attach_name"),rs.getBlob("attachment"), rs.getString("description"));
+				attachment = new Attachment(rs.getInt("attach_id"),rs.getInt("reimb_id"), rs.getString("attach_name"),rs.getBlob("attachment"));
 			}
 			
 			

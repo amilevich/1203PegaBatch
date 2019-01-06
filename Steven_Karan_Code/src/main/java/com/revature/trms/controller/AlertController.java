@@ -13,7 +13,6 @@ public class AlertController {
 
 	public static String AlertJSON(HttpServletRequest req, HttpServletResponse resp) {
 		Alert alert = (Alert)req.getSession().getAttribute("Alert");
-		System.out.println("Alert: " + alert);
 		try {
 			resp.getWriter().write(new ObjectMapper().writeValueAsString(alert));
 			req.getSession().setAttribute("Alert", null);
