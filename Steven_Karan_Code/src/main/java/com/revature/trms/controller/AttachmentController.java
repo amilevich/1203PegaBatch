@@ -1,6 +1,7 @@
 package com.revature.trms.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -14,51 +15,41 @@ import com.revature.trms.models.Attachment;
 public class AttachmentController {
 
 	
-	public static String UploadFile(HttpServletRequest req) throws IOException, ServletException {
-		System.out.println("UPLOADING FILE");
-		if(req.getMethod().equals("GET")) {
-			System.out.println("GET GOT");
-			return "/html/index.html";
-		}
+	public static boolean UploadFile(HttpServletRequest req, int reimbursement_id) throws IOException, ServletException {
 		
 		Enumeration e = req.getParameterNames();
 		while(e.hasMoreElements()) {
 			System.out.println(e.nextElement());
 		}
-
-		Part fileField = req.getPart("file");
 		
-		if(fileField == null) {
+		ArrayList<Part> files = new ArrayList<>(req.getParts());
+	
+		
+		if(files.size() == 0) {
 			System.out.println("file field null");
-			Alert alert = new Alert("danger", "Error uploading file specified");
+			Alert alert = new Alert("danger", "Error uploading files specified");
 			req.getSession().setAttribute("Alert", alert);
-			return "/html/index.html";
+			return false;
 		}
 		
-		String filename = fileField.getSubmittedFileName();
-		
-		if(filename == null) {
-			System.out.println("filename null");
-			Alert alert = new Alert("danger", "Error: Invalid File Name");
-			req.getSession().setAttribute("Alert", alert);
-			return "/html/index.html";
+		files.forEach(file -> {
+			Attachment attachment = new Attachment();	
+			attachment.setAttach_name(file.getSubmittedFileName());
 			
-		}
+			attachment.setReimb_id(reimbursement_id);
+			AttachmentDAOImpl adi = new AttachmentDAOImpl();
+			try {
+				adi.insertAttachment(attachment, file.getInputStream());
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+
+		});
+
 		
-		String description = "";
-		int reimb_id = 102;
-		Attachment attachment = new Attachment(); 
 		
-		attachment.setAttach_name(filename);
-		attachment.setDescription(description);
-		attachment.setReimb_id(reimb_id);
 		
-		AttachmentDAOImpl adi = new AttachmentDAOImpl();
-		adi.insertAttachment(attachment, fileField.getInputStream());
-		
-		System.out.println("did it!");
-		
-		return "/html/index.html";
+		return true;
 	}
 	
 }

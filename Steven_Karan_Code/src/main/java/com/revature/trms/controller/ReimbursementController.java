@@ -131,6 +131,10 @@ public class ReimbursementController {
 		boolean success = rdi.insertReimbursement(reimb);
 		
 		if(success) {
+			// Attach files 
+			//AttachmentController.UploadFile(req, )
+			
+			
 			alert = new Alert("success", "Reimbursement Submitted!");
 		}else {
 			alert = new Alert("danger", "Error trying to submit reimbursement. Please try again later.");

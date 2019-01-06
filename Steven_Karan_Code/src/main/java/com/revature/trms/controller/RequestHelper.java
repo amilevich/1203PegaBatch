@@ -27,8 +27,6 @@ public class RequestHelper {
 			return ReimbursementListController.ReimbursementList(req);
 		case "/ReimbursementSystem/html/personal-listJSON.do":
 			return ReimbursementListController.PersonalReimbursementListJSON(req, resp);
-		case "/ReimbursementSystem/html/upload.do":
-			return AttachmentController.UploadFile(req);
 		case "/ReimbursementSystem/html/assignment-listJSON.do":
 			return ReimbursementListController.AssignReimbursementListJSON(req, resp);
 		default:
