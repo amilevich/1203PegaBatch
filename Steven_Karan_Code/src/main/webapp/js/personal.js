@@ -14,6 +14,12 @@ function personalList() {
 	console.log('in personal list event');
 	var parent = document.getElementById("accordionReimb");
 	removeAllChildNode(parent);
+	parent.innerHTML = '<div class="text-center">'+
+							'<div class="spinner-border text-center"'+
+								'style="width: 5rem; height: 5rem;" role="status">+'
+								'<span class="sr-only">Loading...</span>'+
+							'</div>'+
+						'</div>';
 	getReimbursementPersonal();
 	getAlert();
 }
@@ -23,7 +29,6 @@ function getReimbursementPersonal() {
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState === 4 && xhttp.status === 200) {
 			let reimbList = JSON.parse(xhttp.responseText);
-			console.log(xhttp.responseText);
 			setPersonalList(reimbList);
 		} else {
 			console.log('rdy: ' + xhttp.readyState + 'status: ' + xhttp.status);
@@ -63,18 +68,15 @@ function personalListAction(reimbursement_status, id){
 		reimbursement_status === "Pending Benifits Coordinator Approval" ||
 		reimbursement_status === "Pending Direct Supervisor Confirmation" ||
 		reimbursement_status === "Pending Benifits Coordinator Confirmation") {
-		reimbursement_status = "Status: " + reimbursement_status;
 		return '';
 	}
 		
 	else if (reimbursement_status === "Pending Employee Approval") {
-		reimbursement_status = "Status: " + reimbursement_status;
 		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning btn-lg btn-block">Deny</button>'+
 			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary btn-lg btn-block">Approve</button>';
 	}
 		
 	else if (reimbursement_status === "Pending Additional Information"){
-		reimbursement_status = "Status: " + reimbursement_status;
 		return '<button type="button" id="SubmitButton'+id+'" class="btn btn-danger btn-lg btn-block">Submit Additional Information</button>';
 	}
 	
@@ -83,7 +85,6 @@ function personalListAction(reimbursement_status, id){
 		if(reimb.event.start_date.year <= today.getFullYear() && 
 				reimb.event.start_date.monthValue <= today.getMonth && 
 				reimb.event.start_date.dayOfMonth < today.getDate()){
-			reimbursement_status = "Status: " + reimbursement_status;
 			return '<button type="button" id="SendButton'+id+'" class="btn btn-success btn-lg btn-block">Send</button>'+
 				'<button type="button" class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
 				'Upload Attachment</button>';
