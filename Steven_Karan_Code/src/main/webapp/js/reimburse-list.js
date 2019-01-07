@@ -38,16 +38,17 @@ function getReimbursementAssigned(){
 function setAssignedList(reimbList) {
 	let view = "";
 	let assigned = true;
-	console.log("in set values function.");
-	if (reimbList == '[]') {
+	console.log("console: " + reimbList);
+	console.log(reimbList);
+	if (reimbList.length === 0) {
+		console.log("No Reimbursements found!")
+		view = "No tuition reimbursements found!";
+	}
+	else {
 		for (let row = 0; reimbList.length > row; row++) {
 			console.log("read rows in json");
 			view += createReimbursementView(reimbList[row], row, assigned);
 		}	
-	}
-	else {
-		console.log("No Reimbursements found!")
-		view = "No tuition reimbursements found!";
 	}
 	
 	document.getElementById("accordionReimb").innerHTML = view;
@@ -266,7 +267,6 @@ function createReimbursementView(reimb,id, assigned){
 			'</div>'+
 			'<div class="card-footer">'+
 				'<div class="form-group container">'+
-					'<!--<button type="button" class="btn btn-danger">Cancel</button>-->'+
 					button_group +
 				'</div>'+
 			'</div>'+
@@ -343,15 +343,15 @@ function assignedEmployeeInfo(reimb, id){
 function assignedListAction(reimbursement_status, id){
 	if (reimbursement_status == "Pending Direct Supervisor Approval" ||
 		reimbursement_status == "Pending Department Head Approval") {
-		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
-			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
+		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning btn-lg btn-block">Deny</button>'+
+			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary btn-lg btn-block">Approve</button>'+
 			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
 			'Request Information</button>';
 	}
 		
 	else if (reimbursement_status == "Pending Benifits Coordinator Approval") {
-		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
-			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
+		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning btn-lg btn-block">Deny</button>'+
+			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary btn-lg btn-block">Approve</button>'+
 			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
 			'Request Information</button>';
 	}
@@ -361,7 +361,7 @@ function assignedListAction(reimbursement_status, id){
 	}
 		
 	else if (reimbursement_status == "Pending Additional Information"){
-		return '<button type="button" id="SubmitButton'+id+'" class="btn btn-danger">Submit Additional Information</button>';
+		return '<button type="button" id="SubmitButton'+id+'" class="btn btn-danger btn-lg btn-block">Submit Additional Information</button>';
 	}
 	
 	else if (reimbursement_status == "Pending Employee Grading/Presentation"){																// option
@@ -369,14 +369,14 @@ function assignedListAction(reimbursement_status, id){
 		if(reimb.event.start_date.year <= today.getFullYear() && 
 				reimb.event.start_date.monthValue <= today.getMonth && 
 				reimb.event.start_date.dayOfMonth < today.getDate()){
-			return '<button type="button" id="SendButton'+id+'" class="btn btn-success">Send</button>'+
+			return '<button type="button" id="SendButton'+id+'" class="btn btn-success btn-lg btn-block">Send</button>'+
 				'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
 				'Upload Attachment</button>';
 		}
 	}	
 	else if (reimbursement_status == "Pending Direct Supervisor Confirmation" ||
 			reimbursement_status == "Pending Benifits Coordinator Confirmation") {
-		return '<button type="button" id="ConfirmButton'+id+'" class="btn btn-primary">Confirm</button>';
+		return '<button type="button" id="ConfirmButton'+id+'" class="btn btn-primary btn-lg btn-block">Confirm</button>';
 	}
 	
 	else if (reimbursement_status == "Funds Awarded"){

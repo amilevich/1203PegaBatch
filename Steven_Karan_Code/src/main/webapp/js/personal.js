@@ -38,15 +38,16 @@ function getReimbursementPersonal() {
 function setPersonalList(reimbList) {
 	let view = "";
 	let assigned = false;
-	if (reimbList) {
+	console.log(reimbList);
+	if (reimbList.length==0) {
+		console.log("No Reimbursements found!")
+		view = "No tuition reimbursements found!";
+	}
+	else {
 		for (let row = 0; reimbList.length > row; row++) {
 			console.log("read rows in json");
 			view += createReimbursementView(reimbList[row], row, assigned);
 		}	
-	}
-	else {
-		console.log("No Reimbursements found!")
-		view = "No tuition reimbursements found!";
 	}
 	
 	document.getElementById("accordionReimb").innerHTML = view;
@@ -54,8 +55,8 @@ function setPersonalList(reimbList) {
 
 function personalListAction(reimbursement_status, id){
 	if (!reimbursement_status) {
-		return '<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
-			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary">Submit</button>';
+		return '<button type="button" id="SaveButton'+id+'" class="btn btn-success btn-lg btn-block">Save</button>'+
+			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary btn-lg btn-block">Submit</button>';
 	}
 	else if (reimbursement_status === "Pending Direct Supervisor Approval" ||
 		reimbursement_status === "Pending Department Head Approval" ||
@@ -68,13 +69,13 @@ function personalListAction(reimbursement_status, id){
 		
 	else if (reimbursement_status === "Pending Employee Approval") {
 		reimbursement_status = "Status: " + reimbursement_status;
-		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
-			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>';
+		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning btn-lg btn-block">Deny</button>'+
+			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary btn-lg btn-block">Approve</button>';
 	}
 		
 	else if (reimbursement_status === "Pending Additional Information"){
 		reimbursement_status = "Status: " + reimbursement_status;
-		return '<button type="button" id="SubmitButton'+id+'" class="btn btn-danger">Submit Additional Information</button>';
+		return '<button type="button" id="SubmitButton'+id+'" class="btn btn-danger btn-lg btn-block">Submit Additional Information</button>';
 	}
 	
 	else if (reimbursement_status === "Pending Employee Grading/Presentation"){																// option
@@ -83,8 +84,8 @@ function personalListAction(reimbursement_status, id){
 				reimb.event.start_date.monthValue <= today.getMonth && 
 				reimb.event.start_date.dayOfMonth < today.getDate()){
 			reimbursement_status = "Status: " + reimbursement_status;
-			return '<button type="button" id="SendButton'+id+'" class="btn btn-success">Send</button>'+
-				'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
+			return '<button type="button" id="SendButton'+id+'" class="btn btn-success btn-lg btn-block">Send</button>'+
+				'<button type="button" class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
 				'Upload Attachment</button>';
 		}
 	}	
