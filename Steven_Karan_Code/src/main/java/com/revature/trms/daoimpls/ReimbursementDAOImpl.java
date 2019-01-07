@@ -248,6 +248,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				location = new Address();
 
 				// setting Reimbursement Status
+				reimb.setStatus_name(rs.getString("status_name"));
 				reimb.setUrgent(rs.getInt("urgent") == 1 ? true : false);
 				reimb.setSup_flag(rs.getInt("sup_flag") == 1 ? true : false);
 				reimb.setDept_flag(rs.getInt("dept_flag") == 1 ? true : false);
@@ -297,7 +298,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	@Override
 	public ArrayList<Reimbursement> getAllReimbursementByNext(int next) {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "SELECT * FROM reimb_view WHERE next_id = ?";
+			String sql = "SELECT * FROM reimb_view_manager WHERE next_id = ?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, next);
 			ResultSet rs = ps.executeQuery();
@@ -323,6 +324,7 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 				employee.setSupervisor_id(rs.getInt("super_id"));
 				
 				// setting Reimbursement Status
+				reimb.setStatus_name(rs.getString("status_name"));
 				reimb.setUrgent(rs.getInt("urgent") == 1 ? true : false);
 				reimb.setSup_flag(rs.getInt("sup_flag") == 1 ? true : false);
 				reimb.setDept_flag(rs.getInt("dept_flag") == 1 ? true : false);

@@ -17,21 +17,13 @@ function assignedList() {
 	getAlert();
 }
 
-function personalList() {
-	console.log('in personal list event');
-	var parent = document.getElementById("accordionReimb");
-	removeAllChildNode(parent);
-	getReimbursementPersonal();
-	getAlert();
-}
-
 function getReimbursementAssigned(){
 	let xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function(){
 		if (xhttp.readyState === 4 && xhttp.status === 200){
 			let reimbList = JSON.parse(xhttp.responseText);
 			console.log(xhttp.responseText);
-			setValues(reimbList);
+			setAssignedList(reimbList);
 		} else {
 			console.log('rdy: ' + xhttp.readyState + 'status: ' + xhttp.status);
 		}
@@ -42,56 +34,30 @@ function getReimbursementAssigned(){
 	xhttp.send();
 }
 
-function getReimbursementPersonal() {
-	let xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (xhttp.readyState === 4 && xhttp.status === 200) {
-			let reimbList = JSON.parse(xhttp.responseText);
-			console.log(xhttp.responseText);
-			setValues(reimbList);
-		} else {
-			console.log('rdy: ' + xhttp.readyState + 'status: ' + xhttp.status);
-		}
-	};
-	xhttp.open('GET',
-			'http://localhost:9000/ReimbursementSystem/html/personal-listJSON.do',
-			true);
-	xhttp.send();
-}
 
-
-function setValues(reimbList) {
+function setAssignedList(reimbList) {
 	let view = "";
+	let assigned = true;
 	console.log("in set values function.");
-	if (reimbList) {
+	if (reimbList == '[]') {
 		for (let row = 0; reimbList.length > row; row++) {
 			console.log("read rows in json");
-			view += createReimbursementView(reimbList[row], row);
-		}
-		document.getElementById("accordionReimb").innerHTML = view;
+			view += createReimbursementView(reimbList[row], row, assigned);
+		}	
 	}
 	else {
 		console.log("No Reimbursements found!")
-		let row = document.createElement("div");
-		row.innerHTML = "No tuition reimbursements found!";
-		document.getElementById("accordionReimb").appendChild(row);
+		view = "No tuition reimbursements found!";
 	}
+	
+	document.getElementById("accordionReimb").innerHTML = view;
 }
-function createReimbursementView(reimb,id){
-	console.log("in create reimb view method.")
-	
-	
-	//employee info
-	let firstname = reimb.employee.firstname;
-	let lastname = reimb.employee.lastname;
-	let email = reimb.employee.email;
-	let department = reimb.employee.department;
-	let position = reimb.employee.position;
-	let available_funds = reimb.employee.available_funds;
-	
+
+function createReimbursementView(reimb,id, assigned){
+	let employee_view = '';
+	let button_group = '';
 	let reimb_id = "ID: " + reimb.reimb_id;
 	let reimbursement_status = reimb.status_name;
-	
 	// event
 	let event_start_date = reimb.event.start_date.dayOfMonth + '/'
 			+ reimb.event.start_date.month + '/' + reimb.event.start_date.year;
@@ -117,6 +83,19 @@ function createReimbursementView(reimb,id){
 	let description = reimb.event.description;
 	let work_time_missed = reimb.work_time_missed;
 	
+	if (assigned) {
+		button_group = assignedListAction(reimbursement_status, id);
+		employee_view = assignedEmployeeInfo(reimb, id);
+	}
+	else {
+		button_group= personalListAction(reimbursement_status, id);
+		employee_view = '';
+	}
+	
+	if(!reimbursement_status) {
+		reimbursement_status="Saved";
+	}
+	
 	return '<div class="card" id="row">'+
 		'<div class="card-header" id="heading" data-toggle="collapse"'+
 			'data-target="#collapse'+id+'">'+
@@ -136,60 +115,7 @@ function createReimbursementView(reimb,id){
 			'data-parent="#accordionReimb">'+
 			'<div class="card-body">'+
 				'<div class="form-group">'+
-				'<hr>'+
-				'<h3>Personal Information</h3>'+
-					'<div class="form-row form-group form-inline">'+
-						'<div class="col-lg-1 col-md-1 col-sm-12">'+
-							'<label class="inline-label" for="firstname">Firstname</label>'+
-						'</div>'+
-						'<div class="col-lg-2 col-md-5 col-sm-12">'+
-							'<!-- type -->'+
-							'<input class="form-control full-width" name="firstname"'+
-							'value="'+firstname+'" id="firstname'+id+'" readonly>'+
-						'</div>'+
-						'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
-							'<label class="inline-label" for="lastname">Lastname</label>'+
-						'</div>'+
-						'<div class="input-group col-lg-2 col-md-2 col-sm-12">'+
-							'<div class="input-group-prepend">'+
-								'<div class="input-group-text">$</div>'+
-							'</div>'+
-							'<input class="form-control" id="lastname'+id+'" value="'+lastname+'" readonly>'+
-						'</div>'+
-					'</div>'+
-					'<div class="form-row form-group form-inline">'+
-						'<div class="col-lg-1 col-md-1 col-sm-12">'+
-							'<label class="inline-label" for="position'+id+'">Position</label>'+
-						'</div>'+
-						'<div class="col-lg-2 col-md-5 col-sm-12">'+
-							'<input class="form-control full-width" id="position" value="'+position+'" readonly>'+
-						'</div>'+
-						'<div class="col-lg-1 col-md-1 col-sm-12 offset-md-1 offset-lg-1">'+
-						'<!-- time -->'+
-							'<label class="inline-label" for="department">Department</label>'+
-						'</div>'+
-							'<div class="col-lg-2 col-md-2 col-sm-12">'+
-								'<input class="form-control" id="department'+id+'" value="'+department+'" readonly>'+
-						'</div>'+
-					'</div>'+
-					'<div class="form-row form-group form-inline">'+
-						'<div class="col-lg-1 col-md-2 col-sm-12">'+
-							'<label class="inline-label" for="email">Email'+
-							'</label>'+
-						'</div>'+
-						'<div class="col-lg-2 col-md-4 col-sm-12">'+
-						'<!-- type -->'+
-							'<input class="form-control full-width" id="email'+id+'"'+
-								'value="'+email+'" readonly>'+
-						'</div>'+
-						'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
-							'<label class="inline-label" for="available-funds">Available'+
-								' Funds</label>'+
-						'</div>'+
-						'<div class="col-lg-2 col-md-2 col-sm-12">'+
-							'<input class="form-control" id="available-funds'+id+'" value="'+available_funds+'" readonly>'+
-						'</div>'+
-					'</div>'+
+				employee_view +
 				'</div>'+
 				'<div class="form-group">'+
 					'<hr>'+
@@ -350,49 +276,73 @@ function createReimbursementView(reimb,id){
 '</div>';
 }
 
-function reimbursePersonalListAction(reimbursement_status, id){
-	if (!reimbursement_status) {
-		reimbursement_status = "Status: Saved";
-		return '<button type="button" id="SaveButton'+id+'" class="btn btn-success">Save</button>'+
-			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary">Submit</button>';
-	}
-	else if (reimbursement_status == "Pending Direct Supervisor Approval" ||
-		reimbursement_status == "Pending Department Head Approval" ||
-		reimbursement_status == "Pending Benifits Coordinator Approval" ||
-		reimbursement_status == "Pending Direct Supervisor Confirmation" ||
-		reimbursement_status == "Pending Benifits Coordinator Confirmation") {
-		reimbursement_status = "Status: " + reimbursement_status;
-		return '';
-	}
-		
-	else if (reimbursement_status == "Pending Employee Approval") {
-		reimbursement_status = "Status: " + reimbursement_status;
-		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
-			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>';
-	}
-		
-	else if (reimbursement_status == "Pending Additional Information"){
-		reimbursement_status = "Status: " + reimbursement_status;
-		return '<button type="button" id="SubmitButton'+id+'" class="btn btn-danger">Submit Additional Information</button>';
-	}
+function assignedEmployeeInfo(reimb, id){
+	//employee info
+	let firstname = reimb.employee.firstname;
+	let lastname = reimb.employee.lastname;
+	let email = reimb.employee.email;
+	let department = reimb.employee.department;
+	let position = reimb.employee.position;
+	let available_funds = reimb.employee.available_funds;
 	
-	else if (reimbursement_status == "Pending Employee Grading/Presentation"){																// option
-		let today = new Date().toLocaleDateString("en-US");
-		if(reimb.event.start_date.year <= today.getFullYear() && 
-				reimb.event.start_date.monthValue <= today.getMonth && 
-				reimb.event.start_date.dayOfMonth < today.getDate()){
-			reimbursement_status = "Status: " + reimbursement_status;
-			return '<button type="button" id="SendButton'+id+'" class="btn btn-success">Send</button>'+
-				'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
-				'Upload Attachment</button>';
-		}
-	}	
+	return '<hr> <h3>Personal Information</h3>'+
+	'<div class="form-row form-group form-inline">'+
+	'<div class="col-lg-1 col-md-1 col-sm-12">'+
+		'<label class="inline-label" for="firstname">Firstname</label>'+
+	'</div>'+
+	'<div class="col-lg-2 col-md-5 col-sm-12">'+
+		'<!-- type -->'+
+		'<input class="form-control full-width" name="firstname"'+
+		'value="'+firstname+'" id="firstname'+id+'" readonly>'+
+	'</div>'+
+	'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
+		'<label class="inline-label" for="lastname">Lastname</label>'+
+	'</div>'+
+	'<div class="col-lg-2 col-md-2 col-sm-12">'+
+		'<input class="form-control" name="lastname" id="lastname'+id+'" value="'+lastname+'" readonly>'+
+	'</div>'+
+'</div>'+
+'<div class="form-row form-group form-inline">'+
+	'<div class="col-lg-1 col-md-1 col-sm-12">'+
+		'<label class="inline-label" for="position'+id+'">Position</label>'+
+	'</div>'+
+	'<div class="col-lg-2 col-md-5 col-sm-12">'+
+		'<input class="form-control full-width" id="position" value="'+position+'" readonly>'+
+	'</div>'+
+	'<div class="col-lg-1 col-md-1 col-sm-12 offset-md-1 offset-lg-1">'+
+	'<!-- time -->'+
+		'<label class="inline-label" for="department">Department</label>'+
+	'</div>'+
+		'<div class="col-lg-2 col-md-2 col-sm-12">'+
+			'<input class="form-control" id="department'+id+'" value="'+department+'" readonly>'+
+	'</div>'+
+'</div>'+
+'<div class="form-row form-group form-inline">'+
+	'<div class="col-lg-1 col-md-2 col-sm-12">'+
+		'<label class="inline-label" for="email">Email'+
+		'</label>'+
+	'</div>'+
+	'<div class="col-lg-2 col-md-4 col-sm-12">'+
+	'<!-- type -->'+
+		'<input class="form-control full-width" id="email'+id+'"'+
+			'value="'+email+'" readonly>'+
+	'</div>'+
+	'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
+		'<label class="inline-label" for="available-funds">Available'+
+			' Funds</label>'+
+	'</div>'+
+	'<div class="input-group col-lg-2 col-md-2 col-sm-12">'+
+		'<div class="input-group-prepend">'+
+			'<div class="input-group-text">$</div>'+
+		'</div>'+
+		'<input class="form-control" id="available-funds'+id+'" value="'+available_funds+'" readonly>'+
+	'</div>'+
+'</div>';
 }
 
-function reimburseAssignedListAction(reimbursement_status, id){
+function assignedListAction(reimbursement_status, id){
 	if (reimbursement_status == "Pending Direct Supervisor Approval" ||
 		reimbursement_status == "Pending Department Head Approval") {
-		reimbursement_status = "Status: " + reimbursement_status;
 		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
 			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
 			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
@@ -400,7 +350,6 @@ function reimburseAssignedListAction(reimbursement_status, id){
 	}
 		
 	else if (reimbursement_status == "Pending Benifits Coordinator Approval") {
-		reimbursement_status = "Status: " + reimbursement_status;
 		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning">Deny</button>'+
 			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary">Approve</button>'+
 			'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
@@ -408,12 +357,10 @@ function reimburseAssignedListAction(reimbursement_status, id){
 	}
 		
 	else if (reimbursement_status == "Pending Employee Approval") {
-		reimbursement_status = "Status: " + reimbursement_status;
 		return '';
 	}
 		
 	else if (reimbursement_status == "Pending Additional Information"){
-		reimbursement_status = "Status: " + reimbursement_status;
 		return '<button type="button" id="SubmitButton'+id+'" class="btn btn-danger">Submit Additional Information</button>';
 	}
 	
@@ -422,7 +369,6 @@ function reimburseAssignedListAction(reimbursement_status, id){
 		if(reimb.event.start_date.year <= today.getFullYear() && 
 				reimb.event.start_date.monthValue <= today.getMonth && 
 				reimb.event.start_date.dayOfMonth < today.getDate()){
-			reimbursement_status = "Status: " + reimbursement_status;
 			return '<button type="button" id="SendButton'+id+'" class="btn btn-success">Send</button>'+
 				'<button type="button" class="btn btn-info" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
 				'Upload Attachment</button>';
@@ -430,12 +376,10 @@ function reimburseAssignedListAction(reimbursement_status, id){
 	}	
 	else if (reimbursement_status == "Pending Direct Supervisor Confirmation" ||
 			reimbursement_status == "Pending Benifits Coordinator Confirmation") {
-		reimbursement_status = "Status: " + reimbursement_status;
 		return '<button type="button" id="ConfirmButton'+id+'" class="btn btn-primary">Confirm</button>';
 	}
 	
 	else if (reimbursement_status == "Funds Awarded"){
-		reimbursement_status = "Status: " + reimbursement_status;
 		return "";
 	}
 }
