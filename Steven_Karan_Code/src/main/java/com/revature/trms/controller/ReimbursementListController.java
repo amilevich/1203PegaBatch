@@ -31,6 +31,7 @@ public class ReimbursementListController {
 			try {
 				ArrayList<Reimbursement> reimb_list = new ReimbursementDAOImpl()
 						.getAllReimbursementByEmployee(emp.getEmp_id());
+				System.out.println(reimb_list);
 				resp.getWriter().write(new ObjectMapper().writeValueAsString(reimb_list));
 			} catch (JsonProcessingException ex) {
 				ex.printStackTrace();
@@ -48,7 +49,6 @@ public class ReimbursementListController {
 			try {
 				ArrayList<Reimbursement> reimb_list = new ReimbursementDAOImpl()
 						.getAllReimbursementByNext(emp.getEmp_id());
-				System.out.println(emp);
 				resp.getWriter().write(new ObjectMapper().writeValueAsString(reimb_list));
 			} catch (JsonProcessingException ex) {
 				ex.printStackTrace();
