@@ -14,6 +14,7 @@ public interface EmployeeDAO {
 	
 	// Update
 	public boolean updateEmployee(Employee empl);
+	public boolean updateEmployeePassword(int id, String newPassword);
 	
 	// Delete
 	

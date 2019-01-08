@@ -4,3 +4,8 @@
 main{
 	margin-bottom:3rem;
 }
+
+.inline-label{
+	text-align: left;
+	display: inline-block !important;
+}
