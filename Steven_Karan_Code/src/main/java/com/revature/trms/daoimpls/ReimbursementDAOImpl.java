@@ -373,12 +373,12 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	
 	public ArrayList<Reimbursement> getAllReimbursementForBenco() {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "SELECT * FROM reimb_view_manager WHERE status_name='Pending Benifits Coordinator Approval' ORDER BY start_date";
+			String sql = "SELECT * FROM reimb_view_manager WHERE status_name='Pending Benifits Coordinator Approval' OR status_name = 'Pending Benifits Coordinator Confirmation' ORDER BY start_date";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
 			ArrayList<Reimbursement> reimb_list = new ArrayList<>();
 			Reimbursement reimb = null;
-			Event event = null;
+			Event event = null;	
 			Address location = null;
 			Employee employee = null;
 

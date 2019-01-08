@@ -9,7 +9,6 @@ window.onload = function() {
 	getAlert();
 };
 function assignedList() {
-	
 	console.log('in assigned list event');
 	var parent = document.getElementById("accordionReimb");
 	removeAllChildNode(parent);
@@ -43,8 +42,6 @@ function getReimbursementAssigned(){
 function setAssignedList(reimbList) {
 	let view = "";
 	let assigned = true;
-	console.log("console: " + reimbList);
-	console.log(reimbList);
 	if (reimbList.length === 0) {
 		console.log("No Reimbursements found!")
 		view = "No tuition reimbursements found!";
@@ -95,7 +92,7 @@ function createReimbursementView(reimb,id, assigned){
 		employee_view = assignedEmployeeInfo(reimb, id);
 	}
 	else {
-		button_group= personalListAction(reimbursement_status, id);
+		button_group= personalListAction(reimbursement_status, id, reimb.event.start_date, format_name);
 		employee_view = '';
 	}
 	
@@ -103,7 +100,6 @@ function createReimbursementView(reimb,id, assigned){
 		reimbursement_status="Saved";
 	}
 	
-	console.log(reimb.urgent + " " + typeof(reimb.urgent));
 	let outline = '';
 	if(reimb.urgent){
 		outline = 'card border-danger';
@@ -384,14 +380,7 @@ function assignedListAction(reimbursement_status, id, appeal){
 	}
 	
 	else if (reimbursement_status == "Pending Employee Grading/Presentation") {
-		let today = new Date().toLocaleDateString("en-US");
-		if(reimb.event.start_date.year <= today.getFullYear() && 
-				reimb.event.start_date.monthValue <= today.getMonth && 
-				reimb.event.start_date.dayOfMonth < today.getDate()){
-			return '<button type="submit" id="SendButton'+id+'" name="action" class="btn btn-success btn-lg btn-block" value="grade">Send</button>'+
-				'<button type="submit" name="action" class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
-				'Upload Attachment</button>';
-		}
+		return '';
 	}	
 	
 	else if (reimbursement_status == "Pending Direct Supervisor Confirmation" ||

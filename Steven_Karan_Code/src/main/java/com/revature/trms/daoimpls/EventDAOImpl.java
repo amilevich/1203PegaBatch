@@ -77,7 +77,7 @@ public class EventDAOImpl implements EventDAO {
 	public boolean updateEvent(Event event) {
 		try (Connection conn = cf.getConnection();) {
 			 
-			String sql = "UPDATE employee SET type_name=?, start_date=?, start_time=?, location_id=?, format_name=?, description=?, passing_grade=?, grade_received=?,cost=? WHERE event_id=?";
+			String sql = "UPDATE event_detail SET type_name=?, start_date=?, start_time=?, location_id=?, format_name=?, description=?, passing_grade=?, grade_received=?,cost=? WHERE event_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			System.out.println(event);
 			ps.setString(1, event.getType_name());

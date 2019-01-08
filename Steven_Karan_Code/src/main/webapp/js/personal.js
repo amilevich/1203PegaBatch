@@ -50,7 +50,6 @@ function setPersonalList(reimbList) {
 	}
 	else {
 		for (let row = 0; reimbList.length > row; row++) {
-			console.log("read rows in json");
 			view += createReimbursementView(reimbList[row], row, assigned);
 		}	
 	}
@@ -58,7 +57,7 @@ function setPersonalList(reimbList) {
 	document.getElementById("accordionReimb").innerHTML = view;
 }
 
-function personalListAction(reimbursement_status, id){
+function personalListAction(reimbursement_status, id, date, format_name){
 	if (!reimbursement_status) {
 		return '<button type="submit" id="SaveButton'+id+'" class="btn btn-success btn-lg btn-block">Save</button>'+
 			'<button type="submit" id="SubmitButton'+id+'" class="btn btn-primary btn-lg btn-block">Submit</button>';
@@ -85,13 +84,33 @@ function personalListAction(reimbursement_status, id){
 	}
 	
 	else if (reimbursement_status === "Pending Employee Grading/Presentation"){																// option
-		let today = new Date().toLocaleDateString("en-US");
-		if(reimb.event.start_date.year <= today.getFullYear() && 
-				reimb.event.start_date.monthValue <= today.getMonth && 
-				reimb.event.start_date.dayOfMonth < today.getDate()){
-			return '<button type="submit" id="SendButton'+id+'" name="action" value="grade" class="btn btn-success btn-lg btn-block">Send</button>'+
-				'<button type="button" class="btn btn-info btn-lg btn-block" name="action" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
-				'Upload Attachment</button>';
+		let today = new Date();
+		if(date.year <= today.getFullYear() && 
+				date.monthValue <= today.getMonth() + 1 && 
+				date.dayOfMonth < today.getDate()){
+			return '<div class="form-row form-group form-inline">'+
+						'<div class="col-lg-1 col-md-2 col-sm-12">'+
+							'<label class="inline-label" for="grade-format">Grade '+
+							'Format</label>'+
+						'</div>'+
+						'<div class="col-lg-2 col-md-4 col-sm-12">'+
+							'<!-- type -->'+
+							'<input class="form-control full-width" id="grade-format'+id+'"'+
+								'value="'+format_name+'" name="'+format_name+'" readonly>'+
+							'</div>'+
+						'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
+							'<label class="inline-label" for="passing-grade">Passing'+
+								' Grade</label>'+
+							'</div>'+
+						'<div class="col-lg-2 col-md-2 col-sm-12">'+
+							'<input class="form-control" name="passing-grade" id="passing-grade'+id+'" ">'+
+						'</div>'+
+					'</div>'+
+					'<button type="submit" id="SendButton'+id+'" name="action" value="grade" class="btn btn-success btn-lg btn-block">Send</button>'+
+					'<button type="button" class="btn btn-info btn-lg btn-block" name="action" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
+					'Upload Attachment</button>';
 		}
+		else
+			return '';
 	}	
 }
