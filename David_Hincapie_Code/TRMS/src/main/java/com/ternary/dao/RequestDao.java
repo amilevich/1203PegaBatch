@@ -1,8 +1,8 @@
 package com.ternary.dao;
 
-import java.sql.SQLException;
 import java.util.List;
 
+import com.ternary.model.Employee;
 import com.ternary.model.Request;
 
 public interface RequestDao {
@@ -20,15 +20,19 @@ public interface RequestDao {
 
 	public int insertRequest(Request request, int eventId, int gradeId);
 
+	public int insertAttachment(String fileName, int requestId);
+
 	// select (read)
 	public List<Request> getRequests(int empId);
+
 	public Request getRequest(int requestId);
-	
-	
-	//update
-	//update request status
+
+	public List<Request> getMgrRequests(Employee employee);
+
+	// update
+	// update request status
 	public void cancelRequest(int requestId);
-	
+
 	// delete
-	
+
 }

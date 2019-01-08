@@ -1,6 +1,7 @@
 package com.ternary.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +21,13 @@ public class HomeController {
 		RequestDaoImpl requestDaoImpl = new RequestDaoImpl();
 		List<Request> requests = requestDaoImpl.getRequests(employee.getEmployeeId());
 		request.getSession().setAttribute("Requests", requests);
+		
+		if (!(employee.getJobTitle().contains("Staff"))) {
+            return "/html/managerhome.html";
+        } else {
+            return "/html/home.html";
+        }
 
-		return "/html/home.html";
 	}
 
 	public static String EmployeeJSON(HttpServletRequest request, HttpServletResponse response) {
@@ -88,5 +94,24 @@ public class HomeController {
 		}
 		return null;
 	}
+
+	public static String MgrRequestJSON(HttpServletRequest request, HttpServletResponse response) {
+		
+		Employee employee = (Employee) request.getSession().getAttribute("Employee");
+		
+		RequestDaoImpl requestDao = new RequestDaoImpl();
+		List<Request> mgrRequests = requestDao.getMgrRequests(employee);
+		
+		System.out.println("mgrReqs=" + mgrRequests);
+		
+		try {
+			response.getWriter().write(new ObjectMapper().writeValueAsString(mgrRequests));
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			return null;
+		}
 
 }

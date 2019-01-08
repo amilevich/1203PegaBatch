@@ -85,9 +85,9 @@ function fillInAddress() {
 			fullAddress[1] = val;
 		}
 	}
-	document.getElementById('fullAddr').value = fullAddress.join(" ");
-	if (document.getElementById('fullAddr').value !== "") {
-		document.getElementById('fullAddr').disabled = false;
+	document.getElementById('streetAddress').value = fullAddress.join(" ");
+	if (document.getElementById('streetAddress').value !== "") {
+		document.getElementById('streetAddress').disabled = false;
 	}
 }
 
@@ -157,4 +157,36 @@ function getDate() {
 	today = yyyy + '-' + mm + '-' + dd;
 	console.log("DATE " + today);
 	document.getElementById("reimbursementDate").value = today;
+}
+
+function validateForm() {
+	var eventType = document.forms["reimbursementform"]["eventType"].value;
+	var cost = document.forms["reimbursementform"]["cost"].value;
+	var projectedReimbursement = document.forms["reimbursementform"]["projectedReimbursement"].value;
+	var eventType = document.forms["reimbursementform"]["eventType"].value;
+	var eventTime = document.forms["reimbursementform"]["eventTime"].value;
+	var startDate = document.forms["reimbursementform"]["startDate"].value;
+	var endDate = document.forms["reimbursementform"]["endDate"].value;
+	var gradeFormat = document.forms["reimbursementform"]["gradeFormat"].value;
+	var gradeCutoff = document.forms["reimbursementform"]["gradeCutoff"].value;
+	var streetAddress = document.forms["reimbursementform"]["streetAddress"].value;
+	var locality = document.forms["reimbursementform"]["locality"].value;
+	var administrative_area_level_1 = document.forms["reimbursementform"]["administrative_area_level_1"].value;
+	var postal_code = document.forms["reimbursementform"]["postal_code"].value;
+	var country = document.forms["reimbursementform"]["country"].value;
+
+	if (eventType == null || eventType == "" || cost == null || cost == ""
+			|| projectedReimbursement == null || projectedReimbursement == ""
+			|| eventType == null || eventType == "" || eventTime == null || eventTime == ""
+			|| startDate == null || startDate == "" || endDate == null || endDate == ""
+			|| gradeFormat == null || gradeFormat == "" || gradeCutoff == null || gradeCutoff == ""
+			|| streetAddress == null || streetAddress == "" || locality == null || locality == ""
+			|| administrative_area_level_1 == null || administrative_area_level_1 == "" || postal_code == null || postal_code == ""
+			|| country == null || country == "") {
+		alert("Please fill all required fields.");
+		return false;
+	} else {
+		return true;
+	}
+
 }

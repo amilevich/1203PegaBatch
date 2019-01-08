@@ -1,9 +1,14 @@
 package com.ternary.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
+
 import com.ternary.daoimpl.RequestDaoImpl;
 import com.ternary.model.Employee;
 import com.ternary.model.Request;
@@ -19,7 +24,9 @@ public class ReimbursementController {
 		try {
 			employee = (Employee) request.getSession().getAttribute("Employee");
 			reimbursementRequest.setEmployeeId(Integer.parseInt(request.getParameter("employeeId")));
-			reimbursementRequest.setReimbursementDate(new java.sql.Timestamp(new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("reimbursementDate")).getTime()).toLocalDateTime().toLocalDate());
+			reimbursementRequest.setReimbursementDate(new java.sql.Timestamp(
+					new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("reimbursementDate")).getTime())
+							.toLocalDateTime().toLocalDate());
 			reimbursementRequest.setEventTime(request.getParameter("eventTime"));
 			reimbursementRequest.setStatus("Created");
 			reimbursementRequest.setMoreInfo(false);
@@ -40,7 +47,12 @@ public class ReimbursementController {
 				reimbursementRequest.setPreApprovedSupervisorId(employee.getDepartmentHeadId());
 				break;
 			}
-			// reimbursementRequest.setApprovalAttachment();
+
+			Part fileField = request.getPart("preApprovalFile");
+			String filename = fileField.getSubmittedFileName();
+			File file = new File(filename);
+			reimbursementRequest.setApprovalAttachment(fileField);
+
 			if (request.getParameter("cost").isEmpty()) {
 				reimbursementRequest.setEventCost(0);
 			} else {
@@ -112,7 +124,7 @@ public class ReimbursementController {
 
 			reimbursementRequest.setRequestId(requestDaoImpl.insertCompleteRequest(reimbursementRequest));
 			System.out.println(reimbursementRequest.toString());
-		} catch (ParseException e) {
+		} catch (ParseException | IOException | ServletException e) {
 			e.printStackTrace();
 		}
 

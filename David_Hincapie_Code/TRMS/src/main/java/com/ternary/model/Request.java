@@ -1,18 +1,63 @@
 package com.ternary.model;
 
+import java.io.File;
 import java.sql.Blob;
 import java.time.LocalDate;
+
+import javax.servlet.http.Part;
 
 public class Request {
 
 	public Request() {
 	}
-
 	public Request(int requestId, int employeeId, LocalDate requestCompleted, String status, boolean moreInfo,
 			String justification, int directMgrApproval, int deptHeadApproval, int bencoApproval, boolean denied,
-			String deniedReason, int preApproved, Blob approvalAttachment, double projectedReimbursement,
+			String deniedReason, int preApproved, Part approvalAttachment, double projectedReimbursement,
 			boolean awardChanged, boolean exceedAvailable, String passingGrade, String finalGrade, boolean presentation,
-			Blob presentationAttachment, String eventDescription, double eventCost, LocalDate eventStart,
+			Part presentationAttachment, String eventDescription, double eventCost, LocalDate eventStart,
+			LocalDate eventEnd, String eventType, int reimbCoverage, String streetAddress, String city, String state,
+			String country, String zipCode, String gradeType, Part eventFile) {
+		super();
+		this.requestId = requestId;
+		this.employeeId = employeeId;
+		this.reimbursementDate = requestCompleted;
+		this.status = status;
+		this.moreInfo = moreInfo;
+		this.justification = justification;
+		this.directMgrApprovalId = directMgrApproval;
+		this.deptHeadApprovalId = deptHeadApproval;
+		this.bencoApprovalId = bencoApproval;
+		this.denied = denied;
+		this.deniedReason = deniedReason;
+		this.preApprovedSupervisorId = preApproved;
+		this.approvalAttachment = approvalAttachment;
+		this.projectedReimbursement = projectedReimbursement;
+		this.awardChanged = awardChanged;
+		this.exceedAvailable = exceedAvailable;
+		this.passingGrade = passingGrade;
+		this.finalGrade = finalGrade;
+		this.uploadedPresentation = presentation;
+		this.presentationAttachment = presentationAttachment;
+		this.eventDescription = eventDescription;
+		this.eventCost = eventCost;
+		this.eventStart = eventStart;
+		this.eventEnd = eventEnd;
+		this.eventType = eventType;
+		this.reimbCoverage = reimbCoverage;
+		this.streetAddress = streetAddress;
+		this.city = city;
+		this.state = state;
+		this.country = country;
+		this.zipCode = zipCode;
+		this.gradeType = gradeType;
+		this.eventFile = eventFile;
+	}
+	
+	public Request(int requestId, int employeeId, LocalDate requestCompleted, String status, boolean moreInfo,
+			String justification, int directMgrApproval, int deptHeadApproval, int bencoApproval, boolean denied,
+			String deniedReason, int preApproved, Part approvalAttachment, double projectedReimbursement,
+			boolean awardChanged, boolean exceedAvailable, String passingGrade, String finalGrade, boolean presentation,
+			Part presentationAttachment, String eventDescription, double eventCost, LocalDate eventStart,
 			LocalDate eventEnd, String eventType, int reimbCoverage, String streetAddress, String city, String state,
 			String country, String zipCode, String gradeType) {
 		super();
@@ -69,15 +114,17 @@ public class Request {
 	
 	private String deniedReason;
 	private int preApprovedSupervisorId;
-	private Blob approvalAttachment;
 	private double projectedReimbursement;
 	private boolean awardChanged;
 	private boolean exceedAvailable;
 
 	private boolean uploadedPresentation;
-	private Blob presentationAttachment;
 	private String eventDescription;
 
+	private Part presentationAttachment;
+	private Part approvalAttachment;
+	private Part eventFile;
+	
 	private String eventTime;
 	private LocalDate reimbursementDate;
 	private LocalDate eventStart;
@@ -199,11 +246,11 @@ public class Request {
 		this.preApprovedSupervisorId = preApprovedSupervisorId;
 	}
 
-	public Blob getApprovalAttachment() {
+	public Part getApprovalAttachment() {
 		return approvalAttachment;
 	}
 
-	public void setApprovalAttachment(Blob approvalAttachment) {
+	public void setApprovalAttachment(Part approvalAttachment) {
 		this.approvalAttachment = approvalAttachment;
 	}
 
@@ -255,11 +302,11 @@ public class Request {
 		this.uploadedPresentation = uploadedPresentation;
 	}
 
-	public Blob getPresentationAttachment() {
+	public Part getPresentationAttachment() {
 		return presentationAttachment;
 	}
 
-	public void setPresentationAttachment(Blob presentationAttachment) {
+	public void setPresentationAttachment(Part presentationAttachment) {
 		this.presentationAttachment = presentationAttachment;
 	}
 
@@ -407,6 +454,16 @@ public class Request {
 
 	public void setBencoApproval(boolean bencoApproval) {
 		this.bencoApproval = bencoApproval;
+	}
+	
+	
+
+	public Part getEventFile() {
+		return eventFile;
+	}
+
+	public void setEventFile(Part eventFile) {
+		this.eventFile = eventFile;
 	}
 
 	@Override

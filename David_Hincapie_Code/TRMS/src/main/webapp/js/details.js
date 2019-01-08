@@ -77,4 +77,9 @@ function setRequestValues(request) {
 	document.getElementById("state").innerHTML = request.state;
 	document.getElementById("zipCode").innerHTML = request.zipCode;
 	document.getElementById("country").innerHTML = request.country;
+	
+	var cancelBtn = document.getElementById("cancelBtn");
+	if ( (request.status.substring(0,7) == "Cancel") || (request.status == "Approved") ) {
+		cancelBtn.style.display = "none";
+	}
 }

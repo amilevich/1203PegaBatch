@@ -204,7 +204,7 @@ INSERT INTO department VALUES (dpt_seq.nextval,'Benafits', 3);
 
 --Populating Employee Table
 INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Andrew', 'Adams', 'IT Head', 'andrew@mail.com', 'p4ssw0rd', null, '555 555 1234', 1000,0);
-INSERT INTO employee VALUES (emp_seq.nextval, 2, 'Daan', 'Peters', 'HR Head', 'daan@mail.com', 'p4ssw0rd', null, '555 555 1235', 1000,0);
+INSERT INTO employee VALUES (emp_seq.nextval, 2, 'Dan', 'Peters', 'HR Head', 'dan@mail.com', 'p4ssw0rd', null, '555 555 1235', 1000,0);
 INSERT INTO employee VALUES (emp_seq.nextval, 3, 'John', 'Gorden', 'Benco Head', 'john@mail.com', 'p4ssw0rd', null, '555 555 1236', 500,250);
 INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Frank', 'Stevens', 'IT Manager', 'frank@mail.com', 'p4ssw0rd', 1, '555 555 1237', 1000,0);
 INSERT INTO employee VALUES (emp_seq.nextval, 2, 'Robert', 'Brown', 'HR Manager', 'robert@mail.com', 'p4ssw0rd', 2, '555 555 1238', 1000,0);
@@ -314,6 +314,6 @@ INNER JOIN gradingformat ON event.gradingformat=gradingformat.gformatid;
 SELECT * FROM empInfo;
 SELECT * FROM requestinfo;
 
-
+select * from requestinfo where (empid IN(select empid from empinfo where reportto = 2 and empid != 2)) and directmanagerapproved = 0;
 
 
