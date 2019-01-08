@@ -32,15 +32,15 @@ function onClick(id) {
 
 function onClickCancel() {
 	var x;
-    if (confirm("Are you sure you want to 'Cancel' this reimbursement request?") == true) {
-//    	document.getElementById("requestId").value = request.requestId;
-    
-    	document.getElementById("details-form").action = "CancelRequest.do";
-    	document.getElementById("details-form").submit();
-    } else {
-        x = "You pressed Cancel!";
-    }
-    return x; 
+	if (confirm("Are you sure you want to 'Cancel' this reimbursement request?") == true) {
+		// document.getElementById("requestId").value = request.requestId;
+
+		document.getElementById("details-form").action = "CancelRequest.do";
+		document.getElementById("details-form").submit();
+	} else {
+		x = "You pressed Cancel!";
+	}
+	return x;
 
 }
 
@@ -59,17 +59,36 @@ function getRequest() {
 			setRequestValues(request);
 		}
 	}
-	xhttp.open("GET", 'http://localhost:8080/TRMS/html/RequestJSON.do',true);
+	xhttp.open("GET", 'http://localhost:8080/TRMS/html/RequestJSON.do', true);
 	xhttp.send();
 }
 
 function setRequestValues(request) {
+	var day;
+	var month;
+	var year;
+
 	document.getElementById("employeeId").innerHTML = request.employeeId;
+	
+	day = request.reimbursementDate.dayOfMonth;
+	month = request.reimbursementDate.monthValue; // Month is 0-indexed
+	year = request.reimbursementDate.year;
+	document.getElementById("reimbursementDate").innerHTML = month + '/' + day + '/'+ year;
+	
 	document.getElementById("eventType").innerHTML = request.eventType;
 	document.getElementById("eventCost").innerHTML = request.eventCost;
 	document.getElementById("reimbCoverage").innerHTML = request.reimbCoverage;
-	document.getElementById("eventStart").innerHTML = request.eventStart;
-	document.getElementById("eventEnd").innerHTML = request.eventEnd;
+
+	day = request.eventStart.dayOfMonth;
+	month = request.eventStart.monthValue; // Month is 0-indexed
+	year = request.eventStart.year;
+	document.getElementById("eventStart").innerHTML = month + '/' + day + '/'+ year;
+	
+	day = request.eventEnd.dayOfMonth;
+	month = request.eventEnd.monthValue; // Month is 0-indexed
+	year = request.eventEnd.year;
+	document.getElementById("eventEnd").innerHTML = month + '/' + day + '/'+ year;
+	
 	document.getElementById("eventDescription").innerHTML = request.eventDescription;
 	document.getElementById("justification").innerHTML = request.justification;
 	document.getElementById("streetAddress").innerHTML = request.streetAddress;
@@ -77,9 +96,10 @@ function setRequestValues(request) {
 	document.getElementById("state").innerHTML = request.state;
 	document.getElementById("zipCode").innerHTML = request.zipCode;
 	document.getElementById("country").innerHTML = request.country;
-	
+
 	var cancelBtn = document.getElementById("cancelBtn");
-	if ( (request.status.substring(0,7) == "Cancel") || (request.status == "Approved") ) {
+	if ((request.status.substring(0, 7) == "Cancel")
+			|| (request.status == "Approved")) {
 		cancelBtn.style.display = "none";
 	}
 }
