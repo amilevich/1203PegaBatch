@@ -61,7 +61,7 @@ public class EventValidator {
 		
 		// validate description:
 		String description = event.getDescription();
-		if(description == null || description.length() > 500) {
+		if(description == null || description.length() > 1000) {
 			System.out.println("Event description invalid");
 			return false;
 		}

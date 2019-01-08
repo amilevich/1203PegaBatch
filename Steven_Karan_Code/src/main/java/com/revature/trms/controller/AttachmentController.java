@@ -1,11 +1,16 @@
 package com.revature.trms.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.revature.trms.daoimpls.AttachmentDAOImpl;
@@ -17,10 +22,7 @@ public class AttachmentController {
 	
 	public static boolean UploadFiles(HttpServletRequest req, int reimbursement_id) throws IOException, ServletException {
 		
-		Enumeration e = req.getParameterNames();
-		while(e.hasMoreElements()) {
-			System.out.println(e.nextElement());
-		}
+		
 		
 		ArrayList<Part> files = new ArrayList<>(req.getParts());
 	
@@ -54,6 +56,14 @@ public class AttachmentController {
 		
 		
 		return true;
+	}
+
+	public static String DownloadFile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+            AttachmentDAOImpl adi = new AttachmentDAOImpl();
+     		Attachment attachment = adi.getAttachment(59, resp);
+		
+		return null;
 	}
 	
 }

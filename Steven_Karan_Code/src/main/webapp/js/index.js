@@ -13,12 +13,7 @@ function getEmployeePersonalInfo() {
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {	
 			let emp = JSON.parse(xhttp.responseText);
-			console.log(xhttp.responseText);
-			console.log("emp: "+emp);
 			setValues(emp);
-		}
-		else{
-			console.log('rdy: ' + xhttp.readystate + 'status: ' + xhttp.status);
 		}
 	};
 	xhttp.open("GET",

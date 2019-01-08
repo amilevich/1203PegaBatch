@@ -29,10 +29,12 @@ public class ReimbursementController {
 	public static String Reimburse(HttpServletRequest req) throws IOException, ServletException {
 		System.out.println("Processing Reimbursement");
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
+		System.out.println(emp);
 		Alert alert = null;
 		
 		// Check if user is authenticated, if not redirect them to the home page:
 		if(emp==null) {
+			System.out.println("Not verified");
 			return "/html/index.html";
 		}
 		
