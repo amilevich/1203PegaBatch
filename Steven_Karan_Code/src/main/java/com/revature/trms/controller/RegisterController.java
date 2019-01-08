@@ -12,6 +12,7 @@ import com.revature.trms.models.Employee;
 public class RegisterController {
 
 	public static String Register(HttpServletRequest req) {
+		System.out.println("In registration controller main method");
 		if (req.getMethod().equals("GET")) {
 			return "/html/register.html";
 		}

@@ -20,6 +20,15 @@ public class Signature {
 		this.sign_date = sign_date;
 		this.approved_by_email = approved_by_email;
 	}
+	
+	public Signature(int reimb_id, int sign_by_id, LocalDate sign_date, boolean approved_by_email) {
+		super();
+		this.reimb_id = reimb_id;
+		this.sign_by_id = sign_by_id;
+		this.sign_date = sign_date;
+		this.approved_by_email = approved_by_email;
+	}
+	
 	@Override
 	public String toString() {
 		return "Signature [id=" + id + ", reimb_id=" + reimb_id + ", sign_by_id=" + sign_by_id + ", sign_date="

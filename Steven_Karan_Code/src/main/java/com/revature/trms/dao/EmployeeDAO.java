@@ -10,6 +10,7 @@ public interface EmployeeDAO {
 	// Read
 	public Employee getEmployeeByID(int id);
 	public Employee getEmployeeByUsername(String username); 
+	public Employee getDepartmentHead(String username);
 	
 	// Update
 	public boolean updateEmployee(Employee empl);

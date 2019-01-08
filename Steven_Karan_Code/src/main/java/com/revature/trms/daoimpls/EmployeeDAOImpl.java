@@ -117,6 +117,36 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		}
 		return null;
 	}
+	
+	@Override
+	public Employee getDepartmentHead(String department_name) {
+		try (Connection conn = cf.getConnection();) {
+			String sql = "SELECT * FROM employee WHERE dept = ? AND pos ='Department Head'";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, department_name);
+			ResultSet rs = ps.executeQuery();
+
+			Employee empl = null;
+			if (rs.next()) {
+				empl = new Employee();
+				empl.setEmp_id(rs.getInt("emp_id"));
+				empl.setFirstname(rs.getString("firstname"));
+				empl.setLastname(rs.getString("lastname"));
+				empl.setEmail(rs.getString("email"));
+				empl.setUsername(rs.getString("username"));
+				empl.setPassword(rs.getString("password"));
+				empl.setAvailable_funds(rs.getDouble("available_funds"));
+				empl.setDepartment(rs.getString("dept"));
+				empl.setPosition(rs.getString("pos"));
+			}
+			return empl;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 
 	/**
 	 * update employee based on employee passed as parameter, using the id of the

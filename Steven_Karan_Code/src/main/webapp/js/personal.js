@@ -60,8 +60,8 @@ function setPersonalList(reimbList) {
 
 function personalListAction(reimbursement_status, id){
 	if (!reimbursement_status) {
-		return '<button type="button" id="SaveButton'+id+'" class="btn btn-success btn-lg btn-block">Save</button>'+
-			'<button type="button" id="SubmitButton'+id+'" class="btn btn-primary btn-lg btn-block">Submit</button>';
+		return '<button type="submit" id="SaveButton'+id+'" class="btn btn-success btn-lg btn-block">Save</button>'+
+			'<button type="submit" id="SubmitButton'+id+'" class="btn btn-primary btn-lg btn-block">Submit</button>';
 	}
 	else if (reimbursement_status === "Pending Direct Supervisor Approval" ||
 		reimbursement_status === "Pending Department Head Approval" ||
@@ -72,12 +72,16 @@ function personalListAction(reimbursement_status, id){
 	}
 		
 	else if (reimbursement_status === "Pending Employee Approval") {
-		return '<button type="button" id="DenyButton'+id+'" class="btn btn-warning btn-lg btn-block">Deny</button>'+
-			'<button type="button" id="ApproveButton'+id+'" class="btn btn-primary btn-lg btn-block">Approve</button>';
+		return '<button type="submit" id="DenyButton'+id+'" name="action" class="btn btn-warning btn-lg btn-block" value="deny">Deny</button>'+
+			'<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="approve">Approve</button>';
 	}
 		
+	else if (reimbursement_status === "Pending Additional Information" && !appeal) {
+		return '<button type="submit" id="PetitionButton'+id+'" name="action" class="btn btn-danger btn-lg btn-block" value="petition">Submit Additional Information</button>';
+	}
+	
 	else if (reimbursement_status === "Pending Additional Information"){
-		return '<button type="button" id="SubmitButton'+id+'" class="btn btn-danger btn-lg btn-block">Submit Additional Information</button>';
+		return '<button type="submit" id="SubmitButton'+id+'" name="action" value="info" class="btn btn-danger btn-lg btn-block" value="submit">Submit Additional Information</button>';
 	}
 	
 	else if (reimbursement_status === "Pending Employee Grading/Presentation"){																// option
@@ -85,8 +89,8 @@ function personalListAction(reimbursement_status, id){
 		if(reimb.event.start_date.year <= today.getFullYear() && 
 				reimb.event.start_date.monthValue <= today.getMonth && 
 				reimb.event.start_date.dayOfMonth < today.getDate()){
-			return '<button type="button" id="SendButton'+id+'" class="btn btn-success btn-lg btn-block">Send</button>'+
-				'<button type="button" class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
+			return '<button type="submit" id="SendButton'+id+'" name="action" value="grade" class="btn btn-success btn-lg btn-block">Send</button>'+
+				'<button type="button" class="btn btn-info btn-lg btn-block" name="action" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
 				'Upload Attachment</button>';
 		}
 	}	

@@ -1,7 +1,6 @@
 package com.revature.trms.daoimpls;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,18 +35,24 @@ public class ReimbursementStatusDAOImpl implements ReimbursementStatusDAO {
 
 	@Override
 	public boolean updateReimbursementStatus(Reimbursement reimb) {
+		System.out.println(reimb);
 		try (Connection conn = cf.getConnection();) {
 			// TODO: NOTE: check that not null values are not null from any calling method
-			String sql = "UPDATE reimbursement SET status_name=?, next_id=?, urgent=?, sup_flag=?, dept_flag=? WHERE status_id=?";
+			String sql = "UPDATE reimbursement_status SET name=?, next_id=?, urgent=?, sup_flag=?, dept_flag=?, benco_flag=? WHERE status_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 
 			ps.setString(1, reimb.getStatus_name());
-			ps.setInt(2, reimb.getNext_id());
+			if(reimb.getNext_id() > 0) {
+				ps.setInt(2, reimb.getNext_id());
+			}
+			else {
+				ps.setNull(2, 1);
+			}
 			ps.setInt(3, reimb.isUrgent() ? 1 : 0);
 			ps.setInt(4, reimb.isSup_flag() ? 1 : 0);
 			ps.setInt(5, reimb.isDept_flag() ? 1 : 0);
 			ps.setInt(6, reimb.isBenco_flag() ? 1 : 0);
-			ps.setInt(7,  reimb.getReimb_id());
+			ps.setInt(7,  reimb.getStatus_id());
 
 			// Note: at most 1 row can be updated at a time given that the where clause
 			// selects an id
