@@ -1,12 +1,13 @@
 
  window.onload=function(){
- 	getAlert();
+ 	getEmployee();
  	getEmployeePersonalInfo();
 
  	document.getElementById('edit').onclick = edit;
 
  	// JQuery that selets the element with 'edit' id and enables the tooltip 
  	$('#edit').tooltip();
+ 	 getAlert();
  }
 
  // Ajax call to get employee info:

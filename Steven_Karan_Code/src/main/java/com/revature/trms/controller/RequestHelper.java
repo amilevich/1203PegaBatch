@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 public class RequestHelper {
 
 	public static String process(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		
 		switch (req.getRequestURI()) {
 		case "/ReimbursementSystem/html/home.do":
 			return HomeController.Home(req);
@@ -37,6 +36,8 @@ public class RequestHelper {
 			return ProfileController.Profile(req, resp);
 		case "/ReimbursementSystem/html/update_profile.do":
 			return ProfileController.UpdateProfile(req, resp);
+		case "/ReimbursementSystem/html/logout.do":
+			return LoginController.Logout(req);
 		default:
 			return LoginController.Login(req);
 		}

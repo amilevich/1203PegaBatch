@@ -7,24 +7,31 @@ import org.mindrot.jbcrypt.BCrypt;
 import com.revature.trms.daoimpls.DepartmentDAOImpl;
 import com.revature.trms.daoimpls.EmployeeDAOImpl;
 import com.revature.trms.daoimpls.PositionDAOImpl;
+import com.revature.trms.models.Alert;
 import com.revature.trms.models.Employee;
+import com.revature.trms.validators.GeneralValidator;
+import com.revature.trms.validators.PasswordValidator;
 
 public class RegisterController {
 
 	public static String Register(HttpServletRequest req) {
 		System.out.println("In registration controller main method");
 		if (req.getMethod().equals("GET")) {
+			System.out.println();
 			return "/html/register.html";
 		}
 
 		Employee empl = new Employee();
 		EmployeeDAOImpl edi = new EmployeeDAOImpl();
-
+		
+		if((req.getParameter("password")==null) || req.getParameter("password").equals(req.getParameter("conf-password"))) {
+			req.getSession().setAttribute("Alert", new Alert("danger", "Password and Confirm Password fields must match."));
+			return "/html/register.html";
+		}
+		
 		empl.setFirstname(req.getParameter("firstname"));
 		empl.setLastname(req.getParameter("lastname"));
 		empl.setUsername(req.getParameter("username"));
-
-		
 
 		empl.setPassword(req.getParameter("password"));
 
@@ -48,19 +55,31 @@ public class RegisterController {
 
 		// Check to see if employee that is attempting to register is valid before
 		// registering them
-		if (validNewEmployee(empl)) {
+		Alert alert = null;
+		if (validNewEmployee(empl, alert)) {
 			// valid registration form!
-			edi.insertEmployee(empl);
-			return "/html/login.html";
+			if(edi.insertEmployee(empl)) {
+				alert = new Alert("success","Account Created!");
+				req.getSession().setAttribute("Alert", alert);
+				return "/html/login.html";
+			}else {
+				alert = new Alert("danger","Error Occurred. Please try again later.");
+				req.getSession().setAttribute("Alert", alert);
+				return "/html/register.html";
+			}
 		} else {
 			// Invalid registration form!
+			req.getSession().setAttribute("Alert", alert);
 			return "/html/register.html";
 		}
 	}
 
 	// Should separate each check into its own method. make calls directly from
 	// register to avoid unnecessary database calls and can end early.
-	private static boolean validNewEmployee(Employee empl) {
+	private static boolean validNewEmployee(Employee empl, Alert alert) {
+		alert = new Alert();
+		alert.setType("danger");
+		
 		// null check first to avoid nullptrexception
 		if (empl == null) {
 			return false;
@@ -68,15 +87,15 @@ public class RegisterController {
 
 		// username check
 		String username = empl.getUsername();
-		if (username.contains(" ") || username.length() > 20 || username.length() < 5) {
-			System.out.println("Invalid username");
+		if (!GeneralValidator.isAlphaNumeric(username) || username.length() > 20 || username.length() < 5) {
+			alert.setMessage("Error: Invalid username");
 			return false;
 		}
 
 		// password check
 		String password = empl.getPassword();
-		if (password.contains(" ") || password.length() > 20 || password.length() < 7) {
-			System.out.println("Invalid password");
+		if (!PasswordValidator.validatePassword(password)) {
+			alert.setMessage("Error: Invalid Password");
 			return false;
 		}else {
 			String unhashedpw = empl.getPassword();
@@ -87,21 +106,21 @@ public class RegisterController {
 		// email check
 		String email = empl.getEmail();
 		if (!(email.contains("@") && email.contains("."))) {
-			System.out.println("Invalid email");
+			alert.setMessage("Error: Invalid email address");
 			return false;
 		}
 
 		// firstname check
 		String firstname = empl.getFirstname();
-		if (firstname.length() > 20 || firstname.length() < 1) {
-			System.out.println("Invalid firstname");
+		if (!GeneralValidator.isSanitized(firstname) || firstname.length() > 20 || firstname.length() < 1) {
+			alert.setMessage("Error: Invalid first name");
 			return false;
 		}
 
 		// lastname check
 		String lastname = empl.getLastname();
-		if (lastname.length() > 20 || lastname.length() < 1) {
-			System.out.println("Invalid lastname");
+		if (!GeneralValidator.isSanitized(firstname) || lastname.length() > 20 || lastname.length() < 1) {
+			alert.setMessage("Error: Invalid last name");
 			return false;
 		}
 
@@ -115,12 +134,14 @@ public class RegisterController {
 		String dept = empl.getDepartment();
 		DepartmentDAOImpl ddi = new DepartmentDAOImpl();
 		if (!ddi.dept_exists(dept)) {
+			alert.setMessage("Error: Invalid Department");
 			return false;
 		}
 
 		String pos = empl.getPosition();
 		PositionDAOImpl pdi = new PositionDAOImpl();
 		if (!pdi.positionExists(pos)) {
+			alert.setMessage("Error: Invalid Position");
 			return false;
 		}
 

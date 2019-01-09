@@ -1,6 +1,10 @@
 @charset "UTF-8";
 
 
+body{
+	font-family: 'Raleway', sans-serif;
+}
+
 main{
 	margin-bottom:3rem;
 }

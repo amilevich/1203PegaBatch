@@ -35,7 +35,7 @@ public class ReimbursementController {
 		// Check if user is authenticated, if not redirect them to the home page:
 		if(emp==null) {
 			System.out.println("Not verified");
-			return "/html/index.html";
+			return "/html/login.html";
 		}
 		
 		if (req.getMethod().equals("GET")) {

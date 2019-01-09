@@ -8,6 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/styles.css">
 	<link rel="stylesheet" type="text/css" href="../css/buttons.css">
 	<link rel="stylesheet" type="text/css" href="../css/reimburse.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 </head>
 
 <body class="d-flex flex-column h-100 pt-5">
@@ -15,27 +16,34 @@
 
 	<!-- Navbar -->
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-		<a href="#" class="navbar-brand">ReimBURST</a>
+		<a href="#" class="navbar-brand m-2">ReimBURST</a>
 
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-items" aria-controls="navbar-items" aria-expanded="false" aria-label="Toggle navigation">
     	<span class="navbar-toggler-icon"></span>
   		</button>
+
+  		<!-- Navbar items -->
 		<div class="collapse navbar-collapse" id="navbar-items">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item active"><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/home.do">Home</a></li>
 
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Reimbursements
-					</a>
 
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item" href="./reimburse.do">Request Form</a>
-						<a class="dropdown-item" href="./reimburse-list.do">Status</a>
-					</div>
-				</li>
+				<li class="nav-item text-center" id="reimb-nav" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/reimburse.html">Tuition Reimbursement Form</a></li>
+				<li class="nav-item text-center" id="reimb-list-nav" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/reimburse-list.html">Pending Assignments</a></li>
+
+				
 			</ul>
-			
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="logout" onclick="logout()"hidden>Logout</button>
+			</div>
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="login" onclick="window.location='http://localhost:9000/ReimbursementSystem/html/login.html' "hidden>Login</button>
+			</div>
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="register" onclick="window.location='http://localhost:9000/ReimbursementSystem/html/register.html' "hidden>Register</button>
+			</div>
 		</div>
 
 	</nav>
@@ -43,7 +51,7 @@
 	</header>
 
 
-	<main class="container mt-4">
+	<main class="container mt-5">
 	<div id="alert" class="container"></div> 
 
 	<div class="container">
@@ -64,7 +72,7 @@
 					<label class="inline-label" for="event-type">Type</label>
 				</div>
 
-				<div class="col-lg-2 col-md-5 col-sm-12">
+				<div class="col-lg-3 col-md-5 col-sm-12">
 					<!-- type -->
 					<select class="form-control w-100" id="event-type" name="event-type" form="reimburse-form">
 						<option value="Course">Course</option>
@@ -72,14 +80,14 @@
 					    <option value="Certification">Certification</option>
 					    <option value="Certification-Prep">Certification Prep</option>
 					    <option value="Technical-Training">Technical Training</option>
-					    <option value="Other">Technical Training</option>
+					    <option value="Other">Other</option>
 					</select>
 				</div>
 
 				<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">
 					<label class="inline-label" for="work-missed">Hours Missed</label>
 				</div>
-				<div class="col-lg-1 col-md-2 col-sm-4">
+				<div class="col-lg-2 col-md-2 col-sm-4">
 					<input class="form-control" type="number" id="work-missed" min="1" step="1" max="1000" name="work-missed" required>
 				</div>
 				
@@ -87,7 +95,7 @@
 
 			<div class="form-row form-group form-inline">
 				<div class="col-lg-1 col-md-1 col-sm-12">
-					<label class="inline-label" for="event-date">Date</label>
+					<label class="inline-label text-left" for="event-date">Date</label>
 				</div>
 
 				<div class="col-lg-2 col-md-5 col-sm-12">
@@ -95,7 +103,7 @@
 				</div>
 
 				
-				<div class="col-lg-1 col-md-1 col-sm-12 offset-md-1 offset-lg-1">
+				<div class="col-lg-1 col-md-1 col-sm-12 offset-md-1 offset-lg-2">
 					<!-- time -->
 					<label class="inline-label" for="event-date">Time</label>
 				</div>
@@ -119,7 +127,7 @@
 				</div>
 
 
-				<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">
+				<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-2 offset-md-1">
 					<label class="inline-label" for="passing-grade">Passing Grade</label>
 				</div>
 
@@ -138,7 +146,7 @@
 					<div class="input-group-prepend">
 						<div class="input-group-text">$</div>
 					</div>
-					<input class="form-control" type="number" id="event-cost" max= "10000" min="0.00" step="0.01" name="event-cost" placeholder=""> 
+					<input class="form-control input-block-level h-100" type="number" id="event-cost" max= "10000" min="0.00" step="0.01" name="event-cost" placeholder=""> 
 				</div>
 				
 				<!-- Projected Reimbursement (readonly/disabled, computed serverside) -->
@@ -149,7 +157,7 @@
 					<div class="input-group-prepend">
 						<div class="input-group-text">$</div>
 					</div>
-					<input class="form-control" type="number" id="reimbursement" min="0.01" name="reimbursement" placeholder="" disabled> 
+					<input class="form-control input-block-level h-100" type="number" id="reimbursement" min="0.01" name="reimbursement" placeholder="" disabled> 
 				</div>
 
 
@@ -179,7 +187,7 @@
 				<label class="inline-label" for="street-num">Street Number</label>
 			</div>
 
-	 		<div class="col-lg-3 col-md-4 col-sm-6">
+	 		<div class="col-lg-3 col-md-4 col-sm-6 mb-sm-2">
 		 		<input type="text" name="street-num" id="street_number" class="form-control p w-100" required>
 			</div>
 
@@ -197,21 +205,21 @@
 	 		<div class="col-lg-2 col-md-2 col-sm-6">
 				<label class="inline-label" for="event-address-city">City</label>
 			</div>
-	 		<div class="col-lg-3 col-md-3 col-sm-6">
+	 		<div class="col-lg-3 col-md-3 col-sm-6 mb-sm-2">
 		 		<input type="text" name="event-address-city" id="locality" class="form-control p w-100" required>
 		 	</div>
 
 		 	<div class="col-lg-1 col-md-1 col-sm-6">
 				<label class="inline-label" for="event-address-state">State</label>
 			</div>
-		 	<div class="col-lg-2 col-md-2 col-sm-6">
+		 	<div class="col-lg-2 col-md-2 col-sm-6 mb-sm-2">
 		 		<input type="text" name="event-address-state" id="administrative_area_level_1" class="form-control p w-100" required>
 		 	</div>
 
 		 	<div class="col-lg-1 col-md-1 col-sm-6">
 				<label class="inline-label" for="event-address-zip">Zip Code</label>
 			</div>
-		 	<div class="col-lg-2 col-md-2 col-sm-6">
+		 	<div class="col-lg-2 col-md-2 col-sm-6 mb-sm-3">
 		 		<input type="text" name="event-address-zip" id="postal_code" class="form-control p w-100" required>
 		 	</div>
 		 </div>
@@ -306,6 +314,8 @@
 	<script type="text/javascript" src="../js/alert.js"></script>
 	<script type="text/javascript" src="../js/reimburse.js"></script>
 	<script type="text/javascript" src="../js/address.js"></script>
+	<script type="text/javascript" src="../js/navbar.js"></script>
+	<script type="text/javascript" src="../js/logout.js"></script>
 
 	<!-- Google Places -->
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL2l3EineQlhQVPSaM629sjB2Y_yVhCME&libraries=places&callback=initAutocomplete"async defer></script>

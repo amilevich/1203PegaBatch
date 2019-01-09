@@ -5,10 +5,7 @@ public class PasswordValidator {
 	
 	
 	public static boolean validatePassword(String password) {
-		System.out.println("validating pass: ");
-		System.out.println(password);
-		if (password.contains(" ") || password.length() > 20 || password.length() < 7) {
-			System.out.println("Invalid password");
+		if (password.contains(" ") || password.length() > 25 || password.length() < 7) {
 			return false;
 		}
 		

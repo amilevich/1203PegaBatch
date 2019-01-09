@@ -28,4 +28,9 @@ public class GeneralValidator {
 	}
 	
 	
+	public static boolean isSanitized(String s) {
+		return !(s.contains("<") || s.contains(">"));
+	}
+	
+	
 }

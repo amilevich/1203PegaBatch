@@ -16,7 +16,7 @@ public class LoginController {
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		
 		if(emp!=null) {
-			return "/html/index.html";
+			return "/html/reimburse-list.html";
 		}
 		if (req.getMethod().equals("GET")) {
 			return "/html/login.html";
@@ -33,7 +33,7 @@ public class LoginController {
 			if (username.equals(emp.getUsername()) && BCrypt.checkpw(password, emp.getPassword())) {
 				req.getSession().setAttribute("Employee", emp);
 				System.out.println(req.getSession().getAttribute("Employee"));
-				return "/html/index.html";
+				return "/html/reimburse-list.html";
 			}
 		}
 		
@@ -54,5 +54,14 @@ public class LoginController {
 			return false;
 		}
 		return true;
+	}
+
+	public static String Logout(HttpServletRequest req) {
+		System.out.println("Logging out...");
+		System.out.println(req.getSession().getAttribute("Employee"));
+		req.getSession().setAttribute("Employee",null);
+		req.getSession().setAttribute("Alert", new Alert("success","Successfully logged out!"));
+		System.out.println(req.getSession().getAttribute("Employee"));
+		return null;
 	}
 }

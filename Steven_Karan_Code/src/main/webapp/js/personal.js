@@ -7,6 +7,7 @@ window.onload = function() {
 	getReimbursementPersonal();
 	document.getElementById("assigned_list").addEventListener("click", assignedList, false);
 	document.getElementById("personal_list").addEventListener("click", personalList, false);
+	getEmployee();
 	getAlert();
 };
 

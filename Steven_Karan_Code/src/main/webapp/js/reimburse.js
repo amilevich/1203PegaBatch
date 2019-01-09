@@ -13,9 +13,8 @@ var passing_grade = {
 };
 
 window.onload=function(){
-	
+	getEmployee();
  	getAlert();
- 	
  }
 
 document.getElementById("attach-input").onchange = function () {
