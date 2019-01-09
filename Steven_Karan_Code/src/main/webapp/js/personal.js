@@ -102,7 +102,7 @@ function personalListAction(reimbursement_status, id, date, format_name){
 								' Grade</label>'+
 							'</div>'+
 						'<div class="col-lg-2 col-md-2 col-sm-12">'+
-							'<input class="form-control" name="passing-grade" id="passing-grade'+id+'" ">'+
+							'<input class="form-control" name="passing-grade" id="passing-grade'+id+'" required>'+
 						'</div>'+
 					'</div>'+
 					'<button type="submit" id="SendButton'+id+'" name="action" value="grade" class="btn btn-success btn-lg btn-block">Send</button>'+

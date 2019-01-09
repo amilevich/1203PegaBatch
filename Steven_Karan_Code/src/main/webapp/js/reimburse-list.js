@@ -91,7 +91,8 @@ function createReimbursementView(reimb,id, assigned){
 	let awarded_funds = reimb.fund_awarded.toFixed(2);
 	
 	if (assigned) {
-		button_group = assignedListAction(reimbursement_status, id, reimb.fund_awarded.toFixed(2), reimb.employee.available_funds.toFixed(2));
+		button_group = assignedListAction(reimbursement_status, id, reimb.fund_awarded.toFixed(2),
+				(1000 - reimb.employee.available_funds).toFixed(2), reimb.event.grade_received);
 		employee_view = assignedEmployeeInfo(reimb, id);
 	}
 	else {
@@ -309,7 +310,7 @@ function assignedEmployeeInfo(reimb, id){
 	let email = reimb.employee.email;
 	let department = reimb.employee.department;
 	let position = reimb.employee.position;
-	let available_funds = reimb.employee.available_funds.toFixed(2);
+	let available_funds = (1000 - reimb.employee.available_funds).toFixed(2)
 	
 	return '<hr> <h3>Personal Information</h3>'+
 	'<div class="form-row form-group form-inline">'+
@@ -366,7 +367,7 @@ function assignedEmployeeInfo(reimb, id){
 '</div>';
 }
 
-function assignedListAction(reimbursement_status, id, funds, avail){
+function assignedListAction(reimbursement_status, id, funds, avail, grade){
 	if (reimbursement_status == "Pending Direct Supervisor Approval" ||
 		reimbursement_status == "Pending Department Head Approval") {
 		return '<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="approve">Approve</button>'+
@@ -396,7 +397,7 @@ function assignedListAction(reimbursement_status, id, funds, avail){
 					'<div class="input-group-prepend">'+
 						'<div class="input-group-text">$</div>'+
 					'</div>'+
-					'<input class="form-control" name="modified-awarded-funds" id="modified-awarded-funds'+id+'" value="'+funds+'">'+
+					'<input class="form-control" name="modified-awarded-funds" id="modified-awarded-funds'+id+'" value="'+funds+'" required>'+
 				'</div>'+
 				'</div>' +
 				'<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="approve">Approve</button>'+
@@ -424,7 +425,25 @@ function assignedListAction(reimbursement_status, id, funds, avail){
 	
 	else if (reimbursement_status == "Pending Direct Supervisor Confirmation" ||
 			reimbursement_status == "Pending Benifits Coordinator Confirmation") {
-		return '<button type="submit" id="ConfirmButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="confirm">Confirm</button>';
+		return '<div class="form-row form-group form-inline">'+
+					'<div class="col-lg-1 col-md-2 col-sm-12">'+
+						'<label class="inline-label" for="grade-format">Grade '+
+						'Format</label>'+
+					'</div>'+
+					'<div class="col-lg-2 col-md-4 col-sm-12">'+
+						'<!-- type -->'+
+						'<input class="form-control full-width" id="grade-format'+id+'"'+
+							'value="'+format_name+'" name="'+format_name+'" readonly>'+
+						'</div>'+
+					'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
+						'<label class="inline-label" for="passing-grade">Passing'+
+							' Grade</label>'+
+						'</div>'+
+						'<div class="col-lg-2 col-md-2 col-sm-12">'+
+							'<input class="form-control" value="'+grade+'" name= passing-grade" id="passing-grade'+id+'" readonly>'+
+						'</div>'+
+					'</div>'+
+				'<button type="submit" id="ConfirmButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="confirm">Confirm</button>';
 	}
 	
 	else if (reimbursement_status == "Funds Awarded"){

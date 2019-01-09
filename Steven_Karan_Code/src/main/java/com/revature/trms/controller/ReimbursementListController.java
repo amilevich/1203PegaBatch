@@ -115,6 +115,7 @@ public class ReimbursementListController {
 					} else {
 						reimb.setFund_awarded(amount);
 						reimb.setStatus_name("Pending Employee Approval");
+						new ReimbursementDAOImpl().updateReimbursement(reimb);
 					}
 					reimb.setNext_id(reimb.getEmployee().getEmp_id());
 				}
@@ -139,6 +140,8 @@ public class ReimbursementListController {
 					reimb.setBenco_flag(true);
 					reimb.setStatus_name("Funds Awarded");
 					reimb.setNext_id(0);
+					emp.setAvailable_funds(emp.getAvailable_funds() + reimb.getFund_awarded());
+					new EmployeeDAOImpl().updateEmployee(emp);
 				}
 				new ReimbursementStatusDAOImpl().updateReimbursementStatus(reimb);
 				break;
@@ -177,6 +180,6 @@ public class ReimbursementListController {
 				break;
 			}
 		}
-		return "/html/signature.html";
+		return "/html/reimburse-list.html";
 	}
 }
