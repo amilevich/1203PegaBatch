@@ -16,7 +16,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		<h2>
-			<a class="navbar-brand ternary active" id="ternary" href="home.html">ternary</a>
+			<a class="navbar-brand ternary active" id="ternary" href=#>ternary</a>
 		</h2>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarText" aria-controls="navbarText"
@@ -153,7 +153,7 @@
 												<br> <br>
 
 												<div class="row">
-													<div class="col-md-6 form-group">
+													<div class="col-md-7 form-group">
 														<a href="#" onclick="viewPreApprovalFile()"
 															id="preApprovalFile">Download Pre-Approval File</a>
 													</div>
@@ -223,19 +223,25 @@
 											<input class="btn btn-outline-dark" value="Back" id="backBtn"
 												onclick="onClickBack();" />
 										</div>
+										<br>
+											<div class="col-md-6">
+											<input class="btn btn-outline-dark" value="Approve"
+												id="approveBtn" onclick="onClickApprove();" />
+										</div>
+									</div>
+									<br>
+									<div class="row">
 										<div class="col-md-6">
 											<input class="btn btn-outline-dark"
 												value="Cancel Reimbursement" id="cancelBtn"
 												onclick="onClickCancel();" />
 										</div>
-										<div class="col-md-6">
-											<input class="btn btn-outline-dark" value="Approve"
-												id="approveBtn" onclick="onClickApprove();" />
-										</div>
+									
 										<div class="col-md-6">
 											<input class="btn btn-outline-dark" value="Deny" id="denyBtn"
 												onclick="onClickDeny();" />
 										</div>
+									
 									</div>
 								</div>
 							</div>

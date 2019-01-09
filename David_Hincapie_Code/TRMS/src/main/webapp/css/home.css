@@ -12,9 +12,9 @@ body {
 }
 
 .ternary {
-	text-align: center;
+	text-align: left;
 	font-family: 'Ubuntu', sans-serif;
-	color: darkgrey;
+	color: white;
 }
 
 .jumbotron {
@@ -22,6 +22,11 @@ body {
 }
 
  @charset "UTF-8";
+
+.inactiveLink {
+   pointer-events: none;
+   cursor: default;
+}
 
 body {
 	background: #9CECFB;

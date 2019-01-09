@@ -47,13 +47,14 @@ public class ReimbursementController {
 				break;
 			}
 
-			Part fileField = request.getPart("preApprovalFile");
-			reimbursementRequest.setApprovalAttachmentname(fileField.getSubmittedFileName());
-			reimbursementRequest.setApprovalAttachment(fileField.getInputStream());
+//			Part fileField = request.getPart("preApprovalFile");
+//			reimbursementRequest.setApprovalAttachmentname(fileField.getSubmittedFileName());
+//			reimbursementRequest.setApprovalAttachment(fileField.getInputStream());
 			
-			fileField = request.getPart("eventFile");
-			reimbursementRequest.setEventFilename(fileField.getSubmittedFileName());
-			reimbursementRequest.setEventFile(fileField.getInputStream());
+			
+//			fileField = request.getPart("eventFile");
+//			reimbursementRequest.setEventFilename(fileField.getSubmittedFileName());
+//			reimbursementRequest.setEventFile(fileField.getInputStream());
 			 
 
 			if (request.getParameter("cost").isEmpty()) {
@@ -127,7 +128,7 @@ public class ReimbursementController {
 
 			reimbursementRequest.setRequestId(requestDaoImpl.insertCompleteRequest(reimbursementRequest));
 			System.out.println(reimbursementRequest.toString());
-		} catch (ParseException | IOException | ServletException e) {
+		} catch (ParseException  e) {
 			e.printStackTrace();
 		}
 

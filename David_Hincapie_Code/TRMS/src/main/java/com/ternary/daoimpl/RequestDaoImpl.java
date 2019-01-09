@@ -328,9 +328,9 @@ public class RequestDaoImpl implements RequestDao {
 
 				if (rs.getBlob("approvalAttachment") != null) {
 
-					request.setApprovalAttachmentBlob(rs.getBlob("approvalAttachment"));
+					//request.setApprovalAttachmentBlob(rs.getBlob("approvalAttachment"));
 					request.setApprovalAttachmentname(rs.getString("approvalAttachmentName"));
-					request.setApprovalAttachment(request.getApprovalAttachmentBlob().getBinaryStream());
+					//request.setApprovalAttachment(request.getApprovalAttachmentBlob().getBinaryStream());
 					//
 					// InputStream is = request.getApprovalAttachmentBlob().getBinaryStream();
 					// File file = new File(request.getApprovalAttachmentname());
@@ -346,6 +346,9 @@ public class RequestDaoImpl implements RequestDao {
 					// request.setApprovalAttachmentOut(fos);
 					// is.close();
 					// fos.close();
+//						request.getApprovalAttachment().close();
+				
+				
 				}
 
 				request.setEmployeeFirstName(rs.getString("firstname"));
@@ -380,7 +383,7 @@ public class RequestDaoImpl implements RequestDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} 
 
 		return request;
 
