@@ -12,6 +12,7 @@ import com.revature.trms.models.Employee;
 public class HomeController {
 
 	public static String Home(HttpServletRequest req) {
+		System.out.println("Home Controller");
 
 		return "/html/index.html";
 	}

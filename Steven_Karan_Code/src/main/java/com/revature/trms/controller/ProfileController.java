@@ -15,12 +15,12 @@ import com.revature.trms.validators.PasswordValidator;
 public class ProfileController {
 
 	public static String Profile(HttpServletRequest req, HttpServletResponse resp) {
-		
+		System.out.println("Profile Controller");
 		return "/html/profile.html";
 	}
 
 	public static String UpdateProfile(HttpServletRequest req, HttpServletResponse resp) {
-		
+		System.out.println("Updating Profile");
 		/*Enumeration<String> e = req.getParameterNames();
 		while(e.hasMoreElements()) {
 			String elem = e.nextElement();

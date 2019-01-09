@@ -26,6 +26,7 @@ import com.revature.trms.validators.ReimbursementValidator;
 public class ReimbursementController {
 	
 	public static String Reimburse(HttpServletRequest req) throws IOException, ServletException {
+		
 		System.out.println("Processing Reimbursement");
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		System.out.println(emp);

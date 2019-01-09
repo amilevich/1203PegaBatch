@@ -11,7 +11,7 @@ import com.revature.trms.models.Employee;
 public class LoginController {
 
 	public static String Login(HttpServletRequest req) {
-		
+		System.out.println("Login Controller");
 		
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		
