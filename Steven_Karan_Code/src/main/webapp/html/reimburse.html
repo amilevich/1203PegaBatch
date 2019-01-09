@@ -72,7 +72,7 @@
 					<label class="inline-label" for="event-type">Type</label>
 				</div>
 
-				<div class="col-lg-2 col-md-5 col-sm-12">
+				<div class="col-lg-3 col-md-5 col-sm-12">
 					<!-- type -->
 					<select class="form-control w-100" id="event-type" name="event-type" form="reimburse-form">
 						<option value="Course">Course</option>
@@ -80,14 +80,14 @@
 					    <option value="Certification">Certification</option>
 					    <option value="Certification-Prep">Certification Prep</option>
 					    <option value="Technical-Training">Technical Training</option>
-					    <option value="Other">Technical Training</option>
+					    <option value="Other">Other</option>
 					</select>
 				</div>
 
 				<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">
 					<label class="inline-label" for="work-missed">Hours Missed</label>
 				</div>
-				<div class="col-lg-1 col-md-2 col-sm-4">
+				<div class="col-lg-2 col-md-2 col-sm-4">
 					<input class="form-control" type="number" id="work-missed" min="1" step="1" max="1000" name="work-missed" required>
 				</div>
 				
@@ -95,7 +95,7 @@
 
 			<div class="form-row form-group form-inline">
 				<div class="col-lg-1 col-md-1 col-sm-12">
-					<label class="inline-label" for="event-date">Date</label>
+					<label class="inline-label text-left" for="event-date">Date</label>
 				</div>
 
 				<div class="col-lg-2 col-md-5 col-sm-12">
@@ -103,7 +103,7 @@
 				</div>
 
 				
-				<div class="col-lg-1 col-md-1 col-sm-12 offset-md-1 offset-lg-1">
+				<div class="col-lg-1 col-md-1 col-sm-12 offset-md-1 offset-lg-2">
 					<!-- time -->
 					<label class="inline-label" for="event-date">Time</label>
 				</div>
@@ -127,7 +127,7 @@
 				</div>
 
 
-				<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">
+				<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-2 offset-md-1">
 					<label class="inline-label" for="passing-grade">Passing Grade</label>
 				</div>
 
@@ -146,7 +146,7 @@
 					<div class="input-group-prepend">
 						<div class="input-group-text">$</div>
 					</div>
-					<input class="form-control" type="number" id="event-cost" max= "10000" min="0.00" step="0.01" name="event-cost" placeholder=""> 
+					<input class="form-control input-block-level h-100" type="number" id="event-cost" max= "10000" min="0.00" step="0.01" name="event-cost" placeholder=""> 
 				</div>
 				
 				<!-- Projected Reimbursement (readonly/disabled, computed serverside) -->
@@ -157,7 +157,7 @@
 					<div class="input-group-prepend">
 						<div class="input-group-text">$</div>
 					</div>
-					<input class="form-control" type="number" id="reimbursement" min="0.01" name="event-cost" placeholder="" disabled> 
+					<input class="form-control input-block-level h-100" type="number" id="reimbursement" min="0.01" name="event-cost" placeholder="" disabled> 
 				</div>
 
 
@@ -187,7 +187,7 @@
 				<label class="inline-label" for="street-num">Street Number</label>
 			</div>
 
-	 		<div class="col-lg-3 col-md-4 col-sm-6">
+	 		<div class="col-lg-3 col-md-4 col-sm-6 mb-sm-2">
 		 		<input type="text" name="street-num" id="street_number" class="form-control p w-100" required>
 			</div>
 
@@ -205,21 +205,21 @@
 	 		<div class="col-lg-2 col-md-2 col-sm-6">
 				<label class="inline-label" for="event-address-city">City</label>
 			</div>
-	 		<div class="col-lg-3 col-md-3 col-sm-6">
+	 		<div class="col-lg-3 col-md-3 col-sm-6 mb-sm-2">
 		 		<input type="text" name="event-address-city" id="locality" class="form-control p w-100" required>
 		 	</div>
 
 		 	<div class="col-lg-1 col-md-1 col-sm-6">
 				<label class="inline-label" for="event-address-state">State</label>
 			</div>
-		 	<div class="col-lg-2 col-md-2 col-sm-6">
+		 	<div class="col-lg-2 col-md-2 col-sm-6 mb-sm-2">
 		 		<input type="text" name="event-address-state" id="administrative_area_level_1" class="form-control p w-100" required>
 		 	</div>
 
 		 	<div class="col-lg-1 col-md-1 col-sm-6">
 				<label class="inline-label" for="event-address-zip">Zip Code</label>
 			</div>
-		 	<div class="col-lg-2 col-md-2 col-sm-6">
+		 	<div class="col-lg-2 col-md-2 col-sm-6 mb-sm-3">
 		 		<input type="text" name="event-address-zip" id="postal_code" class="form-control p w-100" required>
 		 	</div>
 		 </div>
