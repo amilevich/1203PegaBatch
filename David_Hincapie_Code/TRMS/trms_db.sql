@@ -157,6 +157,7 @@ CREATE TABLE request (
     deniedreason VARCHAR2(250),
     preapproved              INT,--Id of from who
     approvalattachment       BLOB,
+    approvalattachmentname VARCHAR2(50),
     projectedaward      NUMBER(8, 2),
     awardchangedbenco   NUMBER(8, 2) DEFAULT 0,
     exceedavilable      INT,
@@ -213,8 +214,8 @@ INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Bob', 'Brains', 'IT Staff', 'b
 INSERT INTO employee VALUES (emp_seq.nextval, 1, 'Twain', 'Stirt', 'IT Staff', 'twain@mail.com', 'p4ssw0rd', 4, '555 555 1238', 1000,0);
 INSERT INTO employee VALUES (emp_seq.nextval, 2, 'Kate', 'Beric', 'HR Staff', 'kate@mail.com', 'p4ssw0rd', 5, '555 555 1238', 1000,0);
 INSERT INTO employee VALUES (emp_seq.nextval, 2, 'William', 'Beat', 'HR Staff', 'william@mail.com', 'p4ssw0rd', 5, '555 555 1238', 1000,0);
-INSERT INTO employee VALUES (emp_seq.nextval, 3, 'Bert', 'Simpson', 'Benco Staff', 'bert@mail.com', 'p4ssw0rd', 6, '555 555 1238', 1000,0);
-INSERT INTO employee VALUES (emp_seq.nextval, 3, 'Sandy', 'Beach', 'Benco Staff', 'sandy@mail.com', 'p4ssw0rd', 6, '555 555 1238', 1000,0);
+INSERT INTO employee VALUES (emp_seq.nextval, 3, 'Bert', 'Simpson', 'Benco', 'bert@mail.com', 'p4ssw0rd', 6, '555 555 1238', 1000,0);
+INSERT INTO employee VALUES (emp_seq.nextval, 3, 'Sandy', 'Beach', 'Benco', 'sandy@mail.com', 'p4ssw0rd', 6, '555 555 1238', 1000,0);
 --End Populating Employee table
 
 --Populating grade Fromat table
@@ -250,10 +251,10 @@ INSERT INTO grade VALUES (grade_seq.nextval,'C+','A',0,'');
 
 
 --Populating request table
-INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 0,0,0,0,'',0,'',190,0,0,'');
-INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 0,0,0,0,'',0,'',190,0,0,'');
-INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 1,0,0,0,'',0,'',190,0,0,'');
-INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 1,1,0,0,'',0,'',190,0,0,'');
+INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 0,0,0,0,'',0,'','',190,0,0,'');
+INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 0,0,0,0,'',0,'','',190,0,0,'');
+INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 1,0,0,0,'',0,'','',190,0,0,'');
+INSERT INTO request VALUES (request_seq.nextval,5,1,1,'12-DEC-19','Processing',0,'Just Cause', 1,1,0,0,'',0,'','',190,0,0,'');
 --END
 
 --Populating more info
@@ -276,7 +277,7 @@ DROP VIEW requestinfo;
 CREATE VIEW requestinfo AS
 SELECT request.requestid, request.empid, request.datecompleted, request.requeststatus, request.moreinfo, request.justification,
        request.directmanagerapproved, request.departmentheadapproved, request.bencoapproved, request.requestdenied, 
-       request.deniedreason, request.preapproved, request.approvalattachment,
+       request.deniedreason, request.preapproved, request.approvalattachment, request.approvalattachmentname,
        request.projectedaward, request.awardchangedbenco, request.exceedavilable, request.exceedcomment,
        grade.passinggrade, grade.finalgrade, grade.presentation, grade.presentationattach,
        event.eventdescription, event.eventcost,event.eventtime, event.eventstart, event.eventend,
@@ -316,4 +317,7 @@ SELECT * FROM requestinfo;
 
 select * from requestinfo where (empid IN(select empid from empinfo where reportto = 2 and empid != 2)) and directmanagerapproved = 0;
 
+select * from requestinfo where ((empid IN(select empid from empinfo where dpthead = 1 and empid != 1)) and directmanagerapproved != 0 and departmentheadapproved = 0);
 
+
+select * from requestinfo where ((empid IN(select empid from empinfo where empid != 12 and dptname !='Benafits')));

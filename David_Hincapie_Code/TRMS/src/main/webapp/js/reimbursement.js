@@ -111,6 +111,8 @@ function geolocate() {
 
 function getProjectedReimbursement() {
 	let cost = document.getElementById("cost").value;
+	cost = parseFloat(Math.round((cost) * 100) / 100).toFixed(2);
+	document.getElementById("cost").value = cost;
 	let coverage = 0;
 	let value = document.getElementById("eventType").value;
 	switch (value) {
@@ -134,11 +136,19 @@ function getProjectedReimbursement() {
 		break;
 	}
 	if (cost > 0 && coverage > 0) {
-		document.getElementById("projectedReimbursement").value = cost
-				* coverage;
+		document.getElementById("projectedReimbursement").value = parseFloat(
+				Math.round((cost * coverage) * 100) / 100).toFixed(2);
+		;
 	}
 
 }
+
+function onClickHome() {
+	console.log("onClickHome");
+	document.getElementById("login-form").action = "home.do";
+	document.getElementById("login-form").submit();
+}
+
 
 function getDate() {
 	var today = new Date();
@@ -157,6 +167,9 @@ function getDate() {
 	today = yyyy + '-' + mm + '-' + dd;
 	console.log("DATE " + today);
 	document.getElementById("reimbursementDate").value = today;
+	document.getElementById("startDate").value = today;
+	document.getElementById("startDate").setAttribute("min", today);
+	document.getElementById("endDate").setAttribute("min", today);
 }
 
 function validateForm() {
@@ -168,7 +181,6 @@ function validateForm() {
 	var startDate = document.forms["reimbursementform"]["startDate"].value;
 	var endDate = document.forms["reimbursementform"]["endDate"].value;
 	var gradeFormat = document.forms["reimbursementform"]["gradeFormat"].value;
-	var gradeCutoff = document.forms["reimbursementform"]["gradeCutoff"].value;
 	var streetAddress = document.forms["reimbursementform"]["streetAddress"].value;
 	var locality = document.forms["reimbursementform"]["locality"].value;
 	var administrative_area_level_1 = document.forms["reimbursementform"]["administrative_area_level_1"].value;
@@ -177,12 +189,14 @@ function validateForm() {
 
 	if (eventType == null || eventType == "" || cost == null || cost == ""
 			|| projectedReimbursement == null || projectedReimbursement == ""
-			|| eventType == null || eventType == "" || eventTime == null || eventTime == ""
-			|| startDate == null || startDate == "" || endDate == null || endDate == ""
-			|| gradeFormat == null || gradeFormat == "" || gradeCutoff == null || gradeCutoff == ""
-			|| streetAddress == null || streetAddress == "" || locality == null || locality == ""
-			|| administrative_area_level_1 == null || administrative_area_level_1 == "" || postal_code == null || postal_code == ""
-			|| country == null || country == "") {
+			|| eventType == null || eventType == "" || eventTime == null
+			|| eventTime == "" || startDate == null || startDate == ""
+			|| endDate == null || endDate == "" || gradeFormat == null
+			|| gradeFormat == "" || streetAddress == null
+			|| streetAddress == "" || locality == null || locality == ""
+			|| administrative_area_level_1 == null
+			|| administrative_area_level_1 == "" || postal_code == null
+			|| postal_code == "" || country == null || country == "") {
 		alert("Please fill all required fields.");
 		return false;
 	} else {

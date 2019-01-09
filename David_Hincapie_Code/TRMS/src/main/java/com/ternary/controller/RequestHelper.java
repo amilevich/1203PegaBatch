@@ -47,6 +47,12 @@ public class RequestHelper {
 		case "/TRMS/html/MgrRequestsJSON.do":
 			System.out.println("REQUEST HELPER HOMECONTROLLER SWITCH");
 			return HomeController.MgrRequestJSON(request, response);
+		case "/TRMS/html/Approval.do":
+			System.out.println("REQUEST HELPER HOMECONTROLLER SWITCH");
+			return DetailsController.ApprovalJSON(request, response);
+		case "/TRMS/html/Deny.do":
+			System.out.println("REQUEST HELPER HOMECONTROLLER SWITCH");
+			return DetailsController.DenyJSON(request, response);
 		default:
 			System.out.println("IN DEFAULT");
 			return "/TRMS/html/login.html";

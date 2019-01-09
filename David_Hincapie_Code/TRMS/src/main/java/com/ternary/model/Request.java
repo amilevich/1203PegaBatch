@@ -1,22 +1,23 @@
 package com.ternary.model;
 
-import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Blob;
 import java.time.LocalDate;
-
-import javax.servlet.http.Part;
 
 public class Request {
 
 	public Request() {
 	}
+
 	public Request(int requestId, int employeeId, LocalDate requestCompleted, String status, boolean moreInfo,
 			String justification, int directMgrApproval, int deptHeadApproval, int bencoApproval, boolean denied,
-			String deniedReason, int preApproved, Part approvalAttachment, double projectedReimbursement,
+			String deniedReason, int preApproved, InputStream approvalAttachment, double projectedReimbursement,
 			boolean awardChanged, boolean exceedAvailable, String passingGrade, String finalGrade, boolean presentation,
-			Part presentationAttachment, String eventDescription, double eventCost, LocalDate eventStart,
+			InputStream presentationAttachment, String eventDescription, double eventCost, LocalDate eventStart,
 			LocalDate eventEnd, String eventType, int reimbCoverage, String streetAddress, String city, String state,
-			String country, String zipCode, String gradeType, Part eventFile) {
+			String country, String zipCode, String gradeType, InputStream eventFile) {
 		super();
 		this.requestId = requestId;
 		this.employeeId = employeeId;
@@ -52,14 +53,15 @@ public class Request {
 		this.gradeType = gradeType;
 		this.eventFile = eventFile;
 	}
-	
+
 	public Request(int requestId, int employeeId, LocalDate requestCompleted, String status, boolean moreInfo,
 			String justification, int directMgrApproval, int deptHeadApproval, int bencoApproval, boolean denied,
-			String deniedReason, int preApproved, Part approvalAttachment, double projectedReimbursement,
+			String deniedReason, int preApproved, InputStream approvalAttachment, double projectedReimbursement,
 			boolean awardChanged, boolean exceedAvailable, String passingGrade, String finalGrade, boolean presentation,
-			Part presentationAttachment, String eventDescription, double eventCost, LocalDate eventStart,
+			InputStream presentationAttachment, String eventDescription, double eventCost, LocalDate eventStart,
 			LocalDate eventEnd, String eventType, int reimbCoverage, String streetAddress, String city, String state,
-			String country, String zipCode, String gradeType) {
+			String country, String zipCode, String gradeType, InputStream eventFile, String presentationAttachmentName,
+			String approvalAttachmentname, String eventFilename) {
 		super();
 		this.requestId = requestId;
 		this.employeeId = employeeId;
@@ -93,6 +95,10 @@ public class Request {
 		this.country = country;
 		this.zipCode = zipCode;
 		this.gradeType = gradeType;
+		this.eventFile = eventFile;
+		this.presentationAttachmentName = presentationAttachmentName;
+		this.approvalAttachmentname = approvalAttachmentname;
+		this.eventFilename = eventFilename;
 	}
 
 	private int requestId;
@@ -102,16 +108,14 @@ public class Request {
 	private boolean moreInfo;
 	private String justification;
 
-	
 	private int directMgrApprovalId;
-	private boolean directMgrApproval =false;
+	private boolean directMgrApproval = false;
 	private int deptHeadApprovalId;
 	private boolean deptHeadApproval = false;
 	private int bencoApprovalId;
 	private boolean bencoApproval = false;
 	private boolean denied;
-	
-	
+
 	private String deniedReason;
 	private int preApprovedSupervisorId;
 	private double projectedReimbursement;
@@ -121,12 +125,21 @@ public class Request {
 	private boolean uploadedPresentation;
 	private String eventDescription;
 
-	private Part presentationAttachment;
-	private Part approvalAttachment;
-	private Part eventFile;
-	
+	private FileOutputStream approvalAttachmentOut;
+
+	private InputStream approvalAttachment;
+	private Blob approvalAttachmentBlob;
+	private String approvalAttachmentname;
+	private InputStream eventFile;
+	private Blob eventFileBlob;
+	private String eventFilename;
+	private InputStream presentationAttachment;
+	private Blob presentationAttachmentBlob;
+	private String presentationAttachmentName;
+
 	private String eventTime;
 	private LocalDate reimbursementDate;
+	private LocalDate dateCompleted;
 	private LocalDate eventStart;
 	private LocalDate eventEnd;
 	private String eventType;
@@ -145,6 +158,9 @@ public class Request {
 	private String state;
 	private String country;
 	private String zipCode;
+
+	private String employeeFirstName;
+	private String employeeLastName;
 
 	// private ArrayList<MoreInfo> moreInfos;
 	// private ArrayList<Blob> attachments;
@@ -172,7 +188,6 @@ public class Request {
 	public void setEmployeeId(int employeeId) {
 		this.employeeId = employeeId;
 	}
-
 
 	public String getStatus() {
 		return status;
@@ -246,11 +261,11 @@ public class Request {
 		this.preApprovedSupervisorId = preApprovedSupervisorId;
 	}
 
-	public Part getApprovalAttachment() {
+	public InputStream getApprovalAttachment() {
 		return approvalAttachment;
 	}
 
-	public void setApprovalAttachment(Part approvalAttachment) {
+	public void setApprovalAttachment(InputStream approvalAttachment) {
 		this.approvalAttachment = approvalAttachment;
 	}
 
@@ -302,11 +317,11 @@ public class Request {
 		this.uploadedPresentation = uploadedPresentation;
 	}
 
-	public Part getPresentationAttachment() {
+	public InputStream getPresentationAttachment() {
 		return presentationAttachment;
 	}
 
-	public void setPresentationAttachment(Part presentationAttachment) {
+	public void setPresentationAttachment(InputStream presentationAttachment) {
 		this.presentationAttachment = presentationAttachment;
 	}
 
@@ -323,6 +338,7 @@ public class Request {
 	}
 
 	public void setEventCost(double eventCost) {
+
 		this.eventCost = eventCost;
 	}
 
@@ -414,7 +430,6 @@ public class Request {
 		this.exceedAvailibleComment = exceedAvailibleComment;
 	}
 
-	
 	public LocalDate getReimbursementDate() {
 		return reimbursementDate;
 	}
@@ -422,7 +437,7 @@ public class Request {
 	public void setReimbursementDate(LocalDate reimbursementDate) {
 		this.reimbursementDate = reimbursementDate;
 	}
-	
+
 	public String getEventTime() {
 		return eventTime;
 	}
@@ -430,7 +445,6 @@ public class Request {
 	public void setEventTime(String eventTime) {
 		this.eventTime = eventTime;
 	}
-	
 
 	public boolean isDirectMgrApproval() {
 		return directMgrApproval;
@@ -455,34 +469,114 @@ public class Request {
 	public void setBencoApproval(boolean bencoApproval) {
 		this.bencoApproval = bencoApproval;
 	}
-	
-	
 
-	public Part getEventFile() {
+	public InputStream getEventFile() {
 		return eventFile;
 	}
 
-	public void setEventFile(Part eventFile) {
+	public void setEventFile(InputStream eventFile) {
 		this.eventFile = eventFile;
+	}
+
+	public String getPresentationAttachmentName() {
+		return presentationAttachmentName;
+	}
+
+	public void setPresentationAttachmentName(String presentationAttachmentName) {
+		this.presentationAttachmentName = presentationAttachmentName;
+	}
+
+	public String getApprovalAttachmentname() {
+		return approvalAttachmentname;
+	}
+
+	public void setApprovalAttachmentname(String approvalAttachmentname) {
+		this.approvalAttachmentname = approvalAttachmentname;
+	}
+
+	public String getEventFilename() {
+		return eventFilename;
+	}
+
+	public void setEventFilename(String eventFilename) {
+		this.eventFilename = eventFilename;
+	}
+
+	public Blob getPresentationAttachmentBlob() {
+		return presentationAttachmentBlob;
+	}
+
+	public void setPresentationAttachmentBlob(Blob presentationAttachmentBlob) {
+		this.presentationAttachmentBlob = presentationAttachmentBlob;
+	}
+
+	public Blob getApprovalAttachmentBlob() {
+		return approvalAttachmentBlob;
+	}
+
+	public void setApprovalAttachmentBlob(Blob approvalAttachmentBlob) {
+		this.approvalAttachmentBlob = approvalAttachmentBlob;
+	}
+
+	public Blob getEventFileBlob() {
+		return eventFileBlob;
+	}
+
+	public void setEventFileBlob(Blob eventFileBlob) {
+		this.eventFileBlob = eventFileBlob;
+	}
+
+	public FileOutputStream getApprovalAttachmentOut() {
+		return approvalAttachmentOut;
+	}
+
+	public void setApprovalAttachmentOut(FileOutputStream approvalAttachmentOut) {
+		this.approvalAttachmentOut = approvalAttachmentOut;
+	}
+
+	public LocalDate getDateCompleted() {
+		return dateCompleted;
+	}
+
+	public void setDateCompleted(LocalDate dateCompleted) {
+		this.dateCompleted = dateCompleted;
+	}
+
+	public String getEmployeeFirstName() {
+		return employeeFirstName;
+	}
+
+	public void setEmployeeFirstName(String employeeFirstName) {
+		this.employeeFirstName = employeeFirstName;
+	}
+
+	public String getEmployeeLastName() {
+		return employeeLastName;
+	}
+
+	public void setEmployeeLastName(String employeeLastName) {
+		this.employeeLastName = employeeLastName;
 	}
 
 	@Override
 	public String toString() {
 		return "Request [requestId=" + requestId + ", employeeId=" + employeeId + ", status=" + status + ", moreInfo="
 				+ moreInfo + ", justification=" + justification + ", directMgrApprovalId=" + directMgrApprovalId
-				+ ", deptHeadApprovalId=" + deptHeadApprovalId + ", bencoApproval=" + bencoApprovalId + ", denied="
-				+ denied + ", deniedReason=" + deniedReason + ", preApprovedSupervisorId=" + preApprovedSupervisorId
-				+ ", approvalAttachment=" + approvalAttachment + ", projectedReimbursement=" + projectedReimbursement
-				+ ", awardChanged=" + awardChanged + ", exceedAvailable=" + exceedAvailable + ", uploadedPresentation="
-				+ uploadedPresentation + ", presentationAttachment=" + presentationAttachment + ", eventDescription="
-				+ eventDescription + ", eventTime=" + eventTime + ", reimbursementDate=" + reimbursementDate
-				+ ", eventStart=" + eventStart + ", eventEnd=" + eventEnd + ", eventType=" + eventType
-				+ ", gradeTypeId=" + gradeTypeId + ", gradeType=" + gradeType + ", passingGrade=" + passingGrade
-				+ ", finalGrade=" + finalGrade + ", exceedAvailibleComment=" + exceedAvailibleComment + ", eventCost="
-				+ eventCost + ", reimbCoverage=" + reimbCoverage + ", streetAddress=" + streetAddress + ", city=" + city
-				+ ", state=" + state + ", country=" + country + ", zipCode=" + zipCode + "]";
+				+ ", directMgrApproval=" + directMgrApproval + ", deptHeadApprovalId=" + deptHeadApprovalId
+				+ ", deptHeadApproval=" + deptHeadApproval + ", bencoApprovalId=" + bencoApprovalId + ", bencoApproval="
+				+ bencoApproval + ", denied=" + denied + ", deniedReason=" + deniedReason + ", preApprovedSupervisorId="
+				+ preApprovedSupervisorId + ", projectedReimbursement=" + projectedReimbursement + ", awardChanged="
+				+ awardChanged + ", exceedAvailable=" + exceedAvailable + ", uploadedPresentation="
+				+ uploadedPresentation + ", eventDescription=" + eventDescription + ", presentationAttachment="
+				+ presentationAttachment + ", presentationAttachmentName=" + presentationAttachmentName
+				+ ", approvalAttachment=" + approvalAttachment + ", approvalAttachmentname=" + approvalAttachmentname
+				+ ", eventFile=" + eventFile + ", eventFilename=" + eventFilename + ", eventTime=" + eventTime
+				+ ", reimbursementDate=" + reimbursementDate + ", eventStart=" + eventStart + ", eventEnd=" + eventEnd
+				+ ", eventType=" + eventType + ", gradeTypeId=" + gradeTypeId + ", gradeType=" + gradeType
+				+ ", passingGrade=" + passingGrade + ", finalGrade=" + finalGrade + ", exceedAvailibleComment="
+				+ exceedAvailibleComment + ", eventCost=" + eventCost + ", reimbCoverage=" + reimbCoverage
+				+ ", streetAddress=" + streetAddress + ", city=" + city + ", state=" + state + ", country=" + country
+				+ ", zipCode=" + zipCode + "]";
 	}
-
-
 
 }

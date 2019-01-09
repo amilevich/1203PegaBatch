@@ -72,6 +72,13 @@ function onClick(id) {
 	document.getElementById("reqId").value = id;
 	document.getElementById("myForm").submit();
 }
+
+function onClickHome() {
+	console.log("onClickHome");
+	document.getElementById("myForm").action = "home.do";
+	document.getElementById("myForm").submit();
+}
+
 function getPendingRequests() {
 	let xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -193,4 +200,3 @@ function buildHTMLtable(requests) {
 	divContainer.innerHTML = htmlString;
 
 }
-

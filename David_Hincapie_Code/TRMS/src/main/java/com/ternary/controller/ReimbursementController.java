@@ -1,6 +1,5 @@
 package com.ternary.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,9 +48,13 @@ public class ReimbursementController {
 			}
 
 			Part fileField = request.getPart("preApprovalFile");
-			String filename = fileField.getSubmittedFileName();
-			File file = new File(filename);
-			reimbursementRequest.setApprovalAttachment(fileField);
+			reimbursementRequest.setApprovalAttachmentname(fileField.getSubmittedFileName());
+			reimbursementRequest.setApprovalAttachment(fileField.getInputStream());
+			
+			fileField = request.getPart("eventFile");
+			reimbursementRequest.setEventFilename(fileField.getSubmittedFileName());
+			reimbursementRequest.setEventFile(fileField.getInputStream());
+			 
 
 			if (request.getParameter("cost").isEmpty()) {
 				reimbursementRequest.setEventCost(0);

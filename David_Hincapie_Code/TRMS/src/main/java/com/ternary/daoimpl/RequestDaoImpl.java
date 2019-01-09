@@ -3,7 +3,11 @@ package com.ternary.daoimpl;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -16,10 +20,15 @@ import java.util.List;
 
 import javax.servlet.http.Part;
 
+import org.apache.tomcat.jni.OS;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+
 import com.ternary.dao.RequestDao;
 import com.ternary.model.Employee;
 import com.ternary.model.Request;
 import com.ternary.util.ConnFactory;
+
+import oracle.net.aso.s;
 
 public class RequestDaoImpl implements RequestDao {
 
@@ -170,16 +179,8 @@ public class RequestDaoImpl implements RequestDao {
 	public int insertRequest(Request request, int eventId, int gradeId) {
 		Connection conn = cf.getConnection();
 		int rowAffected = 0;
-		String sql = "BEGIN INSERT INTO request VALUES (request_seq.nextval, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING requestid INTO ?; END;";
+		String sql = "BEGIN INSERT INTO request VALUES (request_seq.nextval, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) RETURNING requestid INTO ?; END;";
 		try {
-			System.out.println("YOYOYOYOYOYOYOYOY   " + request.getApprovalAttachment().getName());
-
-			Part fileField = (Part) request.getApprovalAttachment().getInputStream();
-			String filename = fileField.getSubmittedFileName();
-			File file = new File(filename);
-			long fileLength = file.length();
-
-			FileInputStream fis = new FileInputStream(file);
 
 			CallableStatement cs = conn.prepareCall(sql);
 			cs.setInt(1, request.getEmployeeId());
@@ -194,15 +195,19 @@ public class RequestDaoImpl implements RequestDao {
 			cs.setInt(10, request.getBencoApprovalId());
 			cs.setBoolean(11, request.isDenied());
 			cs.setString(12, request.getDeniedReason());
-			cs.setInt(13, request.getPreApprovedSupervisorId());// TODO
-			cs.setBinaryStream(14, fis, fileLength);
-			cs.setDouble(15, request.getProjectedReimbursement());
-			cs.setInt(16, 0);
-			cs.setBoolean(17, request.isExceedAvailable());
-			cs.setString(18, request.getExceedAvailibleComment());
-			cs.registerOutParameter(19, Types.NUMERIC);
+			cs.setInt(13, request.getPreApprovedSupervisorId());
+
+			cs.setBlob(14, request.getApprovalAttachment());
+			cs.setString(15, request.getApprovalAttachmentname());
+			cs.setDouble(16, request.getProjectedReimbursement());
+
+			cs.setInt(17, 0);
+			cs.setBoolean(18, request.isExceedAvailable());
+			cs.setString(19, request.getExceedAvailibleComment());
+
+			cs.registerOutParameter(20, Types.NUMERIC);
 			cs.executeUpdate();
-			rowAffected = cs.getInt(19);
+			rowAffected = cs.getInt(20);
 			return rowAffected;
 
 		} catch (Exception e) {
@@ -293,7 +298,10 @@ public class RequestDaoImpl implements RequestDao {
 
 			Connection connection = cf.getConnection();
 
-			String sql = "SELECT * " + "FROM requestInfo " + "WHERE requestInfo.requestID = ? ";
+			String sql =  "SELECT requestInfo.*, empInfo.firstName, empInfo.lastName " + 
+                    "FROM requestInfo, empInfo " + 
+                   "WHERE requestInfo.requestID = ? " +
+                     "AND requestInfo.empId = empInfo.empId";
 
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, reqId);
@@ -317,14 +325,37 @@ public class RequestDaoImpl implements RequestDao {
 				request.setDenied(rs.getBoolean("requestDenied"));
 				request.setDeniedReason(rs.getString("deniedReason"));
 				request.setPreApprovedSupervisorId(rs.getInt("preApproved"));
-				// request.setApprovalAttachment((File) rs.getBlob("approvalAttachment"));
+
+				if (rs.getBlob("approvalAttachment") != null) {
+
+					request.setApprovalAttachmentBlob(rs.getBlob("approvalAttachment"));
+					request.setApprovalAttachmentname(rs.getString("approvalAttachmentName"));
+					request.setApprovalAttachment(request.getApprovalAttachmentBlob().getBinaryStream());
+					//
+					// InputStream is = request.getApprovalAttachmentBlob().getBinaryStream();
+					// File file = new File(request.getApprovalAttachmentname());
+					// FileOutputStream fos = new
+					// FileOutputStream(request.getApprovalAttachmentname());
+					//
+					// int length = 0;
+					// int bufferSize = 32;
+					// byte[] buffer = new byte[bufferSize];
+					// while ((length = is.read(buffer)) != -1) {
+					// fos.write(buffer, 0, length);
+					// }
+					// request.setApprovalAttachmentOut(fos);
+					// is.close();
+					// fos.close();
+				}
+
+				request.setEmployeeFirstName(rs.getString("firstname"));
+				request.setEmployeeLastName(rs.getString("lastName"));
 				request.setProjectedReimbursement(rs.getDouble("projectedAward"));
 				request.setAwardChanged(rs.getBoolean("awardChangedBenco"));
 				request.setExceedAvailable(rs.getBoolean("exceedAvilable"));
 				request.setPassingGrade(rs.getString("passingGrade"));
 				request.setFinalGrade(rs.getString("finalGrade"));
 				request.setUploadedPresentation(rs.getBoolean("presentation"));
-				// request.setPresentationAttachment((File) rs.getBlob("presentationAttach"));
 				request.setEventDescription(rs.getString("eventDescription"));
 				request.setEventCost(rs.getDouble("eventCost"));
 				request.setEventStart(
@@ -378,79 +409,223 @@ public class RequestDaoImpl implements RequestDao {
 	}
 
 	public List<Request> getMgrRequests(Employee employee) {
-
 		List<Request> mgrRequests = new ArrayList<Request>();
 		Request request;
+		try {
+			Connection connection = cf.getConnection();
+			if (employee.getJobTitle().contains("Manager")) {
+				System.out.println("Im a manager");
+				String sql = "SELECT * " + "FROM requestInfo "
+						+ "WHERE ( empId IN ( SELECT empId from empInfo WHERE reportTo = ? AND empId != ?) ) AND directmanagerapproved = 0 ";
+				PreparedStatement ps = connection.prepareStatement(sql);
+				ps.setInt(1, employee.getEmployeeId());
+				ps.setInt(2, employee.getEmployeeId());
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					request = new Request();
+					request.setRequestId(rs.getInt("requestId"));
+					request.setEmployeeId(rs.getInt("empId"));
+					request.setReimbursementDate(new java.sql.Timestamp(rs.getDate("dateCompleted").getTime())
+							.toLocalDateTime().toLocalDate());
+					request.setStatus(rs.getString("requestStatus"));
+					request.setMoreInfo(rs.getBoolean("moreInfo"));
+					request.setJustification(rs.getString("justification"));
+					request.setStatus(rs.getString("requestStatus"));
+					request.setJustification(rs.getString("justification"));
+					request.setDirectMgrApprovalId(rs.getInt("directManagerApproved"));
+					request.setDeptHeadApprovalId(rs.getInt("departmentHeadApproved"));
+					request.setBencoApprovalId(rs.getInt("bencoApproved"));
+					request.setDenied(rs.getBoolean("requestDenied"));
+					request.setDeniedReason(rs.getString("deniedReason"));
+					request.setPreApprovedSupervisorId(rs.getInt("preApproved"));
+					// request.setApprovalAttachment(rs.getBlob("approvalAttachment"));
+					request.setProjectedReimbursement(rs.getDouble("projectedAward"));
+					request.setAwardChanged(rs.getBoolean("awardChangedBenco"));
+					request.setExceedAvailable(rs.getBoolean("exceedAvilable"));
+					request.setPassingGrade(rs.getString("passingGrade"));
+					request.setFinalGrade(rs.getString("finalGrade"));
+					request.setUploadedPresentation(rs.getBoolean("presentation"));
+					// request.setPresentationAttachment(rs.getBlob("presentationAttach"));
+					request.setEventDescription(rs.getString("eventDescription"));
+					request.setEventCost(rs.getDouble("eventCost"));
+					request.setEventStart(
+							new java.sql.Timestamp(rs.getDate("eventStart").getTime()).toLocalDateTime().toLocalDate());
+					request.setEventEnd(
+							new java.sql.Timestamp(rs.getDate("eventEnd").getTime()).toLocalDateTime().toLocalDate());
+					// request.setEventTime(rs.getString("eventTime"));
+					request.setEventType(rs.getString("eventTypeName"));
+					request.setReimbCoverage(rs.getInt("reimbursementCoverage"));
+					request.setStreetAddress(rs.getString("streetAddress"));
+					request.setCity(rs.getString("city"));
+					request.setState(rs.getString("state"));
+					request.setCountry(rs.getString("country"));
+					request.setZipCode(rs.getString("zipCode"));
+					request.setGradeType(rs.getString("gradeType"));
+					mgrRequests.add(request);
+					System.out.println(request.toString());
+				}
+				connection.close();
+			} else if (employee.getJobTitle().contains("Head")) {
+				System.out.println("Im a Head");
+				String sql = "select * from requestinfo where ((empid IN(select empid from empinfo where dpthead = ? and empid != ?))"
+						+ " and directmanagerapproved != 0 and departmentheadapproved = 0)";
+				PreparedStatement ps = connection.prepareStatement(sql);
+				ps.setInt(1, employee.getEmployeeId());
+				ps.setInt(2, employee.getEmployeeId());
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					request = new Request();
+					request.setRequestId(rs.getInt("requestId"));
+					request.setEmployeeId(rs.getInt("empId"));
+					request.setReimbursementDate(new java.sql.Timestamp(rs.getDate("dateCompleted").getTime())
+							.toLocalDateTime().toLocalDate());
+					request.setStatus(rs.getString("requestStatus"));
+					request.setMoreInfo(rs.getBoolean("moreInfo"));
+					request.setJustification(rs.getString("justification"));
+					request.setStatus(rs.getString("requestStatus"));
+					request.setJustification(rs.getString("justification"));
+					request.setDirectMgrApprovalId(rs.getInt("directManagerApproved"));
+					request.setDeptHeadApprovalId(rs.getInt("departmentHeadApproved"));
+					request.setBencoApprovalId(rs.getInt("bencoApproved"));
+					request.setDenied(rs.getBoolean("requestDenied"));
+					request.setDeniedReason(rs.getString("deniedReason"));
+					request.setPreApprovedSupervisorId(rs.getInt("preApproved"));
+					// request.setApprovalAttachment(rs.getBlob("approvalAttachment"));
+					request.setProjectedReimbursement(rs.getDouble("projectedAward"));
+					request.setAwardChanged(rs.getBoolean("awardChangedBenco"));
+					request.setExceedAvailable(rs.getBoolean("exceedAvilable"));
+					request.setPassingGrade(rs.getString("passingGrade"));
+					request.setFinalGrade(rs.getString("finalGrade"));
+					request.setUploadedPresentation(rs.getBoolean("presentation"));
+					// request.setPresentationAttachment(rs.getBlob("presentationAttach"));
+					request.setEventDescription(rs.getString("eventDescription"));
+					request.setEventCost(rs.getDouble("eventCost"));
+					request.setEventStart(
+							new java.sql.Timestamp(rs.getDate("eventStart").getTime()).toLocalDateTime().toLocalDate());
+					request.setEventEnd(
+							new java.sql.Timestamp(rs.getDate("eventEnd").getTime()).toLocalDateTime().toLocalDate());
+					// request.setEventTime(rs.getString("eventTime"));
+					request.setEventType(rs.getString("eventTypeName"));
+					request.setReimbCoverage(rs.getInt("reimbursementCoverage"));
+					request.setStreetAddress(rs.getString("streetAddress"));
+					request.setCity(rs.getString("city"));
+					request.setState(rs.getString("state"));
+					request.setCountry(rs.getString("country"));
+					request.setZipCode(rs.getString("zipCode"));
+					request.setGradeType(rs.getString("gradeType"));
+					mgrRequests.add(request);
+					System.out.println(request.toString());
+				}
+				connection.close();
+			} else if (employee.getDepartmentName().contains("Benafits")) {
+				System.out.println("Benco Here");
+				String sql = "select * from requestinfo where (empid IN(select empid from empinfo where empid != ? and dptname !='Benafits'))";
+				PreparedStatement ps = connection.prepareStatement(sql);
+				ps.setInt(1, employee.getEmployeeId());
+				ResultSet rs = ps.executeQuery();
+				while (rs.next()) {
+					request = new Request();
+					request.setRequestId(rs.getInt("requestId"));
+					request.setEmployeeId(rs.getInt("empId"));
+					request.setReimbursementDate(new java.sql.Timestamp(rs.getDate("dateCompleted").getTime())
+							.toLocalDateTime().toLocalDate());
+					request.setStatus(rs.getString("requestStatus"));
+					request.setMoreInfo(rs.getBoolean("moreInfo"));
+					request.setJustification(rs.getString("justification"));
+					request.setStatus(rs.getString("requestStatus"));
+					request.setJustification(rs.getString("justification"));
+					request.setDirectMgrApprovalId(rs.getInt("directManagerApproved"));
+					request.setDeptHeadApprovalId(rs.getInt("departmentHeadApproved"));
+					request.setBencoApprovalId(rs.getInt("bencoApproved"));
+					request.setDenied(rs.getBoolean("requestDenied"));
+					request.setDeniedReason(rs.getString("deniedReason"));
+					request.setPreApprovedSupervisorId(rs.getInt("preApproved"));
+					// request.setApprovalAttachment(rs.getBlob("approvalAttachment"));
+					request.setProjectedReimbursement(rs.getDouble("projectedAward"));
+					request.setAwardChanged(rs.getBoolean("awardChangedBenco"));
+					request.setExceedAvailable(rs.getBoolean("exceedAvilable"));
+					request.setPassingGrade(rs.getString("passingGrade"));
+					request.setFinalGrade(rs.getString("finalGrade"));
+					request.setUploadedPresentation(rs.getBoolean("presentation"));
+					// request.setPresentationAttachment(rs.getBlob("presentationAttach"));
+					request.setEventDescription(rs.getString("eventDescription"));
+					request.setEventCost(rs.getDouble("eventCost"));
+					request.setEventStart(
+							new java.sql.Timestamp(rs.getDate("eventStart").getTime()).toLocalDateTime().toLocalDate());
+					request.setEventEnd(
+							new java.sql.Timestamp(rs.getDate("eventEnd").getTime()).toLocalDateTime().toLocalDate());
+					// request.setEventTime(rs.getString("eventTime"));
+					request.setEventType(rs.getString("eventTypeName"));
+					request.setReimbCoverage(rs.getInt("reimbursementCoverage"));
+					request.setStreetAddress(rs.getString("streetAddress"));
+					request.setCity(rs.getString("city"));
+					request.setState(rs.getString("state"));
+					request.setCountry(rs.getString("country"));
+					request.setZipCode(rs.getString("zipCode"));
+					request.setGradeType(rs.getString("gradeType"));
+					mgrRequests.add(request);
+					System.out.println(request.toString());
+				}
+				connection.close();
 
+			} else {
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return mgrRequests;
+	}
+
+	public int updateApproval(int requestId, Employee employee) {
 		try {
 
 			Connection connection = cf.getConnection();
+			String sql = "";
 
-			String sql = "SELECT * " + "FROM requestInfo "
-					+ "WHERE ( empId IN ( SELECT empId from empInfo WHERE reportTo = ? AND empId != ?) ) AND directmanagerapproved = 0 ";
+			if (employee.getJobTitle().contains("Manager")) {
+				sql = "UPDATE Request " + "SET directManagerApproved = ? " + "WHERE requestid = ?";
+				PreparedStatement ps = connection.prepareStatement(sql);
+				ps.setInt(1, employee.getEmployeeId());
+				ps.setInt(2, requestId);
+				return ps.executeUpdate();
 
-			PreparedStatement ps = connection.prepareStatement(sql);
-			ps.setInt(1, employee.getEmployeeId());
-			ps.setInt(2, employee.getEmployeeId());
-
-			ResultSet rs = ps.executeQuery();
-
-			while (rs.next()) {
-
-				request = new Request();
-
-				request.setRequestId(rs.getInt("requestId"));
-				request.setEmployeeId(rs.getInt("empId"));
-				request.setReimbursementDate(
-						new java.sql.Timestamp(rs.getDate("dateCompleted").getTime()).toLocalDateTime().toLocalDate());
-				request.setStatus(rs.getString("requestStatus"));
-				request.setMoreInfo(rs.getBoolean("moreInfo"));
-				request.setJustification(rs.getString("justification"));
-				request.setStatus(rs.getString("requestStatus"));
-				request.setJustification(rs.getString("justification"));
-				request.setDirectMgrApprovalId(rs.getInt("directManagerApproved"));
-				request.setDeptHeadApprovalId(rs.getInt("departmentHeadApproved"));
-				request.setBencoApprovalId(rs.getInt("bencoApproved"));
-				request.setDenied(rs.getBoolean("requestDenied"));
-				request.setDeniedReason(rs.getString("deniedReason"));
-				request.setPreApprovedSupervisorId(rs.getInt("preApproved"));
-				//request.setApprovalAttachment(rs.getBlob("approvalAttachment"));
-				request.setProjectedReimbursement(rs.getDouble("projectedAward"));
-				request.setAwardChanged(rs.getBoolean("awardChangedBenco"));
-				request.setExceedAvailable(rs.getBoolean("exceedAvilable"));
-				request.setPassingGrade(rs.getString("passingGrade"));
-				request.setFinalGrade(rs.getString("finalGrade"));
-				request.setUploadedPresentation(rs.getBoolean("presentation"));
-				//request.setPresentationAttachment(rs.getBlob("presentationAttach"));
-				request.setEventDescription(rs.getString("eventDescription"));
-				request.setEventCost(rs.getDouble("eventCost"));
-				request.setEventStart(
-						new java.sql.Timestamp(rs.getDate("eventStart").getTime()).toLocalDateTime().toLocalDate());
-				request.setEventEnd(
-						new java.sql.Timestamp(rs.getDate("eventEnd").getTime()).toLocalDateTime().toLocalDate());
-				// request.setEventTime(rs.getString("eventTime"));
-				request.setEventType(rs.getString("eventTypeName"));
-				request.setReimbCoverage(rs.getInt("reimbursementCoverage"));
-				request.setStreetAddress(rs.getString("streetAddress"));
-				request.setCity(rs.getString("city"));
-				request.setState(rs.getString("state"));
-				request.setCountry(rs.getString("country"));
-				request.setZipCode(rs.getString("zipCode"));
-				request.setGradeType(rs.getString("gradeType"));
-
-				mgrRequests.add(request);
-
-				System.out.println(request.toString());
-
+			} else if (employee.getJobTitle().contains("Head")) {
+				sql = "UPDATE Request " + "SET departmentHeadApproved = ? " + "WHERE requestid = ?";
+				PreparedStatement ps = connection.prepareStatement(sql);
+				ps.setInt(1, employee.getEmployeeId());
+				ps.setInt(2, requestId);
+				return ps.executeUpdate();
+			} else if (employee.getDepartmentName().contains("Benefits")) {
+				sql = "UPDATE Request " + "SET bencoApproved = ? " + "WHERE requestid = ?";
+				PreparedStatement ps = connection.prepareStatement(sql);
+				ps.setInt(1, employee.getEmployeeId());
+				ps.setInt(2, requestId);
+				return ps.executeUpdate();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
-			connection.close();
+	public int updateDeny(int requestId, Employee employee) {
+		try {
+
+			Connection connection = cf.getConnection();
+			String sql = "";
+
+			sql = "UPDATE Request " + "SET requestStatus = ?, " + "requestDenied = ? " + "WHERE requestid = ?";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, "Denied");
+			ps.setInt(2, employee.getEmployeeId());
+			ps.setInt(3, requestId);
+			return ps.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
-		return mgrRequests;
+		return 0;
 	}
 
 }

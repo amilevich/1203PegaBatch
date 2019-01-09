@@ -110,6 +110,13 @@ function getMgrRequests() {
 	xhttp.send();
 }
 
+function onClickHome() {
+	console.log("onClickHome");
+	document.getElementById("myForm").action = "home.do";
+	document.getElementById("myForm").submit();
+}
+
+
 function buildHTMLtable(requests) {
 	
 //	var dirMgrApproval = "";

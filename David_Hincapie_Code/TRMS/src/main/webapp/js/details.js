@@ -5,6 +5,7 @@
 window.onload = function() {
 	getEmployeeInfo();
 	getRequest();
+
 }
 
 function getEmployeeInfo() {
@@ -22,8 +23,9 @@ function getEmployeeInfo() {
 }
 
 function setEmployeeValues(employee) {
-	document.getElementById("firstName").innerHTML = employee.firstName;
-	document.getElementById("lastName").innerHTML = employee.lastName;
+	document.getElementById("empId").value = employee.employeeId;
+	// document.getElementById("firstName").innerHTML = employee.firstName;
+	// document.getElementById("lastName").innerHTML = employee.lastName;
 }
 
 function onClick(id) {
@@ -49,6 +51,40 @@ function onClickBack() {
 	document.getElementById("details-form").submit();
 }
 
+function onClickHome() {
+	console.log("onClickHome");
+	document.getElementById("details-form").action = "home.do";
+	document.getElementById("details-form").submit();
+}
+
+function onClickApprove() {
+	console.log(" reqId=" + document.getElementById("requestId").value);
+	let xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			// let x = JSON.parse(xhttp.responseText);
+			console.log("Mgr responseText=" + xhttp.responseText);
+		}
+	}
+	xhttp.open("GET", 'http://localhost:8080/TRMS/html/Approval.do?requestId='
+			+ document.getElementById("requestId").value, true);
+	xhttp.send();
+}
+
+function onClickDeny() {
+	console.log(" reqId=" + document.getElementById("requestId").value);
+	let xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			// let x = JSON.parse(xhttp.responseText);
+			console.log("Mgr responseText=" + xhttp.responseText);
+		}
+	}
+	xhttp.open("GET", 'http://localhost:8080/TRMS/html/Deny.do?requestId='
+			+ document.getElementById("requestId").value, true);
+	xhttp.send();
+}
+
 function getRequest() {
 	let xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
@@ -64,17 +100,21 @@ function getRequest() {
 }
 
 function setRequestValues(request) {
+
 	var day;
 	var month;
 	var year;
 
 	document.getElementById("employeeId").innerHTML = request.employeeId;
-	
+
 	day = request.reimbursementDate.dayOfMonth;
 	month = request.reimbursementDate.monthValue; // Month is 0-indexed
 	year = request.reimbursementDate.year;
-	document.getElementById("reimbursementDate").innerHTML = month + '/' + day + '/'+ year;
-	
+	document.getElementById("dateCompleted").innerHTML = month + "/" + day
+			+ "/" + year;
+
+	document.getElementById("firstName").innerHTML = request.employeeFirstName;
+	document.getElementById("lastName").innerHTML = request.employeeLastName;
 	document.getElementById("eventType").innerHTML = request.eventType;
 	document.getElementById("eventCost").innerHTML = request.eventCost;
 	document.getElementById("reimbCoverage").innerHTML = request.reimbCoverage;
@@ -82,24 +122,59 @@ function setRequestValues(request) {
 	day = request.eventStart.dayOfMonth;
 	month = request.eventStart.monthValue; // Month is 0-indexed
 	year = request.eventStart.year;
-	document.getElementById("eventStart").innerHTML = month + '/' + day + '/'+ year;
-	
+	document.getElementById("eventStart").innerHTML = month + '/' + day + '/'
+			+ year;
+
 	day = request.eventEnd.dayOfMonth;
 	month = request.eventEnd.monthValue; // Month is 0-indexed
 	year = request.eventEnd.year;
-	document.getElementById("eventEnd").innerHTML = month + '/' + day + '/'+ year;
+	document.getElementById("eventEnd").innerHTML = month + '/' + day + '/'
+			+ year;
 	
+	
+
+	document.getElementById("eventTime").innerHTML = request.eventTime;
 	document.getElementById("eventDescription").innerHTML = request.eventDescription;
 	document.getElementById("justification").innerHTML = request.justification;
+	document.getElementById("gradeFormat").innerHTML = request.gradeType;
+	document.getElementById("gradeCutoff").innerHTML = request.passingGrade;
 	document.getElementById("streetAddress").innerHTML = request.streetAddress;
-	document.getElementById("city").innerHTML = request.city;
-	document.getElementById("state").innerHTML = request.state;
-	document.getElementById("zipCode").innerHTML = request.zipCode;
+	// document.getElementById("city").innerHTML = request.city;
+	// document.getElementById("state").innerHTML = request.state;
+	// document.getElementById("zipCode").innerHTML = request.zipCode;
+	document.getElementById("cityStateZip").innerHTML = request.city + ", "
+			+ request.state + "   " + request.zipCode;
 	document.getElementById("country").innerHTML = request.country;
 
 	var cancelBtn = document.getElementById("cancelBtn");
-	if ((request.status.substring(0, 7) == "Cancel")
-			|| (request.status == "Approved")) {
+	if ((request.status == "Cancelled") || (request.status == "Approved")) {
 		cancelBtn.style.display = "none";
 	}
+
+	var empEmpId = document.getElementById("empId").value;
+	var reqEmpId = document.getElementById("employeeId").innerHTML;
+
+	console.log("emp=" + empEmpId + "req=" + reqEmpId);
+
+	var approveBtn = document.getElementById("approveBtn");
+	var denyBtn = document.getElementById("denyBtn");
+	if (empEmpId == reqEmpId) {
+		approveBtn.style.display = "none";
+		denyBtn.style.display = "none";
+	}
+
+}
+
+function viewPreApprovalFile() {
+	if (request.approvalAttachmentname != null) {
+		document.getElementById("viewPreApprovalFile").href = request.approvalAttachmentname;
+	}
+
+}
+
+function viewEventFile() {
+	if (request.approvalAttachmentname != null) {
+		document.getElementById("viewEventFile").href = request.eventFilename;
+	}
+
 }

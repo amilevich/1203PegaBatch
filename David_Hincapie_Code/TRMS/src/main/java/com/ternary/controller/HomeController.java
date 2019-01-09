@@ -83,6 +83,16 @@ public class HomeController {
 		return "/html/details.html";
 	}
 
+	
+	public static String FileJSON(HttpServletRequest request, HttpServletResponse response) {
+		Request req = (Request) request.getSession().getAttribute("Request");
+		
+		
+		
+		
+		return null;
+	}
+	
 	public static String RequestJSON(HttpServletRequest request, HttpServletResponse response) {
 		Request req = (Request) request.getSession().getAttribute("Request");
 		try {
