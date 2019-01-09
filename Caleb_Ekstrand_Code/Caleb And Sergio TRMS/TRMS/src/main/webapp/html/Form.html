@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Please fill out the form for Reimbursement</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel=stylesheet type="text/css" href="../css/Style.css">
+</head>
+<body>
+	<div class="container-fluid" >
+		<div class = "row justify-content-center">
+			<div class = "col-12 col-sm-6 col-md-3">
+				<form class="form-container bg" method="POST" action="Form.do">
+					<div class = "form-group">
+						<label for="date" class = "control-label" >Date</label> 
+							<input type="date" id="date" name="date" placeholder="Enter current date:" class = "form-control"> <br> 
+						<label for="time">Time</label> 
+							<input type="time" id="time" name="time" placeholder="Enter the current time:" class = "form-control"> <br> 
+						<label for="location">Location</label> 
+							<input type="text" id="location" name="location" placeholder="Enter current Address:" class = "form-control"> <br>
+					</div>
+					<div class = "form-group">
+						<label for="event">Event</label> 
+							<select id="event" name="event" class = "form-control">
+								<option disabled selected value>--Select an Event--</option>
+								<option value="University Courses">University Courses</option>
+								<option value="Seminars">Seminars</option>
+								<option value="Certification Preparation Classes">Certification Preparation Classes</option>
+								<option value="Certifications">Certifications</option>
+								<option value="Technical Training">Technical Training</option>
+								<option value="Other">Other</option>
+							</select> <br> 
+					</div>
+					<div class = "form-group">
+						<label for="description">Description</label>
+						<textarea id="description" class = "form-control" name="description" placeholder="Write something.." style="height: 200px"></textarea> <br> 
+					</div>
+					<div class = "form-group">
+						<label for="cost">Cost</label> 
+						<input type="number" class = "form-control" id="cost" name="cost" placeholder="$$$" min="0" max="1000"><br>
+					</div>
+					<div class = "form-group">
+						<label for="gf">Grading Format</label> 
+							<select id="gf" name="gf" class = "form-control"
+								onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
+								<option disabled selected value>--Select an Format--</option>
+								<option value="1">A-F</option>
+								<option value="2">100-0</option>
+								<option value="3">Pass/Fail</option>
+							</select> <br> 
+					</div>
+					<div class = "form-group">
+						<label for="pass-grade">Passing Grade</label>
+						<!-- input type="text" id="pass-grade" name="pass-grade" placeholder="Enter passing grade"> <br> -->
+						<script type="text/javascript" language="JavaScript">
+							document.write('<select name="pass-grade" class = "form-control" id="pass-grade"><option value="Default">Default</option></select>')
+						</script>
+						<br> 
+					</div>
+					<div class = "form-group">
+						<label for="just">Justification</label>
+						<textarea id="just" name="just" class = "form-control" placeholder="Write justification..."
+							style="height: 200px;"></textarea>
+						<br> <input type="submit"  class = "form-control" value="Submit">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	<!-- <form method="post" action="Form.do" enctype="multipart/form-data"> -->
+
+	<!--         File Name: &nbsp;&nbsp;&nbsp;<INPUT type="text" name="filename"><br/> -->
+	<!-- 	    Upload File: &nbsp;<INPUT type="file" name="content"><br/>  -->
+
+	<!--         <input type="submit" value="submit" /> -->
+	<!-- </form> -->
+
+
+
+	<script src="../js/Form.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+</body>
+</html>
