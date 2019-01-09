@@ -26,8 +26,7 @@
 function setValues(emp) {
 	if(emp!=null){
 		// populate employee personal detail fields with the variables in the emp object
-		document.getElementById('emp-first-name').value=emp.firstname;
-		document.getElementById('emp-last-name').value=emp.lastname;
+		document.getElementById('emp-user-name').value=emp.username;
 		document.getElementById('emp-email').value=emp.email;
 		
 
@@ -43,11 +42,12 @@ function setValues(emp) {
  * function that allows the user to edit the values in the initially readonly fields
  */
 function edit(){
-	document.getElementById('emp-first-name').removeAttribute('readonly');
-	document.getElementById('emp-last-name').removeAttribute('readonly');
+	document.getElementById('emp-user-name').removeAttribute('readonly');
 	document.getElementById('emp-email').removeAttribute('readonly');
 	document.getElementById('password').removeAttribute('readonly');
 	document.getElementById('confirm-password').removeAttribute('readonly');
+	document.getElementById('new-password').removeAttribute('readonly');
+	document.getElementById('new-conf-password').removeAttribute('readonly');
 
 
 	// show submit button

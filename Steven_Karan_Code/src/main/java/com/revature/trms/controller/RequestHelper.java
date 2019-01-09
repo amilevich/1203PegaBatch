@@ -33,9 +33,9 @@ public class RequestHelper {
 			return ReimbursementListController.SelectAction(req);
 		case "/ReimbursementSystem/html/fileJSON.do":
 			return AttachmentController.DownloadFile(req, resp);
-		case "ReimbursementSystem/html/profile.do":
+		case "/ReimbursementSystem/html/profile.do":
 			return ProfileController.Profile(req, resp);
-		case "ReimbursementSystem/html/update_profile.do":
+		case "/ReimbursementSystem/html/update_profile.do":
 			return ProfileController.UpdateProfile(req, resp);
 		default:
 			return LoginController.Login(req);

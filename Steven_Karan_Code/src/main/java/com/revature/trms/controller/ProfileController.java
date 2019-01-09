@@ -1,5 +1,7 @@
 package com.revature.trms.controller;
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,11 +20,26 @@ public class ProfileController {
 	}
 
 	public static String UpdateProfile(HttpServletRequest req, HttpServletResponse resp) {
-		if(req.getMethod()!="POST") {
+		
+		/*Enumeration<String> e = req.getParameterNames();
+		while(e.hasMoreElements()) {
+			String elem = e.nextElement();
+			System.out.println(elem);
+			System.out.println(req.getParameter(elem));
+		}*/
+		
+		
+		if(!req.getMethod().equals("POST")) {
+			
 			return "/html/profile.html";
 		}
 		
-		if(req.getParameter("password") == null || req.getParameter("confirm-password") == null) {
+		Employee employee = (Employee) req.getSession().getAttribute("Employee");
+		if(employee == null) {
+			return "/html/login.html";
+		}
+		
+		if(req.getParameter("password") == null || req.getParameter("conf-password") == null) {
 			req.getSession().setAttribute("Alert", new Alert("danger", "Error: Please enter your password to change your profile details."));
 			return "/html/profile.html";
 		}
@@ -41,36 +58,33 @@ public class ProfileController {
 		
 		
 		// Both password and confirm password are not null at this point.
-		if(!req.getParameter("password").equals(req.getParameter("confirm-password"))) {
+		if(!req.getParameter("password").equals(req.getParameter("conf-password"))) {
 			req.getSession().setAttribute("Alert", new Alert("danger", "Error: 'Confirm Password' and 'Password' do not match "));
 			return "/html/profile.html";
 		}
 		
-		Employee employee = (Employee) req.getAttribute("Employee");
 		if(!LoginController.validCredentials(employee, employee.getUsername(), req.getParameter("password"))) {
 			req.getSession().setAttribute("Alert", new Alert("danger", "Error: Incorrect Password"));
 			return "/html/profile.html";
 		}
 		
 		// parse POST data:
-		String new_firstname = req.getParameter("emp-first-name");
-		String new_lastname = req.getParameter("emp-last-name");
+		String new_username = req.getParameter("emp-user-name");
 		String new_email = req.getParameter("emp-email");
 		String new_password = req.getParameter("new-password");
 		
-		if(new_firstname == null || new_lastname == null || new_email == null || new_firstname.equals("") || new_lastname.equals("") || new_email.equals("")) {
+		if(new_username == null || new_email == null || new_username.equals("") || new_email.equals("")) {
 			req.getSession().setAttribute("Alert", new Alert("danger", "Error: Missing required field(s)"));
 			return "/html/profile.html";
 		}
 		
-		employee.setFirstname(new_firstname);
-		employee.setLastname(new_lastname);
+		employee.setUsername(new_username);
 		employee.setEmail(new_email);
 		
 		
 		
 		// Check that the new password is valid
-		if(new_password != null && PasswordValidator.validatePassword(new_password)) {
+		if(new_password != null && !PasswordValidator.validatePassword(new_password)) {
 			req.getSession().setAttribute("Alert", new Alert("danger", "Error: Invalid new password"));
 			return "/html/profile.html";
 		}
