@@ -59,8 +59,7 @@ function setPersonalList(reimbList) {
 
 function personalListAction(reimbursement_status, id, date, format_name){
 	if (!reimbursement_status) {
-		return '<button type="submit" id="SaveButton'+id+'" class="btn btn-success btn-lg btn-block">Save</button>'+
-			'<button type="submit" id="SubmitButton'+id+'" class="btn btn-primary btn-lg btn-block">Submit</button>';
+		
 	}
 	else if (reimbursement_status === "Pending Direct Supervisor Approval" ||
 		reimbursement_status === "Pending Department Head Approval" ||
@@ -71,9 +70,9 @@ function personalListAction(reimbursement_status, id, date, format_name){
 	}
 		
 	else if (reimbursement_status === "Pending Employee Approval") {
-		return '';
-			
-	}
+		return '<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="accept">Approve</button>' +
+		'<button type="submit" id="DenyButton'+id+'" name="action" class="btn btn-warning btn-lg btn-block" value="cancel">Deny</button>';
+}
 		
 	else if (reimbursement_status === "Pending Additional Information" && !appeal) {
 		return '<button type="submit" id="PetitionButton'+id+'" name="action" class="btn btn-danger btn-lg btn-block" value="petition">Submit Additional Information</button>';
@@ -103,7 +102,7 @@ function personalListAction(reimbursement_status, id, date, format_name){
 								' Grade</label>'+
 							'</div>'+
 						'<div class="col-lg-2 col-md-2 col-sm-12">'+
-							'<input class="form-control" name="passing-grade" id="passing-grade'+id+'" ">'+
+							'<input class="form-control" name="passing-grade" id="passing-grade'+id+'" required>'+
 						'</div>'+
 					'</div>'+
 					'<button type="submit" id="SendButton'+id+'" name="action" value="grade" class="btn btn-success btn-lg btn-block">Send</button>'+

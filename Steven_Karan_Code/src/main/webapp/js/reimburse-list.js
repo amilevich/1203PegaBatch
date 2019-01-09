@@ -65,7 +65,7 @@ function createReimbursementView(reimb,id, assigned){
 	let reimbursement_status = reimb.status_name;
 
 	// event
-	let event_start_date = "Date: " + ("0" + reimb.event.start_date.dayOfMonth).slice(-2) + '/'
+	let event_start_date = ("0" + reimb.event.start_date.dayOfMonth).slice(-2) + '/'
 			+ ("0" + reimb.event.start_date.monthValue).slice(-2) + '/' + reimb.event.start_date.year;
 	
 	let event_start_time = new Date(reimb.event.start_time).toTimeString()
@@ -88,9 +88,11 @@ function createReimbursementView(reimb,id, assigned){
 	let justification = reimb.justification;
 	let description = reimb.event.description;
 	let work_time_missed = reimb.work_time_missed;
+	let awarded_funds = reimb.fund_awarded.toFixed(2);
 	
 	if (assigned) {
-		button_group = assignedListAction(reimbursement_status, id, reimb.fund_awarded.toFixed(2), reimb.employee.available_funds.toFixed(2));
+		button_group = assignedListAction(reimbursement_status, id, reimb.fund_awarded.toFixed(2),
+				(1000 - reimb.employee.available_funds).toFixed(2), reimb.event.grade_received);
 		employee_view = assignedEmployeeInfo(reimb, id);
 	}
 	else {
@@ -121,7 +123,7 @@ function createReimbursementView(reimb,id, assigned){
 								'<h5  class="mb-0 text-center" id="reimb-status'+id+'">'+reimbursement_status+'</h5>'+
 							'</div>'+
 							'<div class="col-lg-3 col-md-6 mb-4">'+
-								'<h5 class="float-right" id="reimb-date'+id+'">'+event_start_date+'</h5>'+
+								'<h5 class="float-right" id="reimb-date'+id+'">' + 'Date: ' + event_start_date+'</h5>'+
 							'</div>'+
 						'</div>'+
 					'</div>'+
@@ -153,9 +155,21 @@ function createReimbursementView(reimb,id, assigned){
 										'<input class="form-control" id="event-cost'+id+'" value="'+event_cost+'" readonly>'+
 									'</div>'+
 								'</div>'+
-								'<div class="form-row form-group form-inline">'+
-									'<div class="col-lg-1 col-md-1 col-sm-12">'+
-										'<label class="inline-label" for="event-date'+id+'">Date</label>'+
+								'<div class="form-group form-row form-inline">'+
+									'<div class="col-lg-1 col-md-1 col-sm-12 mt-1 h-100">'+
+										'<label class="inline-label" for="awarded-funds'+id+'">Awarded Funds</label>'+
+									'</div>'+
+									'<div class="input-group col-lg-3 col-md-3 col-sm-6">'+
+										'<div class="input-group-prepend">'+
+											'<div class="input-group-text">$</div>'+
+										'</div>'+
+										'<input class="form-control input-block-level h-100" type="text" id="awarded-funds'+id+'" '+
+										'value="'+awarded_funds+'" name="awarded-funds" placeholder="" readonly>'+ 
+									'</div>'+
+								'</div>'+
+									'<div class="form-row form-group form-inline">'+
+										'<div class="col-lg-1 col-md-1 col-sm-12">'+
+											'<label class="inline-label" for="event-date'+id+'">Date</label>'+
 									'</div>'+
 									'<div class="col-lg-2 col-md-5 col-sm-12">'+
 										'<input class="form-control full-width" id="event-date" value="'+event_start_date+'" readonly>'+
@@ -296,7 +310,7 @@ function assignedEmployeeInfo(reimb, id){
 	let email = reimb.employee.email;
 	let department = reimb.employee.department;
 	let position = reimb.employee.position;
-	let available_funds = reimb.employee.available_funds.toFixed(2);
+	let available_funds = (1000 - reimb.employee.available_funds).toFixed(2)
 	
 	return '<hr> <h3>Personal Information</h3>'+
 	'<div class="form-row form-group form-inline">'+
@@ -308,7 +322,7 @@ function assignedEmployeeInfo(reimb, id){
 		'<input class="form-control full-width" name="firstname"'+
 		'value="'+firstname+'" id="firstname'+id+'" readonly>'+
 	'</div>'+
-	'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
+	'<div class="col-lg-2 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
 		'<label class="inline-label" for="lastname">Lastname</label>'+
 	'</div>'+
 	'<div class="col-lg-2 col-md-2 col-sm-12">'+
@@ -322,7 +336,7 @@ function assignedEmployeeInfo(reimb, id){
 	'<div class="col-lg-2 col-md-5 col-sm-12">'+
 		'<input class="form-control full-width" id="position" value="'+position+'" readonly>'+
 	'</div>'+
-	'<div class="col-lg-1 col-md-1 col-sm-12 offset-md-1 offset-lg-1">'+
+	'<div class="col-lg-2 col-md-1 col-sm-12 offset-md-1 offset-lg-1">'+
 	'<!-- time -->'+
 		'<label class="inline-label" for="department">Department</label>'+
 	'</div>'+
@@ -337,10 +351,10 @@ function assignedEmployeeInfo(reimb, id){
 	'</div>'+
 	'<div class="col-lg-2 col-md-4 col-sm-12">'+
 	'<!-- type -->'+
-		'<input class="form-control full-width" id="email'+id+'"'+
+		'<input class="form-control full-width" id="email'+id+'" '+
 			'value="'+email+'" readonly>'+
 	'</div>'+
-	'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
+	'<div class="col-lg-2 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
 		'<label class="inline-label" for="available-funds">Available'+
 			' Funds</label>'+
 	'</div>'+
@@ -353,7 +367,7 @@ function assignedEmployeeInfo(reimb, id){
 '</div>';
 }
 
-function assignedListAction(reimbursement_status, id, funds, avail){
+function assignedListAction(reimbursement_status, id, funds, avail, grade){
 	if (reimbursement_status == "Pending Direct Supervisor Approval" ||
 		reimbursement_status == "Pending Department Head Approval") {
 		return '<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="approve">Approve</button>'+
@@ -383,7 +397,7 @@ function assignedListAction(reimbursement_status, id, funds, avail){
 					'<div class="input-group-prepend">'+
 						'<div class="input-group-text">$</div>'+
 					'</div>'+
-					'<input class="form-control" name="modified-awarded-funds" id="modified-awarded-funds'+id+'" value="'+funds+'">'+
+					'<input class="form-control" name="modified-awarded-funds" id="modified-awarded-funds'+id+'" value="'+funds+'" required>'+
 				'</div>'+
 				'</div>' +
 				'<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="approve">Approve</button>'+
@@ -411,7 +425,25 @@ function assignedListAction(reimbursement_status, id, funds, avail){
 	
 	else if (reimbursement_status == "Pending Direct Supervisor Confirmation" ||
 			reimbursement_status == "Pending Benifits Coordinator Confirmation") {
-		return '<button type="submit" id="ConfirmButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="confirm">Confirm</button>';
+		return '<div class="form-row form-group form-inline">'+
+					'<div class="col-lg-1 col-md-2 col-sm-12">'+
+						'<label class="inline-label" for="grade-format">Grade '+
+						'Format</label>'+
+					'</div>'+
+					'<div class="col-lg-2 col-md-4 col-sm-12">'+
+						'<!-- type -->'+
+						'<input class="form-control full-width" id="grade-format'+id+'"'+
+							'value="'+format_name+'" name="'+format_name+'" readonly>'+
+						'</div>'+
+					'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
+						'<label class="inline-label" for="passing-grade">Passing'+
+							' Grade</label>'+
+						'</div>'+
+						'<div class="col-lg-2 col-md-2 col-sm-12">'+
+							'<input class="form-control" value="'+grade+'" name= passing-grade" id="passing-grade'+id+'" readonly>'+
+						'</div>'+
+					'</div>'+
+				'<button type="submit" id="ConfirmButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="confirm">Confirm</button>';
 	}
 	
 	else if (reimbursement_status == "Funds Awarded"){

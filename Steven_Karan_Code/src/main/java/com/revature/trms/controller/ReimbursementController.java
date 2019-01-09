@@ -29,7 +29,6 @@ public class ReimbursementController {
 		
 		System.out.println("Processing Reimbursement");
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
-		System.out.println(emp);
 		Alert alert = null;
 		
 		// Check if user is authenticated, if not redirect them to the home page:
@@ -104,11 +103,11 @@ public class ReimbursementController {
 		
 		
 		Reimbursement reimb = new Reimbursement();
-		reimb.setStatus_id(0);
 		reimb.setEmployee(emp);
 		// Setting request_date to today:
 		reimb.setRequest_date(LocalDate.now());
 		reimb.setJustification(req.getParameter("justification"));
+		reimb.setFund_awarded(Double.parseDouble(req.getParameter("reimbursement")));
 		
 		//Setting reimbursement status
 		reimb.setStatus_name("Pending Direct Supervisor Approval");
@@ -122,7 +121,6 @@ public class ReimbursementController {
 		
 		// linking event and reimbursement (address transitively)
 		reimb.setEvent(event);
-		reimb.setFund_awarded(event.getCost()*event.getCoverage());
 		String work_missed_str = req.getParameter("work-missed");
 		System.out.println("Before numeric validation. Work Missed: " + work_missed_str);
 		if(GeneralValidator.isNumeric(work_missed_str)) {
@@ -146,8 +144,6 @@ public class ReimbursementController {
 		ReimbursementDAOImpl rdi = new ReimbursementDAOImpl();
 		boolean success = rdi.insertReimbursement(reimb);
 		
-		
-		
 		if(success && reimb.getReimb_id()>0) {
 			
 			// Attach files 
@@ -156,8 +152,7 @@ public class ReimbursementController {
 			}else {
 				alert = new Alert("warning", "Reimbursement Submitted. Error occurred while uploading attachments selected.");
 			}
-			
-			
+
 		}else {
 			alert = new Alert("danger", "Error trying to submit reimbursement. Please try again later.");
 		}

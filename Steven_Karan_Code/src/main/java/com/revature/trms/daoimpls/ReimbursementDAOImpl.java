@@ -200,15 +200,16 @@ public class ReimbursementDAOImpl implements ReimbursementDAO {
 	public boolean updateReimbursement(Reimbursement reimb) {
 		try (Connection conn = cf.getConnection();) {
 			// TODO: NOTE: check that not null values are not null from any calling method
-			String sql = "UPDATE reimbursement SET emp_id=?, event_id=?, status_id=?, request_date=?, justification=?, work_time_missed=? WHERE reimb_id=?";
+			String sql = "UPDATE reimbursement SET emp_id=?, event_id=?, status_id=?, request_date=?, justification=?, work_time_missed=?, fund_awarded=? WHERE reimb_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 
-			ps.setInt(2, reimb.getEmployee().getEmp_id());
-			ps.setInt(3, reimb.getEvent().getEvent_id());
-			ps.setInt(4, reimb.getStatus_id());
-			ps.setDate(5, Date.valueOf(reimb.getRequest_date()));
-			ps.setString(6, reimb.getJustification());
-			ps.setInt(7, reimb.getWork_time_missed());
+			ps.setInt(1, reimb.getEmployee().getEmp_id());
+			ps.setInt(2, reimb.getEvent().getEvent_id());
+			ps.setInt(3, reimb.getStatus_id());
+			ps.setDate(4, Date.valueOf(reimb.getRequest_date()));
+			ps.setString(5, reimb.getJustification());
+			ps.setInt(6, reimb.getWork_time_missed());
+			ps.setDouble(7, reimb.getFund_awarded());
 			ps.setInt(8, reimb.getReimb_id());
 
 			// Note: at most 1 row can be updated at a time given that the where clause
