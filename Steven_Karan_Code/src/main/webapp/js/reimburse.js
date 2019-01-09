@@ -77,4 +77,3 @@ document.getElementById('justification').onkeyup = function(){
 	}
 }
 
-
