@@ -56,6 +56,7 @@ function setAssignedList(reimbList) {
 }
 
 function createReimbursementView(reimb,id, assigned){
+	console.log(reimb);
 	let employee_view = '';
 	let button_group = '';
 	let reimb_id = reimb.reimb_id;
@@ -88,7 +89,7 @@ function createReimbursementView(reimb,id, assigned){
 	let work_time_missed = reimb.work_time_missed;
 	
 	if (assigned) {
-		button_group = assignedListAction(reimbursement_status, id);
+		button_group = assignedListAction(reimbursement_status, id, reimb.event.fund_awarded, reimb.employee.available_funds.toFixed(2));
 		employee_view = assignedEmployeeInfo(reimb, id);
 	}
 	else {
@@ -351,20 +352,45 @@ function assignedEmployeeInfo(reimb, id){
 '</div>';
 }
 
-function assignedListAction(reimbursement_status, id, appeal){
+function assignedListAction(reimbursement_status, id, funds, avail){
 	if (reimbursement_status == "Pending Direct Supervisor Approval" ||
 		reimbursement_status == "Pending Department Head Approval") {
-		return '<button type="submit" id="DenyButton'+id+'" name="action" class="btn btn-warning btn-lg btn-block" value="deny">Deny</button>'+
-			'<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="approve">Approve</button>'+
+		return '<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="approve">Approve</button>'+
 			'<button type="submit" class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
-			'Request Information</button>';
+			'Request Information</button>' +
+			'<button type="submit" id="DenyButton'+id+'" name="action" class="btn btn-warning btn-lg btn-block" value="deny">Deny</button>';
 	}
 		
 	else if (reimbursement_status == "Pending Benifits Coordinator Approval") {
-		return '<button type="submit" id="DenyButton'+id+'" name="action" class="btn btn-warning btn-lg btn-block" value="deny">Deny</button>'+
-			'<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="approve">Approve</button>'+
-			'<button type="button" class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
-			'Request Information</button>';
+		
+		return '<div class="container">' +
+			'<div class="form-row form-group form-inline">'+
+				'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
+					'<label class="inline-label" for="Available Funds">Available'+
+					' Funds</label>'+
+				'</div>'+
+				'<div class="input-group col-lg-2 col-md-2 col-sm-12">'+
+					'<div class="input-group-prepend">'+
+						'<div class="input-group-text">$</div>'+
+					'</div>'+
+					'<input class="form-control" id="available-funds'+id+'" value="'+avail+'" readonly>'+
+				'</div>'+
+				'<div class="col-lg-2 col-md-4 col-sm-12 offset-lg-1 offset-md-1">'+
+					'<label class="inline-label" for="Awarded Funds">Change Awarded'+
+					' Funds</label>'+
+				'</div>'+
+				'<div class="input-group col-lg-4 col-md-4 col-sm-12">'+
+					'<div class="input-group-prepend">'+
+						'<div class="input-group-text">$</div>'+
+					'</div>'+
+					'<input class="form-control" name="modified-awarded-funds" id="modified-awarded-funds'+id+'" value="'+funds+'">'+
+				'</div>'+
+				'</div>' +
+				'<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="approve">Approve</button>'+
+				'<button type="button" class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
+				'Request Information</button>' +
+				'<button type="submit" id="DenyButton'+id+'" name="action" class="btn btn-warning btn-lg btn-block" value="deny">Deny</button>' +
+				'</div>';
 	}
 		
 	else if (reimbursement_status == "Pending Employee Approval") {

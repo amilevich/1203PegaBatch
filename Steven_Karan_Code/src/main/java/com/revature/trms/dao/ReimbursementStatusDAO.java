@@ -5,7 +5,7 @@ import com.revature.trms.models.Reimbursement;
 public interface ReimbursementStatusDAO {
 	//CRUDE methods
 		//Create
-		public boolean insertReimbursementStatus(Reimbursement reimb);
+		public int insertReimbursementStatus(Reimbursement reimb);
 		
 		//Read
 		//public Reimbursement getReimbursementStatus(Reimbursement reimb);

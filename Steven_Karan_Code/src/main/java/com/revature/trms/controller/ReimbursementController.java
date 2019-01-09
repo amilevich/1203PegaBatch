@@ -24,7 +24,6 @@ import com.revature.trms.validators.GeneralValidator;
 import com.revature.trms.validators.ReimbursementValidator;
 
 public class ReimbursementController {
-
 	
 	public static String Reimburse(HttpServletRequest req) throws IOException, ServletException {
 		System.out.println("Processing Reimbursement");
@@ -122,12 +121,12 @@ public class ReimbursementController {
 		
 		// linking event and reimbursement (address transitively)
 		reimb.setEvent(event);
-		
+		reimb.setFund_awarded(event.getCost()*event.getCoverage());
 		String work_missed_str = req.getParameter("work-missed");
 		System.out.println("Before numeric validation. Work Missed: " + work_missed_str);
 		if(GeneralValidator.isNumeric(work_missed_str)) {
 			System.out.println("valid");
-			reimb.setWork_time_missed( Integer.parseInt(work_missed_str ));
+			reimb.setWork_time_missed( Integer.parseInt(work_missed_str));
 		}else {
 			System.out.println("invalid");
 			alert = new Alert("danger", "Error: Invalid work time missed.\nOnly numbers are allowed in this field");
@@ -139,13 +138,14 @@ public class ReimbursementController {
 			req.getSession().setAttribute("Alert", alert);
 			return "/html/reimburse.html";
 		}
-		
+		int status = new ReimbursementStatusDAOImpl().insertReimbursementStatus(reimb);
+		reimb.setStatus_id(status);
 		
 		// All validators passed, can move forward with inserting the form into the database
 		ReimbursementDAOImpl rdi = new ReimbursementDAOImpl();
 		boolean success = rdi.insertReimbursement(reimb);
 		
-		new ReimbursementStatusDAOImpl().insertReimbursementStatus(reimb);
+		
 		
 		if(success && reimb.getReimb_id()>0) {
 			

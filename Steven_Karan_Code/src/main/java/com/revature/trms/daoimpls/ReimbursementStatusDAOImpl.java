@@ -1,9 +1,11 @@
 package com.revature.trms.daoimpls;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import com.revature.trms.dao.ReimbursementStatusDAO;
 import com.revature.trms.models.Reimbursement;
@@ -13,24 +15,26 @@ public class ReimbursementStatusDAOImpl implements ReimbursementStatusDAO {
 
 	private static ConnFactory cf = ConnFactory.getInstance();
 	@Override
-	public boolean insertReimbursementStatus(Reimbursement reimb) {
+	public int insertReimbursementStatus(Reimbursement reimb) {
 		try (Connection conn = cf.getConnection();) {
-			String sql = "INSERT INTO reimbursement_status VALUES(?,?,?,?,?,?,?,null)";
-			PreparedStatement ps = conn.prepareStatement(sql);
+			String sql = "BEGIN INSERT INTO reimbursement_status VALUES(?,?,?,?,?,?,null) RETURNING status_id INTO ?; END;";
+			CallableStatement cs = conn.prepareCall(sql);
 
-			ps.setString(1, reimb.getStatus_name());
-			ps.setInt(2, reimb.isUrgent() ? 1 : 0);
-			ps.setInt(3, reimb.isSup_flag() ? 1 : 0);
-			ps.setInt(4, reimb.isDept_flag() ? 1 : 0);
-			ps.setInt(5, reimb.isBenco_flag() ? 1 : 0);
-			ps.setInt(6, reimb.getNext_id());
-			ps.executeUpdate();
-			return true;
+			cs.setString(1, reimb.getStatus_name());
+			cs.setInt(2, reimb.isUrgent() ? 1 : 0);
+			cs.setInt(3, reimb.isSup_flag() ? 1 : 0);
+			cs.setInt(4, reimb.isDept_flag() ? 1 : 0);
+			cs.setInt(5, reimb.isBenco_flag() ? 1 : 0);
+			cs.setInt(6, reimb.getNext_id());
+			cs.setInt(7, reimb.getStatus_id());
+			cs.registerOutParameter(7, Types.NUMERIC);
+			cs.executeUpdate();
+			return cs.getInt(7);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return 0;
 	}
 
 	@Override

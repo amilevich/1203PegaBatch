@@ -53,7 +53,6 @@ function setPersonalList(reimbList) {
 			view += createReimbursementView(reimbList[row], row, assigned);
 		}	
 	}
-	
 	document.getElementById("accordionReimb").innerHTML = view;
 }
 
@@ -71,8 +70,8 @@ function personalListAction(reimbursement_status, id, date, format_name){
 	}
 		
 	else if (reimbursement_status === "Pending Employee Approval") {
-		return '<button type="submit" id="DenyButton'+id+'" name="action" class="btn btn-warning btn-lg btn-block" value="deny">Deny</button>'+
-			'<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="approve">Approve</button>';
+		return '';
+			
 	}
 		
 	else if (reimbursement_status === "Pending Additional Information" && !appeal) {
@@ -83,7 +82,7 @@ function personalListAction(reimbursement_status, id, date, format_name){
 		return '<button type="submit" id="SubmitButton'+id+'" name="action" value="info" class="btn btn-danger btn-lg btn-block" value="submit">Submit Additional Information</button>';
 	}
 	
-	else if (reimbursement_status === "Pending Employee Grading/Presentation"){																// option
+	else if (reimbursement_status === "Pending Employee Grading/Presentation"){
 		let today = new Date();
 		if(date.year <= today.getFullYear() && 
 				date.monthValue <= today.getMonth() + 1 && 
@@ -112,5 +111,7 @@ function personalListAction(reimbursement_status, id, date, format_name){
 		}
 		else
 			return '';
-	}	
+	}
+	else 
+		return '';
 }

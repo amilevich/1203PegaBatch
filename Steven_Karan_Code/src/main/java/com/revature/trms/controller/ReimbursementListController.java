@@ -82,79 +82,102 @@ public class ReimbursementListController {
 		int reimb_id = Integer.parseInt(req.getParameter("reimb-id"));
 		Reimbursement reimb = new ReimbursementDAOImpl().getReimbursement(reimb_id);
 		int emp_id = emp.getEmp_id();
-
-		switch (action) {
-		case "approve":// approve reimbursement application
-
-			Signature sign = new Signature(reimb_id, emp_id, LocalDate.now(), false);
-			new SignatureDAOImpl().insertSignature(sign);
-
-			if (!reimb.isSup_flag()) { // check if supervisor has signed
-				reimb.setSup_flag(true);
-				reimb.setStatus_name("Pending Department Head Approval");
-				if (!reimb.isDept_flag()) {
-					String dept = req.getParameter("department");
-					Employee deptHead = new EmployeeDAOImpl().getDepartmentHead(dept);
-					reimb.setNext_id(deptHead.getEmp_id());
-					if (deptHead.getEmp_id() == emp.getEmp_id()) {
-						Signature signCopy = new Signature(reimb_id, deptHead.getEmp_id(), LocalDate.now(), false);
-						new SignatureDAOImpl().insertSignature(signCopy);
-						reimb.setDept_flag(true);
-						reimb.setNext_id(0);
+		if (reimb != null) {
+			switch (action) {
+			case "approve":// approve reimbursement application
+				Signature sign = new Signature(reimb_id, emp_id, LocalDate.now(), false);
+				new SignatureDAOImpl().insertSignature(sign);
+				if (!reimb.isSup_flag()) { // check if supervisor has signed
+					reimb.setSup_flag(true);
+					reimb.setStatus_name("Pending Department Head Approval");
+					if (!reimb.isDept_flag()) {
+						String dept = req.getParameter("department");
+						Employee deptHead = new EmployeeDAOImpl().getDepartmentHead(dept);
+						reimb.setNext_id(deptHead.getEmp_id());
+						if (deptHead.getEmp_id() == emp.getEmp_id()) {
+							reimb.setStatus_name("Pending Benifits Coordinator Approval");
+							Signature signCopy = new Signature(reimb_id, deptHead.getEmp_id(), LocalDate.now(), false);
+							new SignatureDAOImpl().insertSignature(signCopy);
+							reimb.setDept_flag(true);
+							reimb.setNext_id(0);
+						}
 					}
-				}
-			} else if (!reimb.isDept_flag()) {
-				reimb.setDept_flag(true);
-				reimb.setStatus_name("Pending Benifits Coordinator Approval");
-				reimb.setNext_id(0);
+				} else if (!reimb.isDept_flag()) {
+					reimb.setDept_flag(true);
+					reimb.setStatus_name("Pending Benifits Coordinator Approval");
+					reimb.setNext_id(0);
 
-			} else if (!reimb.isBenco_flag()) {
+				} else if (!reimb.isBenco_flag()) {
+					double amount = Double.valueOf(req.getParameter("modified-awarded-funds"));
+					if (amount == reimb.getFund_awarded()) {
+						reimb.setBenco_flag(true);
+						reimb.setStatus_name("Pending Employee Grading/Presentation");
+					} else {
+						reimb.setFund_awarded(amount);
+						reimb.setStatus_name("Pending Employee Approval");
+					}
+					reimb.setNext_id(reimb.getEmployee().getEmp_id());
+				}
+				new ReimbursementStatusDAOImpl().updateReimbursementStatus(reimb);
+				break;
+
+			case "deny":// deny reimbursement application
+				reimb.setStatus_name("Denied");
+				reimb.setNext_id(0);
+				new ReimbursementStatusDAOImpl().updateReimbursementStatus(reimb);
+				break;
+
+			case "confirm":// confirm reimbursement application
+				sign = new Signature(reimb_id, emp_id, LocalDate.now(), false);
+				new SignatureDAOImpl().insertSignature(sign);
+				if (!reimb.isSup_flag()) {
+					reimb.setSup_flag(true);
+					reimb.setStatus_name("Pending Benifits Coordinator Confirmation");
+					reimb.setNext_id(0);
+
+				} else if (!reimb.isBenco_flag()) {
+					reimb.setBenco_flag(true);
+					reimb.setStatus_name("Funds Awarded");
+					reimb.setNext_id(0);
+				}
+				new ReimbursementStatusDAOImpl().updateReimbursementStatus(reimb);
+				break;
+
+			case "petition":// request for additional information
+
+				break;
+
+			case "grade":// upload presentation or grade
+				String g_received = req.getParameter("passing-grade");
+				if (g_received != null) {
+					reimb.getEvent().setGrade_received(g_received);
+					new EventDAOImpl().updateEvent(reimb.getEvent());
+					reimb.setStatus_name("Pending Direct Supervisor Confirmation");
+					reimb.setSup_flag(false);
+					reimb.setBenco_flag(false);
+					reimb.setNext_id(emp.getSupervisor_id());
+					new ReimbursementStatusDAOImpl().updateReimbursementStatus(reimb);
+				}
+				break;
+
+			case "info":// send additional information
+
+				break;
+
+			case "accept":// change reimbursement amount
 				reimb.setBenco_flag(true);
 				reimb.setStatus_name("Pending Employee Grading/Presentation");
 				reimb.setNext_id(reimb.getEmployee().getEmp_id());
-			}
-			new ReimbursementStatusDAOImpl().updateReimbursementStatus(reimb);
-			break;
-		case "deny":// deny reimbursement application
-
-			break;
-		case "confirm":// confirm reimbursement application
-			sign = new Signature(reimb_id, emp_id, LocalDate.now(), false);
-			new SignatureDAOImpl().insertSignature(sign);
-			if (!reimb.isSup_flag()) {
-				reimb.setSup_flag(true);
-				reimb.setStatus_name("Pending Benifits Coordinator Confirmation");
-				reimb.setNext_id(0);
-
-			} else if (!reimb.isBenco_flag()) {
-				reimb.setBenco_flag(true);
-				reimb.setStatus_name("Funds Awarded");
-				reimb.setNext_id(0);
-			}
-			new ReimbursementStatusDAOImpl().updateReimbursementStatus(reimb);
-			break;
-			
-		case "petition":// request for additional information
-			break;
-			
-		case "grade":// upload presentation or grade
-			String g_received = req.getParameter("passing-grade");
-			if (g_received != null) {
-				reimb.getEvent().setGrade_received(g_received);
-				new EventDAOImpl().updateEvent(reimb.getEvent());
-				reimb.setStatus_name("Pending Direct Supervisor Confirmation");
-				reimb.setSup_flag(false);
-				reimb.setBenco_flag(false);
-				reimb.setNext_id(emp.getSupervisor_id());
 				new ReimbursementStatusDAOImpl().updateReimbursementStatus(reimb);
-			}
+				break;
 
-			break;
-		case "info":// send additional information
-			break;
-		case "change":// change reimbursement amount
-			break;
+			case "cancel":
+				reimb.setStatus_name("Canceled");
+				reimb.setNext_id(0);
+				new ReimbursementStatusDAOImpl().updateReimbursementStatus(reimb);
+				break;
+			}
 		}
-		return "/html/signature.html/";
+		return "/html/signature.html";
 	}
 }
