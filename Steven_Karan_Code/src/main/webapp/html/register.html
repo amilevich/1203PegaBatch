@@ -52,7 +52,7 @@
 	<div id="alert" class="container"></div> 
 	<div class="container">
 		<h1>Register!</h1>
-		<form method="POST" action="register.do">
+		<form method="POST" action="register.do" id="register-form">
 			<div class="form-group">
 				<label for="employee-email">Email address</label>
 				<input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
@@ -61,16 +61,19 @@
 			<div class="form-group">
 				<label for="employee-username">Username</label>
 				<input type="text" class="form-control" id="username" placeholder="Username" name="username">
+				<small>At least 5 characters, at most 20. Only alphanumeric characters/underscores allowed.</small>
 			</div>
 
 			<div class="form-group">
 				<label for="employee-password">Password</label>
 				<input type="password" class="form-control" id="password" placeholder="Password" name="password">
+				<small>At least 7 characters, at most 25.</small>
 			</div>
 
 			<div class="form-group">
 				<label for="employee-password">Confirm Password</label>
 				<input type="password" class="form-control" id="conf-password" placeholder="Password" name="password">
+				<small>Must match the password entered above</small>
 			</div>
 
 			<div class="form-group">
@@ -85,13 +88,31 @@
 
 			<div class="form-group">
 				<label for="employee-position">Company Position</label>
-				<input type="text" class="form-control" id="position" placeholder="Associate" name="position">
+				
+				<select class="form-control" id="position" name="position" form="register-form">
+					<option value="Associate">Associate</option>
+					<option value="Department Head">Department Head</option>
+					<option value="Benefits Coordinator">Benefits Coordinator</option>
+					<option value="Regional Manager">Regional Manager</option>
+					<option value="Assistant To The Regional Manager">Assistant To The Regional Manager</option>
+					<option value="Salesperson">Salesperson</option>
+					<option value="Accountant">Accountant</option>
+					<option value="HR Person">HR Person</option>
+					<option value="Other">Other</option>
+				</select>
 			</div>
 
-			<!-- SHOULD BE A DROPDOWN MENU! -->
 			<div class="form-group">
 				<label for="employee-department">Department</label>
-				<input type="text" class="form-control" id="department" placeholder="Sales" name="department">
+				
+				<select class="form-control" id="department" name="department" form="register-form">
+					<option value="Sales">Sales</option>
+					<option value="Accounting">Accounting</option>
+					<option value="Human Resources">Human Resources</option>
+					<option value="Administration">Administration</option>
+					<option value="Other">Other</option>
+				</select>
+				
 			</div>
 
 			<div class="form-group">
@@ -100,7 +121,7 @@
 			</div>
 			
 				
-			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="submit" class="btn btn-submit">Submit</button>
 		</form>
 
 	</div>

@@ -8,6 +8,8 @@ import com.revature.trms.daoimpls.DepartmentDAOImpl;
 import com.revature.trms.daoimpls.EmployeeDAOImpl;
 import com.revature.trms.daoimpls.PositionDAOImpl;
 import com.revature.trms.models.Employee;
+import com.revature.trms.validators.GeneralValidator;
+import com.revature.trms.validators.PasswordValidator;
 
 public class RegisterController {
 
@@ -68,14 +70,14 @@ public class RegisterController {
 
 		// username check
 		String username = empl.getUsername();
-		if (username.contains(" ") || username.length() > 20 || username.length() < 5) {
+		if (!GeneralValidator.isAlphaNumeric(username) || username.length() > 20 || username.length() < 5) {
 			System.out.println("Invalid username");
 			return false;
 		}
 
 		// password check
 		String password = empl.getPassword();
-		if (password.contains(" ") || password.length() > 20 || password.length() < 7) {
+		if (!PasswordValidator.validatePassword(password)) {
 			System.out.println("Invalid password");
 			return false;
 		}else {
@@ -93,14 +95,14 @@ public class RegisterController {
 
 		// firstname check
 		String firstname = empl.getFirstname();
-		if (firstname.length() > 20 || firstname.length() < 1) {
+		if (!GeneralValidator.isSanitized(firstname) || firstname.length() > 20 || firstname.length() < 1) {
 			System.out.println("Invalid firstname");
 			return false;
 		}
 
 		// lastname check
 		String lastname = empl.getLastname();
-		if (lastname.length() > 20 || lastname.length() < 1) {
+		if (!GeneralValidator.isSanitized(firstname) || lastname.length() > 20 || lastname.length() < 1) {
 			System.out.println("Invalid lastname");
 			return false;
 		}
