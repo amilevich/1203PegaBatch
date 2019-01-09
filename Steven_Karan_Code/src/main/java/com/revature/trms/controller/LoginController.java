@@ -55,4 +55,13 @@ public class LoginController {
 		}
 		return true;
 	}
+
+	public static String Logout(HttpServletRequest req) {
+		System.out.println("Logging out...");
+		System.out.println(req.getSession().getAttribute("Employee"));
+		req.getSession().setAttribute("Employee",null);
+		req.getSession().setAttribute("Alert", new Alert("success","Successfully logged out!"));
+		System.out.println(req.getSession().getAttribute("Employee"));
+		return null;
+	}
 }
