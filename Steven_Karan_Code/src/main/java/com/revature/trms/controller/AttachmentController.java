@@ -49,12 +49,7 @@ public class AttachmentController {
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-
 		});
-
-		
-		
-		
 		return true;
 	}
 

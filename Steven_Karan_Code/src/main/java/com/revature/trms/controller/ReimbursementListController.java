@@ -144,7 +144,6 @@ public class ReimbursementListController {
 				break;
 
 			case "petition":// request for additional information
-
 				break;
 
 			case "grade":// upload presentation or grade
@@ -161,7 +160,7 @@ public class ReimbursementListController {
 				break;
 
 			case "info":// send additional information
-
+				
 				break;
 
 			case "accept":// change reimbursement amount
