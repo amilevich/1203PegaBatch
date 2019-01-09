@@ -90,7 +90,7 @@ function createReimbursementView(reimb,id, assigned){
 	let work_time_missed = reimb.work_time_missed;
 	
 	if (assigned) {
-		button_group = assignedListAction(reimbursement_status, id, reimb.event.fund_awarded, reimb.employee.available_funds.toFixed(2));
+		button_group = assignedListAction(reimbursement_status, id, reimb.fund_awarded.toFixed(2), reimb.employee.available_funds.toFixed(2));
 		employee_view = assignedEmployeeInfo(reimb, id);
 	}
 	else {
@@ -363,7 +363,6 @@ function assignedListAction(reimbursement_status, id, funds, avail){
 	}
 		
 	else if (reimbursement_status == "Pending Benifits Coordinator Approval") {
-		
 		return '<div class="container">' +
 			'<div class="form-row form-group form-inline">'+
 				'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
@@ -377,7 +376,7 @@ function assignedListAction(reimbursement_status, id, funds, avail){
 					'<input class="form-control" id="available-funds'+id+'" value="'+avail+'" readonly>'+
 				'</div>'+
 				'<div class="col-lg-2 col-md-4 col-sm-12 offset-lg-1 offset-md-1">'+
-					'<label class="inline-label" for="Awarded Funds">Change Awarded'+
+					'<label class="inline-label" for="Awarded Funds">Awarded'+
 					' Funds</label>'+
 				'</div>'+
 				'<div class="input-group col-lg-4 col-md-4 col-sm-12">'+
