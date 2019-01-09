@@ -22,6 +22,8 @@ public class RequestHelper {
 			return ReimbursementController.Reimburse(req);
 		case "/ReimbursementSystem/html/alertJSON.do":
 			return AlertController.AlertJSON(req,resp);
+		case "/ReimbursementSystem/html/statsJSON.do":
+			return StatController.StatJSON(req,resp);
 		case "/ReimbursementSystem/html/reimburse-list.do":
 			return ReimbursementListController.ReimbursementList(req);
 		case "/ReimbursementSystem/html/personal-listJSON.do":
@@ -38,6 +40,8 @@ public class RequestHelper {
 			return ProfileController.UpdateProfile(req, resp);
 		case "/ReimbursementSystem/html/logout.do":
 			return LoginController.Logout(req);
+		case "/ReimbursementSystem/html/stats.do":
+			return StatController.Stat(req);
 		default:
 			return LoginController.Login(req);
 		}

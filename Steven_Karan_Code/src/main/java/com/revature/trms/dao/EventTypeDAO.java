@@ -2,6 +2,7 @@ package com.revature.trms.dao;
 
 import java.util.ArrayList;
 
+import com.revature.trms.models.EventStats;
 import com.revature.trms.models.EventType;
 
 public interface EventTypeDAO {
@@ -18,5 +19,7 @@ public interface EventTypeDAO {
 		
 		//Delete
 		public boolean deleteEventType(String type);
+
+		public EventStats getEventTypeStats(String type);
 		
 }
