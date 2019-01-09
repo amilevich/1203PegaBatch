@@ -12,11 +12,11 @@ public class LoginController {
 
 	public static String Login(HttpServletRequest req) {
 		
-		System.out.println("Verifying user authentication(in login)");
 		
-		Employee emp = (Employee) req.getAttribute("Employee");
+		Employee emp = (Employee) req.getSession().getAttribute("Employee");
+		
 		if(emp!=null) {
-			return "/html/login.html";
+			return "/html/index.html";
 		}
 		if (req.getMethod().equals("GET")) {
 			return "/html/login.html";
@@ -28,10 +28,11 @@ public class LoginController {
 		EmployeeDAOImpl edi = new EmployeeDAOImpl();
 		emp = null;
 		emp = edi.getEmployeeByUsername(username);
-		
+		System.out.println("Got Emp:" + emp);
 		if (validCredentials(emp,username,password)) {
 			if (username.equals(emp.getUsername()) && BCrypt.checkpw(password, emp.getPassword())) {
 				req.getSession().setAttribute("Employee", emp);
+				System.out.println(req.getSession().getAttribute("Employee"));
 				return "/html/index.html";
 			}
 		}

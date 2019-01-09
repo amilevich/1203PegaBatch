@@ -12,7 +12,6 @@ function getAlert(){
 
 function setAlert(alert){
 	if(alert!=null){
-		console.log('Alert: ' + alert);
 		let alert_html = '<div class="alert alert-' + alert.type + '" role="alert">'+alert.message+'</div>';
 		document.getElementById("alert").innerHTML= alert_html;
 	}

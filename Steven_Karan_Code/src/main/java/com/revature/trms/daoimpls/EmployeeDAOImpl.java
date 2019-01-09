@@ -158,7 +158,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	@Override
 	public boolean updateEmployee(Employee empl) {
 		try (Connection conn = cf.getConnection();) {
-			// TODO: NOTE: check that not null values are not null from any calling method
+			
 			String sql = "UPDATE employee SET firstname=?, lastname=?, email=?, username=?, dept=?, pos=?, available_funds=? WHERE emp_id=?";
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, empl.getFirstname());
@@ -183,5 +183,30 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		}
 		return false;
 	}
+
+
+	@Override
+	public boolean updateEmployeePassword(int id, String newPassword) {
+		try(Connection conn = cf.getConnection();){
+			String sql = "UPDATE employee SET password=? WHERE emp_id=?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, newPassword);
+			ps.setInt(2, id);
+			
+			if(ps.executeUpdate()>=1) {
+				return true;
+			}else {
+				return false;
+			}
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	
+	
 
 }

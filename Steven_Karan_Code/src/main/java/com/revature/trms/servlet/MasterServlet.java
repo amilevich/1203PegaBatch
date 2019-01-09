@@ -10,6 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.revature.trms.controller.RequestHelper;
 
+/**
+ * Main entry servlet to the application. Routes incoming GET and POST HTTP requests to the request helper. Following the Front Controller Design Pattern 
+ * @author karan
+ *
+ */
 @MultipartConfig
 public class MasterServlet extends HttpServlet{
 	
