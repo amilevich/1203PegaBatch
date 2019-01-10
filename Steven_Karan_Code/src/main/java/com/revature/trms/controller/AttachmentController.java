@@ -47,7 +47,7 @@ public class AttachmentController {
 			try {
 				adi.insertAttachment(attachment, file.getInputStream());
 			} catch (IOException e1) {
-				e1.printStackTrace();
+				//e1.printStackTrace();
 			}
 		});
 		return true;
