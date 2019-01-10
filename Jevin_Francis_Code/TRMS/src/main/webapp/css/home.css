@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+body {
+	background-image: url("../reso/background2.jpg");
+    background-size: cover;
+}
+
+.ternary {
+	font-family: 'Ubuntu', sans-serif;
+	color: darkgrey;
+}
+
+.jumbotron {
+	border-radius: 1rem;
+}
+
+
+.navbar {
+	position: fixed;
+	width: 100%;
+	z-index: 1;
+}
+
+
+
+.jumbotron {
+	border-radius: 1rem;
+}
+
+.table {
+	border-radius: 10px;
+}
+
+.card {
+	background-color: whitesmoke;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.dispaly-4 {
+	padding: 10px;
+}
+
+.container-fluid {
+	padding: 25px;
+}
+
+.row {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.card-body {
+	
+}
+
+.navbar {
+	
+}
+
+.table {
+	border-radius: 10px;
+}
+
+.card {
+	background-color: whitesmoke;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.card-body {
+	
+}
+
+.navbar {
+	
+}
