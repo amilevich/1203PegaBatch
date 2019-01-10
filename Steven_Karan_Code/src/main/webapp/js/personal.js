@@ -63,9 +63,9 @@ function personalListAction(reimbursement_status, id, date, format_name){
 	}
 	else if (reimbursement_status === "Pending Direct Supervisor Approval" ||
 		reimbursement_status === "Pending Department Head Approval" ||
-		reimbursement_status === "Pending Benifits Coordinator Approval" ||
+		reimbursement_status === "Pending Benefits Coordinator Approval" ||
 		reimbursement_status === "Pending Direct Supervisor Confirmation" ||
-		reimbursement_status === "Pending Benifits Coordinator Confirmation") {
+		reimbursement_status === "Pending Benefits Coordinator Confirmation") {
 		return '';
 	}
 		

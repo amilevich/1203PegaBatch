@@ -54,7 +54,7 @@ public class ReimbursementListController {
 		if (emp != null) {
 			try {
 				ArrayList<Reimbursement> reimb_list = new ArrayList<>();
-				if (emp.getPosition().equals("Benifits Coordinator")) {
+				if (emp.getPosition().equals("Benefits Coordinator")) {
 					reimb_list = new ReimbursementDAOImpl().getAllReimbursementForBenco();
 				} else {
 					reimb_list = new ReimbursementDAOImpl().getAllReimbursementByNext(emp.getEmp_id());
@@ -95,7 +95,7 @@ public class ReimbursementListController {
 						Employee deptHead = new EmployeeDAOImpl().getDepartmentHead(dept);
 						reimb.setNext_id(deptHead.getEmp_id());
 						if (deptHead.getEmp_id() == emp.getEmp_id()) {
-							reimb.setStatus_name("Pending Benifits Coordinator Approval");
+							reimb.setStatus_name("Pending Benefits Coordinator Approval");
 							Signature signCopy = new Signature(reimb_id, deptHead.getEmp_id(), LocalDate.now(), false);
 							new SignatureDAOImpl().insertSignature(signCopy);
 							reimb.setDept_flag(true);
@@ -104,7 +104,7 @@ public class ReimbursementListController {
 					}
 				} else if (!reimb.isDept_flag()) {
 					reimb.setDept_flag(true);
-					reimb.setStatus_name("Pending Benifits Coordinator Approval");
+					reimb.setStatus_name("Pending Benefits Coordinator Approval");
 					reimb.setNext_id(0);
 
 				} else if (!reimb.isBenco_flag()) {
@@ -133,7 +133,7 @@ public class ReimbursementListController {
 				new SignatureDAOImpl().insertSignature(sign);
 				if (!reimb.isSup_flag()) {
 					reimb.setSup_flag(true);
-					reimb.setStatus_name("Pending Benifits Coordinator Confirmation");
+					reimb.setStatus_name("Pending Benefits Coordinator Confirmation");
 					reimb.setNext_id(0);
 
 				} else if (!reimb.isBenco_flag()) {
