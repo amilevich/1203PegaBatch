@@ -12,7 +12,6 @@
 
  // Ajax call to get employee info:
  function getEmployeePersonalInfo() {
-	console.log("hello in getEmployee")
 	let xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {	
