@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TRMS Registration Form</title>
+<link href="https://fonts.googleapis.com/css?family=Ubuntu"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<link rel=stylesheet type="text/css" href="../css/reimbursement.css">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<h2>
+			<a class="navbar-brand ternary active" id="ternary" href=#>ternary</a>
+		</h2>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarText" aria-controls="navbarText"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarText">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a onClick="onClickHome();" href=#
+					class="nav-link">Home <span class="sr-only"></span>
+				</a></li>
+				<li class="nav-item active"><a class="nav-link"
+					href="reimbursement.html">Request</a></li>
+			</ul>
+			<form action="login.html">
+				<input type="submit" class="btn btn-secondary btn-sm"
+					value="Log out" />
+			</form>
+		</div>
+	</nav>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<div class="container-fluid ">
+		<div class="card mx-auto" style="width: 65%">
+			<div class="container">
+				<br> <br> <br>
+				<div class="col-lg-12 well">
+					<div class="row">
+						<form id="details-form" class="details-form" method="POST"
+							action="reimbursement.do">
+
+							<input type="hidden" name="requestId" id="requestId" value="" />
+							<input type="hidden" name="empId" id="empId" value="" />
+
+							<div class="col-sm-12">
+								<h4 class="panel-title">Employee Info</h4>
+								<br>
+								<div class="row">
+									<div class="col-sm-3 form-group form-label-group">
+										<label style="font-weight: bold;">Employee ID</label>
+										<div id="employeeId"></div>
+									</div>
+									<div class="col-sm-3 form-group form-label-group">
+										<label style="font-weight: bold;">First Name</label>
+										<div id="firstName"></div>
+									</div>
+									<div class="col-sm-3 form-group">
+										<label style="font-weight: bold;">Last Name</label>
+										<div id="lastName"></div>
+									</div>
+									<div class="col-sm-3 form-group">
+										<label style="font-weight: bold;">Date</label>
+										<div id="dateCompleted"></div>
+									</div>
+								</div>
+
+								<hr>
+								<br>
+
+								<div class="container">
+									<div class="panel panel-primary">
+										<div class="panel-heading">
+											<h4 class="panel-title">Event</h4>
+										</div>
+										<div class="panel-body">
+											<div>
+												<br>
+												<div class="row">
+													<div class="col-md-4 doubleField">
+														<label class="control-label" style="font-weight: bold;">Event
+															Type</label> <br>
+														<div id="eventType"></div>
+													</div>
+
+													<div class="col-md-3">
+														<label style="font-weight: bold;" class="control-label">Cost</label>
+														<div id="eventCost"></div>
+													</div>
+													<div class="col-md-5">
+														<label style="font-weight: bold;" class="control-label">Projected
+															Reimbursement</label>
+														<div id="reimbCoverage"></div>
+													</div>
+												</div>
+												<br> <br> <br>
+												<div class="row">
+													<div class="col-md-4 form-group">
+														<label style="font-weight: bold;" class="control-label">Event
+															Time</label>
+														<div id="eventTime"></div>
+													</div>
+													<div class="col-md-4 form-group">
+														<label style="font-weight: bold;" class="control-label">Start
+															Date</label>
+														<div id="eventStart"></div>
+													</div>
+													<div class="col-md-4 form-group">
+														<label style="font-weight: bold;" class="control-label">End
+															Date</label>
+														<div id="eventEnd"></div>
+													</div>
+												</div>
+												<br>
+												<div class="form-group">
+													<label style="font-weight: bold;" for="eventDescription">Event
+														Description:</label>
+													<div id="eventDescription"></div>
+												</div>
+												<br>
+												<div class="form-group">
+													<label style="font-weight: bold;" for="workJustification">Work
+														Justification:</label>
+													<div id="justification"></div>
+												</div>
+
+
+												<br>
+												<h4 class="panel-title control-label">Event Address</h4>
+											</div>
+											<div class="panel-body form-group">
+												<div id="address">
+													<div class="row">
+														<div class="col-md-8 doubleField">
+															<!-- <label class="control-label">Street address</label>-->
+															<div id="streetAddress"></div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-6">
+															<!-- <label class="control-label">City</label>-->
+															<!-- <div id="city"></div>-->
+															<div id="cityStateZip"></div>
+														</div>
+														<!--                                                <div class="col-md-6">
+                                                        <label class="control-label">State</label> 
+                                                        <div id="state"></div>
+                                                    </div>-->
+													</div>
+													<div class="row">
+														<!--                                                <div class="col-md-6">
+                                                        <label class="control-label">Zip code</label> 
+                                                        <div id="zipCode"></div>
+                                                    </div>-->
+														<div class="col-md-6">
+															<!-- <label class="control-label">Country</label>-->
+															<div id="country"></div>
+														</div>
+													</div>
+												</div>
+
+
+												<br> <br>
+												<div class="row">
+													<div class="col-sm-4 doubleField">
+														<label style="font-weight: bold;" class="control-label">Grade
+															Format</label>
+														<div id="gradeFormat"></div>
+													</div>
+
+													<div class="col-sm-4">
+														<label style="font-weight: bold;" class="control-label">Grade
+															Cutoff</label>
+														<div id="gradeCutoff"></div>
+													</div>
+
+													<div class="col-sm-4">
+														<label style="font-weight: bold;" class="control-label">Final
+															Grade</label>
+														<div id="finalGrade"></div>
+													</div>
+												</div>
+
+												<br> <br>
+
+												<div class="row">
+													<div class="col-md-7 form-group">
+														<a href="#" onclick="viewPreApprovalFile()"
+															id="preApprovalFile">Download Pre-Approval File</a>
+													</div>
+												</div>
+												<br>
+												<div class="row">
+													<div class="col-md-6 form-group">
+														<a href="#" onclick="viewEventFile()" id="eventFile">Download
+															Event File</a>
+													</div>
+												</div>
+
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-4 form-group">
+									<label class="control-label">Final Grade</label> <input
+										type="text" class="form-control field" id="finalGradeInput"
+										name=finalGradeInput>
+								</div>
+							</div>
+							
+							<hr>
+							<div class="container">
+								<div class="panel panel-primary">
+									<div class="row">
+										<div class="col-md-4">
+											<input class="btn btn-outline-dark" value="Approve"
+												id="approveBtn" onclick="onClickApprove();" />
+										</div>
+
+										<div class="col-md-4">
+											<input class="btn btn-outline-dark" value="Deny" id="denyBtn"
+												onclick="onClickDeny();" />
+										</div>
+
+										<div class="col-md-4">
+											<input class="btn btn-outline-dark"
+												value="Cancel Reimbursement" id="cancelBtn"
+												onclick="onClickCancel();" />
+										</div>
+									</div>
+								</div>
+							</div>
+							<br> <br> <br>
+							<div class="container">
+								<div class="row">
+									<div class="col-md-4"></div>
+									<div class="col-md-4"></div>
+
+									<div class="col-md-4">
+										<input class="btn btn-outline-dark" value="Back" id="backBtn"
+											onclick="onClickBack();" />
+									</div>
+								</div>
+							</div>
+							<br> <br> <br>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../js/details.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVPDg0gdewRWJ3QPno7EKQtuXZEVaSi4w&libraries=places&callback=initAutocomplete"
+		async defer></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+</body>
+</html>

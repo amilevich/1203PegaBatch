@@ -1,0 +1,34 @@
+package com.ternary.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import com.ternary.daoimpl.EmployeeDaoImpl;
+import com.ternary.daoimpl.RequestDaoImpl;
+import com.ternary.model.Employee;
+import com.ternary.model.Request;
+
+public class DetailsController {
+
+	public static String Details(HttpServletRequest request) {
+
+		if (request.getMethod().equals("GET")) {
+			return "/html/login.html";
+		} else {
+			return "/html/home.html";
+		}
+
+	}
+	
+	public static String CancelRequest(HttpServletRequest request) {
+
+		int requestId = Integer.parseInt(request.getParameter("requestId"));
+
+		RequestDaoImpl requestDaoImpl = new RequestDaoImpl();
+		requestDaoImpl.cancelRequest(requestId);
+		
+		return "/html/home.do";
+	}
+
+}

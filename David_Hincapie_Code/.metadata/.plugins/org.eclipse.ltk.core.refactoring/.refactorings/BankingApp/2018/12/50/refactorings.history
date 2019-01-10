@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;i&apos; in &apos;com.davidahincapie.uilayer.Main.employeePrompt()&apos; to &apos;j&apos;&#x0A;- Original project: &apos;BankingApp&apos;&#x0A;- Original element: &apos;com.davidahincapie.uilayer.Main.employeePrompt().i&apos;&#x0A;- Renamed element: &apos;i&apos;&#x0A;- Update references to refactored element" description="Rename local variable &apos;i&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;com.davidahincapie.uilayer{Main.java[Main~employeePrompt@i!6512!6520!6516!6516!I!0!false" name="j" references="true" stamp="1544545357114" version="1.0"/>
+</session>

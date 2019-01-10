@@ -168,7 +168,7 @@ function buildHTMLtable(requests) {
 
 		htmlString = htmlString + '<td>' + month +'/' + day + '/'+ year
 				+ '</td>';
-		htmlString = htmlString + '<td>' + requests[i].projectedReimbursement
+		htmlString = htmlString + '<td>$' + requests[i].projectedReimbursement
 				+ '</td>';
 		htmlString = htmlString + '<td>' + requests[i].status + '</td>';
 		htmlString = htmlString + '</tr>';
@@ -279,7 +279,7 @@ function buildMgrHTMLtable(mgrRequests) {
 
 		htmlString = htmlString + '<td>' + month +'/' + day + '/'+ year
 				+ '</td>';
-		htmlString = htmlString + '<td>' + mgrRequests[i].projectedReimbursement
+		htmlString = htmlString + '<td>$' + mgrRequests[i].projectedReimbursement
 				+ '</td>';
 		htmlString = htmlString + '<td>' + mgrRequests[i].status + '</td>';
 		htmlString = htmlString + '</tr>';

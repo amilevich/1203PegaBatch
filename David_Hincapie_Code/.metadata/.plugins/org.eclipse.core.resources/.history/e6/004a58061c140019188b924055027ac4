@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+body {
+	background: #9CECFB;
+	/* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);
+	/* Chrome 10-25, Safari 5.1-6 */
+	background: repeating-radial-gradient(circle, #3b5998, #65ABC4);
+	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.ternary {
+	text-align: center;
+	font-family: 'Ubuntu', sans-serif;
+	color: darkgrey;
+}
+
+.jumbotron {
+	border-radius: 1rem;
+}
+
+ @charset "UTF-8";
+
+body {
+	background: #9CECFB;
+	/* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #0052D4, #65C7F7, #9CECFB);
+	/* Chrome 10-25, Safari 5.1-6 */
+	background: repeating-radial-gradient(circle, #3b5998, #65ABC4);
+	/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.navbar {
+	position: fixed;
+	width: 100%;
+	z-index: 1;
+}
+
+.ternary {
+	text-align: center;
+	font-family: 'Ubuntu', sans-serif;
+	color: darkgrey;
+}
+
+.jumbotron {
+	border-radius: 1rem;
+}
+
+.table {
+	border-radius: 10px;
+}
+
+.card {
+	background-color: whitesmoke;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.dispaly-4 {
+	padding: 10px;
+}
+
+.container-fluid {
+	padding: 25px;
+}
+
+.row {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.card-body {
+	
+}
+
+.navbar {
+	
+}
+
+.table {
+	border-radius: 10px;
+}
+
+.card {
+	background-color: whitesmoke;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.card-body {
+	
+}
+
+.navbar {
+	
+}

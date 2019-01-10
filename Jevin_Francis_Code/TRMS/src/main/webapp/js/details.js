@@ -118,8 +118,9 @@ function setRequestValues(request) {
 	document.getElementById("firstName").innerHTML = request.employeeFirstName;
 	document.getElementById("lastName").innerHTML = request.employeeLastName;
 	document.getElementById("eventType").innerHTML = request.eventType;
-	document.getElementById("eventCost").innerHTML = request.eventCost;
-	document.getElementById("reimbCoverage").innerHTML = request.reimbCoverage;
+	document.getElementById("eventCost").innerHTML = "$" + request.eventCost;
+	document.getElementById("reimbCoverage").innerHTML = "$"
+			+ request.reimbCoverage;
 
 	day = request.eventStart.dayOfMonth;
 	month = request.eventStart.monthValue; // Month is 0-indexed
@@ -132,8 +133,6 @@ function setRequestValues(request) {
 	year = request.eventEnd.year;
 	document.getElementById("eventEnd").innerHTML = month + '/' + day + '/'
 			+ year;
-	
-	
 
 	document.getElementById("eventTime").innerHTML = request.eventTime;
 	document.getElementById("eventDescription").innerHTML = request.eventDescription;
