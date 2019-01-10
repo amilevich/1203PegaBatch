@@ -376,7 +376,7 @@ function assignedListAction(reimbursement_status, id, funds, avail, grade){
 			'<button type="submit" id="DenyButton'+id+'" name="action" class="btn btn-warning btn-lg btn-block" value="deny">Deny</button>';
 	}
 		
-	else if (reimbursement_status == "Pending Benifits Coordinator Approval") {
+	else if (reimbursement_status == "Pending Benefits Coordinator Approval") {
 		return '<div class="container">' +
 			'<div class="form-row form-group form-inline">'+
 				'<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-1 offset-md-1">'+
@@ -424,7 +424,7 @@ function assignedListAction(reimbursement_status, id, funds, avail, grade){
 	}	
 	
 	else if (reimbursement_status == "Pending Direct Supervisor Confirmation" ||
-			reimbursement_status == "Pending Benifits Coordinator Confirmation") {
+			reimbursement_status == "Pending Benefits Coordinator Confirmation") {
 		return '<div class="form-row form-group form-inline">'+
 					'<div class="col-lg-1 col-md-2 col-sm-12">'+
 						'<label class="inline-label" for="grade-format">Grade '+
