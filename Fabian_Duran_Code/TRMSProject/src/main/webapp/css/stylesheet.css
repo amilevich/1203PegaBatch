@@ -1,0 +1,550 @@
+/* Other  */
+
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+    border-color: darkgrey;
+}
+
+textarea {
+    resize: none;
+}
+
+textarea:hover {
+    background: #dbe9eFac;
+}
+
+p {
+    font-size: 8px;
+}
+
+.requirement {
+    font-size: 12px;
+}
+
+button {
+    text-decoration: none;
+    border: none;
+    /*    width: 1000px;*/
+}
+
+.tab {
+    text-indent: 40px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/* Table */
+.table-setup table,
+td,
+th {
+    border-collapse: collapse;
+    padding: 20px;
+    column-width: 300px;
+    table-layout: fixed;
+}
+
+td {
+    font-size: 20px;
+}
+
+th,
+tr {
+    width: 1%
+}
+
+.table-setup th {
+    background-color: #DBE9EE;
+    font-weight: bold;
+
+}
+
+.table-setup tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table-setup tr:hover {
+    background-color: lightblue;
+
+}
+
+/*
+.table-button-only {
+    width: 150px;
+    background-color: aqua;
+    
+}
+.table-button-only button:hover{
+    background: red; 
+}
+*/
+
+
+
+/* Login Form  */
+.login-form-control {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+
+}
+
+.login-form-control {
+    background-color: #4F6D7A;
+    display: flex;
+}
+
+.form {
+    margin: auto;
+}
+
+
+.loginForm,
+.loginForm input {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+}
+
+.loginForm {
+    min-width: 300px;
+    min-height: 100px;
+    padding: 25px;
+    margin: 0 auto;
+    border-top: 10px solid #C0D6DF;
+    border-bottom: 10px solid #C0D6DF;
+    background-color: white;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+}
+
+.loginForm input[type=password],
+.loginForm input[type=text] {
+    height: 30px;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    border: 1px solid #cccccc;
+    outline: none;
+    background-color: #DBE9EE;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    box-sizing: border-box;
+    font-weight: bold;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, .2);
+    width: 100%;
+    border-radius: 15px;
+    -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+}
+
+.loginForm input[type=submit] {
+    line-height: 30px;
+    margin: 10px auto;
+    padding: 0 20px 0 5px;
+    border: 1px solid #C0D6DF;
+    outline: none;
+    background-color: #C0D6DF;
+    /** #f0a518**/
+    color: black;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    border-width: 2px;
+    width: 75%;
+    cursor: pointer;
+    border-radius: 15px;
+    -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+}
+
+.loginForm input[type=submit]:hover {
+    border: 2px solid #DBE9EE;
+    /** #ffedcc **/
+    background: #DBE9EE;
+    color: white;
+}
+
+/* Reimbursement Form  */
+.reimburse-body {
+    background-color: #4F6D7A;
+
+}
+
+
+.reimbursement-form,
+.reimbursement-form input {
+    margin: 2px;
+    padding: 0px, 20px;
+    border: 0;
+    outline: 0;
+
+}
+
+.reimbursement-form1 {
+    width: 600px;
+    min-height: 100px;
+    padding: 25px;
+    margin: 0 auto;
+    border-top: 10px solid #c0d6df;
+    border-bottom: 10px solid #c0d6df;
+    background-color: white;
+    -webkit-border-radius: 45px;
+    -moz-border-radius: 45px;
+    border-radius: 100px;
+}
+
+.reimbursement-form2 input {
+    height: 30px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    border: 1px solid #cccccc;
+    outline: none;
+    background-color: white;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    box-sizing: border-box;
+    font-weight: bold;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, .2);
+    width: 100%;
+    border-radius: 5px;
+    -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+}
+
+.reimbursement-form2 input {
+    width: 49%;
+}
+
+/*
+.reimbursement-form3 input {
+    width: 49%;
+}
+*/
+.reimbursement-form input[type=submit] {
+    line-height: 30px;
+    margin: 10px auto;
+    padding: 0 20px 0 5px;
+    border: 1px solid #C0D6DF;
+    outline: none;
+    background-color: #C0D6DF;
+    color: black;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    border-width: 2px;
+    width: 75%;
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+}
+
+.reimbursement-form input:hover {
+    background: #dbe9ee;
+}
+
+.reimbursement-form input[type=submit]:hover {
+    border: 2px solid #DBE9EE;
+    /** #ffedcc **/
+    background: #DBE9EE;
+    color: black;
+    font-weight: bolder;
+}
+
+/* Review Form  */
+.review-body {
+    background-color: #4F6D7A;
+
+}
+
+
+.review-form,
+.review-form input {
+    margin: 2px;
+    padding: 0px, 20px;
+    border: 0;
+    outline: 0;
+
+}
+
+.review-form1 {
+    width: 600px;
+    min-height: 100px;
+    padding: 35px;
+    margin: 0 auto;
+    border-top: 10px solid #c0d6df;
+    border-bottom: 10px solid #c0d6df;
+    background-color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.review-form2 input {
+    height: 30px;
+    margin-bottom: 20px;
+    padding: 0 20px 0 0;
+    border: 1px solid #cccccc;
+    outline: none;
+    background-color: white;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    box-sizing: border-box;
+    font-weight: bold;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, .2);
+    width: 100%;
+    border-radius: 5px;
+    -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+}
+
+.review-form2 input {
+    width: 49%;
+}
+
+/*
+.review-form3 input {
+    width: 49%;
+}
+*/
+.review-form input[type=submit] {
+    line-height: 30px;
+    margin: 10px auto;
+    padding: 0 20px 0 5px;
+    border: 1px solid #C0D6DF;
+    outline: none;
+    background-color: #C0D6DF;
+    color: black;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    border-width: 2px;
+    width: 75%;
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+}
+
+.review-form input:hover {
+    background: #dbe9ee;
+}
+
+.review-form input[type=submit]:hover {
+    border: 2px solid #DBE9EE;
+    /** #ffedcc **/
+    background: #DBE9EE;
+    color: black;
+    font-weight: bolder;
+}
+
+
+/* Completion Form  */
+.completion-body {
+    background-color: #4F6D7A;
+
+}
+
+
+.completion-form,
+.completion-form input {
+    margin: 2px;
+    padding: 0px, 20px;
+    border: 0;
+    outline: 0;
+
+}
+
+.completion-form1 {
+    width: 600px;
+    min-height: 100px;
+    padding: 35px;
+    margin: 0 auto;
+    border-top: 10px solid #c0d6df;
+    border-bottom: 10px solid #c0d6df;
+    background-color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.completion-form2 input {
+    height: 30px;
+    margin-bottom: 20px;
+    padding: 0 20px 0 0;
+    border: 1px solid #cccccc;
+    outline: none;
+    background-color: white;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    box-sizing: border-box;
+    font-weight: bold;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, .2);
+    width: 100%;
+    border-radius: 5px;
+    -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+}
+
+.completion-form2 input {
+    width: 49%;
+}
+
+/*
+.review-form3 input {
+    width: 49%;
+}
+*/
+.completion-form input[type=submit] {
+    line-height: 30px;
+    margin: 10px auto;
+    padding: 0 20px 0 5px;
+    border: 1px solid #C0D6DF;
+    outline: none;
+    background-color: #C0D6DF;
+    color: black;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    border-width: 2px;
+    width: 75%;
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+}
+
+.completion-form input:hover {
+    background: #dbe9ee;
+}
+
+.completion-form input[type=submit]:hover {
+    border: 2px solid #DBE9EE;
+    /** #ffedcc **/
+    background: #DBE9EE;
+    color: black;
+    font-weight: bolder;
+}
+
+/* Employee Home Form  */
+.employee-body {
+    background-color: #4F6D7A;
+
+}
+
+.center {
+    margin: 0 auto;
+}
+
+.employee-form,
+.employee-form input {
+    margin: 2px;
+    padding: 0px, 20px;
+    border: 0;
+    outline: 0;
+
+}
+
+
+.employee-form1 {
+    width: 1100px;
+    /*    max-width: 1000px;*/
+    min-height: 100px;
+    padding: 35px;
+    margin: 0 auto;
+
+
+    border-top: 10px solid #c0d6df;
+    border-bottom: 10px solid #c0d6df;
+    background-color: white;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.employee-form2 input {
+    height: 30px;
+    margin-bottom: 20px;
+    padding: 0 20px 0 0;
+    border: 1px solid #cccccc;
+    outline: none;
+    background-color: white;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    box-sizing: border-box;
+    font-weight: bold;
+    text-shadow: 0px 1px 1px rgba(255, 255, 255, .2);
+    width: 100%;
+    border-radius: 5px;
+    -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+}
+
+.employee-form2 input {
+    width: 49%;
+}
+
+/*
+.review-form3 input {
+    width: 49%;
+}
+*/
+.employee-form input[type=submit] {
+    line-height: 30px;
+    margin: 10px auto;
+    padding: 0 20px 0 5px;
+    border: 1px solid #C0D6DF;
+    outline: none;
+    background-color: #C0D6DF;
+    color: black;
+    font-family: Helvetica, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    border-width: 2px;
+    width: 75%;
+    cursor: pointer;
+    border-radius: 5px;
+    -webkit-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
+}
+
+.employee-form input:hover {
+    background: #dbe9ee;
+}
+
+.employee-form input[type=submit]:hover {
+    border: 2px solid #DBE9EE;
+    /** #ffedcc **/
+    background: #DBE9EE;
+    color: black;
+    font-weight: bolder;
+}

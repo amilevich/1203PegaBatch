@@ -15,6 +15,7 @@ CREATE TABLE Employee(
     employee_type INT,--0 is employee, 1 is DS, 2 is DH, 3 is BC, 4 is BCDS, 5 BCDH, 6 CEO, won't need look up table as this will never be displayed...anywhere
     PRIMARY KEY (emp_id)
 );
+commit;
 
 CREATE TABLE Reimbursement(
   rei_id INT,
@@ -22,10 +23,10 @@ CREATE TABLE Reimbursement(
   rei_type VARCHAR(20) NOT NULL, --look up table?
   awd_req INT NOT NULL,
   awd_grnt INT,
-  sub_date DATE NOT NULL, --date reimbursement was submitted
-  evnt_stdate DATE NOT NULL, --date event starts
-  evnt_fndate DATE, --event completed date
-  comp_date DATE, --OPTIONAL
+  sub_date number NOT NULL, --date reimbursement was submitted
+  evnt_stdate number NOT NULL, --date event starts
+  evnt_fndate number, --event completed date
+  comp_date number, --OPTIONAL
   ds_appr INT, --Direct Supervisor approval 0 for false, 1 true, auto completed if only DH
   ds_id INT,--can be filled by DH if completed by DH
   dh_appr INT,--Department Head approval, 0 for false, 1 true for Dept Head
@@ -84,3 +85,16 @@ CREATE TABLE Grade(
  rs_id INT,
  rs_def VARCHAR2 (15)
  );
+ 
+ alter table reimbursement modify evnt_stdate number;
+  alter table reimbursement modify sub_date number;
+   alter table reimbursement modify evnt_fndate number;
+    alter table reimbursement modify comp_date number;
+
+CREATE SEQUENCE grade_id_seq
+START WITH 1
+INCREMENT BY 1
+MINVALUE 1
+CACHE 5;
+
+ commit;
