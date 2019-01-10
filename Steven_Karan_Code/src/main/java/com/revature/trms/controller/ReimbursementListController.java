@@ -14,6 +14,7 @@ import com.revature.trms.daoimpls.EventDAOImpl;
 import com.revature.trms.daoimpls.ReimbursementDAOImpl;
 import com.revature.trms.daoimpls.ReimbursementStatusDAOImpl;
 import com.revature.trms.daoimpls.SignatureDAOImpl;
+import com.revature.trms.models.Alert;
 import com.revature.trms.models.Employee;
 import com.revature.trms.models.Reimbursement;
 import com.revature.trms.models.Signature;
@@ -120,12 +121,14 @@ public class ReimbursementListController {
 					reimb.setNext_id(reimb.getEmployee().getEmp_id());
 				}
 				new ReimbursementStatusDAOImpl().updateReimbursementStatus(reimb);
+				req.getSession().setAttribute("Alert", new Alert("success", "Reimbursement Approved!"));
 				break;
 
 			case "deny":// deny reimbursement application
 				reimb.setStatus_name("Denied");
 				reimb.setNext_id(0);
 				new ReimbursementStatusDAOImpl().updateReimbursementStatus(reimb);
+				req.getSession().setAttribute("Alert", new Alert("warning", "Reimbursement Denied!"));
 				break;
 
 			case "confirm":// confirm reimbursement application
