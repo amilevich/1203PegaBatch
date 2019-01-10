@@ -373,7 +373,7 @@ function assignedListAction(reimbursement_status, id, funds, avail, grade){
 		return '<button type="submit" id="ApproveButton'+id+'" name="action" class="btn btn-primary btn-lg btn-block" value="approve">Approve</button>'+
 			'<button type="submit" class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#requesAddtInfo" data-whatever="@mdo">'+
 			'Request Information</button>' +
-			'<button type="submit" id="DenyButton'+id+'" name="action" class="btn btn-warning btn-lg btn-block" value="deny">Deny</button>';
+			'<button type="submit" id="DenyButton'+id+'" name="action" class="btn btn-danger btn-lg btn-block" value="deny">Deny</button>';
 	}
 		
 	else if (reimbursement_status == "Pending Benefits Coordinator Approval") {
