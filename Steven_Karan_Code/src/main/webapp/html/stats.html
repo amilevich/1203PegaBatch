@@ -31,7 +31,8 @@
 
 				<li class="nav-item text-center" id="reimb-nav" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/reimburse.html">Tuition Reimbursement Form</a></li>
 				<li class="nav-item text-center" id="reimb-list-nav" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/reimburse-list.html">Pending Assignments</a></li>
-
+				<li class="nav-item text-center" id="reimb-stats" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/stats.html">Reimbursement Statistics</a></li>
+				<li class="nav-item text-center" id="empl-profile" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/profile.html">Profile</a></li>
 				
 			</ul>
 
@@ -59,17 +60,23 @@
 		<div class="container">
 			<h2 class="text-center">Reimbursement Statistics</h2>
 			<hr>
-			
-			
 			<h4 class="text-center"> Event Type Frequency</h4>
+			<div class="text-center" id="spinner">
+				<div class="spinner-border text-center"
+					style="width: 5rem; height: 5rem;" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+			
+			
 			<div class="chart-container">
-				<canvas id="event_count_pie" width="250px" height="250px"></canvas>
+				<canvas id="event_count_pie" width="425" height="425"></canvas>
 			</div>
 			<hr>
-			<div class="chart-container">
+			<!--  <div class="chart-container">
 				<h4 class="text-center"> Event Cost Breakdown</h4>
-				<canvas id="event_count_pie" width="250px" height="250px"></canvas>
-			</div>
+				<canvas id="event_cost_pie" width="350" height="350"></canvas>
+			</div> -->
 		</div>
 
 	</main>

@@ -18,10 +18,16 @@ function getEmployee() {
 function setNav(emp) {
 	if (emp != null) {
 		document.getElementById("logout").removeAttribute('hidden');
-
 		document.getElementById("reimb-nav").removeAttribute('hidden');
-
 		document.getElementById("reimb-list-nav").removeAttribute('hidden');
+		document.getElementById("empl-profile").removeAttribute('hidden');
+		console.log(emp);
+		console.log(emp.position)
+		if(emp.position == 'Benefits Coordinator'){
+			console.log('true');
+			document.getElementById('reimb-stats').removeAttribute('hidden');
+		}
+		
 	}
 	else{
 		document.getElementById("login").removeAttribute('hidden');

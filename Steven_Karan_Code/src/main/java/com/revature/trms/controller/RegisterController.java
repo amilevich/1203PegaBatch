@@ -15,9 +15,9 @@ import com.revature.trms.validators.PasswordValidator;
 public class RegisterController {
 
 	public static String Register(HttpServletRequest req) {
-		System.out.println("In registration controller main method");
+		//System.out.println("In registration controller main method");
 		if (req.getMethod().equals("GET")) {
-			System.out.println();
+			//System.out.println();
 			return "/html/register.html";
 		}
 

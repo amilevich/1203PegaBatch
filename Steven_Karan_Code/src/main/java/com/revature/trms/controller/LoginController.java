@@ -11,7 +11,7 @@ import com.revature.trms.models.Employee;
 public class LoginController {
 
 	public static String Login(HttpServletRequest req) {
-		System.out.println("Login Controller");
+		//System.out.println("Login Controller");
 		
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		
@@ -28,11 +28,11 @@ public class LoginController {
 		EmployeeDAOImpl edi = new EmployeeDAOImpl();
 		emp = null;
 		emp = edi.getEmployeeByUsername(username);
-		System.out.println("Got Emp:" + emp);
+		//System.out.println("Got Emp:" + emp);
 		if (validCredentials(emp,username,password)) {
 			if (username.equals(emp.getUsername()) && BCrypt.checkpw(password, emp.getPassword())) {
 				req.getSession().setAttribute("Employee", emp);
-				System.out.println(req.getSession().getAttribute("Employee"));
+				//System.out.println(req.getSession().getAttribute("Employee"));
 				return "/html/reimburse-list.html";
 			}
 		}
@@ -57,11 +57,11 @@ public class LoginController {
 	}
 
 	public static String Logout(HttpServletRequest req) {
-		System.out.println("Logging out...");
-		System.out.println(req.getSession().getAttribute("Employee"));
+		//System.out.println("Logging out...");
+		//System.out.println(req.getSession().getAttribute("Employee"));
 		req.getSession().setAttribute("Employee",null);
 		req.getSession().setAttribute("Alert", new Alert("success","Successfully logged out!"));
-		System.out.println(req.getSession().getAttribute("Employee"));
+		//System.out.println(req.getSession().getAttribute("Employee"));
 		return null;
 	}
 }

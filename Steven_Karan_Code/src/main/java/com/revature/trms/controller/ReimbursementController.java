@@ -27,13 +27,13 @@ public class ReimbursementController {
 	
 	public static String Reimburse(HttpServletRequest req) throws IOException, ServletException {
 		
-		System.out.println("Processing Reimbursement");
+		//System.out.println("Processing Reimbursement");
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		Alert alert = null;
 		
 		// Check if user is authenticated, if not redirect them to the home page:
 		if(emp==null) {
-			System.out.println("Not verified");
+			//System.out.println("Not verified");
 			return "/html/login.html";
 		}
 		
@@ -122,12 +122,12 @@ public class ReimbursementController {
 		// linking event and reimbursement (address transitively)
 		reimb.setEvent(event);
 		String work_missed_str = req.getParameter("work-missed");
-		System.out.println("Before numeric validation. Work Missed: " + work_missed_str);
+		//System.out.println("Before numeric validation. Work Missed: " + work_missed_str);
 		if(GeneralValidator.isNumeric(work_missed_str)) {
-			System.out.println("valid");
+			//System.out.println("valid");
 			reimb.setWork_time_missed( Integer.parseInt(work_missed_str));
 		}else {
-			System.out.println("invalid");
+			//System.out.println("invalid");
 			alert = new Alert("danger", "Error: Invalid work time missed.\nOnly numbers are allowed in this field");
 			req.getSession().setAttribute("Alert",alert);
 		}

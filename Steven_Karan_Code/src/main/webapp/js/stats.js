@@ -1,4 +1,5 @@
 window.onload=function(){
+	getEmployee();
 	getChartData();
 	getAlert();
 };
@@ -17,16 +18,16 @@ function getChartData(){
 
 function setChartData(chartData){
 	let ctx = document.getElementById('event_count_pie').getContext('2d');
+	let ctx2 = document.getElementById('event_cost_pie')
 	
 	let event_count = [];
 	for(let i = 0; i < chartData.length; i++){
 		event_count.push(chartData[i]['count']);
 	}
-	
 	let datasets = [{
 		'label': 'Event Frequency',
 		'data':event_count,
-		"backgroundColor":["rgb(255, 99, 132)","rgb(54, 162, 235)","rgb(255, 205, 86)","green", "grey"],
+		"backgroundColor":["rgb(255, 99, 132)","rgb(54, 162, 235)","rgb(255, 205, 86)","#1A807D", "grey"]
 		
 	}];
 	
@@ -36,16 +37,33 @@ function setChartData(chartData){
 	}
 	
 	
-	
 	let data = {'datasets':datasets,
 				'labels':event_labels, 
 				};
 	
+	let event_cost = [];
+	for(let i = 0; i < chartData.length; i++){
+		event_cost.push(chartData[i]['cost']);
+	}
 	
+	let datasets2 = [{
+		'label':'Event Cost',
+		'data': event_cost,
+		"backgroundColor":["rgb(255, 99, 132)","rgb(54, 162, 235)","rgb(255, 205, 86)","#1A807D", "grey"]
+	}];
 	
+	let data2 = {'datasets': datasets2, 'labels':event_labels};
+	
+	document.getElementById('spinner').innerHTML = '';
 	var myPieChart = new Chart(ctx,{
 	    'type': 'pie',
 	    'data': data,
-	    'options': {'responsive': true}
+	    'options': {
+	    	maintainAspectRatio:false,
+	    	legend: {
+            display: true,
+	    	}
+        }
 	});
+	
 };
