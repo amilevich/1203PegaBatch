@@ -1,4 +1,10 @@
 canvas{
-	width:250px !important;
-	height:250px !important;
+	width:500px !important;
+	height:500px !important;
+	display: inline !important;
+}
+
+.chart-container{
+	width: 100%;
+	text-align: center;
 }
