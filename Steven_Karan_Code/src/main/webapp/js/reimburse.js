@@ -2,7 +2,7 @@ var event_types = {
 	'Course':0.8,
 	'Seminar':0.6,
 	'Certification':1.0,
-	'Certification-Prep':0.75,
+	'Certification Prep':0.75,
 	'Technical-Training':0.90,
 	'Other':0.3
 };
@@ -50,6 +50,8 @@ document.getElementById("event-cost").onkeyup = function(){
 	// get event coverage based on event-type lookup
 	let curr_event_type = document.getElementById("event-type").value;
 	let coverage = event_types[curr_event_type];
+	console.log(curr_event_type);
+	console.log(coverage);
 	document.getElementById("reimbursement").value = (this.value * coverage).toFixed(2);
 };
 
