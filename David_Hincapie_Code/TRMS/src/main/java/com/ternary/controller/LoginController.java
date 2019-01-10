@@ -25,6 +25,7 @@ public class LoginController {
 		List<Employee> employeeList = new ArrayList<>();
 		Employee employee = new Employee();
 		Employee supervisor = new Employee();
+		Request reimbursement = new Request();
 
 		employee = employeeDaoImpl.selectByEmployeeEmail(email);
 		if (employee == null) {
@@ -38,8 +39,8 @@ public class LoginController {
 			// sessions persist data beyond the request's lifetime
 			request.getSession().setAttribute("Employee", employee);
 			request.getSession().setAttribute("Supervisor", supervisor);
+			request.getSession().setAttribute("Reimbursement", reimbursement);
 			System.out.println("LOGIN METHOD IN LOGIN CONTROLLER");
-
 			RequestDaoImpl requestDaoImpl = new RequestDaoImpl();
 			List<Request> requests = requestDaoImpl.getRequests(employee.getEmployeeId());
 			request.getSession().setAttribute("Requests", requests);

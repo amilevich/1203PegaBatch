@@ -138,6 +138,10 @@ function setRequestValues(request) {
 	document.getElementById("justification").innerHTML = request.justification;
 	document.getElementById("gradeFormat").innerHTML = request.gradeType;
 	document.getElementById("gradeCutoff").innerHTML = request.passingGrade;
+	if (request.finalGrade != null) {
+		document.getElementById("finalGrade").innerHTML = request.finalGrade;
+	}
+	document.getElementById("finalGrade").innerHTML = "n/a"
 	document.getElementById("streetAddress").innerHTML = request.streetAddress;
 	// document.getElementById("city").innerHTML = request.city;
 	// document.getElementById("state").innerHTML = request.state;
@@ -163,6 +167,10 @@ function setRequestValues(request) {
 		denyBtn.style.display = "none";
 	}
 
+}
+
+function onChangeFinalGrade(){
+//	finalGrade = document.getElementById("finalGradeInput").value;
 }
 
 function viewPreApprovalFile() {

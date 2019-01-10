@@ -108,11 +108,11 @@ public class Request {
 	private boolean moreInfo;
 	private String justification;
 
-	private int directMgrApprovalId;
+	private int directMgrApprovalId = 0;
 	private boolean directMgrApproval = false;
-	private int deptHeadApprovalId;
+	private int deptHeadApprovalId = 0;
 	private boolean deptHeadApproval = false;
-	private int bencoApprovalId;
+	private int bencoApprovalId = 0;
 	private boolean bencoApproval = false;
 	private boolean denied;
 
@@ -146,8 +146,10 @@ public class Request {
 
 	private int gradeTypeId;
 	private String gradeType;
+	private int gradeId;
+	
 	private String passingGrade;
-	private String finalGrade;
+	private String finalGrade = "n/a";
 	private String exceedAvailibleComment;
 
 	private double eventCost;
@@ -557,6 +559,15 @@ public class Request {
 	public void setEmployeeLastName(String employeeLastName) {
 		this.employeeLastName = employeeLastName;
 	}
+	
+
+	public int getGradeId() {
+		return gradeId;
+	}
+
+	public void setGradeId(int gradeId) {
+		this.gradeId = gradeId;
+	}
 
 	@Override
 	public String toString() {
@@ -567,16 +578,22 @@ public class Request {
 				+ bencoApproval + ", denied=" + denied + ", deniedReason=" + deniedReason + ", preApprovedSupervisorId="
 				+ preApprovedSupervisorId + ", projectedReimbursement=" + projectedReimbursement + ", awardChanged="
 				+ awardChanged + ", exceedAvailable=" + exceedAvailable + ", uploadedPresentation="
-				+ uploadedPresentation + ", eventDescription=" + eventDescription + ", presentationAttachment="
-				+ presentationAttachment + ", presentationAttachmentName=" + presentationAttachmentName
-				+ ", approvalAttachment=" + approvalAttachment + ", approvalAttachmentname=" + approvalAttachmentname
-				+ ", eventFile=" + eventFile + ", eventFilename=" + eventFilename + ", eventTime=" + eventTime
-				+ ", reimbursementDate=" + reimbursementDate + ", eventStart=" + eventStart + ", eventEnd=" + eventEnd
-				+ ", eventType=" + eventType + ", gradeTypeId=" + gradeTypeId + ", gradeType=" + gradeType
+				+ uploadedPresentation + ", eventDescription=" + eventDescription + ", approvalAttachmentOut="
+				+ approvalAttachmentOut + ", approvalAttachment=" + approvalAttachment + ", approvalAttachmentBlob="
+				+ approvalAttachmentBlob + ", approvalAttachmentname=" + approvalAttachmentname + ", eventFile="
+				+ eventFile + ", eventFileBlob=" + eventFileBlob + ", eventFilename=" + eventFilename
+				+ ", presentationAttachment=" + presentationAttachment + ", presentationAttachmentBlob="
+				+ presentationAttachmentBlob + ", presentationAttachmentName=" + presentationAttachmentName
+				+ ", eventTime=" + eventTime + ", reimbursementDate=" + reimbursementDate + ", dateCompleted="
+				+ dateCompleted + ", eventStart=" + eventStart + ", eventEnd=" + eventEnd + ", eventType=" + eventType
+				+ ", gradeTypeId=" + gradeTypeId + ", gradeType=" + gradeType + ", gradeId=" + gradeId
 				+ ", passingGrade=" + passingGrade + ", finalGrade=" + finalGrade + ", exceedAvailibleComment="
 				+ exceedAvailibleComment + ", eventCost=" + eventCost + ", reimbCoverage=" + reimbCoverage
 				+ ", streetAddress=" + streetAddress + ", city=" + city + ", state=" + state + ", country=" + country
-				+ ", zipCode=" + zipCode + "]";
+				+ ", zipCode=" + zipCode + ", employeeFirstName=" + employeeFirstName + ", employeeLastName="
+				+ employeeLastName + "]";
 	}
+
+
 
 }

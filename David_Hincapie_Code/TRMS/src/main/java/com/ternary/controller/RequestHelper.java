@@ -21,6 +21,9 @@ public class RequestHelper {
 		case "/TRMS/html/reimbursement.do":
 			System.out.println("IN REIMBURSEMENT CONTROLLER");
 			return ReimbursementController.ReimbursementJSON(request);
+		case "/TRMS/html/grade.do":
+			System.out.println("IN REIMBURSEMENT CONTROLLER GRADE METHOD");
+			return ReimbursementController.Grade(request);
 		// case "/TRMS/html/Register.do":
 		// return RegisterController.Register(request);
 		case "/TRMS/html/EmployeeJSON.do":

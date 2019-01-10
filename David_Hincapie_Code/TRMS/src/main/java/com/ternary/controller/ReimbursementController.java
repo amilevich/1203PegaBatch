@@ -1,18 +1,27 @@
 package com.ternary.controller;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 
 import com.ternary.daoimpl.RequestDaoImpl;
 import com.ternary.model.Employee;
 import com.ternary.model.Request;
 
 public class ReimbursementController {
+
+	public static String Grade(HttpServletRequest request) {
+		RequestDaoImpl requestDaoImpl = new RequestDaoImpl();
+		Request reimbursementRequest = new Request();
+		reimbursementRequest = (Request) request.getSession().getAttribute("Reimbursement");
+		String finalGrade = "n/a";
+		finalGrade = request.getParameter("finalGradeInput");
+		reimbursementRequest.setFinalGrade(finalGrade);
+		requestDaoImpl.insertGrade(reimbursementRequest);
+		System.out.println("======================================             " + reimbursementRequest.toString());
+		return "/html/viewRequest.do";
+	}
 
 	public static String ReimbursementJSON(HttpServletRequest request) {
 
@@ -30,11 +39,15 @@ public class ReimbursementController {
 			reimbursementRequest.setStatus("Created");
 			reimbursementRequest.setMoreInfo(false);
 			reimbursementRequest.setJustification(request.getParameter("workJustification"));
-			reimbursementRequest.setDirectMgrApprovalId(employee.getReportTo());
-			reimbursementRequest.setDeptHeadApprovalId(employee.getDepartmentHeadId());
+			reimbursementRequest.setDirectMgrApprovalId(0);
+			reimbursementRequest.setDeptHeadApprovalId(0);
 			reimbursementRequest.setBencoApprovalId(0);
 			reimbursementRequest.setDenied(false);
 			reimbursementRequest.setDeniedReason("");
+
+			reimbursementRequest.setPreApprovedSupervisorId(0);
+
+			// this checks the preapproval value
 			switch (Integer.parseInt(request.getParameter("preApproval"))) {
 			case 0:
 				reimbursementRequest.setPreApprovedSupervisorId(0);
@@ -47,15 +60,13 @@ public class ReimbursementController {
 				break;
 			}
 
-//			Part fileField = request.getPart("preApprovalFile");
-//			reimbursementRequest.setApprovalAttachmentname(fileField.getSubmittedFileName());
-//			reimbursementRequest.setApprovalAttachment(fileField.getInputStream());
-			
-			
-//			fileField = request.getPart("eventFile");
-//			reimbursementRequest.setEventFilename(fileField.getSubmittedFileName());
-//			reimbursementRequest.setEventFile(fileField.getInputStream());
-			 
+			// Part fileField = request.getPart("preApprovalFile");
+			// reimbursementRequest.setApprovalAttachmentname(fileField.getSubmittedFileName());
+			// reimbursementRequest.setApprovalAttachment(fileField.getInputStream());
+
+			// fileField = request.getPart("eventFile");
+			// reimbursementRequest.setEventFilename(fileField.getSubmittedFileName());
+			// reimbursementRequest.setEventFile(fileField.getInputStream());
 
 			if (request.getParameter("cost").isEmpty()) {
 				reimbursementRequest.setEventCost(0);
@@ -105,18 +116,6 @@ public class ReimbursementController {
 					new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("endDate")).getTime())
 							.toLocalDateTime().toLocalDate());
 
-			switch (Integer.parseInt(request.getParameter("eventType"))) {
-			case 0:
-				reimbursementRequest.setPreApprovedSupervisorId(0);
-				break;
-			case 1:
-				reimbursementRequest.setPreApprovedSupervisorId(employee.getReportTo());
-				break;
-			case 2:
-				reimbursementRequest.setPreApprovedSupervisorId(employee.getDepartmentHeadId());
-				break;
-			}
-
 			reimbursementRequest.setEventType(request.getParameter("eventType"));
 			reimbursementRequest.setExceedAvailibleComment("");
 
@@ -128,7 +127,7 @@ public class ReimbursementController {
 
 			reimbursementRequest.setRequestId(requestDaoImpl.insertCompleteRequest(reimbursementRequest));
 			System.out.println(reimbursementRequest.toString());
-		} catch (ParseException  e) {
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 

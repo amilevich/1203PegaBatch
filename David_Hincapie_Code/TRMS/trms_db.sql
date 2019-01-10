@@ -309,9 +309,6 @@ INNER JOIN gradingformat ON event.gradingformat=gradingformat.gformatid;
 
 
 
-
-
-
 SELECT * FROM empInfo;
 SELECT * FROM requestinfo;
 

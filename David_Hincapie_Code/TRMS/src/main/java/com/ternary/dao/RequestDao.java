@@ -33,6 +33,8 @@ public interface RequestDao {
 	// update request status
 	public void cancelRequest(int requestId);
 
+	public void updateGradeById(Request request);
+
 	// delete
 
 }

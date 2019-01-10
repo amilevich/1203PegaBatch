@@ -49,7 +49,7 @@
 				<div class="col-lg-12 well">
 					<div class="row">
 						<form id="details-form" class="details-form" method="POST"
-							action="reimbursement.do">
+							action="">
 
 							<input type="hidden" name="requestId" id="requestId" value="" />
 							<input type="hidden" name="empId" id="empId" value="" />
@@ -75,7 +75,7 @@
 										<div id="dateCompleted"></div>
 									</div>
 								</div>
-								
+
 								<hr>
 								<br>
 
@@ -86,16 +86,14 @@
 										</div>
 										<div class="panel-body">
 											<div>
-											<br>
+												<br>
 												<div class="row">
-													<div class="col-md-8 doubleField">
+													<div class="col-md-4 doubleField">
 														<label class="control-label" style="font-weight: bold;">Event
 															Type</label> <br>
 														<div id="eventType"></div>
 													</div>
-												</div>
-												<br>
-												<div class="row">
+
 													<div class="col-md-3">
 														<label style="font-weight: bold;" class="control-label">Cost</label>
 														<div id="eventCost"></div>
@@ -106,7 +104,7 @@
 														<div id="reimbCoverage"></div>
 													</div>
 												</div>
-												<br> <br>
+												<br> <br> <br>
 												<div class="row">
 													<div class="col-md-4 form-group">
 														<label style="font-weight: bold;" class="control-label">Event
@@ -130,13 +128,50 @@
 														Description:</label>
 													<div id="eventDescription"></div>
 												</div>
+												<br>
 												<div class="form-group">
 													<label style="font-weight: bold;" for="workJustification">Work
 														Justification:</label>
 													<div id="justification"></div>
 												</div>
 
+
 												<br>
+												<h4 class="panel-title control-label">Event Address</h4>
+											</div>
+											<div class="panel-body form-group">
+												<div id="address">
+													<div class="row">
+														<div class="col-md-8 doubleField">
+															<!-- <label class="control-label">Street address</label>-->
+															<div id="streetAddress"></div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-6">
+															<!-- <label class="control-label">City</label>-->
+															<!-- <div id="city"></div>-->
+															<div id="cityStateZip"></div>
+														</div>
+														<!--                                                <div class="col-md-6">
+                                                        <label class="control-label">State</label> 
+                                                        <div id="state"></div>
+                                                    </div>-->
+													</div>
+													<div class="row">
+														<!--                                                <div class="col-md-6">
+                                                        <label class="control-label">Zip code</label> 
+                                                        <div id="zipCode"></div>
+                                                    </div>-->
+														<div class="col-md-6">
+															<!-- <label class="control-label">Country</label>-->
+															<div id="country"></div>
+														</div>
+													</div>
+												</div>
+
+
+												<br> <br>
 												<div class="row">
 													<div class="col-sm-4 doubleField">
 														<label style="font-weight: bold;" class="control-label">Grade
@@ -144,12 +179,19 @@
 														<div id="gradeFormat"></div>
 													</div>
 
-													<div class="col-sm-6">
+													<div class="col-sm-4">
 														<label style="font-weight: bold;" class="control-label">Grade
 															Cutoff</label>
 														<div id="gradeCutoff"></div>
 													</div>
+
+													<div class="col-sm-4">
+														<label style="font-weight: bold;" class="control-label">Final
+															Grade</label>
+														<div id="finalGrade"></div>
+													</div>
 												</div>
+
 												<br> <br>
 
 												<div class="row">
@@ -171,77 +213,61 @@
 										</div>
 									</div>
 								</div>
-								<br>
-								<hr>
-								<br>
+							</div>
+							<br>
 
-								<div class="container">
-									<div class="panel panel-primary">
-										<div class="panel-heading">
-											<h4 class="panel-title">Event Address</h4>
-											<br>
+							<div class="row">
+								<div class="col-md-4 form-group">
+									<label class="control-label">Final Grade</label> <input
+										type="text" class="form-control field" id="finalGradeInput"
+										name=finalGradeInput onchange="onChangeFinalGrade();">
+								</div>
+								<div class="col-md-2"></div>
+								<div class="col-md-6 form-group">
+									<label for="eventFile">Presentation/Confirmation</label> <input
+										type="file" class="form-control-file btn-file"
+										id="presentationAttachment" name="presentationAttachment">
+								</div>
+							</div>
+
+							<hr>
+							<div class="container">
+								<div class="panel panel-primary">
+									<div class="row">
+										<div class="col-md-4">
+											<input type="button" style="width: 200px"
+												class="btn btn-outline-dark" value="Approve" id="approveBtn"
+												onclick="onClickApprove();" />
 										</div>
-										<div class="panel-body">
-											<div id="address">
-												<div class="row">
-													<div class="col-md-8 doubleField">
-														<!-- <label class="control-label">Street address</label>-->
-														<div id="streetAddress"></div>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-6">
-														<!-- <label class="control-label">City</label>-->
-														<!-- <div id="city"></div>-->
-														<div id="cityStateZip"></div>
-													</div>
-													<!--                                                <div class="col-md-6">
-                                                        <label class="control-label">State</label> 
-                                                        <div id="state"></div>
-                                                    </div>-->
-												</div>
-												<div class="row">
-													<!--                                                <div class="col-md-6">
-                                                        <label class="control-label">Zip code</label> 
-                                                        <div id="zipCode"></div>
-                                                    </div>-->
-													<div class="col-md-6">
-														<!-- <label class="control-label">Country</label>-->
-														<div id="country"></div>
-													</div>
-												</div>
-											</div>
+
+										<div class="col-md-4">
+											<input type="button" style="width: 200px"
+												class="btn btn-outline-dark" value="Deny" id="denyBtn"
+												onclick="onClickDeny();" />
+										</div>
+
+										<div class="col-md-4">
+											<input type="button" style="width: 200px"
+												class="btn btn-outline-dark" value="Cancel Reimbursement"
+												id="cancelBtn" onclick="onClickCancel();" />
 										</div>
 									</div>
 								</div>
 							</div>
-							<br> <br>
+							<br> <br> <br>
 							<div class="container">
-								<div class="panel panel-primary">
-									<div class="row">
-										<div class="col-md-6">
-											<input class="btn btn-outline-dark" value="Back" id="backBtn"
-												onclick="onClickBack();" />
-										</div>
-										<br>
-											<div class="col-md-6">
-											<input class="btn btn-outline-dark" value="Approve"
-												id="approveBtn" onclick="onClickApprove();" />
-										</div>
+								<div class="row">
+									<div class="col-md-4">
+										<input type="button" style="width: 200px"
+											class="btn btn-outline-dark" value="Back" id="backBtn"
+											onclick="onClickBack();" />
 									</div>
-									<br>
-									<div class="row">
-										<div class="col-md-6">
-											<input class="btn btn-outline-dark"
-												value="Cancel Reimbursement" id="cancelBtn"
-												onclick="onClickCancel();" />
-										</div>
-									
-										<div class="col-md-6">
-											<input class="btn btn-outline-dark" value="Deny" id="denyBtn"
-												onclick="onClickDeny();" />
-										</div>
-									
+									<div class="col-md-4"></div>
+									<div class="col-md-4">
+
+										<button
+											class="btn btn-outline-dark btn-block loginBtn text-uppercase"
+											id="submitBtn" value="" >Submit</button>
 									</div>
 								</div>
 							</div>

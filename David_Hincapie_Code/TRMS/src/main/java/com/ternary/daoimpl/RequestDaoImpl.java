@@ -94,6 +94,7 @@ public class RequestDaoImpl implements RequestDao {
 
 		System.out.println("RUNNING insertRequest");
 		requestId = insertRequest(request, eventId, gradeId);
+		request.setGradeId(gradeId);
 		// attachmentId =
 		// insertAttachment(request.getApprovalAttachment().getAbsolutePath(),
 		// requestId);
@@ -173,6 +174,23 @@ public class RequestDaoImpl implements RequestDao {
 			e.printStackTrace();
 		}
 		return rowAffected;
+	}
+
+	@Override
+	public void updateGradeById(Request request) {
+		Connection conn = cf.getConnection();
+		try {
+			// insert the grade values
+			String sql = "UPDATE grade SET finalGrade = ? WHERE gradeid = ?";
+
+			CallableStatement cs = conn.prepareCall(sql);
+			cs.setString(1, request.getFinalGrade());
+			cs.setInt(2, request.getGradeId());
+			cs.executeUpdate();
+			System.out.println("FINAL GRADE UPDATED");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -298,10 +316,8 @@ public class RequestDaoImpl implements RequestDao {
 
 			Connection connection = cf.getConnection();
 
-			String sql =  "SELECT requestInfo.*, empInfo.firstName, empInfo.lastName " + 
-                    "FROM requestInfo, empInfo " + 
-                   "WHERE requestInfo.requestID = ? " +
-                     "AND requestInfo.empId = empInfo.empId";
+			String sql = "SELECT requestInfo.*, empInfo.firstName, empInfo.lastName " + "FROM requestInfo, empInfo "
+					+ "WHERE requestInfo.requestID = ? " + "AND requestInfo.empId = empInfo.empId";
 
 			PreparedStatement ps = connection.prepareStatement(sql);
 			ps.setInt(1, reqId);
@@ -328,9 +344,9 @@ public class RequestDaoImpl implements RequestDao {
 
 				if (rs.getBlob("approvalAttachment") != null) {
 
-					//request.setApprovalAttachmentBlob(rs.getBlob("approvalAttachment"));
+					// request.setApprovalAttachmentBlob(rs.getBlob("approvalAttachment"));
 					request.setApprovalAttachmentname(rs.getString("approvalAttachmentName"));
-					//request.setApprovalAttachment(request.getApprovalAttachmentBlob().getBinaryStream());
+					// request.setApprovalAttachment(request.getApprovalAttachmentBlob().getBinaryStream());
 					//
 					// InputStream is = request.getApprovalAttachmentBlob().getBinaryStream();
 					// File file = new File(request.getApprovalAttachmentname());
@@ -346,9 +362,8 @@ public class RequestDaoImpl implements RequestDao {
 					// request.setApprovalAttachmentOut(fos);
 					// is.close();
 					// fos.close();
-//						request.getApprovalAttachment().close();
-				
-				
+					// request.getApprovalAttachment().close();
+
 				}
 
 				request.setEmployeeFirstName(rs.getString("firstname"));
@@ -383,7 +398,7 @@ public class RequestDaoImpl implements RequestDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		}
 
 		return request;
 
@@ -520,9 +535,9 @@ public class RequestDaoImpl implements RequestDao {
 					System.out.println(request.toString());
 				}
 				connection.close();
-			} else if (employee.getDepartmentName().contains("Benafits")) {
+			} else if (employee.getDepartmentName().contains("Benefits")) {
 				System.out.println("Benco Here");
-				String sql = "select * from requestinfo where (empid IN(select empid from empinfo where empid != ? and dptname !='Benafits'))";
+				String sql = "select * from requestinfo where (empid IN(select empid from empinfo where empid != ? and dptname !='Benefits'))";
 				PreparedStatement ps = connection.prepareStatement(sql);
 				ps.setInt(1, employee.getEmployeeId());
 				ResultSet rs = ps.executeQuery();
