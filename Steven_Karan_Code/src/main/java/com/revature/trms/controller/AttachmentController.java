@@ -56,7 +56,8 @@ public class AttachmentController {
 	public static String DownloadFile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
             AttachmentDAOImpl adi = new AttachmentDAOImpl();
-     		Attachment attachment = adi.getAttachment(59, resp);
+            int id = Integer.parseInt(req.getParameter("file-id"));
+     		Attachment attachment = adi.getAttachment(id, resp);
 		
 		return null;
 	}

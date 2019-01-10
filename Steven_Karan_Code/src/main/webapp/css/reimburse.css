@@ -6,3 +6,8 @@
 .event-date{
 	max-width:300px;
 }
+
+
+.full-width{
+	width: 100% !important;
+}

@@ -15,12 +15,12 @@ import com.revature.trms.validators.PasswordValidator;
 public class ProfileController {
 
 	public static String Profile(HttpServletRequest req, HttpServletResponse resp) {
-		System.out.println("Profile Controller");
+		//System.out.println("Profile Controller");
 		return "/html/profile.html";
 	}
 
 	public static String UpdateProfile(HttpServletRequest req, HttpServletResponse resp) {
-		System.out.println("Updating Profile");
+		//System.out.println("Updating Profile");
 		/*Enumeration<String> e = req.getParameterNames();
 		while(e.hasMoreElements()) {
 			String elem = e.nextElement();
@@ -72,11 +72,14 @@ public class ProfileController {
 		String new_username = req.getParameter("emp-user-name");
 		String new_email = req.getParameter("emp-email");
 		String new_password = req.getParameter("new-password");
+		System.out.println("new username: " + new_username);
+		System.out.println("new email: " + new_email);
+		System.out.println("new password: " + new_password);
 		
-		if(new_username == null || new_email == null || new_username.equals("") || new_email.equals("")) {
+		/*if(new_username == null || new_email == null || new_username.equals("") || new_email.equals("")) {
 			req.getSession().setAttribute("Alert", new Alert("danger", "Error: Missing required field(s)"));
 			return "/html/profile.html";
-		}
+		}*/
 		
 		employee.setUsername(new_username);
 		employee.setEmail(new_email);
@@ -84,17 +87,21 @@ public class ProfileController {
 		
 		
 		// Check that the new password is valid
-		if(new_password != null && !PasswordValidator.validatePassword(new_password)) {
+		if(!new_password.equals("") && !PasswordValidator.validatePassword(new_password)) {
 			req.getSession().setAttribute("Alert", new Alert("danger", "Error: Invalid new password"));
 			return "/html/profile.html";
 		}
 		
 		
-		String new_password_hashed = BCrypt.hashpw(new_password, BCrypt.gensalt());
+		
 		EmployeeDAOImpl edi = new EmployeeDAOImpl();
-		if( edi.updateEmployee(employee) && edi.updateEmployeePassword(employee.getEmp_id(), new_password_hashed)) {
-			
-			req.setAttribute("success", "Your profile has been updated.");
+		
+		if( edi.updateEmployee(employee)) {
+			if(!new_password.equals("")) {
+				String new_password_hashed = BCrypt.hashpw(new_password, BCrypt.gensalt());
+				edi.updateEmployeePassword(employee.getEmp_id(), new_password_hashed);
+			}
+			req.getSession().setAttribute("Alert", new Alert("success", "Your profile has been updated."));
 			
 		}else {
 			req.getSession().setAttribute("Alert", new Alert("danger", "Error occurred while trying to update profile information. Please try again later. "));

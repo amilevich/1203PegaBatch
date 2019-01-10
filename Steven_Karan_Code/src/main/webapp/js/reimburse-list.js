@@ -241,9 +241,9 @@ function createReimbursementView(reimb,id, assigned){
 										'<input type="text" id="state'+id+'" class="form-control p full-width"'+
 											'value="'+state+'" readonly>'+
 									'</div>'+
-									'<div class="col-lg-1 col-md-1 col-sm-6">'+
+									'<div class="col-lg-1 col-md-1 col-sm-6 w-100">'+
 										'<label class="inline-label" for="event-address-zip">Zip'+
-											'Code</label>'+
+											'</label>'+
 									'</div>'+
 									'<div class="col-lg-2 col-md-2 col-sm-6">'+
 										'<input type="text" id="zipcode'+id+'"'+

@@ -23,7 +23,7 @@ public class ReimbursementListController {
 	public static String ReimbursementList(HttpServletRequest req) {
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		// Ensure that user is authenticated...
-		System.out.println(emp);
+		//System.out.println(emp);
 		if (emp == null) {
 			return "/html/login.html";
 		}
@@ -33,11 +33,11 @@ public class ReimbursementListController {
 	public static String PersonalReimbursementListJSON(HttpServletRequest req, HttpServletResponse resp) {
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		if (emp != null) {
-			System.out.println("Processing Personal Reimbursement List");
+			//System.out.println("Processing Personal Reimbursement List");
 			try {
 				ArrayList<Reimbursement> reimb_list = new ReimbursementDAOImpl()
 						.getAllReimbursementByEmployee(emp.getEmp_id());
-				System.out.println(reimb_list);
+				//System.out.println(reimb_list);
 				resp.getWriter().write(new ObjectMapper().writeValueAsString(reimb_list));
 			} catch (JsonProcessingException ex) {
 				ex.printStackTrace();
@@ -49,7 +49,7 @@ public class ReimbursementListController {
 	}
 
 	public static String AssignReimbursementListJSON(HttpServletRequest req, HttpServletResponse resp) {
-		System.out.println("Processing Assigned Reimbursement List");
+		//System.out.println("Processing Assigned Reimbursement List");
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 		if (emp != null) {
 			try {
@@ -75,7 +75,7 @@ public class ReimbursementListController {
 	}
 
 	public static String SelectAction(HttpServletRequest req) {
-		System.out.println("In select Action");
+		//System.out.println("In select Action");
 		Employee emp = (Employee) req.getSession().getAttribute("Employee");
 
 		String action = req.getParameter("action");
