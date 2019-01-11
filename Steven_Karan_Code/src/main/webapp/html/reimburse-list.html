@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="h-100">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Reimbursements List!</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="../css/styles.css">
+<link rel="stylesheet" type="text/css" href="../css/reimburse.css">
+<link rel="stylesheet" type="text/css" href="../css/buttons.css">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+</head>
+
+<body class="d-flex felx-column h-100 pt-5">
+	
+	<header>
+
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<a href="#" class="navbar-brand m-2">ReimBURST</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-items" aria-controls="navbar-items" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+  		</button>
+
+  		<!-- Navbar items -->
+		<div class="collapse navbar-collapse" id="navbar-items">
+			<ul class="navbar-nav mr-auto">
+
+
+				<li class="nav-item text-center" id="reimb-nav" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/reimburse.html">Tuition Reimbursement Form</a></li>
+				<li class="nav-item text-center" id="reimb-list-nav" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/reimburse-list.html">Pending Assignments</a></li>
+				<li class="nav-item text-center" id="reimb-stats" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/stats.html">Reimbursement Statistics</a></li>
+				<li class="nav-item text-center" id="empl-profile" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/profile.html">Profile</a></li>
+				
+			</ul>
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="logout" onclick="logout()"hidden>Logout</button>
+			</div>
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="login" onclick="window.location='http://localhost:9000/ReimbursementSystem/html/login.html' "hidden>Login</button>
+			</div>
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="register" onclick="window.location='http://localhost:9000/ReimbursementSystem/html/register.html' "hidden>Register</button>
+			</div>
+		</div>
+
+	</nav>
+
+	</header>
+	<main class="container mt-5">
+	<div class="container" id="alert"></div>
+	<div id="mdb-preloader" class="flex-center">
+		<div id="preloader-markup"></div>
+	</div>
+	<div class="container">
+		<div class="title">
+			<h1>Reimbursements</h1>
+			<ul class="nav">
+				<li class="nav-item"><a class="nav-link active"
+					href="#personals" id="personal_list">Personal List</a></li>
+				<li class="nav-item"><a class="nav-link" href="#assignments"
+					id="assigned_list">Assignment List</a></li>
+			</ul>
+			<hr>
+		</div>
+
+		<div class="accordion md-accordion accordion-4" id="accordionReimb">
+			<div class="text-center">
+				<div class="spinner-border text-center"
+					style="width: 5rem; height: 5rem;" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--Modal used to pop up additional information request form  -->
+	<div class="modal fade" id="requesAddtInfo" tabindex="-1" role="dialog"
+		aria-labelledby="requesAddtInfoLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Request for
+						Additional Information</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<label for="sent-to" class="col-form-label">Send to:</label> <select
+								class="form-control" id="send-to" name="sent-to">
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="message-text" class="col-form-label">Message:</label>
+							<textarea class="form-control" id="message-text"></textarea>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Send Request</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</main>
+	
+
+	<!-- Bootstrap -->
+	<script type="text/javascript" src="../js/alert.js"></script>
+	<script type="text/javascript" src="../js/personal.js"></script>
+	<script type="text/javascript" src="../js/reimburse-list.js"></script>
+	<script type="text/javascript" src="../js/navbar.js"></script>
+	<script type="text/javascript" src="../js/logout.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+
+</body>
+
+</html>

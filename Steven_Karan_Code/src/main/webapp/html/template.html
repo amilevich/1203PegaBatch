@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html class="h-100">
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="../css/styles.css">
+<link rel="stylesheet" type="text/css" href="../css/buttons.css">
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+</head>
+<body class="d-flex flex-column h-100 pt-5">
+	
+	<header>
+
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<a href="#" class="navbar-brand m-2">ReimBURST</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-items" aria-controls="navbar-items" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+  		</button>
+
+  		<!-- Navbar items -->
+		<div class="collapse navbar-collapse" id="navbar-items">
+			<ul class="navbar-nav mr-auto">
+
+
+				<li class="nav-item text-center" id="reimb-nav" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/reimburse.html">Tuition Reimbursement Form</a></li>
+				<li class="nav-item text-center" id="reimb-list-nav" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/reimburse-list.html">Pending Assignments</a></li>
+				<li class="nav-item text-center" id="reimb-stats" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/stats.html">Reimbursement Statistics</a></li>
+				<li class="nav-item text-center" id="empl-profile" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/profile.html">Profile</a></li>
+				
+			</ul>
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="logout" onclick="logout()"hidden>Logout</button>
+			</div>
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="login" onclick="window.location='http://localhost:9000/ReimbursementSystem/html/login.html' "hidden>Login</button>
+			</div>
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="register" onclick="window.location='http://localhost:9000/ReimbursementSystem/html/register.html' "hidden>Register</button>
+			</div>
+		</div>
+
+	</nav>
+
+	</header>
+	
+	<!-- Footer -->
+	<footer class="footer mt-auto bg-dark text-center">
+		<div class="my-1">
+			<small class="text-muted">©2019 Team Burst</small>
+		</div>
+	</footer>
+
+	<main class="container mt-5">
+	<!-- Content -->
+	<div class="container" id="alert"></div>
+		
+		<div class="container">
+		
+		</div>
+
+	</main>
+
+	<!-- Footer -->
+	<footer class="footer mt-auto bg-dark text-center">
+		<div class="my-1">
+			<small class="text-muted">©2019 Team Burst</small>
+		</div>
+	</footer>
+
+	<script type="text/javascript" src="../js/alert.js"></script>
+	<script type="text/javascript" src="../js/stats.js"></script>
+	<script type="text/javascript" src="../js/navbar.js"></script>
+	<script type="text/javascript" src="../js/logout.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+		integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+		integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

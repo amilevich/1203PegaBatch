@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+
+body{
+	font-family: 'Raleway', sans-serif;
+}
+
+main{
+	margin-bottom:3rem;
+}
+
+.inline-label{
+	text-align: left;
+	display: inline-block !important;
+}

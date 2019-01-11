@@ -1,0 +1,185 @@
+/*Custom buttons generated*/
+.btn-submit { 
+  color: #ffffff; 
+  background-color: #25BAB5; 
+  border-color: #2DCCC7; 
+} 
+ 
+.btn-submit:hover, 
+.btn-submit:focus, 
+.btn-submit:active, 
+.btn-submit.active, 
+.open .dropdown-toggle.btn-submit { 
+  color: #ffffff; 
+  background-color: #1A807D; 
+  border-color: #2DCCC7; 
+} 
+ 
+.btn-submit:active, 
+.btn-submit.active, 
+.open .dropdown-toggle.btn-submit { 
+  background-image: none; 
+} 
+ 
+.btn-submit.disabled, 
+.btn-submit[disabled], 
+fieldset[disabled] .btn-submit, 
+.btn-submit.disabled:hover, 
+.btn-submit[disabled]:hover, 
+fieldset[disabled] .btn-submit:hover, 
+.btn-submit.disabled:focus, 
+.btn-submit[disabled]:focus, 
+fieldset[disabled] .btn-submit:focus, 
+.btn-submit.disabled:active, 
+.btn-submit[disabled]:active, 
+fieldset[disabled] .btn-submit:active, 
+.btn-submit.disabled.active, 
+.btn-submit[disabled].active, 
+fieldset[disabled] .btn-submit.active { 
+  background-color: #25BAB5; 
+  border-color: #2DCCC7; 
+} 
+ 
+.btn-submit .badge { 
+  color: #25BAB5; 
+  background-color: #ffffff; 
+}
+
+
+.btn-upload { 
+  color: #ffffff; 
+  background-color: #274060; 
+  border-color: #8C96A3; 
+} 
+ 
+.btn-upload:hover, 
+.btn-upload:focus, 
+.btn-upload:active, 
+.btn-upload.active, 
+.open .dropdown-toggle.btn-upload { 
+  color: #ffffff; 
+  background-color: #18283D; 
+  border-color: #8C96A3; 
+} 
+ 
+.btn-upload:active, 
+.btn-upload.active, 
+.open .dropdown-toggle.btn-upload { 
+  background-image: none; 
+} 
+ 
+.btn-upload.disabled, 
+.btn-upload[disabled], 
+fieldset[disabled] .btn-upload, 
+.btn-upload.disabled:hover, 
+.btn-upload[disabled]:hover, 
+fieldset[disabled] .btn-upload:hover, 
+.btn-upload.disabled:focus, 
+.btn-upload[disabled]:focus, 
+fieldset[disabled] .btn-upload:focus, 
+.btn-upload.disabled:active, 
+.btn-upload[disabled]:active, 
+fieldset[disabled] .btn-upload:active, 
+.btn-upload.disabled.active, 
+.btn-upload[disabled].active, 
+fieldset[disabled] .btn-upload.active { 
+  background-color: #274060; 
+  border-color: #8C96A3; 
+} 
+ 
+.btn-upload .badge { 
+  color: #274060; 
+  background-color: #ffffff; 
+}
+
+.btn-login { 
+  color: #ffffff; 
+  background-color: #03B9F0; 
+  border-color: #03B9F0; 
+} 
+ 
+.btn-login:hover, 
+.btn-login:focus, 
+.btn-login:active, 
+.btn-login.active, 
+.open .dropdown-toggle.btn-login { 
+  color: #ffffff; 
+  background-color: #0D718F; 
+  border-color: #03B9F0; 
+} 
+ 
+.btn-login:active, 
+.btn-login.active, 
+.open .dropdown-toggle.btn-login { 
+  background-image: none; 
+} 
+ 
+.btn-login.disabled, 
+.btn-login[disabled], 
+fieldset[disabled] .btn-login, 
+.btn-login.disabled:hover, 
+.btn-login[disabled]:hover, 
+fieldset[disabled] .btn-login:hover, 
+.btn-login.disabled:focus, 
+.btn-login[disabled]:focus, 
+fieldset[disabled] .btn-login:focus, 
+.btn-login.disabled:active, 
+.btn-login[disabled]:active, 
+fieldset[disabled] .btn-login:active, 
+.btn-login.disabled.active, 
+.btn-login[disabled].active, 
+fieldset[disabled] .btn-login.active { 
+  background-color: #03B9F0; 
+  border-color: #03B9F0; 
+} 
+ 
+.btn-login .badge { 
+  color: #03B9F0; 
+  background-color: #ffffff; 
+}
+
+.btn-logout { 
+  color: #ffffff; 
+  background-color: #0D718F; 
+  border-color: #0D718F; 
+} 
+ 
+.btn-logout:hover, 
+.btn-logout:focus, 
+.btn-logout:active, 
+.btn-logout.active, 
+.open .dropdown-toggle.btn-logout { 
+  color: #ffffff; 
+  background-color: #094C61; 
+  border-color: #0D718F; 
+} 
+ 
+.btn-logout:active, 
+.btn-logout.active, 
+.open .dropdown-toggle.btn-logout { 
+  background-image: none; 
+} 
+ 
+.btn-logout.disabled, 
+.btn-logout[disabled], 
+fieldset[disabled] .btn-logout, 
+.btn-logout.disabled:hover, 
+.btn-logout[disabled]:hover, 
+fieldset[disabled] .btn-logout:hover, 
+.btn-logout.disabled:focus, 
+.btn-logout[disabled]:focus, 
+fieldset[disabled] .btn-logout:focus, 
+.btn-logout.disabled:active, 
+.btn-logout[disabled]:active, 
+fieldset[disabled] .btn-logout:active, 
+.btn-logout.disabled.active, 
+.btn-logout[disabled].active, 
+fieldset[disabled] .btn-logout.active { 
+  background-color: #0D718F; 
+  border-color: #0D718F; 
+} 
+ 
+.btn-logout .badge { 
+  color: #0D718F; 
+  background-color: #ffffff; 
+}

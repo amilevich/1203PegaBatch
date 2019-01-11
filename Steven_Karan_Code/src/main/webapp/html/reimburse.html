@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="h-100">
+<head>
+	<meta charset="UTF-8">
+	<title>Reimbursements!</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="../css/styles.css">
+	<link rel="stylesheet" type="text/css" href="../css/buttons.css">
+	<link rel="stylesheet" type="text/css" href="../css/reimburse.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+</head>
+
+<body class="d-flex flex-column h-100 pt-5">
+	<header>
+
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		<a href="#" class="navbar-brand m-2">ReimBURST</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-items" aria-controls="navbar-items" aria-expanded="false" aria-label="Toggle navigation">
+    	<span class="navbar-toggler-icon"></span>
+  		</button>
+
+  		<!-- Navbar items -->
+		<div class="collapse navbar-collapse" id="navbar-items">
+			<ul class="navbar-nav mr-auto">
+
+
+				<li class="nav-item text-center" id="reimb-nav" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/reimburse.html">Tuition Reimbursement Form</a></li>
+				<li class="nav-item text-center" id="reimb-list-nav" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/reimburse-list.html">Pending Assignments</a></li>
+				<li class="nav-item text-center" id="reimb-stats" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/stats.html">Reimbursement Statistics</a></li>
+				<li class="nav-item text-center" id="empl-profile" hidden><a class="nav-link" href="http://localhost:9000/ReimbursementSystem/html/profile.html">Profile</a></li>
+				
+			</ul>
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="logout" onclick="logout()"hidden>Logout</button>
+			</div>
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="login" onclick="window.location='http://localhost:9000/ReimbursementSystem/html/login.html' "hidden>Login</button>
+			</div>
+
+			<div class="m-2">
+				<button class="btn btn-logout nav-item" id="register" onclick="window.location='http://localhost:9000/ReimbursementSystem/html/register.html' "hidden>Register</button>
+			</div>
+		</div>
+
+	</nav>
+
+	</header>
+
+
+	<main class="container mt-5">
+	<div id="alert" class="container"></div> 
+
+	<div class="container">
+		<div class="title">
+			<h1>Reimbursement Form</h1>
+			<hr>
+		</div>
+		
+
+	<!-- Form begins here -->
+	<form method="POST" action="reimburse.do" id="reimburse-form" enctype="multipart/form-data">
+		<!-- Event info -->
+			<h3>Event Information</h3>
+			<hr>
+
+			<div class="form-row form-group form-inline">
+				<div class="col-lg-1 col-md-1 col-sm-12">
+					<label class="inline-label" for="event-type">Type</label>
+				</div>
+
+				<div class="col-lg-2 col-md-5 col-sm-12">
+					<!-- type -->
+					<select class="form-control w-100" id="event-type" name="event-type" form="reimburse-form">
+						<option value="Course">Course</option>
+					    <option value="Seminar">Seminar</option>
+					    <option value="Certification">Certification</option>
+					    <option value="Certification Prep">Certification Prep</option>
+					    <option value="Technical-Training">Technical Training</option>
+					    <option value="Other">Other</option>
+					</select>
+				</div>
+
+				<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-2 offset-md-1">
+					<label class="inline-label" for="work-missed">Hours Missed</label>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-4">
+					<input class="form-control" type="number" id="work-missed" min="1" step="1" max="1000" name="work-missed" required>
+				</div>
+				
+			</div>
+
+			<div class="form-row form-group form-inline">
+				<div class="col-lg-1 col-md-1 col-sm-12">
+					<label class="inline-label" for="event-date">Date</label>
+				</div>
+
+				<div class="col-lg-3 col-md-5 col-sm-12">
+					<input class="form-control" id="datepicker" type="date" name="event-date" required>
+				</div>
+
+				
+				<div class="col-lg-1 col-md-1 col-sm-12 offset-md-1 offset-lg-1">
+					<!-- time -->
+					<label class="inline-label" for="event-date">Time</label>
+				</div>
+				<div class="col-lg-2 col-md-2 col-sm-12">
+					<input class="form-control" type="time" name="event-time" required>
+				</div>
+			</div>
+
+			<div class="form-row form-group form-inline">
+				<div class="col-lg-1 col-md-2 col-sm-12">
+					<label class="inline-label" for="grade-format">Grade Format</label>
+				</div>
+
+				<div class="col-lg-2 col-md-4 col-sm-12">
+					<!-- type -->
+					<select class="form-control w-100" id="grade-format" name="grade-format" form="reimburse-form">
+						<option value="letter-grade">A-F</option>
+					    <option value="number-grade">0-100</option>
+					    <option value="pass-fail">Pass/Fail</option>
+					</select>
+				</div>
+
+
+				<div class="col-lg-1 col-md-1 col-sm-12 offset-lg-2 offset-md-1">
+					<label class="inline-label" for="passing-grade">Passing Grade</label>
+				</div>
+
+				<div class="col-lg-2 col-md-2 col-sm-12">
+					<input class="form-control" type="text" name="passing-grade">
+				</div>
+
+			</div>
+
+			<!-- work time missed (# of hours) -->
+			<div class="form-group form-row">
+				<div class="col-lg-1 col-md-1 col-sm-12 mt-1 h-100">
+					<label class="inline-label" for="event-cost">Cost</label>
+				</div>
+				<div class="input-group col-lg-2 col-md-3 col-sm-6">
+					<div class="input-group-prepend">
+						<div class="input-group-text">$</div>
+					</div>
+					<input class="form-control input-block-level h-100" type="number" id="event-cost" max= "10000" min="0.00" step="0.01" name="event-cost" placeholder=""> 
+				</div>
+				
+				<!-- Projected Reimbursement (readonly/disabled, computed serverside) -->
+				<div class="col-lg-2 col-md-3 col-sm-12 offset-lg-1 offset-md-1 mt-1 w-100">
+					<label class="inline-label" for="reimbursement">Estimated Refund</label>
+				</div>
+				<div class="input-group col-lg-2 col-md-4 col-sm-6">
+					<div class="input-group-prepend">
+						<div class="input-group-text">$</div>
+					</div>
+					<input class="form-control input-block-level h-100" type="number" id="reimbursement" min="0.01" name="reimbursement" placeholder="" readonly> 
+				</div>
+			</div>
+
+
+		<hr>
+
+
+		<label for="event-location"> <h5> Location </h5> </label>
+		<!-- Location of event VIA google places api -->
+		<div id="locationField" class="form-row form-group">
+			<input type="text" name="event-location" id="autocomplete" placeholder="Enter the address of the event" class="form-control" onfocus="geolocate()" required>
+		</div>
+		<!-- 
+			ids used in places api autocomplete in order:
+			street_number
+			route
+			locality
+			administrative_area_level_1
+			postal_code
+			country
+		 -->
+
+	 	<div class="form-row form-group form-inline">
+	 		<div class="col-lg-2 col-md-2 col-sm-6">
+				<label class="inline-label" for="street-num">Street Number</label>
+			</div>
+
+	 		<div class="col-lg-3 col-md-4 col-sm-6 mb-sm-2">
+		 		<input type="text" name="street-num" id="street_number" class="form-control p w-100" required>
+			</div>
+
+			<div class="col-lg-1 col-md-1 col-sm-6">
+				<label class="inline-label" for="event-address-street">Street</label>
+			</div>
+
+			<div class="col-lg-3 col-md-3 col-sm-6">
+		 		<input type="text" name="event-address-street" id="route" class="form-control p w-100" required>
+		 	</div>
+		 </div>
+	 	
+	 	
+	 	<div class="form-row form-group form-inline">
+	 		<div class="col-lg-2 col-md-2 col-sm-6">
+				<label class="inline-label" for="event-address-city">City</label>
+			</div>
+	 		<div class="col-lg-3 col-md-3 col-sm-6 mb-sm-2">
+		 		<input type="text" name="event-address-city" id="locality" class="form-control p w-100" required>
+		 	</div>
+
+		 	<div class="col-lg-1 col-md-1 col-sm-6">
+				<label class="inline-label" for="event-address-state">State</label>
+			</div>
+		 	<div class="col-lg-2 col-md-2 col-sm-6 mb-sm-2">
+		 		<input type="text" name="event-address-state" id="administrative_area_level_1" class="form-control p w-100" required>
+		 	</div>
+
+		 	<div class="col-lg-1 col-md-1 col-sm-6">
+				<label class="inline-label" for="event-address-zip">Zip Code</label>
+			</div>
+		 	<div class="col-lg-2 col-md-2 col-sm-6 mb-sm-3">
+		 		<input type="text" name="event-address-zip" id="postal_code" class="form-control p w-100" required>
+		 	</div>
+		 </div>
+
+	 	
+	 	<div class="form-row">
+	 		<div class="col-lg-2 col-md-2 col-sm-6">
+				<label class="inline-label" for="event-address-country">Country</label>
+			</div>
+	 		<div class="col-sm-6">
+	 			<input type="text" name="event-address-country" id="country" class="form-control p" required>
+	 		</div>
+	 	</div>
+
+	 	<hr>
+
+
+		<div class="form-group">
+			<div class="form-row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<!-- description -->
+					<label for="description">Description</label>
+					<textarea class="form-control" type="text" id="description" name="description" maxarea="1000" placeholder="Enter a brief description of the event" required></textarea>
+					<small>Limit: </small> <small id="desc-limit">1000</small> <small>characters</small>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="form-group">
+			<div class="form-row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<!-- work related justification -->
+					<label for="justification">Justification</label>
+					<textarea class="form-control" type="text" id="justification" name="justification" maxarea="1000"placeholder="Enter a brief justification for attending the event" required></textarea>
+					<small>Limit: </small> <small id="just-limit">1000</small> <small>characters</small>
+				</div>
+			</div>
+		</div>
+
+
+		<hr>
+
+		<!-- projected amount reimbursed -->
+
+
+		<!-- attachments -->
+
+		<div class="form-group">
+			<div class="form-row">
+				<h3>Attachments</h3>
+			</div>
+			<div class="form-row">
+				<div class="col-lg-2 col-md-3 col-sm-6">
+					<div class="w-100">
+						<label class="btn btn-upload">
+							<i class="fa fa-cloud-upload"></i> Attach Files 
+							<input type="file" style="display: none;" id="attach-input" name="files" multiple>
+						</label>
+					</div>
+				</div> 
+			</div>
+
+			<div class="form-row">
+				<div class="col-lg-6 col-md-6 col-sm-6">
+					<div class="w-100" id="filenames">
+							
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	<!-- form end -->
+	
+
+	<!-- submit button -->
+		<div>
+			<button type="submit" class="btn btn-lg btn-submit">Submit</button>
+		</div>
+	</form>
+
+	</main>
+
+	<!-- Footer -->
+	<footer class="footer mt-auto bg-dark text-center">
+		<div class="my-1">
+			<small class="text-muted">©2019 Team Burst</small>
+		</div>
+	</footer>
+
+	<!-- Custom JS -->
+	<script type="text/javascript" src="../js/alert.js"></script>
+	<script type="text/javascript" src="../js/reimburse.js"></script>
+	<script type="text/javascript" src="../js/address.js"></script>
+	<script type="text/javascript" src="../js/navbar.js"></script>
+	<script type="text/javascript" src="../js/logout.js"></script>
+
+	<!-- Google Places -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL2l3EineQlhQVPSaM629sjB2Y_yVhCME&libraries=places&callback=initAutocomplete"async defer></script>
+
+	<!-- Bootstrap -->
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>
