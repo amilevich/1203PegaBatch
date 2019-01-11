@@ -25,17 +25,29 @@ public class AttachmentController {
 		
 		
 		ArrayList<Part> files = new ArrayList<>(req.getParts());
-	
+		boolean hasFiles = false;
+		
+		for(int i = 0; i < files.size(); i++) {
+			if(files.get(i)!= null && files.get(i).getContentType()!= null && !files.get(i).getSubmittedFileName().equals("")) {
+				hasFiles = true;
+				break;
+			}
+		}
+		
+		
+		if(!hasFiles) {
+			return true;
+		}
 		
 		if(files.size() == 0) {
-			System.out.println("file field null");
+			
 			Alert alert = new Alert("danger", "Error uploading files specified");
 			req.getSession().setAttribute("Alert", alert);
 			return false;
 		}
 		
 		files.forEach(file -> {
-			if(file.getContentType() == null) {
+			if(file == null || file.getContentType()== null || file.getSubmittedFileName().equals("")) {
 				return;
 			}
 			

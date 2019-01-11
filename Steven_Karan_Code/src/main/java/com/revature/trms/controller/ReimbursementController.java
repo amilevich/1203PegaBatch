@@ -68,6 +68,11 @@ public class ReimbursementController {
 		
 		Event event = new Event();
 		event.setType_name(req.getParameter("event-type"));
+		String date_str = req.getParameter("event-date");
+		if(date_str == null|| date_str.equals("")) {
+			req.getSession().setAttribute("Alert", new Alert("danger", "Error: Invalid Date Entered."));
+			return "/html/reimburse.html";
+		}
 		Date event_date = Date.valueOf(req.getParameter("event-date"));
 		event.setStart_date(event_date.toLocalDate());
 		String event_date_time_str = req.getParameter("event-date") + " " + req.getParameter("event-time");
@@ -78,7 +83,7 @@ public class ReimbursementController {
 		try {
 			date = simpleDateFormat.parse(event_date_time_str);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			req.getSession().setAttribute("Alert", new Alert("danger", "Error: Invalid Time Entered."));
 			return "/html/reimburse.html";
 		}
 		
@@ -106,7 +111,8 @@ public class ReimbursementController {
 		reimb.setEmployee(emp);
 		// Setting request_date to today:
 		reimb.setRequest_date(LocalDate.now());
-		reimb.setJustification(req.getParameter("justification"));
+		String justify = req.getParameter("justification");
+		reimb.setJustification(justify == null?"":justify);
 		reimb.setFund_awarded(Double.parseDouble(req.getParameter("reimbursement")));
 		
 		//Setting reimbursement status
