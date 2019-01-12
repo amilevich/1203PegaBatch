@@ -15,6 +15,7 @@ function getApplicationInfo() {
             document.getElementById("managerfirstname").value = session.manager.firstName;
             document.getElementById("lastname").value = session.employee.lastName;
             document.getElementById("managerlastname").value = session.manager.lastName;
+            document.getElementById("department").value = session.department.departmentName;
             
             console.log("session=" + xhttp.responseText);
         

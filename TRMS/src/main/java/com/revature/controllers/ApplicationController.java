@@ -25,33 +25,22 @@ public class ApplicationController {
 	
 	public static String ReimForm(HttpServletRequest request) {
 		
-		ApplicationDaoImpl empDaoImpl = new ApplicationDaoImpl();
+		ApplicationDaoImpl appDaoImpl = new ApplicationDaoImpl();
 		EmployeeDaoImpl employeeDaoImpl = new EmployeeDaoImpl();
 		Employee employee = (Employee)request.getSession().getAttribute("Employee");
-		DepartmentDaoImpl departDaoImpl = new DepartmentDaoImpl();
-		ManagementDaoImpl managementDaoImpl = new ManagementDaoImpl();
 		EventDaoImpl eventDaoImpl = new EventDaoImpl();
 		Application application = new Application();
-		Department department = new Department();
+		Department department = (Department)request.getSession().getAttribute("Department");
 		Management management = (Management)request.getSession().getAttribute("Management");
 		Event event = new Event();
 		int TotalReimbursement = 1000;
-		
-		System.out.println(employee.getUserId());
-		
+				
 		application.setFirstName(request.getParameter("firstname"));
-	
+			
 		application.setLastName(request.getParameter("lastname"));
 		
 		application.setEmail(request.getParameter("email"));
 		
-		department.setDepartmentName(request.getParameter("department"));
-		try {
-			departDaoImpl.selectDepartment(department);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		application.setDepartmentId(department.getDepartmentId());
 		
 		application.setManagerId(management.getManagementId());
@@ -63,18 +52,19 @@ public class ApplicationController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		request.getSession().setAttribute("Event", event);
+		
 		application.setEventId(event.getEventId());
 		
 		application.setEventLocation(request.getParameter("eventlocation"));
-		application.setGradeFormat(request.getParameter("gradeformat"));
-		application.setEventCost(Double.parseDouble(request.getParameter("eventcost")));
 		
-		//DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		application.setGradeFormat(request.getParameter("gradeformat"));
+		
+		application.setEventCost(Double.parseDouble(request.getParameter("eventcost")));
 	
 		application.setEventDate((String)request.getParameter("eventdate"));
 		
 		employee.setPendingReimbursement(application.getEventCost()*event.getConverage());
-		//employee.setAvaiReimbursement(TotalReimbursement - employee.getPendingReimbursement() - employee.getAwaredReimbursement()); 
 		
 		try {
 			employeeDaoImpl.updateReimbursementAmounts(employee);
@@ -101,7 +91,7 @@ public class ApplicationController {
 		application.setApprovedAttahment(null);
 		
 		try {
-			empDaoImpl.insertEmployInfo(application);
+			appDaoImpl.insertEmployInfo(application);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -114,18 +104,18 @@ public class ApplicationController {
 		if (request.getMethod().equals("GET")) {
 			return "/html/Login.html";
 		}
-		
 			
-			return "/html/EmployeeApplication.html";
+		return "/html/EmployeeApplication.html";
 	}
 	
 	public static String ApplicationJSON(HttpServletRequest request, HttpServletResponse response) {
 		Employee employee = (Employee)request.getSession().getAttribute("Employee");
 		Management management = (Management)request.getSession().getAttribute("Management");
 		Login login = (Login)request.getSession().getAttribute("Login");
+		Department department = (Department)request.getSession().getAttribute("Department");
 		
 		// ObjectMapper converts an object to a string
-		Sessions sessions = new Sessions(management, employee, login);
+		Sessions sessions = new Sessions(management, employee, login, department);
 		try {
 			response.getWriter().write(new ObjectMapper().writeValueAsString(sessions));
 		} catch (JsonProcessingException e) {

@@ -28,7 +28,8 @@ public class RequestHelper {
 			return ApplicationController.ApplicationForm(request, response);
 		
 		case "/TRMS/html/ApplicationJSON.do":
-			return ApplicationController.ApplicationJSON(request, response);	
+			return ApplicationController.ApplicationJSON(request, response);
+			
 		default:
 			return "/html/Login.html";
 		}

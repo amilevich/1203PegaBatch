@@ -26,8 +26,6 @@ public class HomeController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-	    System.out.println(login.getUsername());
 		return null;
 	}
 

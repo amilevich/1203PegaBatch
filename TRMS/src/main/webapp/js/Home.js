@@ -18,6 +18,5 @@ function getLoginInfo() {
 }
 
 function gotoform(){
-	var x = document.getElementById("applicationForm");
-	x.submit();
+	document.getElementById("applicationForm").submit();
 }

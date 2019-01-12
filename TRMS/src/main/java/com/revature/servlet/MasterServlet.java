@@ -18,7 +18,6 @@ public class MasterServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		RequestHelper.process(request, response);
 	}
 
@@ -27,5 +26,4 @@ public class MasterServlet extends HttpServlet {
 		String targetURL = RequestHelper.process(request, response);
 		request.getRequestDispatcher(targetURL).forward(request, response);
 	}
-
 }

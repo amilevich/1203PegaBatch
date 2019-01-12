@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.revature.bean.Department;
+import com.revature.bean.Employee;
+import com.revature.bean.Management;
 import com.revature.dao.DepartmentDao;
 
 public class DepartmentDaoImpl implements DepartmentDao {
@@ -24,14 +26,15 @@ public class DepartmentDaoImpl implements DepartmentDao {
 	private static String password = "p4ssw0rd";
 	
 	@Override
-	public void selectDepartment(Department department) throws SQLException {
+	public void selectEmployeeDepartment(Department department, Employee employee) throws SQLException {
 		
 		try (Connection conn = DriverManager.getConnection(url, username, password)) {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM department WHERE department_name=?");
-			ps.setString(1, department.getDepartmentName());
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM department WHERE department_id=?");
+			ps.setInt(1, employee.getDepartmentId());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 					department.setDepartmentId(rs.getInt("department_id"));
+					department.setDepartmentName(rs.getString("department_name"));
 				}
 			} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -39,4 +42,20 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		}
 	}
 
+	@Override
+	public void selectManagementDepartment(Department department, Management management) throws SQLException {
+
+		try (Connection conn = DriverManager.getConnection(url, username, password)) {
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM department WHERE department_id=?");
+			ps.setInt(1, management.getDepartmentId());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+					department.setDepartmentId(rs.getInt("department_id"));
+					department.setDepartmentName(rs.getString("department_name"));
+				}
+			} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
