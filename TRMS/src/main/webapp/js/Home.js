@@ -10,13 +10,14 @@ function getLoginInfo() {
 	xhttp.onreadystatechange = function() {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
 			let login = JSON.parse(xhttp.responseText);
-			setValues(login);
+//			setValues(login);
 		}
 	}
 	xhttp.open("GET", 'http://localhost:8080/TRMS/html/LoginJSON.do', true);
 	xhttp.send();
 }
-	function setValues(login) {
-		document.getElementById("name").innerHTML = "Login Name: " + login.name;
-		document.getElementById("type").innerHTML = "Login Password: " + login.type;
-	}
+
+function gotoform(){
+	var x = document.getElementById("applicationForm");
+	x.submit();
+}

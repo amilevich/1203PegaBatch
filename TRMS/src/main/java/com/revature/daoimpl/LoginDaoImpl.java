@@ -26,13 +26,15 @@ public class LoginDaoImpl implements LoginDao {
 	public boolean isInLogin(Login login) {
 		boolean isThere = false;
 		try (Connection conn = DriverManager.getConnection(url, username, password)) {
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM login WHERE user_name=?");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM employeelogin WHERE user_name=?");
 			ps.setString(1, login.getUsername());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				String uN = rs.getString("user_name");
 				String pW = rs.getString("pass_word");
+				
 				if (login.getUsername().equals(uN) & login.getPasswd().equals(pW)) {
+					login.setLoginId(rs.getInt("user_id"));
 					isThere = true;
 					return isThere;
 				}
@@ -43,5 +45,30 @@ public class LoginDaoImpl implements LoginDao {
 		}
 
 		return isThere;
+	}
+
+	@Override
+	public boolean managementLogin(Login login) throws SQLException {
+		boolean isThere = false;
+		try (Connection conn = DriverManager.getConnection(url, username, password)) {
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM managementlogin WHERE user_name=?");
+			ps.setString(1, login.getUsername());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				String uN = rs.getString("user_name");
+				String pW = rs.getString("pass_word");
+				if (login.getUsername().equals(uN) & login.getPasswd().equals(pW)) {
+					login.setLoginId(rs.getInt("user_id"));
+					isThere = true;
+					return isThere;
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return isThere;
+		
 	}
 }

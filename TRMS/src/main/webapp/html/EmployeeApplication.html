@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>TRMS Application</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+
+	<center>
+		<a class="navbar-brand" href="EmployeeHome.html" id="personalhome"
+			role="button"><strong><h1>Tuition Reimbursement
+					Management Systems LLC</h1></strong></a>
+	</center>
+
+
+
+	<div class="container-fluid">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-2"></div>
+
+				<div class="col-sm-8">
+					<form method="POST" action="EmployeeApplication.do">
+						<div class="row">
+							<div class="col-4 col-md-2"></div>
+							<div class="col-8 col-md-8">
+								<hr>
+								<embed height="20%" width="557px" src="trp.PNG" />
+								<header style="font-size: 10px; text-align: center" id="tme"
+									action="onload=getTme()">time</header>
+								<br>
+								<div class="col-12">
+									<div class="form-group">
+
+										<div class="input-group mb-3">
+											<input type="text" class="form-control" aria-label="Default"
+												name="firstname" id="firstname" placeholder="First Name"
+												aria-describedby="inputGroup-sizing-default" readonly> <input
+												type="text" class="form-control" aria-label="Default"
+												name="lastname" id="lastname" placeholder="Last Name"
+												aria-describedby="inputGroup-sizing-default" readonly>
+										</div>
+
+										<div class="input-group mb-3">
+											<input type="text" class="form-control" aria-label="Default"
+												name="email" id="email" placeholder="Email"
+												aria-describedby="inputGroup-sizing-default">
+										</div>
+
+										<div class="input-group mb-3">
+											<input type="text" class="form-control" aria-label="Default"
+												name="department" id="department" placeholder="Department"
+												aria-describedby="inputGroup-sizing-default">
+										</div>
+
+										<div class="input-group mb-3">
+											<input type="text" class="form-control" aria-label="Default"
+												name="managerfirstname" id="managerfirstname" placeholder="Manager First Name"
+												aria-describedby="inputGroup-sizing-default">
+										
+											<input type="text" class="form-control" aria-label="Default"
+												name="managerlastname" id="managerlastname" placeholder="Manager Last Name"
+												aria-describedby="inputGroup-sizing-default">
+										</div>
+										
+										<div class="input-group mb-3">
+											<select class="custom-select" name="eventtype" id="eventtype">
+												<option value="" selected>Select Event Type</option>
+												<option value="universitycourse">University Course</option>
+												<option value="seminar">Seminar</option>
+												<option value="prepcourse">Preparation Course</option>
+												<option value="certification">Certification</option>
+												<option value="training">Technical Training</option>
+												<option value="other">Other</option>
+											</select>
+										</div>
+
+										<div class="input-group mb-3">
+											<input type="text" class="form-control" aria-label="Default"
+												name="eventlocation" id="eventlocation"
+												placeholder="Event Location"
+												aria-describedby="inputGroup-sizing-default">
+										</div>
+
+										<div class="input-group mb-3">
+											<input type="text" class="form-control" aria-label="Default"
+												name="gradeformat" id="gradeformat"
+												placeholder="Grade to pass('A', 'B'..)"
+												aria-describedby="inputGroup-sizing-default">
+										</div>
+
+										<div class="input-group mb-3">
+											<input type="text" class="form-control" aria-label="Default"
+												name="eventcost" id="eventcost" placeholder="$0.00"
+												aria-describedby="inputGroup-sizing-default">
+										</div>
+
+										<div class="input-group mb-3">
+											<input type="date" class="form-control" aria-label="Default"
+												name="eventdate" id="eventdate" placeholder="1/1/2019"
+												aria-describedby="inputGroup-sizing-default">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="exampleFormControlTextarea1"></label>
+										<textarea class="form-control" name="summary" id="summary"
+											rows="5">Please provide a brief summary about why this certification is necessary.</textarea>
+									</div>
+
+									<div class="input-group mb-3">
+										<select class="custom-select" name="certjustify"
+											id="certjustify">
+											<option value="" selected>Justification for
+												certification</option>
+											<option value="specialization">Job Specialization</option>
+											<option value="expansion">Skillset Expansion</option>
+											<option value="licensing">Licensing</option>
+											<option value="requirements">Requirements</option>
+										</select>
+									</div>
+
+									<div class="input-group mb-3">
+										<input type="number" class="form-control" aria-label="Default"
+											name="workhours" id="workhours" placeholder="6" min="1"
+											max="100" aria-describedby="inputGroup-sizing-default">
+									</div>
+
+								</div>
+								<hr>
+
+								<div class="input-group mb-3">
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" name="myfile"
+											id="myfile"> <label class="custom-file-label"
+											for="inputGroupFile01">Select a File</label>
+									</div>
+								</div>
+
+								<div class="input-group mb-3">
+									<div class="custom-file">
+										<input type="file" class="custom-file-input" name="myfile2"
+											id="myfile2"> <label class="custom-file-label"
+											for="inputGroupFile01">.msg/Outlook Email file</label>
+									</div>
+								</div>
+								<hr>
+								<center>
+									<button type="submit" class="btn btn-primary">Submit</button>
+								</center>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="col-sm-2"></div>
+
+			</div>
+		</div>
+	</div>
+
+	<section
+		style="text-align: center; margin-top: 10%; background: lightgray;">
+		<i>Copyright &copy; Grace-n-Hype Management Systems, LLC.
+			2006-2020</i>
+	</section>
+
+<script src="../js/Pending.js"></script>
+	<script>
+		getTme();
+
+		function getTme() {
+			document.getElementById('tme').innerHTML = Date();
+		}
+	</script>
+</body>
+</html>

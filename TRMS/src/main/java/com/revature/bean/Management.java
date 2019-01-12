@@ -1,29 +1,34 @@
 package com.revature.bean;
 
-public class Employee {
+public class Management {
 	
-	int employeeId;
+	int managementId;
 	String firstName;
 	String lastName;
 	int departmentId;
+	Boolean supervisor;
+	Boolean departmentHead;
 	double avaiReimbursement;
-	double awardedReimbursement;
-	double pendingReimbursement;
+    double awardedReimbursement;
+    double pendingReimbursement;
 	int reportsto;
 	int userId;
 	
-	public Employee() {
+	public Management() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Employee(int employeeId, String firstName, String lastName, int departmentId, double avaiReimbursement,
-			double awardedReimbursement, double pendingReimbursement, int reportsto, int userId) {
+	public Management(int managementId, String firstName, String lastName, int departmentId, Boolean supervisor,
+			Boolean departmentHead, double avaiReimbursement, double awardedReimbursement, double pendingReimbursement,
+			int reportsto, int userId) {
 		super();
-		this.employeeId = employeeId;
+		this.managementId = managementId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.departmentId = departmentId;
+		this.supervisor = supervisor;
+		this.departmentHead = departmentHead;
 		this.avaiReimbursement = avaiReimbursement;
 		this.awardedReimbursement = awardedReimbursement;
 		this.pendingReimbursement = pendingReimbursement;
@@ -31,12 +36,12 @@ public class Employee {
 		this.userId = userId;
 	}
 
-	public int getEmployeeId() {
-		return employeeId;
+	public int getManagementId() {
+		return managementId;
 	}
 
-	public void setEmployeeId(int employeeId) {
-		this.employeeId = employeeId;
+	public void setManagementId(int managementId) {
+		this.managementId = managementId;
 	}
 
 	public String getFirstName() {
@@ -63,6 +68,22 @@ public class Employee {
 		this.departmentId = departmentId;
 	}
 
+	public Boolean getSupervisor() {
+		return supervisor;
+	}
+
+	public void setSupervisor(Boolean supervisor) {
+		this.supervisor = supervisor;
+	}
+
+	public Boolean getDepartmentHead() {
+		return departmentHead;
+	}
+
+	public void setDepartmentHead(Boolean departmentHead) {
+		this.departmentHead = departmentHead;
+	}
+
 	public double getAvaiReimbursement() {
 		return avaiReimbursement;
 	}
@@ -71,12 +92,12 @@ public class Employee {
 		this.avaiReimbursement = avaiReimbursement;
 	}
 
-	public double getAwaredReimbursement() {
+	public double getAwardedReimbursement() {
 		return awardedReimbursement;
 	}
 
-	public void setAwaredReimbursement(double awaredReimbursement) {
-		this.awardedReimbursement = awaredReimbursement;
+	public void setAwardedReimbursement(double awardedReimbursement) {
+		this.awardedReimbursement = awardedReimbursement;
 	}
 
 	public double getPendingReimbursement() {
@@ -105,9 +126,10 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [employeeId=" + employeeId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", departmentId=" + departmentId + ", avaiReimbursement=" + avaiReimbursement
-				+ ", awardedReimbursement=" + awardedReimbursement + ", pendingReimbursement=" + pendingReimbursement
-				+ ", reportsto=" + reportsto + ", userId=" + userId + "]";
+		return "Management [managementId=" + managementId + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", departmentId=" + departmentId + ", supervisor=" + supervisor + ", departmentHead=" + departmentHead
+				+ ", avaiReimbursement=" + avaiReimbursement + ", awardedReimbursement=" + awardedReimbursement
+				+ ", pendingReimbursement=" + pendingReimbursement + ", reportsto=" + reportsto + ", userId=" + userId
+				+ "]";
 	}
 }
