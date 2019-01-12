@@ -16,10 +16,8 @@ import com.revature.bean.Login;
 import com.revature.bean.Management;
 import com.revature.bean.Sessions;
 import com.revature.daoimpl.ApplicationDaoImpl;
-import com.revature.daoimpl.DepartmentDaoImpl;
 import com.revature.daoimpl.EmployeeDaoImpl;
 import com.revature.daoimpl.EventDaoImpl;
-import com.revature.daoimpl.ManagementDaoImpl;
 
 public class ApplicationController {
 	
@@ -33,7 +31,6 @@ public class ApplicationController {
 		Department department = (Department)request.getSession().getAttribute("Department");
 		Management management = (Management)request.getSession().getAttribute("Management");
 		Event event = new Event();
-		int TotalReimbursement = 1000;
 				
 		application.setFirstName(request.getParameter("firstname"));
 			
