@@ -92,6 +92,7 @@ function getPendingRequests() {
 			true);
 	xhttp.send();
 }
+
 function buildHTMLtable(requests) {
 	
 //	var dirMgrApproval = "";

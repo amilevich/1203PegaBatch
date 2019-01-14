@@ -1,7 +1,6 @@
 package com.ternary.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +9,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ternary.daoimpl.RequestDaoImpl;
 import com.ternary.model.Employee;
-import com.ternary.model.Request;
 
 public class DetailsController {
 
